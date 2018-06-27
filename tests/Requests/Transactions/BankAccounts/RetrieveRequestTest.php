@@ -39,7 +39,7 @@ class RetrieveRequestTest extends RequestTestCase
             ])
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->client->create($debit);
 
         $transactionId = $response->getTransaction()->getId();
@@ -49,7 +49,7 @@ class RetrieveRequestTest extends RequestTestCase
             'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet'])
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->client->get($retrieve);
 
         self::assertInstanceOf(BankAccountTransactionResponse::class, $response);

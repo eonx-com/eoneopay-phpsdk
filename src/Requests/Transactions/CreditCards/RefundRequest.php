@@ -3,52 +3,29 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Requests\Transactions\CreditCards;
 
-use EoneoPay\PhpSdk\Abstracts\Requests\AbstractTransactionRequest;
-use EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse;
-use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestObjectInterface;
-use Symfony\Component\Validator\Constraints as Assert;
+use EoneoPay\PhpSdk\Requests\AbstractRequest;
+use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
+use EoneoPay\PhpSdk\Traits\TransactionTrait;
 
-class RefundRequest extends AbstractTransactionRequest implements RequestObjectInterface
+class RefundRequest extends AbstractRequest
 {
-    /**
-     * @Assert\NotBlank(groups={"delete"})
-     * @Assert\Type(type="string", groups={"delete"})
-     *
-     * @var string
-     */
-    protected $transactionId;
+    use TransactionTrait;
 
     /**
-     * Specify the expected returned object.
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function expectObject(): ?string
+    public function expectObject(): string
     {
-        return CreditCardTransactionResponse::class;
+        return TransactionResponse::class;
     }
 
     /**
-     * Get transaction id.
-     *
-     * @return null|string
-     */
-    public function getTransactionId(): ?string
-    {
-        return $this->transactionId;
-    }
-
-    /**
-     * Don't prefix method with get or set as serializer will output the method name as attributes.
-     *
-     * Specify the request uri.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function uris(): array
     {
         return [
-            self::DELETE => $this->url(\sprintf('transactions/%s', $this->getTransactionId()))
+            self::DELETE => \sprintf('transactions/refund/%s', $this->id)
         ];
     }
 }

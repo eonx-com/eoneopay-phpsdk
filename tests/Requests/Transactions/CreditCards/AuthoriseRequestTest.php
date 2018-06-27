@@ -8,20 +8,13 @@ use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
 use EoneoPay\PhpSdk\Requests\Payloads\Gateway;
 use EoneoPay\PhpSdk\Requests\Payloads\Transaction;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\AuthoriseRequest;
-use EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse;
+use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestDataException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ResponseFailedException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
 class AuthoriseRequestTest extends RequestTestCase
 {
-    /**
-     * Test request failed.
-     *
-     * @return void
-     *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
-     */
     public function testRequestFailed(): void
     {
         $this->expectException(ResponseFailedException::class);
@@ -45,11 +38,6 @@ class AuthoriseRequestTest extends RequestTestCase
         $this->client->create($authorise);
     }
 
-    /**
-     * Test successful credit card authorise request.
-     *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
-     */
     public function testSuccessfulCreditCardAuthoriseAndCapture(): void
     {
         $authorise = new AuthoriseRequest([
@@ -59,52 +47,40 @@ class AuthoriseRequestTest extends RequestTestCase
                 'name' => 'Julian',
                 'number' => '5123450000000008'
             ]),
+            'external_id' => (string)\time(),
             'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet']),
-            'transaction' => new Transaction([
-                'amount' => '10',
-                'currency' => 'AUD',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
-            ])
+            'amount' => '10',
+            'currency' => 'AUD',
+            'reference' => 'julian test',
+            'request_id' => (string)\time()
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->client->create($authorise);
 
-        self::assertInstanceOf(CreditCardTransactionResponse::class, $response);
-        self::assertSame('10.00', $response->getTransaction()->getAmount());
-        self::assertTrue($response->getTransaction()->isApproved());
-        self::assertFalse($response->getTransaction()->getSecurity()->isResult());
-        self::assertSame('AUD', $response->getTransaction()->getCurrency());
+        self::assertInstanceOf(TransactionResponse::class, $response);
+        self::assertSame('10.00', $response->getAmount());
+        self::assertSame('AUD', $response->getCurrency());
 
         $capture = new AuthoriseRequest([
-            'original_transaction_id' => $response->getTransaction()->getId(),
+            'id' => $response->getId(),
+            'external_id' => $response->getExternalId(),
             'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet']),
-            'transaction' => new Transaction([
-                'amount' => '10',
-                'currency' => 'AUD',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
-            ])
+            'amount' => '10',
+            'currency' => 'AUD',
+            'reference' => 'julian test',
+            'request_id' => (string)\time()
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->client->update($capture);
 
-        self::assertInstanceOf(CreditCardTransactionResponse::class, $response);
-        self::assertSame('10.00', $response->getTransaction()->getAmount());
-        self::assertTrue($response->getTransaction()->isApproved());
-        self::assertFalse($response->getTransaction()->getSecurity()->isResult());
-        self::assertSame('AUD', $response->getTransaction()->getCurrency());
+        self::assertInstanceOf(TransactionResponse::class, $response);
+        self::assertSame('10.00', $response->getAmount());
+        self::assertSame('AUD', $response->getCurrency());
     }
 
-    /**
-     * Test validation exception.
-     *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
-     *
-     * @return void
-     */
+
     public function testValidationException(): void
     {
         $this->expectException(InvalidRequestDataException::class);

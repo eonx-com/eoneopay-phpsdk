@@ -10,7 +10,7 @@ use EoneoPay\PhpSdk\Requests\Payloads\Transaction;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\DebitRequest;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\RetrieveRequest;
 use EoneoPay\PhpSdk\Responses\Payloads\Transactions\CreditCardTransaction;
-use EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse;
+use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ResponseFailedException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
@@ -41,7 +41,7 @@ class RetrieveRequestTest extends RequestTestCase
             ])
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->client->create($debit);
 
         $transactionId = $response->getTransaction()->getId();
@@ -51,10 +51,10 @@ class RetrieveRequestTest extends RequestTestCase
             'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet'])
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->client->get($retrieve);
 
-        self::assertInstanceOf(CreditCardTransactionResponse::class, $response);
+        self::assertInstanceOf(TransactionResponse::class, $response);
         self::assertInstanceOf(CreditCardTransaction::class, $response->getTransaction());
         self::assertEquals($transactionId, $response->getTransaction()->getId());
     }

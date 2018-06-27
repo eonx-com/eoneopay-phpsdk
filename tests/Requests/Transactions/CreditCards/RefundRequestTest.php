@@ -10,7 +10,7 @@ use EoneoPay\PhpSdk\Requests\Payloads\Transaction;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\DebitRequest;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\RefundRequest;
 use EoneoPay\PhpSdk\Responses\Payloads\Transactions\CreditCardTransaction;
-use EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse;
+use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ResponseFailedException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
@@ -41,7 +41,7 @@ class RefundRequestTest extends RequestTestCase
             ])
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->client->create($debit);
 
         $refund = new RefundRequest([
@@ -55,10 +55,10 @@ class RefundRequestTest extends RequestTestCase
             ])
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->client->delete($refund);
 
-        self::assertInstanceOf(CreditCardTransactionResponse::class, $response);
+        self::assertInstanceOf(TransactionResponse::class, $response);
         self::assertInstanceOf(CreditCardTransaction::class, $response->getTransaction());
         self::assertNotNull($response->getTransaction()->getId());
         self::assertEquals('refund', $response->getTransaction()->getAction());

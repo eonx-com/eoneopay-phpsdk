@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Requests\Users;
 
-use EoneoPay\PhpSdk\Requests\Users\MerchantRequest;
+use EoneoPay\PhpSdk\Requests\Merchants\MerchantRequest;
 use EoneoPay\PhpSdk\Responses\Payloads\Merchant;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 

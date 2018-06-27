@@ -3,52 +3,29 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Requests\Transactions\BankAccounts;
 
-use EoneoPay\PhpSdk\Abstracts\Requests\AbstractTransactionRequest;
-use EoneoPay\PhpSdk\Responses\Transactions\BankAccountTransactionResponse;
-use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestObjectInterface;
-use Symfony\Component\Validator\Constraints as Assert;
+use EoneoPay\PhpSdk\Requests\AbstractRequest;
+use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
+use EoneoPay\PhpSdk\Traits\TransactionTrait;
 
-class RetrieveRequest extends AbstractTransactionRequest implements RequestObjectInterface
+class RetrieveRequest extends AbstractRequest
 {
-    /**
-     * @Assert\NotBlank(groups={"get"})
-     * @Assert\Type(type="string", groups={"get"})
-     *
-     * @var string
-     */
-    protected $transactionId;
+    use TransactionTrait;
 
     /**
-     * Specify the expected returned object.
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function expectObject(): ?string
+    public function expectObject(): string
     {
-        return BankAccountTransactionResponse::class;
+        return TransactionResponse::class;
     }
 
     /**
-     * Get transaction id.
-     *
-     * @return null|string
-     */
-    public function getTransactionId(): ?string
-    {
-        return $this->transactionId;
-    }
-
-    /**
-     * Don't prefix method with get or set as serializer will output the method name as attributes.
-     *
-     * Specify the request uri.
-     *
-     * @return string[]
+     * {@inheritdoc}
      */
     public function uris(): array
     {
         return [
-            self::GET => $this->url(\sprintf('transactions/%s', $this->getTransactionId()))
+            self::GET => \sprintf('transactions/retrieve/%s', $this->id)
         ];
     }
 }

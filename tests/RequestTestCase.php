@@ -4,11 +4,12 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk;
 
 use EoneoPay\PhpSdk\Client;
+use EoneoPay\PhpSdk\ClientConfiguration;
 
 abstract class RequestTestCase extends TestCase
 {
     /**
-     * @var \EoneoPay\PhpSdk\Client $client
+     * @var \EoneoPay\PhpSdk\Client
      */
     protected $client;
 
@@ -16,13 +17,11 @@ abstract class RequestTestCase extends TestCase
      * Instantiate attribute.
      *
      * @return void
-     *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
      */
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->client = new Client();
+        $this->client = new Client(new ClientConfiguration('4c92a1f9c8981252', 'http://payments.eoneopay.box'));
     }
 }

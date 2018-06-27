@@ -16,7 +16,7 @@
   "require": {
     "php": ">=7.1",
     "eoneopay/utils": "dev-master",
-    "loyaltycorp/sdkblueprintv2": "dev-new-implementation"
+    "loyaltycorp/sdkblueprintv2": "dev-new-implementation-with-layers"
   },
   "require-dev": {
     "eoneopay/standards": "dev-master",
@@ -37,7 +37,7 @@
       "Tests\\EoneoPay\\PhpSdk\\": "tests/"
     }
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
     "optimize-autoloader": true

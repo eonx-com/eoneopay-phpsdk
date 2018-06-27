@@ -11,7 +11,7 @@ use EoneoPay\PhpSdk\Requests\Payloads\Transaction;
 use EoneoPay\PhpSdk\Requests\Tokens\CreditCardTokenRequest;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\DebitRequest;
 use EoneoPay\PhpSdk\Responses\Payloads\TokenisedCreditCard;
-use EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse;
+use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestDataException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ResponseFailedException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
@@ -73,10 +73,10 @@ class DebitRequestTest extends RequestTestCase
             ])
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->client->create($debit);
 
-        self::assertInstanceOf(CreditCardTransactionResponse::class, $response);
+        self::assertInstanceOf(TransactionResponse::class, $response);
         self::assertSame('11.00', $response->getTransaction()->getAmount());
         self::assertTrue($response->getTransaction()->isApproved());
         self::assertFalse($response->getTransaction()->getSecurity()->isResult());
@@ -119,10 +119,10 @@ class DebitRequestTest extends RequestTestCase
             ])
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->client->create($debit);
 
-        self::assertInstanceOf(CreditCardTransactionResponse::class, $response);
+        self::assertInstanceOf(TransactionResponse::class, $response);
         self::assertSame('11.00', $response->getTransaction()->getAmount());
         self::assertTrue($response->getTransaction()->isApproved());
         self::assertFalse($response->getTransaction()->getSecurity()->isResult());
