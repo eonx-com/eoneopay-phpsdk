@@ -12,7 +12,7 @@ class AuthoriseRequest extends CreditCardTransactionRequest
     {
         return [
             self::CREATE => 'transactions/authorise',
-            self::UPDATE => \sprintf('transactions/authorise/%s', $this->id)
+            self::UPDATE => \sprintf('transactions/authorise/%s', $this->originalId)
         ];
     }
 }

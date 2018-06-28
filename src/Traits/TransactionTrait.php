@@ -40,7 +40,7 @@ trait TransactionTrait
      *
      * @var null|string
      */
-    protected $externalId;
+    protected $id;
 
     /**
      * @Assert\NotNull(groups={"create", "delete", "get", "update"})
@@ -53,11 +53,13 @@ trait TransactionTrait
     protected $gateway;
 
     /**
-     * @Assert\NotBlank(groups={"delete", "update"})
+     * @Assert\NotBlank(groups={"update"})
+     *
+     * @Groups({"update"})
      *
      * @var null|string
      */
-    protected $id;
+    protected $originalId;
 
     /**
      * Reference.
@@ -84,11 +86,6 @@ trait TransactionTrait
 
     /**
      * Request id.
-     *
-     * @Assert\NotBlank(groups={"create", "delete", "update"})
-     * @Assert\Type(type="string", groups={"create", "delete", "update"})
-     *
-     * @Groups({"create", "delete", "update"})
      *
      * @var null|string
      */

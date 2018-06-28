@@ -11,10 +11,10 @@ trait BankAccountTrait
     /**
      * Bank account bsb.
      *
-     * @Assert\NotBlank(groups={"create"})
-     * @Assert\Type(type="string", groups={"create"})
+     * @Assert\NotBlank(groups={"create", "tokenise"})
+     * @Assert\Type(type="string", groups={"create", "tokenise"})
      *
-     * @Groups({"create", "update", "tokenise", "endpoints_validate"})
+     * @Groups({"create", "update", "tokenise"})
      *
      * @var null|string
      */
@@ -23,7 +23,7 @@ trait BankAccountTrait
     /**
      * Bank account name.
      *
-     * @Assert\NotBlank(groups={"create"})
+     * @Assert\NotBlank(groups={"create", "tokenise"})
      * @Assert\Type(type="string", groups={"create", "update", "tokenise"})
      *
      * @Groups({"create", "update", "tokenise"})
@@ -35,16 +35,10 @@ trait BankAccountTrait
     /**
      * Bank account number.
      *
-     * @Assert\Expression(
-     *     "this.number or this.token",
-     *     groups={"endpoints_validate"},
-     *     message="field is required when token is not present."
-     * )
-     *
      * @Assert\NotBlank(groups={"create", "tokenise"})
      * @Assert\Type(type="string", groups={"create", "update", "tokenise"})
      *
-     * @Groups({"create", "update", "tokenise", "endpoints_validate"})
+     * @Groups({"create", "update", "tokenise"})
      *
      * @var null|string
      */
@@ -53,13 +47,7 @@ trait BankAccountTrait
     /**
      * Bank account token.
      *
-     * @Assert\Expression(
-     *     "this.number or this.token",
-     *     groups={"endpoints_validate"},
-     *     message="field is required when number is not present."
-     * )
-     *
-     * @Groups({"create", "update", "tokenise", "endpoints_validate"})
+     * @Groups({"create", "update"})
      *
      * @var null|string
      */

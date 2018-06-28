@@ -3,90 +3,57 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Requests\Transactions\BankAccounts;
 
+use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
 use EoneoPay\PhpSdk\Requests\Payloads\Gateway;
 use EoneoPay\PhpSdk\Requests\Payloads\Token;
-use EoneoPay\PhpSdk\Requests\Payloads\Transaction;
-use EoneoPay\PhpSdk\Requests\Tokens\BankAccountTokenRequest;
 use EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\CreditRequest;
-use EoneoPay\PhpSdk\Responses\Payloads\TokenisedBankAccount;
-use EoneoPay\PhpSdk\Responses\Transactions\BankAccountTransactionResponse;
-use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestDataException;
-use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ResponseFailedException;
+use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
 class CreditRequestTest extends RequestTestCase
 {
     /**
-     * Client should throw an exception if request fails.
+     * Test a successful bank account credit request.
      *
      * @return void
      *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
+     * @throws \Doctrine\Common\Annotations\AnnotationException
      */
-    public function testRequestFailed(): void
+    public function testSuccessfulBankAccountCredit(): void
     {
-        $this->expectException(ResponseFailedException::class);
+        $id = (string)\time();
 
         $debit = new CreditRequest([
             'bank_account' => new BankAccount([
                 'bsb' => '333-333',
-                'name' => 'NateDaBomb',
-                'number' => '0876601'
-            ]),
-            'gateway' => new Gateway(['service' => 'invalid', 'line_of_business' => 'invalid']),
-            'transaction' => new Transaction([
-                'amount' => '11',
-                'currency' => 'AUD',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
-            ])
-        ]);
-
-        $this->client->create($debit);
-    }
-
-    /**
-     * Test successful bank account debit request.
-     *
-     * @return void
-     *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
-     */
-    public function testSuccessfulBankAccountDebit(): void
-    {
-        $debit = new CreditRequest([
-            'bank_account' => new BankAccount([
-                'bsb' => '333-333',
-                'name' => 'NateDaBomb',
+                'name' => 'Julian Li',
                 'number' => '0876601'
             ]),
             'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet']),
-            'transaction' => new Transaction([
-                'amount' => '11',
-                'currency' => 'AUD',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
-            ])
+            'amount' => '11',
+            'currency' => 'AUD',
+            'id' => $id,
+            'reference' => 'julian test'
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\BankAccountTransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->client->create($debit);
 
-        self::assertInstanceOf(BankAccountTransactionResponse::class, $response);
-        self::assertSame('11.00', $response->getTransaction()->getAmount());
-        self::assertFalse($response->getTransaction()->isApproved());
-        self::assertSame('AUD', $response->getTransaction()->getCurrency());
+        self::assertSame('11.00', $response->getAmount());
+        self::assertSame('AUD', $response->getCurrency());
+        self::assertSame($id, $response->getId());
+        self::assertSame(4, $response->getStatus());
     }
 
     /**
-     * Test successful tokenised bank account debit request.
-     *
+     * Test a successful tokenised bank account credit request.
+
      * @return void
      *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
+     * @throws \Doctrine\Common\Annotations\AnnotationException
      */
-    public function testSuccessfulTokenisedBankAccountDebit(): void
+    public function testSuccessfulTokenisedBankAccountCredit(): void
     {
         $tokenise = new BankAccountTokenRequest([
             'bank_account' => new BankAccount([
@@ -96,60 +63,53 @@ class CreditRequestTest extends RequestTestCase
             ])
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Payloads\TokenisedBankAccount $token */
+        /** @var \EoneoPay\PhpSdk\Responses\Endpoints\Tokens\TokenisedEndpoint $token */
         $token = $this->client->create($tokenise);
 
-        self::assertInstanceOf(TokenisedBankAccount::class, $token);
-
-        $debit = new CreditRequest([
+        $id = (string)\time();
+        $credit = new CreditRequest([
             'bank_account' => new Token([
-                'token' => $token->getId()
+                'token' => $token->getToken()
             ]),
             'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet']),
-            'transaction' => new Transaction([
-                'amount' => '11',
-                'currency' => 'AUD',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
-            ])
+            'amount' => '11',
+            'currency' => 'AUD',
+            'reference' => 'julian test',
+            'id' => $id
         ]);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\BankAccountTransactionResponse $response */
-        $response = $this->client->create($debit);
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
+        $response = $this->client->create($credit);
 
-        self::assertInstanceOf(BankAccountTransactionResponse::class, $response);
-        self::assertSame('11.00', $response->getTransaction()->getAmount());
-        self::assertFalse($response->getTransaction()->isApproved());
-        self::assertSame('AUD', $response->getTransaction()->getCurrency());
+        self::assertSame('11.00', $response->getAmount());
+        self::assertSame('AUD', $response->getCurrency());
+        self::assertSame($id, $response->getId());
+        self::assertSame(4, $response->getStatus());
     }
 
     /**
-     * Client should throw validation exception.
+     * Make sure validation exception are expected.
      *
      * @return void
      *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
+     * @throws \Doctrine\Common\Annotations\AnnotationException
      */
-    public function testValidationException(): void
+    public function testInvalidRequest(): void
     {
-        $this->expectException(InvalidRequestDataException::class);
-        $this->expectExceptionMessage('transaction.currency: This value is not a valid currency.');
+        $credit = new CreditRequest([]);
 
-        $debit = new CreditRequest([
-            'bank_account' => new BankAccount([
-                'bsb' => '333-333',
-                'name' => 'NateDaBomb',
-                'number' => '0876601'
-            ]),
-            'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet']),
-            'transaction' => new Transaction([
-                'amount' => '11',
-                'currency' => 'AUDS',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
-            ])
-        ]);
-
-        $this->client->create($debit);
+        try {
+            $this->client->create($credit);
+        } catch (ValidationException $exception) {
+            $expected = [
+                'violations' => [
+                    'bank_account' => ['This value should not be null.'],
+                    'amount' => ['This value should not be blank.'],
+                    'id' => ['This value should not be blank.'],
+                    'gateway' => ['This value should not be null.']
+                ]
+            ];
+            self::assertSame($expected, $exception->getErrors());
+        }
     }
 }
