@@ -25,7 +25,6 @@ trait CreditCardTrait
      *     groups={"endpoints_validate"},
      *     message="field is required."
      * )
-     *
      * @Assert\Valid(groups={"create", "tokenise"})
      * @Assert\NotBlank(groups={"create", "tokenise"})
      *

@@ -82,7 +82,9 @@ class AuthoriseAndCaptureRequestTest extends RequestTestCase
 
         try {
             $this->client->update($authorise);
-        } catch (ValidationException $exception) {
+        } catch (\Exception $exception) {
+            self::assertInstanceOf(ValidationException::class, $exception);
+
             $expected = [
                 'violations' => [
                     'currency' => ['This value is not a valid currency.'],
@@ -92,6 +94,7 @@ class AuthoriseAndCaptureRequestTest extends RequestTestCase
                 ]
             ];
 
+            /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
             self::assertSame($expected, $exception->getErrors());
         }
     }

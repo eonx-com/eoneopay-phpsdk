@@ -100,7 +100,9 @@ class CreditRequestTest extends RequestTestCase
 
         try {
             $this->client->create($credit);
-        } catch (ValidationException $exception) {
+        } catch (\Exception $exception) {
+            self::assertInstanceOf(ValidationException::class, $exception);
+
             $expected = [
                 'violations' => [
                     'bank_account' => ['This value should not be null.'],
@@ -109,6 +111,8 @@ class CreditRequestTest extends RequestTestCase
                     'gateway' => ['This value should not be null.']
                 ]
             ];
+
+            /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
             self::assertSame($expected, $exception->getErrors());
         }
     }

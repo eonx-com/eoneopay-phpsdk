@@ -21,5 +21,4 @@ class Client extends BaseClient
             'base_uri' => $configuration->getBaseUri()
         ]));
     }
-
 }

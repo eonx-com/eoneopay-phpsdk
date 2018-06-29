@@ -48,13 +48,17 @@ class CreditCardTokenRequestTest extends RequestTestCase
 
         try {
             $this->client->create($tokenise);
-        } catch (ValidationException $exception) {
+        } catch (\Exception $exception) {
+            self::assertInstanceOf(ValidationException::class, $exception);
+
             $expected = [
                 'violations' => [
                     'credit_card.expiry' => ['This value should not be blank.'],
                     'credit_card.number' => ['This value should not be blank.']
                 ]
             ];
+
+            /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
             self::assertSame($expected, $exception->getErrors());
         }
     }
