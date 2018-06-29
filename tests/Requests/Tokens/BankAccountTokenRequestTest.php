@@ -15,7 +15,7 @@ class BankAccountTokenRequestTest extends RequestTestCase
      *
      * @return void
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \Exception
      */
     public function testCreateTokenSuccessfully(): void
     {
@@ -39,7 +39,7 @@ class BankAccountTokenRequestTest extends RequestTestCase
      *
      * @return void
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \Exception
      */
     public function testInvalidRequest(): void
     {

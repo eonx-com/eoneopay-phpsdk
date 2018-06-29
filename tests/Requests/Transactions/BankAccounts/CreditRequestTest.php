@@ -18,7 +18,7 @@ class CreditRequestTest extends RequestTestCase
      *
      * @return void
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \Exception
      */
     public function testSuccessfulBankAccountCredit(): void
     {
@@ -48,10 +48,10 @@ class CreditRequestTest extends RequestTestCase
 
     /**
      * Test a successful tokenised bank account credit request.
-
+     *
      * @return void
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \Exception
      */
     public function testSuccessfulTokenisedBankAccountCredit(): void
     {
@@ -92,7 +92,7 @@ class CreditRequestTest extends RequestTestCase
      *
      * @return void
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \Exception
      */
     public function testInvalidRequest(): void
     {

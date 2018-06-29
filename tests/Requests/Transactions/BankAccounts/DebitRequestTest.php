@@ -16,7 +16,7 @@ class DebitRequestTest extends RequestTestCase
      *
      * @return void
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \Exception
      */
     public function testSuccessfulCreditCardDebit(): void
     {
@@ -49,7 +49,7 @@ class DebitRequestTest extends RequestTestCase
      *
      * @return void
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \Exception
      */
     public function testInvalidRequest(): void
     {

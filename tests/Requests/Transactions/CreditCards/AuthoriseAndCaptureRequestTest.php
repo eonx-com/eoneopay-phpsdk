@@ -11,14 +11,14 @@ use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
-class AuthoriseRequestTest extends RequestTestCase
+class AuthoriseAndCaptureRequestTest extends RequestTestCase
 {
     /**
      * Test a successful credit card authorise and capture requests.
      *
      * @return void
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \Exception
      */
     public function testSuccessfulCreditCardAuthoriseAndCapture(): void
     {
@@ -63,7 +63,7 @@ class AuthoriseRequestTest extends RequestTestCase
     /**
      * Make sure the exception structure and validation rules are thrown as expected.
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \Exception
      */
     public function testValidationException(): void
     {

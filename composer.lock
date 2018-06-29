@@ -508,12 +508,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/loyaltycorp/sdkblueprintv2.git",
-                "reference": "d2f3ad1bccd99212a63397b37abf85e7f553a177"
+                "reference": "3ccf004e44dce0972bf5f65024c83b8b6c642927"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/loyaltycorp/sdkblueprintv2/zipball/d2f3ad1bccd99212a63397b37abf85e7f553a177",
-                "reference": "d2f3ad1bccd99212a63397b37abf85e7f553a177",
+                "url": "https://api.github.com/repos/loyaltycorp/sdkblueprintv2/zipball/3ccf004e44dce0972bf5f65024c83b8b6c642927",
+                "reference": "3ccf004e44dce0972bf5f65024c83b8b6c642927",
                 "shasum": ""
             },
             "require": {
@@ -568,7 +568,7 @@
                 "source": "https://github.com/loyaltycorp/sdkblueprintv2/tree/new-implementation-with-layers",
                 "issues": "https://github.com/loyaltycorp/sdkblueprintv2/issues"
             },
-            "time": "2018-06-27T04:33:14+00:00"
+            "time": "2018-06-29T00:10:23+00:00"
         },
         {
             "name": "psr/cache",

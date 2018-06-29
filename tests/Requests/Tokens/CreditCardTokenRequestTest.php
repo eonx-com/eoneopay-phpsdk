@@ -16,7 +16,7 @@ class CreditCardTokenRequestTest extends RequestTestCase
      *
      * @return void
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \Exception
      */
     public function testCreateTokenSuccessfully(): void
     {
@@ -38,7 +38,7 @@ class CreditCardTokenRequestTest extends RequestTestCase
      *
      * @return void
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \Exception
      */
     public function testInvalidRequest(): void
     {
