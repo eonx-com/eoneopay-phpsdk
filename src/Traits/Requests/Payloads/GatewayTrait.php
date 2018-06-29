@@ -11,7 +11,7 @@ trait GatewayTrait
     /**
      * Certificate.
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @var null|string $certificate
      */
@@ -20,7 +20,7 @@ trait GatewayTrait
     /**
      * The information.
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @var null|string $info
      */
@@ -32,7 +32,7 @@ trait GatewayTrait
      * @Assert\NotBlank(groups={"create", "delete", "get", "update"})
      * @Assert\Type(type="string", groups={"create", "delete", "get", "update"})
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @var null|string
      */
@@ -41,7 +41,7 @@ trait GatewayTrait
     /**
      * Password.
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @var null|string $password
      */
@@ -53,7 +53,7 @@ trait GatewayTrait
      * @Assert\NotBlank(groups={"create", "delete", "get", "update"})
      * @Assert\Type(type="string", groups={"create", "delete", "get", "update"})
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @var null|string $service
      */
@@ -62,7 +62,7 @@ trait GatewayTrait
     /**
      * Username.
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @var null|string $username
      */

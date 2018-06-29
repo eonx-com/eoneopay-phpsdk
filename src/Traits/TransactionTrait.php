@@ -36,7 +36,7 @@ trait TransactionTrait
     /**
      * @Assert\NotBlank(groups={"create", "update"})
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @var null|string
      */
@@ -55,7 +55,7 @@ trait TransactionTrait
     /**
      * @Assert\NotBlank(groups={"update"})
      *
-     * @Groups({"update"})
+     * @Groups({"delete", "update"})
      *
      * @var null|string
      */

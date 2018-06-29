@@ -25,7 +25,7 @@ class RefundRequest extends AbstractRequest
     public function uris(): array
     {
         return [
-            self::DELETE => \sprintf('transactions/refund/%s', $this->id)
+            self::DELETE => \sprintf('transactions/refund/%s', $this->originalId)
         ];
     }
 }
