@@ -13,6 +13,13 @@ use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
 class RefundRequestTest extends RequestTestCase
 {
+    /**
+     * Test a successful refund request.
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
     public function testSuccessfulRefundRequest(): void
     {
         $authorise = new AuthoriseRequest([
