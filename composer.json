@@ -16,7 +16,7 @@
   "require": {
     "php": ">=7.1",
     "eoneopay/utils": "dev-master",
-    "loyaltycorp/sdkblueprintv2": "dev-new-implementation-with-layers"
+    "loyaltycorp/sdkblueprintv2": "dev-master"
   },
   "require-dev": {
     "eoneopay/standards": "dev-master",
