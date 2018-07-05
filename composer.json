@@ -9,14 +9,17 @@
   "type": "library",
   "repositories": [
     {
-      "type": "vcs",
-      "url": "git@github.com:loyaltycorp/sdkblueprintv2.git"
+      "type": "composer",
+      "url": "https://repo.packagist.com/eoneopay/"
+    },
+    {
+      "packagist.org": false
     }
   ],
   "require": {
     "php": ">=7.1",
     "eoneopay/utils": "dev-master",
-    "loyaltycorp/sdkblueprintv2": "dev-master"
+    "loyaltycorp/sdkblueprint": "dev-master"
   },
   "require-dev": {
     "eoneopay/standards": "dev-master",

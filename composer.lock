@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e7fd0913b48ebd8c81361a811161ecb",
+    "content-hash": "9ecad72a0b8c4337f8740fb1d199c381",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -18,7 +18,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/annotations/zipball/c7f2050c68a9ab0bdb0f98567ec08d80ea7d24d5",
                 "reference": "c7f2050c68a9ab0bdb0f98567ec08d80ea7d24d5",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "doctrine/lexer": "1.*",
@@ -86,7 +92,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/cache/zipball/b3217d58609e9c8e661cd41357a54d926c4a2a1a",
                 "reference": "b3217d58609e9c8e661cd41357a54d926c4a2a1a",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "~7.1"
@@ -160,7 +172,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
                 "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.2"
@@ -208,13 +226,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/loyaltycorp/externals.git",
-                "reference": "9a2e5ecd27032c47cf496a01293155055a3c65d4"
+                "reference": "899e8a0e8b92e0264d827b0f059d35f702387299"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/loyaltycorp/externals/zipball/9a2e5ecd27032c47cf496a01293155055a3c65d4",
-                "reference": "9a2e5ecd27032c47cf496a01293155055a3c65d4",
-                "shasum": ""
+                "url": "https://api.github.com/repos/loyaltycorp/externals/zipball/899e8a0e8b92e0264d827b0f059d35f702387299",
+                "reference": "899e8a0e8b92e0264d827b0f059d35f702387299",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "eoneopay/utils": "dev-master",
@@ -258,7 +282,12 @@
                     "EoneoPay\\Externals\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Tests\\EoneoPay\\Externals\\": "tests/"
+                }
+            },
+            "notification-url": "https://repo.packagist.com/eoneopay/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -266,7 +295,11 @@
             "keywords": [
                 "external"
             ],
-            "time": "2018-06-29T00:58:23+00:00"
+            "support": {
+                "source": "https://github.com/loyaltycorp/externals/tree/master",
+                "issues": "https://github.com/loyaltycorp/externals/issues"
+            },
+            "time": "2018-07-05T00:34:18+00:00"
         },
         {
             "name": "eoneopay/utils",
@@ -280,7 +313,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/loyaltycorp/utils/zipball/e1d645b172fdcaa28931b7ca12ebcd4cfb57a13c",
                 "reference": "e1d645b172fdcaa28931b7ca12ebcd4cfb57a13c",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=7.1"
@@ -333,7 +372,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/guzzle/guzzle/zipball/407b0cb880ace85c9b63c5f9551db498cb2d50ba",
                 "reference": "407b0cb880ace85c9b63c5f9551db498cb2d50ba",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "guzzlehttp/promises": "^1.0",
@@ -398,7 +443,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/guzzle/promises/zipball/a59da6cf61d80060647ff4d3eb2c03a2bc694646",
                 "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.5.0"
@@ -449,7 +500,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
                 "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.4.0",
@@ -503,18 +560,24 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
-            "name": "loyaltycorp/sdkblueprintv2",
+            "name": "loyaltycorp/sdkblueprint",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/loyaltycorp/sdkblueprintv2.git",
-                "reference": "f88aba158ce79c8e02dc8bc8c83b3717ecbc5e95"
+                "url": "https://github.com/loyaltycorp/sdkblueprint.git",
+                "reference": "3bc3b5773a4e5f3a48441ace41b0df705d4f9bfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/loyaltycorp/sdkblueprintv2/zipball/f88aba158ce79c8e02dc8bc8c83b3717ecbc5e95",
-                "reference": "f88aba158ce79c8e02dc8bc8c83b3717ecbc5e95",
-                "shasum": ""
+                "url": "https://api.github.com/repos/loyaltycorp/sdkblueprint/zipball/3bc3b5773a4e5f3a48441ace41b0df705d4f9bfa",
+                "reference": "3bc3b5773a4e5f3a48441ace41b0df705d4f9bfa",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "doctrine/annotations": "^1.6",
@@ -555,6 +618,7 @@
                     "Tests\\LoyaltyCorp\\SdkBlueprint\\": "tests/"
                 }
             },
+            "notification-url": "https://repo.packagist.com/eoneopay/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -565,10 +629,10 @@
                 "sdk"
             ],
             "support": {
-                "source": "https://github.com/loyaltycorp/sdkblueprintv2/tree/master",
-                "issues": "https://github.com/loyaltycorp/sdkblueprintv2/issues"
+                "source": "https://github.com/loyaltycorp/sdkblueprint/tree/master",
+                "issues": "https://github.com/loyaltycorp/sdkblueprint/issues"
             },
-            "time": "2018-07-04T22:59:20+00:00"
+            "time": "2018-07-05T01:16:57+00:00"
         },
         {
             "name": "psr/cache",
@@ -582,7 +646,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
                 "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.0"
@@ -628,7 +698,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
                 "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.0"
@@ -678,7 +754,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
                 "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.0"
@@ -725,7 +807,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
                 "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.0"
@@ -773,7 +861,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/cache/zipball/be95ef3665747e6ff9d883a8adc87085769009f0",
                 "reference": "be95ef3665747e6ff9d883a8adc87085769009f0",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -842,7 +936,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/expression-language/zipball/81653bbb8e0feff271bebfdea492386f1c75c098",
                 "reference": "81653bbb8e0feff271bebfdea492386f1c75c098",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -892,7 +992,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/inflector/zipball/a55513ebd8aa4843300e325c84d0954a9d1f4ed8",
                 "reference": "a55513ebd8aa4843300e325c84d0954a9d1f4ed8",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -950,7 +1056,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/intl/zipball/cb21b901892c0d637f9c2f50860ed2fe29ce4b55",
                 "reference": "cb21b901892c0d637f9c2f50860ed2fe29ce4b55",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -1025,7 +1137,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
                 "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.3"
@@ -1080,7 +1198,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-intl-icu/zipball/80ee17ae83c10cd513e5144f91a73607a21edb4e",
                 "reference": "80ee17ae83c10cd513e5144f91a73607a21edb4e",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.3",
@@ -1138,7 +1262,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/3296adf6a6454a050679cde90f95350ad604b171",
                 "reference": "3296adf6a6454a050679cde90f95350ad604b171",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.3.3"
@@ -1197,7 +1327,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/property-access/zipball/f957d37eb476c9442a0c684b0cd0dd1fb38cb74a",
                 "reference": "f957d37eb476c9442a0c684b0cd0dd1fb38cb74a",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -1264,7 +1400,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/property-info/zipball/724cca5ae45760156029f14d2e293a281fab89e0",
                 "reference": "724cca5ae45760156029f14d2e293a281fab89e0",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -1340,7 +1482,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/serializer/zipball/2ddc6ec084eba809aec92bf723e007bc3a8345c0",
                 "reference": "2ddc6ec084eba809aec92bf723e007bc3a8345c0",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -1420,7 +1568,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/translation/zipball/b6d8164085ee0b6debcd1b7a131fd6f63bb04854",
                 "reference": "b6d8164085ee0b6debcd1b7a131fd6f63bb04854",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -1489,7 +1643,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/validator/zipball/f2523bfd8dc5ff648aca55c0f2748674ca4661bb",
                 "reference": "f2523bfd8dc5ff648aca55c0f2748674ca4661bb",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": "^7.1.3",
@@ -4599,7 +4759,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "eoneopay/utils": 20,
-        "loyaltycorp/sdkblueprintv2": 20,
+        "loyaltycorp/sdkblueprint": 20,
         "eoneopay/standards": 20,
         "roave/security-advisories": 20
     },
