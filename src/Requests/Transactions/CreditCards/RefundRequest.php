@@ -12,7 +12,7 @@ class RefundRequest extends AbstractRequest
     use TransactionTrait;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function expectObject(): string
     {
@@ -20,7 +20,7 @@ class RefundRequest extends AbstractRequest
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function uris(): array
     {

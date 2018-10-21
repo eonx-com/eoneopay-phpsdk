@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "9ecad72a0b8c4337f8740fb1d199c381",
@@ -565,12 +565,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/loyaltycorp/sdkblueprint.git",
-                "reference": "347a4e734f53903358e9ff828ed672491418723b"
+                "reference": "3a0c2b100a45a1675e9ba5f6877c2f567de2673b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/loyaltycorp/sdkblueprint/zipball/347a4e734f53903358e9ff828ed672491418723b",
-                "reference": "347a4e734f53903358e9ff828ed672491418723b",
+                "url": "https://api.github.com/repos/loyaltycorp/sdkblueprint/zipball/3a0c2b100a45a1675e9ba5f6877c2f567de2673b",
+                "reference": "3a0c2b100a45a1675e9ba5f6877c2f567de2673b",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -629,10 +629,10 @@
                 "sdk"
             ],
             "support": {
-                "source": "https://github.com/loyaltycorp/sdkblueprint/tree/development",
+                "source": "https://github.com/loyaltycorp/sdkblueprint/tree/master",
                 "issues": "https://github.com/loyaltycorp/sdkblueprint/issues"
             },
-            "time": "2018-07-09T05:11:48+00:00"
+            "time": "2018-10-19T05:00:52+00:00"
         },
         {
             "name": "psr/cache",

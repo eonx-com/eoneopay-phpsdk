@@ -24,7 +24,7 @@ abstract class BankAccountTransactionRequest extends AbstractRequest
     protected $bankAccount;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function expectObject(): string
     {

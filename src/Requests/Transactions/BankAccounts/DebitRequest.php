@@ -6,7 +6,7 @@ namespace EoneoPay\PhpSdk\Requests\Transactions\BankAccounts;
 class DebitRequest extends BankAccountTransactionRequest
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function uris(): array
     {

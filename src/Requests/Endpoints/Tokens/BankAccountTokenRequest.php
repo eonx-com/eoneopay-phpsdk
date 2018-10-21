@@ -25,7 +25,7 @@ class BankAccountTokenRequest extends AbstractRequest implements
     protected $bankAccount;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function expectObject(): string
     {
@@ -33,7 +33,7 @@ class BankAccountTokenRequest extends AbstractRequest implements
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function uris(): array
     {
@@ -43,7 +43,7 @@ class BankAccountTokenRequest extends AbstractRequest implements
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function serializationGroup(): array
     {
@@ -51,7 +51,7 @@ class BankAccountTokenRequest extends AbstractRequest implements
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function validationGroups(): array
     {

@@ -24,7 +24,7 @@ abstract class CreditCardTransactionRequest extends AbstractRequest
     protected $creditCard;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function expectObject(): string
     {

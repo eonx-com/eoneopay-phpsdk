@@ -23,6 +23,16 @@ trait TransactionTrait
     protected $amount;
 
     /**
+     * @var null|bool
+     */
+    protected $approved;
+
+    /**
+     * @var null|string
+     */
+    protected $completedAt;
+
+    /**
      * Currency.
      *
      * @Assert\Currency(groups={"create", "delete", "update"})
@@ -43,14 +53,13 @@ trait TransactionTrait
     protected $id;
 
     /**
-     * @Assert\NotNull(groups={"create", "delete", "get", "update"})
-     * @Assert\Valid(groups={"create", "delete", "get", "update"})
+     * Remitter Name
      *
-     * @Groups({"create", "delete", "get", "update"})
+     * @Groups({"create", "update"})
      *
-     * @var \EoneoPay\PhpSdk\Requests\Payloads\Gateway
+     * @var null|string
      */
-    protected $gateway;
+    protected $name;
 
     /**
      * @Assert\NotBlank(groups={"update"})
@@ -62,34 +71,13 @@ trait TransactionTrait
     protected $originalId;
 
     /**
-     * Reference.
+     * Security Id.
      *
      * @Groups({"create", "delete", "update"})
      *
      * @var null|string
      */
-    protected $reference;
-
-    /**
-     * Remitter Name
-     *
-     * @Groups({"create", "update"})
-     *
-     * @var null|string
-     */
-    protected $remitterName;
-
-    /**
-     * @var null|string
-     */
-    protected $recurringId;
-
-    /**
-     * Request id.
-     *
-     * @var null|string
-     */
-    protected $requestId;
+    protected $securityId;
 
     /**
      * Statement Description.
@@ -101,21 +89,9 @@ trait TransactionTrait
     protected $statementDescription;
 
     /**
-     * Security Id.
-     *
-     * @Groups({"create", "delete", "update"})
+     * Transaction status.
      *
      * @var null|string
-     */
-    protected $securityId;
-
-    /**
-     * @var null|string
-     */
-    protected $settledAt;
-
-    /**
-     * @var null|int
      */
     protected $status;
 }

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\Tokens;
+namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
 
 use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\CreditCardTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
@@ -9,6 +9,9 @@ use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
+/**
+ * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\CreditCardTokenRequest
+ */
 class CreditCardTokenRequestTest extends RequestTestCase
 {
     /**
@@ -20,17 +23,20 @@ class CreditCardTokenRequestTest extends RequestTestCase
      */
     public function testCreateTokenSuccessfully(): void
     {
-        $tokenise = new CreditCardTokenRequest([
-            'credit_card' => new CreditCard([
-                'expiry' => new Expiry(['month' => '12', 'year' => '2019']),
-                'name' => 'Julian',
-                'number' => '5123450000000008'
-            ])
-        ]);
+        $data = $this->getTokenisedData();
 
         /** @var \EoneoPay\PhpSdk\Responses\Endpoints\Tokens\TokenisedEndpoint $response */
-        $response = $this->client->create($tokenise);
-        self::assertNotNull($response->getToken());
+        $response = $this->createClient($data)->create(new CreditCardTokenRequest([
+            'credit_card' => new CreditCard([
+                'cvc' => '100',
+                'expiry' => new Expiry(['month' => '05', 'year' => '2021']),
+                'name' => 'John Wick',
+                'number' => '5123450000000008'
+            ])
+        ]));
+
+        self::assertSame($data['name'], $response->getName());
+        self::assertSame($data['token'], $response->getToken());
     }
 
     /**
@@ -42,12 +48,10 @@ class CreditCardTokenRequestTest extends RequestTestCase
      */
     public function testInvalidRequest(): void
     {
-        $tokenise = new CreditCardTokenRequest([
-            'credit_card' => new CreditCard()
-        ]);
-
         try {
-            $this->client->create($tokenise);
+            $this->createClient([])->create(new CreditCardTokenRequest([
+                'credit_card' => new CreditCard()
+            ]));
         } catch (\Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
@@ -59,7 +63,7 @@ class CreditCardTokenRequestTest extends RequestTestCase
             ];
 
             /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
-            self::assertSame($expected, $exception->getErrors());
+            self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
         }
     }
 }

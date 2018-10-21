@@ -6,22 +6,10 @@ namespace EoneoPay\PhpSdk\Traits\Requests\Payloads;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-trait BankAccountTrait
+trait EwalletTrait
 {
     /**
-     * Bank account country.
-     *
-     * @Assert\NotBlank(groups={"create", "tokenise"})
-     * @Assert\Type(type="string", groups={"create", "tokenise"})
-     *
-     * @Groups({"create", "update", "tokenise"})
-     *
-     * @var null|string
-     */
-    protected $country;
-
-    /**
-     * Bank account name.
+     * Ewallet user's name.
      *
      * @Assert\NotBlank(groups={"create", "tokenise"})
      * @Assert\Type(type="string", groups={"create", "update", "tokenise"})
@@ -33,7 +21,7 @@ trait BankAccountTrait
     protected $name;
 
     /**
-     * Bank account number.
+     * Ewallet reference.
      *
      * @Assert\NotBlank(groups={"create", "tokenise"})
      * @Assert\Type(type="string", groups={"create", "update", "tokenise"})
@@ -42,22 +30,10 @@ trait BankAccountTrait
      *
      * @var null|string
      */
-    protected $number;
+    protected $reference;
 
     /**
-     * Bank account prefix.
-     *
-     * @Assert\NotBlank(groups={"create", "tokenise"})
-     * @Assert\Type(type="string", groups={"create", "tokenise"})
-     *
-     * @Groups({"create", "update", "tokenise"})
-     *
-     * @var null|string
-     */
-    protected $prefix;
-
-    /**
-     * Bank account token.
+     * Ewallet token.
      *
      * @Groups({"create", "update"})
      *

@@ -3,14 +3,15 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Requests\Transactions\BankAccounts;
 
-use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountTokenRequest;
-use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
-use EoneoPay\PhpSdk\Requests\Payloads\Gateway;
 use EoneoPay\PhpSdk\Requests\Payloads\Token;
 use EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\CreditRequest;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
+/**
+ * @covers \EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\BankAccountTransactionRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\CreditRequest
+ */
 class CreditRequestTest extends RequestTestCase
 {
     /**
@@ -22,28 +23,17 @@ class CreditRequestTest extends RequestTestCase
      */
     public function testSuccessfulBankAccountCredit(): void
     {
-        $id = (string)\time();
+        $data = $this->getData();
 
-        $debit = new CreditRequest([
-            'bank_account' => new BankAccount([
-                'bsb' => '333-333',
-                'name' => 'Julian Li',
-                'number' => '0876601'
-            ]),
-            'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet']),
-            'amount' => '11',
-            'currency' => 'AUD',
-            'id' => $id,
-            'reference' => 'julian test'
-        ]);
+        $debit = new CreditRequest(\array_merge($data, ['bank_account' => $this->getBankAccount()]));
 
         /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
-        $response = $this->client->create($debit);
+        $response = $this->createClient($data)->create($debit);
 
-        self::assertSame('11.00', $response->getAmount());
-        self::assertSame('AUD', $response->getCurrency());
-        self::assertSame($id, $response->getId());
-        self::assertSame(4, $response->getStatus());
+        self::assertSame($data['amount'], $response->getAmount());
+        self::assertSame($data['currency'], $response->getCurrency());
+        self::assertSame($data['id'], $response->getId());
+        self::assertSame('completed', $response->getStatus());
     }
 
     /**
@@ -55,36 +45,21 @@ class CreditRequestTest extends RequestTestCase
      */
     public function testSuccessfulTokenisedBankAccountCredit(): void
     {
-        $tokenise = new BankAccountTokenRequest([
-            'bank_account' => new BankAccount([
-                'bsb' => '333-333',
-                'name' => 'NateDaBomb',
-                'number' => '0876601'
-            ])
-        ]);
+        $data = $this->getData();
 
-        /** @var \EoneoPay\PhpSdk\Responses\Endpoints\Tokens\TokenisedEndpoint $token */
-        $token = $this->client->create($tokenise);
-
-        $id = (string)\time();
-        $credit = new CreditRequest([
+        $debit = new CreditRequest(\array_merge($data, [
             'bank_account' => new Token([
-                'token' => $token->getToken()
-            ]),
-            'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet']),
-            'amount' => '11',
-            'currency' => 'AUD',
-            'reference' => 'julian test',
-            'id' => $id
-        ]);
+                'token' => '7E89WDAVVWHWH83NUC26'
+            ])
+        ]));
 
         /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
-        $response = $this->client->create($credit);
+        $response = $this->createClient($data)->create($debit);
 
-        self::assertSame('11.00', $response->getAmount());
-        self::assertSame('AUD', $response->getCurrency());
-        self::assertSame($id, $response->getId());
-        self::assertSame(4, $response->getStatus());
+        self::assertSame($data['amount'], $response->getAmount());
+        self::assertSame($data['currency'], $response->getCurrency());
+        self::assertSame($data['id'], $response->getId());
+        self::assertSame('completed', $response->getStatus());
     }
 
     /**
@@ -99,7 +74,7 @@ class CreditRequestTest extends RequestTestCase
         $credit = new CreditRequest([]);
 
         try {
-            $this->client->create($credit);
+            $this->createClient([])->create($credit);
         } catch (\Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
@@ -107,13 +82,12 @@ class CreditRequestTest extends RequestTestCase
                 'violations' => [
                     'bank_account' => ['This value should not be null.'],
                     'amount' => ['This value should not be blank.'],
-                    'id' => ['This value should not be blank.'],
-                    'gateway' => ['This value should not be null.']
+                    'id' => ['This value should not be blank.']
                 ]
             ];
 
             /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
-            self::assertSame($expected, $exception->getErrors());
+            self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
         }
     }
 }

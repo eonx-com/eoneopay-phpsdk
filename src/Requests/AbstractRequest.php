@@ -7,15 +7,17 @@ use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestMethodAwareInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestObjectInterface;
 
-abstract class AbstractRequest extends BaseDataTransferObject implements RequestMethodAwareInterface, RequestObjectInterface
+abstract class AbstractRequest extends BaseDataTransferObject implements
+    RequestMethodAwareInterface,
+    RequestObjectInterface
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-    abstract public function expectObject(): string;
+    abstract public function expectObject(): ?string;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     abstract public function uris(): array;
 }

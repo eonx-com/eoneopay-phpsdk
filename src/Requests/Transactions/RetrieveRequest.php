@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\Transactions\BankAccounts;
+namespace EoneoPay\PhpSdk\Requests\Transactions;
 
 use EoneoPay\PhpSdk\Requests\AbstractRequest;
 use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
@@ -12,7 +12,7 @@ class RetrieveRequest extends AbstractRequest
     use TransactionTrait;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function expectObject(): string
     {
@@ -20,7 +20,7 @@ class RetrieveRequest extends AbstractRequest
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function uris(): array
     {

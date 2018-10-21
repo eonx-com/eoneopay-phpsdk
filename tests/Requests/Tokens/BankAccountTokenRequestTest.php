@@ -1,13 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\Tokens;
+namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
 
 use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
+/**
+ * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountTokenRequest
+ */
 class BankAccountTokenRequestTest extends RequestTestCase
 {
     /**
@@ -19,19 +22,15 @@ class BankAccountTokenRequestTest extends RequestTestCase
      */
     public function testCreateTokenSuccessfully(): void
     {
-        $tokenise = new BankAccountTokenRequest([
-            'bank_account' => new BankAccount([
-                'bsb' => '123123',
-                'name' => 'Julian',
-                'number' => '0876601'
-            ])
-        ]);
+        $data = $this->getTokenisedData();
 
         /** @var \EoneoPay\PhpSdk\Responses\Endpoints\Tokens\TokenisedEndpoint $response */
-        $response = $this->client->create($tokenise);
+        $response = $this->createClient($data)->create(new BankAccountTokenRequest([
+            'bank_account' => $this->getBankAccount()
+        ]));
 
-        self::assertEquals('Julian', $response->getName());
-        self::assertNotNull($response->getToken());
+        self::assertSame($data['name'], $response->getName());
+        self::assertSame($data['token'], $response->getToken());
     }
 
     /**
@@ -43,25 +42,24 @@ class BankAccountTokenRequestTest extends RequestTestCase
      */
     public function testInvalidRequest(): void
     {
-        $tokenise = new BankAccountTokenRequest([
-            'bank_account' => new BankAccount()
-        ]);
-
         try {
-            $this->client->create($tokenise);
+            $this->createClient([])->create(new BankAccountTokenRequest([
+                'bank_account' => new BankAccount()
+            ]));
         } catch (\Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [
                 'violations' => [
-                    'bank_account.bsb' => ['This value should not be blank.'],
+                    'bank_account.country' => ['This value should not be blank.'],
                     'bank_account.name' => ['This value should not be blank.'],
-                    'bank_account.number' => ['This value should not be blank.']
+                    'bank_account.number' => ['This value should not be blank.'],
+                    'bank_account.prefix' => ['This value should not be blank.']
                 ]
             ];
 
             /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
-            self::assertSame($expected, $exception->getErrors());
+            self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
         }
     }
 }

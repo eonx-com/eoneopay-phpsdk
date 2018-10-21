@@ -10,7 +10,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestValidationGroupAwareInterface
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreditCardTokenRequest extends AbstractRequest implements
+class EwalletTokenRequest extends AbstractRequest implements
     RequestSerializationGroupAwareInterface,
     RequestValidationGroupAwareInterface
 {
@@ -20,9 +20,9 @@ class CreditCardTokenRequest extends AbstractRequest implements
      *
      * @Groups({"tokenise"})
      *
-     * @var \EoneoPay\PhpSdk\Requests\Payloads\CreditCard
+     * @var \EoneoPay\PhpSdk\Requests\Payloads\Ewallet
      */
-    protected $creditCard;
+    protected $ewallet;
 
     /**
      * @inheritdoc
