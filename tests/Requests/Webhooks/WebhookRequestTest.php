@@ -104,7 +104,7 @@ class WebhookRequestTest extends RequestTestCase
                 'violations' => [
                     'event' => ['This value should not be blank.'],
                     'payload_format' => ['This value should not be blank.'],
-                    'url' => ['This value should not be blank.'],
+                    'url' => ['This value should not be blank.']
                 ]
             ];
 
