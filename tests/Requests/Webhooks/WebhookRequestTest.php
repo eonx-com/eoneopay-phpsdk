@@ -15,26 +15,6 @@ use Tests\EoneoPay\PhpSdk\RequestTestCase;
 class WebhookRequestTest extends RequestTestCase
 {
     /**
-     * Test register webhook successfully.
-     *
-     * @return void
-     *
-     * @throws \EoneoPay\Utils\Exceptions\BaseException
-     * @throws \Exception
-     */
-    public function testRegisterSuccessfully(): void
-    {
-        $data = $this->getWebhookData();
-
-        $response = $this->createClient($data)->create(new WebhookRequest($data));
-
-        self::assertInstanceOf(Webhook::class, $response);
-        /** @var \EoneoPay\PhpSdk\Responses\Webhook $response */
-        self::assertSame($data['event'], $response->getEvent());
-        self::assertSame($data['url'], $response->getUrl());
-    }
-
-    /**
      * Test deregister webhook successfully.
      *
      * @return void
@@ -68,11 +48,32 @@ class WebhookRequestTest extends RequestTestCase
     }
 
     /**
+     * Test register webhook successfully.
+     *
+     * @return void
+     *
+     * @throws \EoneoPay\Utils\Exceptions\BaseException
+     * @throws \Exception
+     */
+    public function testRegisterSuccessfully(): void
+    {
+        $data = $this->getWebhookData();
+
+        $response = $this->createClient($data)->create(new WebhookRequest($data));
+
+        self::assertInstanceOf(Webhook::class, $response);
+        /** @var \EoneoPay\PhpSdk\Responses\Webhook $response */
+        self::assertSame($data['event'], $response->getEvent());
+        self::assertSame($data['url'], $response->getUrl());
+    }
+
+    /**
      * Test update webhook successfully.
      *
      * @return void
      *
      * @throws \EoneoPay\Utils\Exceptions\BaseException
+     * @throws \Exception
      */
     public function testUpdateSuccessfully(): void
     {
