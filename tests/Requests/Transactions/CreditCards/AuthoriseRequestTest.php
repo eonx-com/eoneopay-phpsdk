@@ -3,128 +3,89 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Requests\Transactions\CreditCards;
 
-use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
-use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
-use EoneoPay\PhpSdk\Requests\Payloads\Gateway;
-use EoneoPay\PhpSdk\Requests\Payloads\Transaction;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\AuthoriseRequest;
-use EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse;
-use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestDataException;
-use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ResponseFailedException;
+use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
+/**
+ * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\AuthoriseRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\CreditCardTransactionRequest
+ */
 class AuthoriseRequestTest extends RequestTestCase
 {
     /**
-     * Test request failed.
+     * Test authorise a credit card transaction successfully.
+     *
+     * @throws \EoneoPay\Utils\Exceptions\BaseException
      *
      * @return void
-     *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
      */
-    public function testRequestFailed(): void
+    public function testAuthoriseSuccessfully(): void
     {
-        $this->expectException(ResponseFailedException::class);
+        $data = $this->getData();
 
-        $authorise = new AuthoriseRequest([
-            'credit_card' => new CreditCard([
-                'cvc' => '123',
-                'expiry' => new Expiry(['month' => '12', 'year' => '2019']),
-                'name' => 'Julian',
-                'number' => '5123450000000008'
-            ]),
-            'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'invalid']),
-            'transaction' => new Transaction([
-                'amount' => '10',
-                'currency' => 'AUD',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
-            ])
-        ]);
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
+        $response = $this->createClient($data)->create(
+            new AuthoriseRequest(\array_merge($data, ['credit_card' => $this->getCreditCard()]))
+        );
 
-        $this->client->create($authorise);
+        self::assertSame($data['amount'], $response->getAmount());
+        self::assertSame($data['currency'], $response->getCurrency());
+        self::assertSame($data['id'], $response->getId());
     }
 
     /**
-     * Test successful credit card authorise request.
+     * Test authorise a credit card transaction successfully.
      *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
+     * @throws \EoneoPay\Utils\Exceptions\BaseException
+     *
+     * @return void
      */
-    public function testSuccessfulCreditCardAuthoriseAndCapture(): void
+    public function testCaptureSuccessfully(): void
     {
-        $authorise = new AuthoriseRequest([
-            'credit_card' => new CreditCard([
-                'cvc' => '123',
-                'expiry' => new Expiry(['month' => '12', 'year' => '2019']),
-                'name' => 'Julian',
-                'number' => '5123450000000008'
-            ]),
-            'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet']),
-            'transaction' => new Transaction([
-                'amount' => '10',
-                'currency' => 'AUD',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
-            ])
-        ]);
+        $data = $this->getData(\uniqid('', false));
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
-        $response = $this->client->create($authorise);
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
+        $response = $this->createClient($data)->update(
+            new AuthoriseRequest(\array_merge($data, ['credit_card' => $this->getCreditCard()]))
+        );
 
-        self::assertInstanceOf(CreditCardTransactionResponse::class, $response);
-        self::assertSame('10.00', $response->getTransaction()->getAmount());
-        self::assertTrue($response->getTransaction()->isApproved());
-        self::assertFalse($response->getTransaction()->getSecurity()->isResult());
-        self::assertSame('AUD', $response->getTransaction()->getCurrency());
-
-        $capture = new AuthoriseRequest([
-            'original_transaction_id' => $response->getTransaction()->getId(),
-            'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet']),
-            'transaction' => new Transaction([
-                'amount' => '10',
-                'currency' => 'AUD',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
-            ])
-        ]);
-
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
-        $response = $this->client->update($capture);
-
-        self::assertInstanceOf(CreditCardTransactionResponse::class, $response);
-        self::assertSame('10.00', $response->getTransaction()->getAmount());
-        self::assertTrue($response->getTransaction()->isApproved());
-        self::assertFalse($response->getTransaction()->getSecurity()->isResult());
-        self::assertSame('AUD', $response->getTransaction()->getCurrency());
+        self::assertSame($data['amount'], $response->getAmount());
+        self::assertSame($data['currency'], $response->getCurrency());
+        self::assertSame($data['id'], $response->getId());
     }
 
     /**
-     * Test validation exception.
-     *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
+     * Test authorise validation exception.
      *
      * @return void
      */
     public function testValidationException(): void
     {
-        $this->expectException(InvalidRequestDataException::class);
-        $this->expectExceptionMessage('transaction.currency: This value is not a valid currency.');
+        // invalid data
+        $data = [
+            'amount' => '100.00',
+            'currency' => 'AUDS',
+            'name' => 'John Wick',
+            'statement_description' => 'Test order'
+        ];
 
-        $authorise = new AuthoriseRequest([
-            'credit_card' => new CreditCard([
-                'cvc' => '123',
-                'expiry' => new Expiry(['month' => '12', 'year' => '2019']),
-                'name' => 'Julian',
-                'number' => '5123450000000008'
-            ]),
-            'gateway' => new Gateway(['service' => 'default']),
-            'transaction' => new Transaction([
-                'amount' => '10',
-                'currency' => 'AUDS',
-                'reference' => 'julian test'
-            ])
-        ]);
+        try {
+             $this->createClient($data)->create(new AuthoriseRequest(
+                 \array_merge($data, ['credit_card' => $this->getCreditCard()])
+             ));
+        } catch (\Exception $exception) {
+            self::assertInstanceOf(ValidationException::class, $exception);
 
-        $this->client->create($authorise);
+            $expected = [
+                'violations' => [
+                    'currency' => ['This value is not a valid currency.'],
+                    'id' => ['This value should not be blank.']
+                ]
+            ];
+
+            /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
+            self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
+        }
     }
 }

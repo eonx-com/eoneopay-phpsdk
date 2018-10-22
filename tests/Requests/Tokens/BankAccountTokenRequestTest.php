@@ -1,36 +1,65 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\Tokens;
+namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
 
+use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
-use EoneoPay\PhpSdk\Responses\Payloads\TokenisedBankAccount;
+use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
+/**
+ * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountTokenRequest
+ */
 class BankAccountTokenRequestTest extends RequestTestCase
 {
     /**
-     * Test successful token creation.
+     * Test a successful bank account tokenise request.
      *
      * @return void
      *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
+     * @throws \Exception
      */
     public function testCreateTokenSuccessfully(): void
     {
-        $tokenise = new BankAccountTokenRequest([
-            'bank_account' => new BankAccount([
-                'bsb' => '333-333',
-                'name' => 'NateDaBomb',
-                'number' => '0876601'
-            ])
-        ]);
+        $data = $this->getTokenisedData();
 
-        /** @var \EoneoPay\PhpSdk\Responses\Payloads\TokenisedBankAccount $response */
-        $response = $this->client->create($tokenise);
+        /** @var \EoneoPay\PhpSdk\Responses\Endpoints\Tokens\TokenisedEndpoint $response */
+        $response = $this->createClient($data)->create(new BankAccountTokenRequest([
+            'bank_account' => $this->getBankAccount()
+        ]));
 
-        self::assertInstanceOf(TokenisedBankAccount::class, $response);
-        self::assertEquals('333-333', $response->getBsb());
-        self::assertNotNull($response->getId());
+        self::assertSame($data['name'], $response->getName());
+        self::assertSame($data['token'], $response->getToken());
+    }
+
+    /**
+     * Make sure validation exception are expected.
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    public function testInvalidRequest(): void
+    {
+        try {
+            $this->createClient([])->create(new BankAccountTokenRequest([
+                'bank_account' => new BankAccount()
+            ]));
+        } catch (\Exception $exception) {
+            self::assertInstanceOf(ValidationException::class, $exception);
+
+            $expected = [
+                'violations' => [
+                    'bank_account.country' => ['This value should not be blank.'],
+                    'bank_account.name' => ['This value should not be blank.'],
+                    'bank_account.number' => ['This value should not be blank.'],
+                    'bank_account.prefix' => ['This value should not be blank.']
+                ]
+            ];
+
+            /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
+            self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
+        }
     }
 }

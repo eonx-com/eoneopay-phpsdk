@@ -9,14 +9,17 @@
   "type": "library",
   "repositories": [
     {
-      "type": "vcs",
-      "url": "git@github.com:loyaltycorp/sdkblueprintv2.git"
+      "type": "composer",
+      "url": "https://repo.packagist.com/eoneopay/"
+    },
+    {
+      "packagist.org": false
     }
   ],
   "require": {
     "php": ">=7.1",
     "eoneopay/utils": "dev-master",
-    "loyaltycorp/sdkblueprintv2": "dev-new-implementation"
+    "loyaltycorp/sdkblueprint": "dev-master"
   },
   "require-dev": {
     "eoneopay/standards": "dev-master",
@@ -37,7 +40,7 @@
       "Tests\\EoneoPay\\PhpSdk\\": "tests/"
     }
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "config": {
     "optimize-autoloader": true

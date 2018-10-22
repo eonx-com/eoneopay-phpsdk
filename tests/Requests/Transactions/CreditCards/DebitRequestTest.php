@@ -3,160 +3,92 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Requests\Transactions\CreditCards;
 
-use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
-use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
-use EoneoPay\PhpSdk\Requests\Payloads\Gateway;
 use EoneoPay\PhpSdk\Requests\Payloads\Token;
-use EoneoPay\PhpSdk\Requests\Payloads\Transaction;
-use EoneoPay\PhpSdk\Requests\Tokens\CreditCardTokenRequest;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\DebitRequest;
-use EoneoPay\PhpSdk\Responses\Payloads\TokenisedCreditCard;
-use EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse;
-use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestDataException;
-use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ResponseFailedException;
+use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
+use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
+/**
+ * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\CreditCardTransactionRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\DebitRequest
+ */
 class DebitRequestTest extends RequestTestCase
 {
     /**
-     * Client should throw an exception if request fails.
+     * Test a successful credit card debit request.
      *
      * @return void
      *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
-     */
-    public function testRequestFailed(): void
-    {
-        $this->expectException(ResponseFailedException::class);
-
-        $debit = new DebitRequest([
-            'credit_card' => new CreditCard([
-                'cvc' => '123',
-                'expiry' => new Expiry(['month' => '12', 'year' => '2019']),
-                'name' => 'Julian',
-                'number' => '5123450000000008'
-            ]),
-            'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'invalid']),
-            'transaction' => new Transaction([
-                'amount' => '11',
-                'currency' => 'AUD',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
-            ])
-        ]);
-
-        $this->client->create($debit);
-    }
-
-    /**
-     * Test successful credit card debit request.
-     *
-     * @return void
-     *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
+     * @throws \Exception
      */
     public function testSuccessfulCreditCardDebit(): void
     {
-        $debit = new DebitRequest([
-            'credit_card' => new CreditCard([
-                'cvc' => '123',
-                'expiry' => new Expiry(['month' => '12', 'year' => '2019']),
-                'name' => 'Julian',
-                'number' => '5123450000000008'
-            ]),
-            'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet']),
-            'transaction' => new Transaction([
-                'amount' => '11',
-                'currency' => 'AUD',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
-            ])
-        ]);
+        $data = $this->getData();
+        $debit = new DebitRequest(\array_merge($data, ['credit_card' => $this->getCreditCard()]));
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
-        $response = $this->client->create($debit);
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
+        $response = $this->createClient($data)->create($debit);
 
-        self::assertInstanceOf(CreditCardTransactionResponse::class, $response);
-        self::assertSame('11.00', $response->getTransaction()->getAmount());
-        self::assertTrue($response->getTransaction()->isApproved());
-        self::assertFalse($response->getTransaction()->getSecurity()->isResult());
-        self::assertSame('AUD', $response->getTransaction()->getCurrency());
+        self::assertInstanceOf(TransactionResponse::class, $response);
+        self::assertSame($data['amount'], $response->getAmount());
+        self::assertSame($data['currency'], $response->getCurrency());
+        self::assertSame('completed', $response->getStatus());
+        self::assertNotNull($response->getCompletedAt());
+        self::assertTrue($response->getApproved());
     }
 
     /**
-     * Test successful tokenised credit card debit request.
+     * Test a successful tokenised credit card debit request.
      *
      * @return void
      *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
+     * @throws \Exception
      */
     public function testSuccessfulTokenisedCreditCardDebit(): void
     {
-        $tokenise = new CreditCardTokenRequest([
-            'credit_card' => new CreditCard([
-                'cvc' => '123',
-                'expiry' => new Expiry(['month' => '12', 'year' => '2019']),
-                'name' => 'Julian',
-                'number' => '5123450000000008'
-            ])
-        ]);
-
-        /** @var \EoneoPay\PhpSdk\Responses\Payloads\TokenisedCreditCard $token */
-        $token = $this->client->create($tokenise);
-
-        self::assertInstanceOf(TokenisedCreditCard::class, $token);
-
-        $debit = new DebitRequest([
+        $data = $this->getData();
+        $debit = new DebitRequest(\array_merge($data, [
             'credit_card' => new Token([
-                'token' => $token->getId()
-            ]),
-            'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet']),
-            'transaction' => new Transaction([
-                'amount' => '11',
-                'currency' => 'AUD',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
+                'token' => 'GZNWCUTTUKDKM7APFTM3'
             ])
-        ]);
+        ]));
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\CreditCardTransactionResponse $response */
-        $response = $this->client->create($debit);
+        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
+        $response = $this->createClient($data)->create($debit);
 
-        self::assertInstanceOf(CreditCardTransactionResponse::class, $response);
-        self::assertSame('11.00', $response->getTransaction()->getAmount());
-        self::assertTrue($response->getTransaction()->isApproved());
-        self::assertFalse($response->getTransaction()->getSecurity()->isResult());
-        self::assertSame('AUD', $response->getTransaction()->getCurrency());
+        self::assertInstanceOf(TransactionResponse::class, $response);
+        self::assertSame($data['amount'], $response->getAmount());
+        self::assertSame($data['currency'], $response->getCurrency());
+        self::assertSame('completed', $response->getStatus());
+        self::assertNotNull($response->getCompletedAt());
+        self::assertTrue($response->getApproved());
     }
 
     /**
-     * Client should throw validation exception.
+     * Make sure the exception structure and validation rules are thrown as expected.
      *
      * @return void
-     *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidRequestUriException
      */
-    public function testValidationException(): void
+    public function testInvalidRequest(): void
     {
-        $this->expectException(InvalidRequestDataException::class);
-        $this->expectExceptionMessage('transaction.currency: This value is not a valid currency.');
+        $debit = new DebitRequest([]);
 
-        $debit = new DebitRequest([
-            'credit_card' => new CreditCard([
-                'cvc' => '123',
-                'expiry' => new Expiry(['month' => '12', 'year' => '2019']),
-                'name' => 'Julian',
-                'number' => '5123450000000008'
-            ]),
-            'gateway' => new Gateway(['service' => 'default', 'line_of_business' => 'eWallet']),
-            'transaction' => new Transaction([
-                'amount' => '11',
-                'currency' => 'AUDS',
-                'reference' => 'julian test',
-                'request_id' => (string)\time()
-            ])
-        ]);
+        try {
+            $this->createClient([])->create($debit);
+        } catch (\Exception $exception) {
+            self::assertInstanceOf(ValidationException::class, $exception);
 
-        $this->client->create($debit);
+            $expected = [
+                'violations' => [
+                    'credit_card' => ['This value should not be null.'],
+                    'amount' => ['This value should not be blank.'],
+                    'id' => ['This value should not be blank.']
+                ]
+            ];
+
+            /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
+            self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
+        }
     }
 }
