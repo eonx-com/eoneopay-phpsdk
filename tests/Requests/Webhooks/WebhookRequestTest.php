@@ -6,6 +6,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Webhooks;
 use EoneoPay\PhpSdk\Requests\Webhooks\DeleteRequest;
 use EoneoPay\PhpSdk\Requests\Webhooks\WebhookRequest;
 use EoneoPay\PhpSdk\Responses\Webhook;
+use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
 /**
@@ -85,6 +86,31 @@ class WebhookRequestTest extends RequestTestCase
         /** @var \EoneoPay\PhpSdk\Responses\Webhook $updated */
         self::assertSame($data['event'], $updated->getEvent());
         self::assertSame($data['url'], $updated->getUrl());
+    }
+
+    /**
+     * Test request validation exception.
+     *
+     * @return void
+     */
+    public function testValidationException(): void
+    {
+        try {
+            $this->createClient([])->create(new WebhookRequest([]));
+        } catch (\Exception $exception) {
+            self::assertInstanceOf(ValidationException::class, $exception);
+
+            $expected = [
+                'violations' => [
+                    'event' => ['This value should not be blank.'],
+                    'payload_format' => ['This value should not be blank.'],
+                    'url' => ['This value should not be blank.'],
+                ]
+            ];
+
+            /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
+            self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
+        }
     }
 
     /**
