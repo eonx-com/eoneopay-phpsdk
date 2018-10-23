@@ -3,8 +3,22 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Requests\Transactions\CreditCards;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 class DebitRequest extends CreditCardTransactionRequest
 {
+    /**
+     * Allocation.
+     *
+     * @Assert\Valid(groups={"create"})
+     *
+     * @Groups({"create"})
+     *
+     * @var \EoneoPay\PhpSdk\Requests\Payloads\Allocation|null
+     */
+    protected $allocations;
+
     /**
      * @inheritdoc
      */
