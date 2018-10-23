@@ -48,6 +48,15 @@ trait TransactionTrait
     protected $currency;
 
     /**
+     * Fees included
+     *
+     * @Groups({"create", "update"})
+     *
+     * @var null|bool
+     */
+    protected $feesIncluded;
+
+    /**
      * Transaction id.
      *
      * @Assert\NotBlank(groups={"create", "update"})
