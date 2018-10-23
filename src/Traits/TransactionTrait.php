@@ -23,11 +23,15 @@ trait TransactionTrait
     protected $amount;
 
     /**
+     * Approved.
+     *
      * @var null|bool
      */
     protected $approved;
 
     /**
+     * Completed date.
+     *
      * @var null|string
      */
     protected $completedAt;
@@ -44,6 +48,17 @@ trait TransactionTrait
     protected $currency;
 
     /**
+     * Fees included
+     *
+     * @Groups({"create", "update"})
+     *
+     * @var null|bool
+     */
+    protected $feesIncluded;
+
+    /**
+     * Transaction id.
+     *
      * @Assert\NotBlank(groups={"create", "update"})
      *
      * @Groups({"create", "delete", "update"})
@@ -62,6 +77,8 @@ trait TransactionTrait
     protected $name;
 
     /**
+     * Original transaction id.
+     *
      * @Assert\NotBlank(groups={"update"})
      *
      * @Groups({"delete", "update"})
