@@ -54,7 +54,10 @@ class DebitRequestTest extends RequestTestCase
     {
         $debit = new DebitRequest(\array_merge(
             $this->getData(),
-            ['allocations' => new Allocation([])]
+            [
+                'allocations' => new Allocation([]),
+                'credit_card' => $this->getCreditCard()
+            ]
         ));
 
         try {
@@ -66,8 +69,7 @@ class DebitRequestTest extends RequestTestCase
                 'violations' => [
                     'allocations.records' => ['This value should not be null.'],
                     'allocations.amount' => ['This value should not be blank.'],
-                    'allocations.ewallet' => ['This value should not be blank.'],
-                    'credit_card' => ['This value should not be null.']
+                    'allocations.ewallet' => ['This value should not be blank.']
                 ]
             ];
 
