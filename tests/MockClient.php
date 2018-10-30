@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk;
 
+use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
@@ -22,6 +23,12 @@ class MockClient extends BaseClient
         $header = $header ?? [];
         $responseCode = $responseCode ?? 200;
 
+        $content = $this->formatData($content);
+
+        if (\array_key_exists(0, $content) === true) {
+            $content[0] = $this->formatData($content[0]);
+        }
+
         $handler = new MockHandler([
             new Response($responseCode, $header, \json_encode($content))
         ]);
@@ -29,5 +36,33 @@ class MockClient extends BaseClient
         parent::__construct(new GuzzleClient([
             'handler' => $handler
         ]));
+    }
+
+    /**
+     * Format response data.
+     *
+     * @param mixed[] $content
+     *
+     * @return mixed[]
+     */
+    private function formatData(array $content): array
+    {
+        if (isset($content['amount'])) {
+            /**  @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
+            $amount = $content['amount'];
+
+            $content = \array_replace($content, [
+                'approved' => true,
+                'completed_at' => (new \DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU),
+                'amount' => [
+                    'currency' => $amount->getCurrency(),
+                    'sub_total' => $amount->getSubTotal(),
+                    'total' => $amount->getTotal()
+                ],
+                'status' => 'completed'
+            ]);
+        }
+
+        return $content;
     }
 }

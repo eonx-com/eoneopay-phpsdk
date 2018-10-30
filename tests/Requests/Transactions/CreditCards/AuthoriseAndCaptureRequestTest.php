@@ -3,15 +3,17 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Requests\Transactions\CreditCards;
 
-use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\AuthoriseRequest;
+use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest;
+use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\SecondaryRequest;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
 /**
- * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\AuthoriseRequest
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\CreditCardTransactionRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\SecondaryRequest
  */
-class AuthoriseRequestTest extends RequestTestCase
+class AuthoriseAndCaptureRequestTest extends RequestTestCase
 {
     /**
      * Test authorise a credit card transaction successfully.
@@ -26,12 +28,16 @@ class AuthoriseRequestTest extends RequestTestCase
 
         /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->createClient($data)->create(
-            new AuthoriseRequest(\array_merge($data, ['credit_card' => $this->getCreditCard()]))
+            new PrimaryRequest(
+                \array_merge($data, [
+                    'credit_card' => $this->getCreditCard(),
+                    'action' => 'authorise'
+                ])
+            )
         );
 
-        self::assertSame($data['amount'], $response->getAmount());
-        self::assertSame($data['currency'], $response->getCurrency());
-        self::assertSame($data['id'], $response->getId());
+        // assertions
+        $this->assertTransactionResponse($data, $response);
     }
 
     /**
@@ -47,12 +53,11 @@ class AuthoriseRequestTest extends RequestTestCase
 
         /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->createClient($data)->update(
-            new AuthoriseRequest(\array_merge($data, ['credit_card' => $this->getCreditCard()]))
+            new SecondaryRequest(\array_merge($data, ['credit_card' => $this->getCreditCard()]))
         );
 
-        self::assertSame($data['amount'], $response->getAmount());
-        self::assertSame($data['currency'], $response->getCurrency());
-        self::assertSame($data['id'], $response->getId());
+        // assertions
+        $this->assertTransactionResponse($data, $response);
     }
 
     /**
@@ -64,14 +69,13 @@ class AuthoriseRequestTest extends RequestTestCase
     {
         // invalid data
         $data = [
-            'amount' => '100.00',
             'currency' => 'AUDS',
             'name' => 'John Wick',
             'statement_description' => 'Test order'
         ];
 
         try {
-             $this->createClient($data)->create(new AuthoriseRequest(
+             $this->createClient($data)->create(new PrimaryRequest(
                  \array_merge($data, ['credit_card' => $this->getCreditCard()])
              ));
         } catch (\Exception $exception) {
@@ -79,7 +83,8 @@ class AuthoriseRequestTest extends RequestTestCase
 
             $expected = [
                 'violations' => [
-                    'currency' => ['This value is not a valid currency.'],
+                    'amount' => ['This value should not be null.'],
+                    'action' => ['This value should not be blank.'],
                     'id' => ['This value should not be blank.']
                 ]
             ];

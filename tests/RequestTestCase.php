@@ -5,11 +5,12 @@ namespace Tests\EoneoPay\PhpSdk;
 
 use EoneoPay\PhpSdk\Client;
 use EoneoPay\PhpSdk\ClientConfiguration;
+use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
 use EoneoPay\PhpSdk\Requests\Payloads\Ewallet;
-use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
+use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
 
 abstract class RequestTestCase extends TestCase
 {
@@ -85,15 +86,14 @@ abstract class RequestTestCase extends TestCase
     protected function getData(?string $originalId = null): array
     {
         return [
-            'amount' => '100.00',
-            'approved' => true,
-            'completed_at' => (new \DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU),
-            'currency' => 'AUD',
-            'id' => \uniqid('', false),
+            'amount' => new Amount([
+                'currency' => 'AUD',
+                'total' => '100.00'
+            ]),
+            'id' => \uniqid('test-', false),
             'original_id' => $originalId,
             'name' => 'John Wick',
-            'statement_description' => 'Test order',
-            'status' => 'completed'
+            'statement_description' => 'Test order'
         ];
     }
 
@@ -124,5 +124,30 @@ abstract class RequestTestCase extends TestCase
             'token' => \uniqid('tok', false),
             'user_id' => 'test-user-id'
         ];
+    }
+
+    /**
+     * Assert transaction response
+     *
+     * @param mixed[] $data
+     * @param \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response
+     *
+     * @return void
+     */
+    protected function assertTransactionResponse(array $data, TransactionResponse $response): void
+    {
+        /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
+        $amount = $data['amount'];
+
+        self::assertInstanceOf(TransactionResponse::class, $response);
+        self::assertSame(
+            $amount->getTotal() ?? null,
+            $response->getAmount() ?  $response->getAmount()->getTotal() : null
+        );
+        self::assertSame(
+            $amount->getCurrency() ?? null,
+            $response->getAmount() ? $response->getAmount()->getCurrency() : null
+        );
+        self::assertSame('completed', $response->getStatus());
     }
 }

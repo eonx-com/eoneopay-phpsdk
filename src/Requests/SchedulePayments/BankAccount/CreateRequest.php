@@ -3,16 +3,12 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Requests\SchedulePayments\BankAccount;
 
-use EoneoPay\PhpSdk\Requests\AbstractRequest;
-use EoneoPay\PhpSdk\Responses\SchedulePayment;
-use EoneoPay\PhpSdk\Traits\SchedulePaymentTrait;
+use EoneoPay\PhpSdk\Requests\SchedulePayments\SchedulePaymentRequest;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class GetOrCreateRequest extends AbstractRequest
+class CreateRequest extends SchedulePaymentRequest
 {
-    use SchedulePaymentTrait;
-
     /**
      * @Assert\NotNull(groups={"create"})
      * @Assert\Valid(groups={"create"})
@@ -26,19 +22,10 @@ class GetOrCreateRequest extends AbstractRequest
     /**
      * @inheritdoc
      */
-    public function expectObject(): string
-    {
-        return SchedulePayment::class;
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function uris(): array
     {
         return [
-            self::CREATE => '/schedule',
-            self::GET => \sprintf('/schedule/%s', $this->id)
+            self::CREATE => '/schedule'
         ];
     }
 }

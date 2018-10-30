@@ -25,7 +25,7 @@ class RetrieveRequest extends AbstractRequest
     public function uris(): array
     {
         return [
-            self::GET => \sprintf('transactions/retrieve/%s', $this->id)
+            self::GET => \sprintf('transactions/%s', $this->id)
         ];
     }
 }

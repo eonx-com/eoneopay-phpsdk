@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Requests\Transactions\BankAccounts;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Token;
-use EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\CreditRequest;
+use EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\PrimaryRequest;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\BankAccountTransactionRequest
- * @covers \EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\CreditRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\PrimaryRequest
  */
 class CreditRequestTest extends RequestTestCase
 {
@@ -25,15 +25,16 @@ class CreditRequestTest extends RequestTestCase
     {
         $data = $this->getData();
 
-        $debit = new CreditRequest(\array_merge($data, ['bank_account' => $this->getBankAccount()]));
+        $debit = new PrimaryRequest(\array_merge($data, [
+            'action' => 'credit',
+            'bank_account' => $this->getBankAccount()
+        ]));
 
         /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->createClient($data)->create($debit);
 
-        self::assertSame($data['amount'], $response->getAmount());
-        self::assertSame($data['currency'], $response->getCurrency());
-        self::assertSame($data['id'], $response->getId());
-        self::assertSame('completed', $response->getStatus());
+        // assertions
+        $this->assertTransactionResponse($data, $response);
     }
 
     /**
@@ -47,7 +48,8 @@ class CreditRequestTest extends RequestTestCase
     {
         $data = $this->getData();
 
-        $debit = new CreditRequest(\array_merge($data, [
+        $debit = new PrimaryRequest(\array_merge($data, [
+            'action' => 'credit',
             'bank_account' => new Token([
                 'token' => '7E89WDAVVWHWH83NUC26'
             ])
@@ -56,10 +58,8 @@ class CreditRequestTest extends RequestTestCase
         /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->createClient($data)->create($debit);
 
-        self::assertSame($data['amount'], $response->getAmount());
-        self::assertSame($data['currency'], $response->getCurrency());
-        self::assertSame($data['id'], $response->getId());
-        self::assertSame('completed', $response->getStatus());
+        // assertions
+        $this->assertTransactionResponse($data, $response);
     }
 
     /**
@@ -71,7 +71,7 @@ class CreditRequestTest extends RequestTestCase
      */
     public function testInvalidRequest(): void
     {
-        $credit = new CreditRequest([]);
+        $credit = new PrimaryRequest([]);
 
         try {
             $this->createClient([])->create($credit);
@@ -80,8 +80,9 @@ class CreditRequestTest extends RequestTestCase
 
             $expected = [
                 'violations' => [
+                    'amount' => ['This value should not be null.'],
                     'bank_account' => ['This value should not be null.'],
-                    'amount' => ['This value should not be blank.'],
+                    'action' => ['This value should not be blank.'],
                     'id' => ['This value should not be blank.']
                 ]
             ];
