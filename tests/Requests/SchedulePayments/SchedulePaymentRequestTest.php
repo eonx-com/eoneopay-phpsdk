@@ -17,6 +17,7 @@ use Tests\EoneoPay\PhpSdk\RequestTestCase;
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\CreditCard\CreateRequest
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\GetRequest
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest
+ * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\SchedulePaymentRequest
  */
 class SchedulePaymentRequestTest extends RequestTestCase
 {

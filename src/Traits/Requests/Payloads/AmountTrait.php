@@ -20,6 +20,13 @@ trait AmountTrait
     protected $currency;
 
     /**
+     * @Groups({"create", "delete", "update"})
+     *
+     * @var null|string
+     */
+    protected $fees;
+
+    /**
      * Sub-total amount.
      *
      * @Assert\Type(type="string", groups={"create", "delete", "update"})
