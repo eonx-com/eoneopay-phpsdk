@@ -6,7 +6,7 @@ namespace EoneoPay\PhpSdk\Requests\Transactions\BankAccounts;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class DebitRequest extends BankAccountTransactionRequest
+class PrimaryRequest extends BankAccountTransactionRequest
 {
     /**
      * Allocation.
@@ -25,7 +25,7 @@ class DebitRequest extends BankAccountTransactionRequest
     public function uris(): array
     {
         return [
-            self::CREATE => 'transactions/debit'
+            self::CREATE => 'transactions/'
         ];
     }
 }

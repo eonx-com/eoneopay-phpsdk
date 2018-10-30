@@ -14,6 +14,16 @@ abstract class CreditCardTransactionRequest extends AbstractRequest
     use TransactionTrait;
 
     /**
+     * @Assert\NotNull(groups={"create", "update", "delete"})
+     * @Assert\Valid(groups={"create", "update", "delete"})
+     *
+     * @Groups({"create", "update", "delete"})
+     *
+     * @var null|\EoneoPay\PhpSdk\Requests\Payloads\Amount
+     */
+    protected $amount;
+
+    /**
      * @Assert\NotNull(groups={"create"})
      * @Assert\Valid(groups={"create", "update"})
      *
