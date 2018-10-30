@@ -6,7 +6,7 @@ namespace EoneoPay\PhpSdk\Requests\Transactions\CreditCards;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class DebitRequest extends CreditCardTransactionRequest
+class PrimaryRequest extends CreditCardTransactionRequest
 {
     /**
      * Allocation.
@@ -25,7 +25,7 @@ class DebitRequest extends CreditCardTransactionRequest
     public function uris(): array
     {
         return [
-            self::CREATE => 'transactions/debit'
+            self::CREATE => 'transactions/'
         ];
     }
 }

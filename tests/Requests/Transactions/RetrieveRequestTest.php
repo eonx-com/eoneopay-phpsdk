@@ -27,8 +27,7 @@ class RetrieveRequestTest extends RequestTestCase
             'id' => $data['id']
         ]));
 
-        self::assertSame($data['amount'], $response->getAmount());
-        self::assertSame($data['currency'], $response->getCurrency());
-        self::assertSame($data['id'], $response->getId());
+        // assertions
+        $this->assertTransactionResponse($data, $response);
     }
 }

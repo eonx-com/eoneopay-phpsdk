@@ -6,14 +6,13 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Transactions\CreditCards;
 use EoneoPay\PhpSdk\Requests\Payloads\Allocation;
 use EoneoPay\PhpSdk\Requests\Payloads\Allocations\Record;
 use EoneoPay\PhpSdk\Requests\Payloads\Token;
-use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\DebitRequest;
-use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
+use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\CreditCardTransactionRequest
- * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\DebitRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest
  */
 class DebitRequestTest extends RequestTestCase
 {
@@ -24,7 +23,7 @@ class DebitRequestTest extends RequestTestCase
      */
     public function testInvalidRequest(): void
     {
-        $debit = new DebitRequest([]);
+        $debit = new PrimaryRequest([]);
 
         try {
             $this->createClient([])->create($debit);
@@ -33,8 +32,9 @@ class DebitRequestTest extends RequestTestCase
 
             $expected = [
                 'violations' => [
+                    'amount' => ['This value should not be null.'],
                     'credit_card' => ['This value should not be null.'],
-                    'amount' => ['This value should not be blank.'],
+                    'action' => ['This value should not be blank.'],
                     'id' => ['This value should not be blank.']
                 ]
             ];
@@ -52,9 +52,10 @@ class DebitRequestTest extends RequestTestCase
      */
     public function testInvalidRequestMissingAllocationRecords(): void
     {
-        $debit = new DebitRequest(\array_merge(
+        $debit = new PrimaryRequest(\array_merge(
             $this->getData(),
             [
+                'action' => 'debit',
                 'allocations' => new Allocation([]),
                 'credit_card' => $this->getCreditCard()
             ]
@@ -88,17 +89,18 @@ class DebitRequestTest extends RequestTestCase
     public function testSuccessfulCreditCardDebit(): void
     {
         $data = $this->getData();
-        $debit = new DebitRequest(\array_merge($data, ['credit_card' => $this->getCreditCard()]));
+        $debit = new PrimaryRequest(
+            \array_merge($data, [
+                'action' => 'debit',
+                'credit_card' => $this->getCreditCard()
+            ])
+        );
 
         /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->createClient($data)->create($debit);
 
-        self::assertInstanceOf(TransactionResponse::class, $response);
-        self::assertSame($data['amount'], $response->getAmount());
-        self::assertSame($data['currency'], $response->getCurrency());
-        self::assertSame('completed', $response->getStatus());
-        self::assertNotNull($response->getCompletedAt());
-        self::assertTrue($response->getApproved());
+        // assertions
+        $this->assertTransactionResponse($data, $response);
     }
 
     /**
@@ -111,7 +113,8 @@ class DebitRequestTest extends RequestTestCase
     public function testSuccessfulTokenisedCreditCardDebit(): void
     {
         $data = $this->getData();
-        $debit = new DebitRequest(\array_merge($data, [
+        $debit = new PrimaryRequest(\array_merge($data, [
+            'action' => 'debit',
             'allocations' => new Allocation([
                 'amount' => '50.00',
                 'ewallet' => 'T9AGW29FKJEU7B7TJFT2',
@@ -130,11 +133,7 @@ class DebitRequestTest extends RequestTestCase
         /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->createClient($data)->create($debit);
 
-        self::assertInstanceOf(TransactionResponse::class, $response);
-        self::assertSame($data['amount'], $response->getAmount());
-        self::assertSame($data['currency'], $response->getCurrency());
-        self::assertSame('completed', $response->getStatus());
-        self::assertNotNull($response->getCompletedAt());
-        self::assertTrue($response->getApproved());
+        // assertions
+        $this->assertTransactionResponse($data, $response);
     }
 }

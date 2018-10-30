@@ -5,14 +5,13 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Transactions\BankAccounts;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Allocation;
 use EoneoPay\PhpSdk\Requests\Payloads\Token;
-use EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\DebitRequest;
-use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
+use EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\PrimaryRequest;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\BankAccountTransactionRequest
- * @covers \EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\DebitRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\PrimaryRequest
  */
 class DebitRequestTest extends RequestTestCase
 {
@@ -26,15 +25,16 @@ class DebitRequestTest extends RequestTestCase
     public function testSuccessfulCreditCardDebit(): void
     {
         $data = $this->getData();
-        $debit = new DebitRequest(\array_merge($data, ['bank_account' => $this->getBankAccount()]));
+        $debit = new PrimaryRequest(\array_merge($data, [
+            'action' => 'debit',
+            'bank_account' => $this->getBankAccount()
+        ]));
 
         /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->createClient($data)->create($debit);
 
-        self::assertInstanceOf(TransactionResponse::class, $response);
-        self::assertSame($data['amount'], $response->getAmount());
-        self::assertSame($data['currency'], $response->getCurrency());
-        self::assertSame('completed', $response->getStatus());
+        // assertions
+        $this->assertTransactionResponse($data, $response);
     }
 
     /**
@@ -47,7 +47,8 @@ class DebitRequestTest extends RequestTestCase
     public function testSuccessfulTokenisedCreditCardDebit(): void
     {
         $data = $this->getData();
-        $debit = new DebitRequest(\array_merge($data, [
+        $debit = new PrimaryRequest(\array_merge($data, [
+            'action' => 'debit',
             'bank_account' => new Token([
                 'token' => '7E89WDAVVWHWH83NUC26'
             ])
@@ -56,10 +57,8 @@ class DebitRequestTest extends RequestTestCase
         /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->createClient($data)->create($debit);
 
-        self::assertInstanceOf(TransactionResponse::class, $response);
-        self::assertSame($data['amount'], $response->getAmount());
-        self::assertSame($data['currency'], $response->getCurrency());
-        self::assertSame('completed', $response->getStatus());
+        // assertions
+        $this->assertTransactionResponse($data, $response);
     }
 
     /**
@@ -71,7 +70,7 @@ class DebitRequestTest extends RequestTestCase
      */
     public function testInvalidRequest(): void
     {
-        $debit = new DebitRequest();
+        $debit = new PrimaryRequest();
 
         try {
             $this->createClient([])->create($debit);
@@ -80,8 +79,9 @@ class DebitRequestTest extends RequestTestCase
 
             $expected = [
                 'violations' => [
+                    'amount' => ['This value should not be null.'],
                     'bank_account' => ['This value should not be null.'],
-                    'amount' => ['This value should not be blank.'],
+                    'action' => ['This value should not be blank.'],
                     'id' => ['This value should not be blank.']
                 ]
             ];
@@ -99,9 +99,10 @@ class DebitRequestTest extends RequestTestCase
      */
     public function testInvalidRequestMissingAllocationRecords(): void
     {
-        $debit = new DebitRequest(\array_merge(
+        $debit = new PrimaryRequest(\array_merge(
             $this->getData(),
             [
+                'action' => 'debit',
                 'allocations' => new Allocation([
                     'records' => []
                 ]),

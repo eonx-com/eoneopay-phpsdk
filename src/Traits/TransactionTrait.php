@@ -9,18 +9,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 trait TransactionTrait
 {
     /**
-     * Amount.
+     * Action.
      *
-     * @Assert\NotBlank(groups={"create", "delete", "update"})
-     * @Assert\Type(type="string", groups={"create", "delete", "update"})
-     * @Assert\Type(type="numeric", groups={"create", "delete", "update"})
-     * @Assert\GreaterThan(value="0", groups={"create", "delete", "update"})
+     * @Assert\NotBlank(groups={"create"})
      *
      * @Groups({"create", "delete", "update"})
      *
-     * @var null|string
+     * @var null|mixed
      */
-    protected $amount;
+    protected $action;
 
     /**
      * Approved.
@@ -35,26 +32,6 @@ trait TransactionTrait
      * @var null|string
      */
     protected $completedAt;
-
-    /**
-     * Currency.
-     *
-     * @Assert\Currency(groups={"create", "delete", "update"})
-     *
-     * @Groups({"create", "delete", "update"})
-     *
-     * @var null|string
-     */
-    protected $currency;
-
-    /**
-     * Fees included
-     *
-     * @Groups({"create", "update"})
-     *
-     * @var null|bool
-     */
-    protected $feesIncluded;
 
     /**
      * Transaction id.
