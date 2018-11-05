@@ -98,6 +98,33 @@ abstract class RequestTestCase extends TestCase
     }
 
     /**
+     * Get security data.
+     *
+     * @param mixed[]|null $data Security data.
+     *
+     * @return mixed[]
+     */
+    protected function getSecurityData(?array $data = null): array
+    {
+        $data = $data ?? [];
+
+        return \array_merge([
+            'amount' => new Amount([
+                'currency' => 'AUD',
+                'total' => '100.00'
+            ]),
+            'cavv' => null,
+            'id' => 'external-security-id',
+            'request_payload' => 'request-payload',
+            'response_payload' => 'response-payload',
+            'return_url' => 'http://localhost',
+            'secured' => false,
+            'status' => 'completed',
+            'xid' => 'test-xid'
+        ], $data);
+    }
+
+    /**
      * Get ewallet payload.
      *
      * @return \EoneoPay\PhpSdk\Requests\Payloads\Ewallet
