@@ -11,6 +11,7 @@ trait AmountTrait
     /**
      * Currency.
      *
+     * @Assert\NotBlank(groups={"create", "delete", "update"})
      * @Assert\Currency(groups={"create", "delete", "update"})
      *
      * @Groups({"create", "delete", "update"})
