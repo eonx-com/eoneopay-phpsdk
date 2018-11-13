@@ -25,7 +25,7 @@ class RefundRequestTest extends RequestTestCase
 
         $refund = new SecondaryRequest($data);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
         $response = $this->createClient($data)->delete($refund);
 
         // assertions

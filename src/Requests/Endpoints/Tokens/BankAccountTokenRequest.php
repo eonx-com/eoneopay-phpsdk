@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Requests\Endpoints\Tokens;
 
 use EoneoPay\PhpSdk\Requests\AbstractRequest;
-use EoneoPay\PhpSdk\Responses\Endpoints\Tokens\TokenisedEndpoint;
+use EoneoPay\PhpSdk\Responses\Users\EndpointToken;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestSerializationGroupAwareInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestValidationGroupAwareInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -29,7 +29,7 @@ class BankAccountTokenRequest extends AbstractRequest implements
      */
     public function expectObject(): string
     {
-        return TokenisedEndpoint::class;
+        return EndpointToken::class;
     }
 
     /**

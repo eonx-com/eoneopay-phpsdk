@@ -27,7 +27,7 @@ class AuthoriseAndCaptureRequestTest extends RequestTestCase
     {
         $data = $this->getData();
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
         $response = $this->createClient($data)->create(
             new PrimaryRequest(
                 \array_merge($data, [
@@ -52,7 +52,7 @@ class AuthoriseAndCaptureRequestTest extends RequestTestCase
     {
         $data = $this->getData($this->generateId());
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
         $response = $this->createClient($data)->update(
             new SecondaryRequest(\array_merge($data, ['credit_card' => $this->getCreditCard()]))
         );
