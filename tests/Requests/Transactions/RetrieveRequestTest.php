@@ -22,7 +22,7 @@ class RetrieveRequestTest extends RequestTestCase
     {
         $data = $this->getData();
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
         $response = $this->createClient($data)->get(new RetrieveRequest([
             'id' => $data['id']
         ]));

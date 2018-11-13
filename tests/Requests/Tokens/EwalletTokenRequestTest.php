@@ -22,7 +22,7 @@ class EwalletTokenRequestTest extends RequestTestCase
     {
         $data = $this->getTokenisedData();
 
-        /** @var \EoneoPay\PhpSdk\Responses\Endpoints\Tokens\TokenisedEndpoint $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Users\EndpointToken $response */
         $response = $this->createClient($data)->create(new EwalletTokenRequest([
             'ewallet' => $this->getEwallet()
         ]));

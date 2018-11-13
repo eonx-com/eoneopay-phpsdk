@@ -61,7 +61,7 @@ class CreditRequestTest extends RequestTestCase
             'bank_account' => $this->getBankAccount()
         ]));
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
         $response = $this->createClient($data)->create($debit);
 
         // assertions
@@ -86,7 +86,7 @@ class CreditRequestTest extends RequestTestCase
             ])
         ]));
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
+        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
         $response = $this->createClient($data)->create($debit);
 
         // assertions

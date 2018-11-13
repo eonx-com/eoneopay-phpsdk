@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Requests\Transactions;
 
 use EoneoPay\PhpSdk\Requests\AbstractRequest;
-use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
+use EoneoPay\PhpSdk\Responses\Transaction;
 use EoneoPay\PhpSdk\Traits\TransactionTrait;
 
 class RetrieveRequest extends AbstractRequest
@@ -16,7 +16,7 @@ class RetrieveRequest extends AbstractRequest
      */
     public function expectObject(): string
     {
-        return TransactionResponse::class;
+        return Transaction::class;
     }
 
     /**
