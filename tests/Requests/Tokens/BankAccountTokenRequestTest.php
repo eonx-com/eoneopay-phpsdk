@@ -5,6 +5,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
 
 use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
+use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
@@ -46,7 +47,7 @@ class BankAccountTokenRequestTest extends RequestTestCase
             $this->createClient([])->create(new BankAccountTokenRequest([
                 'bank_account' => new BankAccount()
             ]));
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [

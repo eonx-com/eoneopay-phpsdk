@@ -14,18 +14,6 @@ class SecurityRequest extends AbstractRequest
     use SecurityTrait;
 
     /**
-     * Credit card.
-     *
-     * @Assert\NotNull(groups={"create"})
-     * @Assert\Valid(groups={"create", "update"})
-     *
-     * @Groups({"create", "update"})
-     *
-     * @var null|\EoneoPay\PhpSdk\Requests\Payloads\CreditCard|\EoneoPay\PhpSdk\Requests\Payloads\Token
-     */
-    protected $creditCard;
-
-    /**
      * Amount.
      *
      * @Assert\NotNull(groups={"create"})
@@ -36,6 +24,17 @@ class SecurityRequest extends AbstractRequest
      * @var null|\EoneoPay\PhpSdk\Requests\Payloads\Amount
      */
     protected $amount;
+    /**
+     * Credit card.
+     *
+     * @Assert\NotNull(groups={"create"})
+     * @Assert\Valid(groups={"create", "update"})
+     *
+     * @Groups({"create", "update"})
+     *
+     * @var null|\EoneoPay\PhpSdk\Requests\Payloads\CreditCard|\EoneoPay\PhpSdk\Requests\Payloads\Token
+     */
+    protected $creditCard;
 
     /**
      * @inheritdoc

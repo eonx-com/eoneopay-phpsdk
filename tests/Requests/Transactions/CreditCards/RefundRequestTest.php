@@ -21,7 +21,7 @@ class RefundRequestTest extends RequestTestCase
      */
     public function testSuccessfulRefundRequest(): void
     {
-        $data = $this->getData(\uniqid('', false));
+        $data = $this->getData($this->generateId());
 
         $refund = new SecondaryRequest($data);
 

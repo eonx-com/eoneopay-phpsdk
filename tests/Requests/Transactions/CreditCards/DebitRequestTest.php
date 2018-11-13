@@ -7,6 +7,7 @@ use EoneoPay\PhpSdk\Requests\Payloads\Allocation;
 use EoneoPay\PhpSdk\Requests\Payloads\Allocations\Record;
 use EoneoPay\PhpSdk\Requests\Payloads\Token;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest;
+use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
@@ -27,7 +28,7 @@ class DebitRequestTest extends RequestTestCase
 
         try {
             $this->createClient([])->create($debit);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [
@@ -63,7 +64,7 @@ class DebitRequestTest extends RequestTestCase
 
         try {
             $this->createClient([])->create($debit);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [

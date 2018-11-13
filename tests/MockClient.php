@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk;
 
+use DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
@@ -53,7 +54,7 @@ class MockClient extends BaseClient
 
             $content = \array_replace($content, [
                 'approved' => true,
-                'completed_at' => (new \DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU),
+                'completed_at' => (new DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU),
                 'amount' => [
                     'currency' => $amount->getCurrency(),
                     'sub_total' => $amount->getSubTotal(),

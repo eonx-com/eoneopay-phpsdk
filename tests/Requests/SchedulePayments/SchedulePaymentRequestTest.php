@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Requests\SchedulePayments;
 
+use DateTime;
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\BankAccount\CreateRequest as BankAccountCreateRequest;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\CreditCard\CreateRequest as CreditCardCreateRequest;
@@ -86,6 +87,8 @@ class SchedulePaymentRequestTest extends RequestTestCase
     /**
      * Test remove schedule payment successfully.
      *
+     * @return void
+     *
      * @throws \EoneoPay\Utils\Exceptions\BaseException
      */
     public function testRemoveSchedulePaymentSuccessfully(): void
@@ -137,8 +140,8 @@ class SchedulePaymentRequestTest extends RequestTestCase
             ]),
             'end_date' => null,
             'frequency' => 'monthly',
-            'id' => \uniqid('scp', false),
-            'start_date' => (new \DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU)
+            'id' => $this->generateId('scp'),
+            'start_date' => (new DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU)
         ];
     }
 }

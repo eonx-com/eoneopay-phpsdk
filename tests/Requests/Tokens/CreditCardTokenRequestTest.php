@@ -6,6 +6,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
 use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\CreditCardTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
+use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
@@ -52,7 +53,7 @@ class CreditCardTokenRequestTest extends RequestTestCase
             $this->createClient([])->create(new CreditCardTokenRequest([
                 'credit_card' => new CreditCard()
             ]));
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [

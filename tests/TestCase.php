@@ -25,4 +25,17 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
         return $messages;
     }
+
+    /**
+     * Generate a unique id with an optional prefix
+     *
+     * @param string|null $prefix The prefix to use when generating the id
+     *
+     * @return string
+     */
+    protected function generateId(?string $prefix = null): string
+    {
+        /** @noinspection ArgumentEqualsDefaultValueInspection EA inspections require both parameters to be passed */
+        return \uniqid($prefix ?? '', false);
+    }
 }

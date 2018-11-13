@@ -19,6 +19,7 @@
   "require": {
     "php": ">=7.1",
     "eoneopay/utils": "dev-master",
+    "ext-json": "*",
     "loyaltycorp/sdkblueprint": "dev-master"
   },
   "require-dev": {

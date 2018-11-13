@@ -15,6 +15,31 @@ use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
 abstract class RequestTestCase extends TestCase
 {
     /**
+     * Assert transaction response
+     *
+     * @param mixed[] $data
+     * @param \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response
+     *
+     * @return void
+     */
+    protected function assertTransactionResponse(array $data, TransactionResponse $response): void
+    {
+        /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
+        $amount = $data['amount'];
+
+        self::assertInstanceOf(TransactionResponse::class, $response);
+        self::assertSame(
+            $amount->getTotal() ?? null,
+            $response->getAmount() ? $response->getAmount()->getTotal() : null
+        );
+        self::assertSame(
+            $amount->getCurrency() ?? null,
+            $response->getAmount() ? $response->getAmount()->getCurrency() : null
+        );
+        self::assertSame('completed', $response->getStatus());
+    }
+
+    /**
      * Create mock http client.
      *
      * @param mixed[] $body
@@ -90,11 +115,24 @@ abstract class RequestTestCase extends TestCase
                 'currency' => 'AUD',
                 'total' => '100.00'
             ]),
-            'id' => \uniqid('test-', false),
+            'id' => $this->generateId('test-'),
             'original_id' => $originalId,
             'name' => 'John Wick',
             'statement_description' => 'Test order'
         ];
+    }
+
+    /**
+     * Get ewallet payload.
+     *
+     * @return \EoneoPay\PhpSdk\Requests\Payloads\Ewallet
+     */
+    protected function getEwallet(): Ewallet
+    {
+        return new Ewallet([
+            'name' => 'John Wick',
+            'reference' => '2JERVUH6A3'
+        ]);
     }
 
     /**
@@ -125,19 +163,6 @@ abstract class RequestTestCase extends TestCase
     }
 
     /**
-     * Get ewallet payload.
-     *
-     * @return \EoneoPay\PhpSdk\Requests\Payloads\Ewallet
-     */
-    protected function getEwallet(): Ewallet
-    {
-        return new Ewallet([
-            'name' => 'John Wick',
-            'reference' => '2JERVUH6A3'
-        ]);
-    }
-
-    /**
      * Get tokenised endpoint data.
      *
      * @return mixed[]
@@ -146,35 +171,10 @@ abstract class RequestTestCase extends TestCase
     {
         return [
             'endpoint_id' => 'test-endpoint-id',
-            'id' => \uniqid('id', false),
+            'id' => $this->generateId('id'),
             'name' => 'John Wick',
-            'token' => \uniqid('tok', false),
+            'token' => $this->generateId('tok'),
             'user_id' => 'test-user-id'
         ];
-    }
-
-    /**
-     * Assert transaction response
-     *
-     * @param mixed[] $data
-     * @param \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response
-     *
-     * @return void
-     */
-    protected function assertTransactionResponse(array $data, TransactionResponse $response): void
-    {
-        /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
-        $amount = $data['amount'];
-
-        self::assertInstanceOf(TransactionResponse::class, $response);
-        self::assertSame(
-            $amount->getTotal() ?? null,
-            $response->getAmount() ?  $response->getAmount()->getTotal() : null
-        );
-        self::assertSame(
-            $amount->getCurrency() ?? null,
-            $response->getAmount() ? $response->getAmount()->getCurrency() : null
-        );
-        self::assertSame('completed', $response->getStatus());
     }
 }
