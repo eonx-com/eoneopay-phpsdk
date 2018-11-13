@@ -10,7 +10,7 @@ use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
 use EoneoPay\PhpSdk\Requests\Payloads\Ewallet;
-use EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse;
+use EoneoPay\PhpSdk\Responses\Transaction;
 
 abstract class RequestTestCase extends TestCase
 {
@@ -18,16 +18,16 @@ abstract class RequestTestCase extends TestCase
      * Assert transaction response
      *
      * @param mixed[] $data
-     * @param \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response
+     * @param \EoneoPay\PhpSdk\Responses\Transaction $response
      *
      * @return void
      */
-    protected function assertTransactionResponse(array $data, TransactionResponse $response): void
+    protected function assertTransactionResponse(array $data, Transaction $response): void
     {
         /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
         $amount = $data['amount'];
 
-        self::assertInstanceOf(TransactionResponse::class, $response);
+        self::assertInstanceOf(Transaction::class, $response);
         self::assertSame(
             $amount->getTotal() ?? null,
             $response->getAmount() ? $response->getAmount()->getTotal() : null

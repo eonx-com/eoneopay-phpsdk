@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Responses\Endpoints\Tokens;
+namespace EoneoPay\PhpSdk\Responses\Users;
 
 use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
 
@@ -9,7 +9,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
  * @method null|string getName()
  * @method null|string getToken()
  */
-class TokenisedEndpoint extends BaseDataTransferObject
+class EndpointToken extends BaseDataTransferObject
 {
     /**
      * @var null|string
