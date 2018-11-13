@@ -5,6 +5,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Transactions\BankAccounts;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Token;
 use EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\PrimaryRequest;
+use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
@@ -14,6 +15,36 @@ use Tests\EoneoPay\PhpSdk\RequestTestCase;
  */
 class CreditRequestTest extends RequestTestCase
 {
+    /**
+     * Make sure validation exception are expected.
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    public function testInvalidRequest(): void
+    {
+        $credit = new PrimaryRequest([]);
+
+        try {
+            $this->createClient([])->create($credit);
+        } catch (Exception $exception) {
+            self::assertInstanceOf(ValidationException::class, $exception);
+
+            $expected = [
+                'violations' => [
+                    'amount' => ['This value should not be null.'],
+                    'bank_account' => ['This value should not be null.'],
+                    'action' => ['This value should not be blank.'],
+                    'id' => ['This value should not be blank.']
+                ]
+            ];
+
+            /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
+            self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
+        }
+    }
+
     /**
      * Test a successful bank account credit request.
      *
@@ -60,35 +91,5 @@ class CreditRequestTest extends RequestTestCase
 
         // assertions
         $this->assertTransactionResponse($data, $response);
-    }
-
-    /**
-     * Make sure validation exception are expected.
-     *
-     * @return void
-     *
-     * @throws \Exception
-     */
-    public function testInvalidRequest(): void
-    {
-        $credit = new PrimaryRequest([]);
-
-        try {
-            $this->createClient([])->create($credit);
-        } catch (\Exception $exception) {
-            self::assertInstanceOf(ValidationException::class, $exception);
-
-            $expected = [
-                'violations' => [
-                    'amount' => ['This value should not be null.'],
-                    'bank_account' => ['This value should not be null.'],
-                    'action' => ['This value should not be blank.'],
-                    'id' => ['This value should not be blank.']
-                ]
-            ];
-
-            /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
-            self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
-        }
     }
 }

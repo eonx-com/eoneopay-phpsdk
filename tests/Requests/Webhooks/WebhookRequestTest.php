@@ -6,6 +6,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Webhooks;
 use EoneoPay\PhpSdk\Requests\Webhooks\DeleteRequest;
 use EoneoPay\PhpSdk\Requests\Webhooks\WebhookRequest;
 use EoneoPay\PhpSdk\Responses\Webhook;
+use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
@@ -97,7 +98,7 @@ class WebhookRequestTest extends RequestTestCase
     {
         try {
             $this->createClient([])->create(new WebhookRequest([]));
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [
@@ -123,9 +124,9 @@ class WebhookRequestTest extends RequestTestCase
     private function getWebhookData(): array
     {
         return [
-            'event' => \uniqid('test-event-', false),
+            'event' => $this->generateId('test-event-'),
             'payload_format' => 1,
-            'id' => \uniqid('', false),
+            'id' => $this->generateId(),
             'url' => 'https://subdomain.test.com'
         ];
     }

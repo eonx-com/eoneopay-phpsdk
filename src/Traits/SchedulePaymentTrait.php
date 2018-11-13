@@ -29,6 +29,8 @@ trait SchedulePaymentTrait
     protected $frequency;
 
     /**
+     * Payment id
+     *
      * @Assert\NotBlank(groups={"create", "delete", "get"})
      *
      * @Groups({"create"})

@@ -8,6 +8,7 @@ use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
 use EoneoPay\PhpSdk\Requests\Security\SecurityRequest;
 use EoneoPay\PhpSdk\Responses\Security;
+use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
@@ -78,13 +79,13 @@ class SecurityRequestTest extends RequestTestCase
 
         try {
             $this->createClient($this->getSecurityData())->create($request);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [
                 'violations' => [
-                    'credit_card.expiry' => ['This value should not be blank.'],
-                    'amount.currency' => ['This value should not be blank.']
+                    'amount.currency' => ['This value should not be blank.'],
+                    'credit_card.expiry' => ['This value should not be blank.']
                 ]
             ];
 
@@ -134,7 +135,7 @@ class SecurityRequestTest extends RequestTestCase
 
         try {
             $this->createClient($this->getSecurityData())->update($request);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [

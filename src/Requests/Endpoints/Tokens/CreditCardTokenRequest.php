@@ -35,19 +35,19 @@ class CreditCardTokenRequest extends AbstractRequest implements
     /**
      * @inheritdoc
      */
-    public function uris(): array
+    public function serializationGroup(): array
     {
-        return [
-            self::CREATE => '/endpoints/tokenise'
-        ];
+        return [self::CREATE => ['tokenise']];
     }
 
     /**
      * @inheritdoc
      */
-    public function serializationGroup(): array
+    public function uris(): array
     {
-        return [self::CREATE => ['tokenise']];
+        return [
+            self::CREATE => '/endpoints/tokenise'
+        ];
     }
 
     /**

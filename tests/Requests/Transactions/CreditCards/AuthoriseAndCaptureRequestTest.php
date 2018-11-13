@@ -5,6 +5,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Transactions\CreditCards;
 
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\SecondaryRequest;
+use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
@@ -49,7 +50,7 @@ class AuthoriseAndCaptureRequestTest extends RequestTestCase
      */
     public function testCaptureSuccessfully(): void
     {
-        $data = $this->getData(\uniqid('', false));
+        $data = $this->getData($this->generateId());
 
         /** @var \EoneoPay\PhpSdk\Responses\Transactions\TransactionResponse $response */
         $response = $this->createClient($data)->update(
@@ -75,10 +76,10 @@ class AuthoriseAndCaptureRequestTest extends RequestTestCase
         ];
 
         try {
-             $this->createClient($data)->create(new PrimaryRequest(
-                 \array_merge($data, ['credit_card' => $this->getCreditCard()])
-             ));
-        } catch (\Exception $exception) {
+            $this->createClient($data)->create(new PrimaryRequest(
+                \array_merge($data, ['credit_card' => $this->getCreditCard()])
+            ));
+        } catch (Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [
