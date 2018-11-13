@@ -25,7 +25,7 @@ class PrimaryRequest extends CreditCardTransactionRequest
     public function uris(): array
     {
         return [
-            self::CREATE => 'transactions/'
+            self::CREATE => \sprintf('/transactions/%s', $this->id)
         ];
     }
 }

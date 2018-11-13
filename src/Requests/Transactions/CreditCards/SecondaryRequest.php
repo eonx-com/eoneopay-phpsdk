@@ -11,7 +11,7 @@ class SecondaryRequest extends CreditCardTransactionRequest
     public function uris(): array
     {
         return [
-            self::UPDATE => 'transactions/',
+            self::UPDATE => \sprintf('transactions/%s', $this->originalId),
             self::DELETE => \sprintf('transactions/%s', $this->originalId)
         ];
     }

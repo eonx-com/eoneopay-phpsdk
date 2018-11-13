@@ -37,7 +37,7 @@ trait AmountTrait
      *
      * @var null|string
      */
-    protected $subTotal;
+    protected $subtotal;
 
     /**
      * Total amount.
