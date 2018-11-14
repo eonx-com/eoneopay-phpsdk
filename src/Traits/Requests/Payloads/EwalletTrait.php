@@ -9,6 +9,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 trait EwalletTrait
 {
     /**
+     * @Assert\NotBlank(groups={"new"})
+     * @Assert\Type(type="string", groups={"new"})
+     *
+     * @Groups({"new"})
+     *
+     * @var string
+     */
+    protected $id;
+
+    /**
      * Ewallet user's name.
      *
      * @Assert\NotBlank(groups={"create", "tokenise"})

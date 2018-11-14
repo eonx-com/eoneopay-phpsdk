@@ -7,6 +7,9 @@ use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestMethodAwareInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestObjectInterface;
 
+/**
+ * @SuppressWarnings(PHPMD.NumberOfChildren) Base abstract class for all requests
+ */
 abstract class AbstractRequest extends BaseDataTransferObject implements
     RequestMethodAwareInterface,
     RequestObjectInterface

@@ -5,20 +5,15 @@ namespace EoneoPay\PhpSdk\Requests\Users;
 
 use EoneoPay\PhpSdk\Requests\AbstractRequest;
 use EoneoPay\PhpSdk\Responses\Users\Ewallet;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
+use EoneoPay\PhpSdk\Traits\Requests\Payloads\EwalletTrait;
+use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestSerializationGroupAwareInterface;
+use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestValidationGroupAwareInterface;
 
-class EwalletRequest extends AbstractRequest
+class EwalletRequest extends AbstractRequest implements
+    RequestSerializationGroupAwareInterface,
+    RequestValidationGroupAwareInterface
 {
-    /**
-     * @Assert\NotBlank(groups={"create"})
-     * @Assert\Type(type="string", groups={"create"})
-     *
-     * @Groups({"create"})
-     *
-     * @var string User id
-     */
-    protected $id;
+    use EwalletTrait;
 
     /**
      * @inheritdoc
@@ -31,10 +26,26 @@ class EwalletRequest extends AbstractRequest
     /**
      * @inheritdoc
      */
+    public function serializationGroup(): array
+    {
+        return [self::CREATE => ['new']];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function uris(): array
     {
         return [
             self::CREATE => \sprintf('/users/%s/ewallets', $this->id)
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validationGroups(): array
+    {
+        return [self::CREATE => ['new']];
     }
 }

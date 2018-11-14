@@ -52,7 +52,7 @@ class UserRequestTest extends RequestTestCase
             $expected = [
                 'violations' => [
                     'id' => ['This value should not be blank.'],
-                    'email' => ['This value should not be blank.'],
+                    'email' => ['This value should not be blank.']
                 ]
             ];
 
