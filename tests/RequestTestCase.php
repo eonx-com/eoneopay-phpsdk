@@ -12,6 +12,9 @@ use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
 use EoneoPay\PhpSdk\Requests\Payloads\Ewallet;
 use EoneoPay\PhpSdk\Responses\Transaction;
 
+/**
+ * @SuppressWarnings(PHPMD.NumberOfChildren) Test case, all request tests extend this
+ */
 abstract class RequestTestCase extends TestCase
 {
     /**
