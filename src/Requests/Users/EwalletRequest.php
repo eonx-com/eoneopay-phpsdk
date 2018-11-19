@@ -37,7 +37,8 @@ class EwalletRequest extends AbstractRequest implements
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('/users/%s/ewallets', $this->id)
+            self::CREATE => \sprintf('/users/%s/ewallets', $this->id),
+            self::LIST => \sprintf('/users/%s/ewallets', $this->id)
         ];
     }
 

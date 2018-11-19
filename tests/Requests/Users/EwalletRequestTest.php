@@ -55,4 +55,28 @@ class EwalletRequestTest extends RequestTestCase
         self::assertInstanceOf(Ewallet::class, $ewallet);
         self::assertNotNull($ewallet->getReference());
     }
+
+    /**
+     * List ewallets successfully.
+     *
+     * @return void
+     *
+     * @throws \EoneoPay\Utils\Exceptions\BaseException
+     */
+    public function testListSuccessfully(): void
+    {
+        /** @var \Countable $ewallets */
+        $ewallets = $this->createClient([
+            [
+                'currency' => 'AUD',
+                'id' => \uniqid('', false),
+                'pan' => '1...2343',
+                'reference' => '1242343'
+            ]
+        ])->list(new EwalletRequest([
+            'id' => 'sample-user-id-1'
+        ]));
+
+        self::assertCount(1, $ewallets);
+    }
 }

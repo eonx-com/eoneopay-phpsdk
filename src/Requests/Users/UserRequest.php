@@ -25,7 +25,8 @@ class UserRequest extends AbstractRequest
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('/users/%s', $this->id)
+            self::CREATE => \sprintf('/users/%s', $this->id),
+            self::GET => \sprintf('/users/%s', $this->id)
         ];
     }
 }

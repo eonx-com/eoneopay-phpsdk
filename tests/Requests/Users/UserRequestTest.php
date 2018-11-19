@@ -14,28 +14,6 @@ use Tests\EoneoPay\PhpSdk\RequestTestCase;
 class UserRequestTest extends RequestTestCase
 {
     /**
-     * Test create user successfully.
-     *
-     * @return void
-     *
-     * @throws \EoneoPay\Utils\Exceptions\BaseException
-     */
-    public function testCreateSuccessfully(): void
-    {
-        $data = [
-            'id' => \uniqid('test-', false),
-            'email' => 'genuine.user@email.test'
-        ];
-
-        /** @var \EoneoPay\PhpSdk\Responses\User $user */
-        $user = $this->createClient($data)->create(new UserRequest($data));
-
-        self::assertInstanceOf(User::class, $user);
-        self::assertSame($data['id'], $user->getId());
-        self::assertSame($data['email'], $user->getEmail());
-    }
-
-    /**
      * Test create fails with exception when invalid data is provided.
      *
      * @return void
@@ -59,5 +37,51 @@ class UserRequestTest extends RequestTestCase
             /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
             self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
         }
+    }
+
+    /**
+     * Test create user successfully.
+     *
+     * @return void
+     *
+     * @throws \EoneoPay\Utils\Exceptions\BaseException
+     */
+    public function testCreateSuccessfully(): void
+    {
+        $data = [
+            'id' => \uniqid('test-', false),
+            'email' => 'genuine.user@email.test'
+        ];
+
+        /** @var \EoneoPay\PhpSdk\Responses\User $user */
+        $user = $this->createClient($data)->create(new UserRequest($data));
+
+        self::assertInstanceOf(User::class, $user);
+        self::assertSame($data['id'], $user->getId());
+        self::assertSame($data['email'], $user->getEmail());
+    }
+
+    /**
+     * Test fetch user successfully.
+     *
+     * @return void
+     *
+     * @throws \EoneoPay\Utils\Exceptions\BaseException
+     */
+    public function testFetchSuccessfully(): void
+    {
+        $data = [
+            'id' => \uniqid('test-', false),
+            'email' => 'genuine.user@email.test'
+        ];
+
+        /** @var \EoneoPay\PhpSdk\Responses\User $user */
+        $user = $this->createClient($data)->get(new UserRequest([
+            'id' => $data['id']
+        ]));
+
+        self::assertInstanceOf(User::class, $user);
+        self::assertSame($data['id'], $user->getId());
+        self::assertSame($data['email'], $user->getEmail());
     }
 }
