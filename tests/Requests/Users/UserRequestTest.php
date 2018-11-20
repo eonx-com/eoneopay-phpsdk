@@ -50,15 +50,23 @@ class UserRequestTest extends RequestTestCase
     {
         $data = [
             'id' => \uniqid('test-', false),
-            'email' => 'genuine.user@email.test'
+            'email' => 'genuine.user@email.test',
+            'primary_ewallet' => [
+                'reference' => 'FKU24BHHU5',
+                'token' => null
+            ]
         ];
 
         /** @var \EoneoPay\PhpSdk\Responses\User $user */
-        $user = $this->createClient($data)->create(new UserRequest($data));
+        $user = $this->createClient($data)->create(new UserRequest([
+            'id' => $data['id'],
+            'email' => $data['email']
+        ]));
 
         self::assertInstanceOf(User::class, $user);
         self::assertSame($data['id'], $user->getId());
         self::assertSame($data['email'], $user->getEmail());
+        self::assertSame($data['primary_ewallet']['reference'], $user->getPrimaryEwallet()->getReference());
     }
 
     /**
