@@ -21,7 +21,7 @@ class CreditCardRequestTest extends RequestTestCase
      *
      * @throws \EoneoPay\Utils\Exceptions\BaseException
      */
-    public function testCalculateInclusiveFees(): void
+    public function testCalculateFees(): void
     {
         $data = [
             'action' => 'debit',
