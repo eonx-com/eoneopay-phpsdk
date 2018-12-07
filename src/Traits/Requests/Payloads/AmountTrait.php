@@ -25,7 +25,7 @@ trait AmountTrait
      *
      * @var null|string
      */
-    protected $fees;
+    protected $paymentFee;
 
     /**
      * Sub-total amount.
@@ -42,10 +42,8 @@ trait AmountTrait
     /**
      * Total amount.
      *
-     * @Assert\NotBlank(groups={"create", "delete", "update"})
      * @Assert\Type(type="string", groups={"create", "delete", "update"})
      * @Assert\Type(type="numeric", groups={"create", "delete", "update"})
-     * @Assert\GreaterThan(value="0", groups={"create", "delete", "update"})
      *
      * @Groups({"create", "delete", "update"})
      *

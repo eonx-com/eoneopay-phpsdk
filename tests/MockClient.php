@@ -57,6 +57,7 @@ class MockClient extends BaseClient
                 'completed_at' => (new DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU),
                 'amount' => [
                     'currency' => $amount->getCurrency(),
+                    'payment_fee' => $amount->getPaymentFee(),
                     'subtotal' => $amount->getSubtotal(),
                     'total' => $amount->getTotal()
                 ],

@@ -37,7 +37,7 @@ trait CreditCardTrait
     /**
      * The name of card holder.
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "tokenise", "update"})
      *
      * @var null|string
      */

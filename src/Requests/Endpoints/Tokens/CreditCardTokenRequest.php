@@ -46,7 +46,7 @@ class CreditCardTokenRequest extends AbstractRequest implements
     public function uris(): array
     {
         return [
-            self::CREATE => '/endpoints/tokenise'
+            self::CREATE => '/tokenise'
         ];
     }
 
