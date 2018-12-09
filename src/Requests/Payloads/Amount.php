@@ -24,6 +24,8 @@ class Amount extends BaseDataTransferObject
      * Validate amount total / subtotal
      *
      * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     *
+     * @return void
      */
     public function validateAmount(ExecutionContextInterface $context): void
     {
