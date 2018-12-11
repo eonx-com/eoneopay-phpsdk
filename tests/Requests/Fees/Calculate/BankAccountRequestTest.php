@@ -3,17 +3,17 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Requests\Fees\Calculate;
 
-use EoneoPay\PhpSdk\Requests\Fees\Calculate\CreditCardRequest;
+use EoneoPay\PhpSdk\Requests\Fees\Calculate\BankAccountRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
-use EoneoPay\PhpSdk\Responses\Fees\Calculate\CreditCardFee;
+use EoneoPay\PhpSdk\Responses\Fees\Calculate\BankAccountFee;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Fees\Calculate\CalculateRequest
- * @covers \EoneoPay\PhpSdk\Requests\Fees\Calculate\CreditCardRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Fees\Calculate\BankAccountRequest
  */
-class CreditCardRequestTest extends RequestTestCase
+class BankAccountRequestTest extends RequestTestCase
 {
     /**
      * Test calculate credit card transaction fee.
@@ -32,20 +32,20 @@ class CreditCardRequestTest extends RequestTestCase
                 'subtotal' => '100.00',
                 'total' => '100.10'
             ]),
-            'credit_card' => $this->getCreditCard()
+            'bank_account' => $this->getBankAccount()
         ];
 
-        $response = $this->createClient($data)->create(new CreditCardRequest([
+        $response = $this->createClient($data)->create(new BankAccountRequest([
             'action' => 'debit',
             'amount' => new Amount([
                 'currency' => 'AUD',
                 'total' => '100.10'
             ]),
-            'credit_card' => $this->getCreditCard()
+            'bank_account' => $this->getBankAccount()
         ]));
 
-        self::assertInstanceOf(CreditCardFee::class, $response);
-        /** @var \EoneoPay\PhpSdk\Responses\Fees\Calculate\CreditCardFee $response */
+        self::assertInstanceOf(BankAccountFee::class, $response);
+        /** @var \EoneoPay\PhpSdk\Responses\Fees\Calculate\BankAccountFee $response */
         self::assertSame('100.10', $response->getAmount()->getTotal());
         self::assertSame('100.00', $response->getAmount()->getSubtotal());
         self::assertSame('0.10', $response->getAmount()->getPaymentFee());
@@ -59,11 +59,11 @@ class CreditCardRequestTest extends RequestTestCase
     public function testCalculateFeesThrowsValidationException(): void
     {
         try {
-            $this->createClient()->create(new CreditCardRequest([
+            $this->createClient()->create(new BankAccountRequest([
                 'amount' => new Amount([
                     'total' => '100.10'
                 ]),
-                'credit_card' => $this->getCreditCard()
+                'bank_account' => $this->getBankAccount()
             ]));
         } catch (\Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
