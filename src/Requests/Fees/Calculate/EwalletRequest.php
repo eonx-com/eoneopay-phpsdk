@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\Fees;
+namespace EoneoPay\PhpSdk\Requests\Fees\Calculate;
 
-use EoneoPay\PhpSdk\Responses\Fees\CreditCardFee;
+use EoneoPay\PhpSdk\Responses\Fees\Calculate\EwalletFee;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreditCardRequest extends FeeRequest
+class EwalletRequest extends CalculateRequest
 {
     /**
      * @Assert\NotNull(groups={"create"})
@@ -15,15 +15,15 @@ class CreditCardRequest extends FeeRequest
      *
      * @Groups({"create"})
      *
-     * @var null|\EoneoPay\PhpSdk\Requests\Payloads\CreditCard|\EoneoPay\PhpSdk\Requests\Payloads\Token
+     * @var null|\EoneoPay\PhpSdk\Requests\Payloads\Ewallet|\EoneoPay\PhpSdk\Requests\Payloads\Token
      */
-    protected $creditCard;
+    protected $ewallet;
 
     /**
      * @inheritdoc
      */
     public function expectObject(): ?string
     {
-        return CreditCardFee::class;
+        return EwalletFee::class;
     }
 }

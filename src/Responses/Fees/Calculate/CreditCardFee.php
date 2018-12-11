@@ -1,18 +1,24 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Responses\Fees;
+namespace EoneoPay\PhpSdk\Responses\Fees\Calculate;
 
+use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
-use EoneoPay\PhpSdk\Responses\Fee;
+use EoneoPay\PhpSdk\Traits\Requests\Calculate\FeeTrait;
+use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @method null|string getAction()
+ * @method null|Amount getAmount()
  * @method null|CreditCard getCreditCard()
  */
-class CreditCardFee extends Fee
+class CreditCardFee extends BaseDataTransferObject
 {
+    use FeeTrait;
+
     /**
      * @Assert\NotNull(groups={"create"})
      * @Assert\Valid(groups={"create"})
