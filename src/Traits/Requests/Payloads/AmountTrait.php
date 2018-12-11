@@ -30,7 +30,6 @@ trait AmountTrait
     /**
      * Sub-total amount.
      *
-     * @Assert\Type(type="string", groups={"create", "delete", "update"})
      * @Assert\Type(type="numeric", groups={"create", "delete", "update"})
      *
      * @Groups({"create", "delete", "update"})
@@ -42,7 +41,6 @@ trait AmountTrait
     /**
      * Total amount.
      *
-     * @Assert\Type(type="string", groups={"create", "delete", "update"})
      * @Assert\Type(type="numeric", groups={"create", "delete", "update"})
      *
      * @Groups({"create", "delete", "update"})

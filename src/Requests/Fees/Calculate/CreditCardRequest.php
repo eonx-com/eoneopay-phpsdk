@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\Fees;
+namespace EoneoPay\PhpSdk\Requests\Fees\Calculate;
 
-use EoneoPay\PhpSdk\Responses\Fees\CreditCardFee;
+use EoneoPay\PhpSdk\Responses\Fees\Calculate\CreditCardFee;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreditCardRequest extends FeeRequest
+class CreditCardRequest extends CalculateRequest
 {
     /**
      * @Assert\NotNull(groups={"create"})

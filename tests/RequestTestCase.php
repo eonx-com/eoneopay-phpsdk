@@ -50,8 +50,10 @@ abstract class RequestTestCase extends TestCase
      *
      * @return \Tests\EoneoPay\PhpSdk\MockClient
      */
-    protected function createClient(array $body, ?int $responseCode = null): MockClient
+    protected function createClient(?array $body = null, ?int $responseCode = null): MockClient
     {
+        $body = $body ?? [];
+
         return new MockClient($body, $responseCode, [
             'Accept' => 'application/json',
             'Content-Type' => 'application/json'
