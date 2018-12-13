@@ -6,6 +6,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
 use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\CreditCardTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
+use EoneoPay\PhpSdk\Responses\Users\EndpointTokens\CreditCardToken;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
@@ -26,7 +27,6 @@ class CreditCardTokenRequestTest extends RequestTestCase
     {
         $data = $this->getTokenisedData();
 
-        /** @var \EoneoPay\PhpSdk\Responses\Users\EndpointToken $response */
         $response = $this->createClient($data)->create(new CreditCardTokenRequest([
             'credit_card' => new CreditCard([
                 'cvc' => '100',
@@ -36,6 +36,9 @@ class CreditCardTokenRequestTest extends RequestTestCase
             ])
         ]));
 
+        self::assertInstanceOf(CreditCardToken::class, $response);
+        self::assertInstanceOf(CreditCard::class, $response->getCreditCard());
+        $this->assertCreditCard($data, $response->getCreditCard());
         self::assertSame($data['name'], $response->getName());
         self::assertSame($data['token'], $response->getToken());
     }
@@ -83,7 +86,7 @@ class CreditCardTokenRequestTest extends RequestTestCase
                     'year' => '2099'
                 ],
                 'id' => \uniqid('', false),
-                'issue' => 'U.S. BANK NATIONAL ASSOCIATION, ND',
+                'issuer' => 'U.S. BANK NATIONAL ASSOCIATION, ND',
                 'method' => 'DEBIT',
                 'pan' => '5123450...0008',
                 'prepaid' => null,
@@ -92,5 +95,32 @@ class CreditCardTokenRequestTest extends RequestTestCase
             'name' => 'John Wick',
             'token' => 'WCA3E4HRZXZARDB96BT6'
         ];
+    }
+
+    /**
+     * Credit card assertions.
+     *
+     * @param mixed[] $data Expectations
+     * @param \EoneoPay\PhpSdk\Requests\Payloads\CreditCard $creditCard Credit card payload response
+     *
+     * @return void
+     */
+    private function assertCreditCard(array $data, CreditCard $creditCard): void
+    {
+        $expiry = null;
+
+        if (($creditCard->getExpiry() instanceof Expiry) === true) {
+            $expiry = [
+                'month' => $creditCard->getExpiry()->getMonth(),
+                'year' => $creditCard->getExpiry()->getYear()
+            ];
+        }
+        self::assertSame($data['credit_card']['country'], $creditCard->getCountry());
+        self::assertSame($data['credit_card']['expiry'], $expiry);
+        self::assertSame($data['credit_card']['id'], $creditCard->getId());
+        self::assertSame($data['credit_card']['issuer'], $creditCard->getIssuer());
+        self::assertSame($data['credit_card']['method'], $creditCard->getMethod());
+        self::assertSame($data['credit_card']['pan'], $creditCard->getPan());
+        self::assertSame($data['credit_card']['scheme'], $creditCard->getScheme());
     }
 }

@@ -5,6 +5,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
 
 use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
+use EoneoPay\PhpSdk\Responses\Users\EndpointTokens\BankAccountToken;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
@@ -25,11 +26,13 @@ class BankAccountTokenRequestTest extends RequestTestCase
     {
         $data = $this->getTokenisedData();
 
-        /** @var \EoneoPay\PhpSdk\Responses\Users\EndpointToken $response */
         $response = $this->createClient($data)->create(new BankAccountTokenRequest([
             'bank_account' => $this->getBankAccount()
         ]));
 
+        self::assertInstanceOf(BankAccountToken::class, $response);
+        self::assertInstanceOf(BankAccount::class, $response->getBankAccount());
+        $this->assertBankAccount($data, $response->getBankAccount());
         self::assertSame($data['name'], $response->getName());
         self::assertSame($data['token'], $response->getToken());
     }
@@ -82,5 +85,21 @@ class BankAccountTokenRequestTest extends RequestTestCase
             'name' => 'John Wick',
             'token' => 'FBGBA2VJNTZD3Z9CBKR2'
         ];
+    }
+
+    /**
+     * Bank account assertions.
+     *
+     * @param mixed[] $data Expectations
+     * @param \EoneoPay\PhpSdk\Requests\Payloads\BankAccount $bankAccount Bank account payload response
+     *
+     * @return void
+     */
+    private function assertBankAccount(array $data, BankAccount $bankAccount): void
+    {
+        self::assertSame($data['bank_account']['id'], $bankAccount->getId());
+        self::assertSame($data['bank_account']['number'], $bankAccount->getNumber());
+        self::assertSame($data['bank_account']['pan'], $bankAccount->getPan());
+        self::assertSame($data['bank_account']['prefix'], $bankAccount->getPrefix());
     }
 }
