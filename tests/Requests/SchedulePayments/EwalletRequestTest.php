@@ -81,6 +81,7 @@ class EwalletRequestTest extends RequestTestCase
         self::assertGreaterThan(0, \count($response));
 
         // assertions
+        self::assertInstanceOf(Ewallet::class, $response[0]);
         $this->assertSchedulePayment($data[0], $response[0]);
     }
 

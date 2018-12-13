@@ -80,6 +80,7 @@ class BankAccountRequestTest extends RequestTestCase
         self::assertGreaterThan(0, \count($response));
 
         // assertions
+        self::assertInstanceOf(BankAccount::class, $response[0]);
         $this->assertSchedulePayment($data[0], $response[0]);
     }
 
