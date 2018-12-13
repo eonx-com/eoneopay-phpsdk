@@ -1,33 +1,33 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\SchedulePayments\BankAccount;
+namespace EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet;
 
 use EoneoPay\PhpSdk\Requests\SchedulePayments\SchedulePaymentRequest;
-use EoneoPay\PhpSdk\Responses\SchedulePayments\BankAccount;
+use EoneoPay\PhpSdk\Responses\SchedulePayments\Ewallet;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateRequest extends SchedulePaymentRequest
 {
     /**
-     * Bank account endpoint.
+     * Ewallet endpoint.
      *
      * @Assert\NotNull(groups={"create"})
      * @Assert\Valid(groups={"create"})
      *
      * @Groups({"create"})
      *
-     * @var null|\EoneoPay\PhpSdk\Requests\Payloads\BankAccount|\EoneoPay\PhpSdk\Requests\Payloads\Token
+     * @var null|\EoneoPay\PhpSdk\Requests\Payloads\Ewallet|\EoneoPay\PhpSdk\Requests\Payloads\Token
      */
-    protected $bankAccount;
+    protected $ewallet;
 
     /**
      * @inheritdoc
      */
     public function expectObject(): ?string
     {
-        return BankAccount::class;
+        return Ewallet::class;
     }
 
     /**

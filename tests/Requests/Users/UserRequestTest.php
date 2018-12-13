@@ -6,7 +6,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Users;
 use EoneoPay\PhpSdk\Requests\Users\UserRequest;
 use EoneoPay\PhpSdk\Responses\User;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Users\UserRequest

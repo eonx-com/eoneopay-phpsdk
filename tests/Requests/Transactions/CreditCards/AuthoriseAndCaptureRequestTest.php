@@ -7,14 +7,14 @@ use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\SecondaryRequest;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\CreditCardTransactionRequest
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\SecondaryRequest
  */
-class AuthoriseAndCaptureRequestTest extends RequestTestCase
+class AuthoriseAndCaptureRequestTest extends TransactionTestCase
 {
     /**
      * Test authorise a credit card transaction successfully.

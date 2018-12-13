@@ -10,7 +10,7 @@ use EoneoPay\PhpSdk\Requests\Security\SecurityRequest;
 use EoneoPay\PhpSdk\Responses\Security;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Security\SecurityRequest
@@ -147,5 +147,32 @@ class SecurityRequestTest extends RequestTestCase
             /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
             self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
         }
+    }
+
+    /**
+     * Get security data.
+     *
+     * @param mixed[]|null $data Security data.
+     *
+     * @return mixed[]
+     */
+    private function getSecurityData(?array $data = null): array
+    {
+        $data = $data ?? [];
+
+        return \array_merge([
+            'amount' => new Amount([
+                'currency' => 'AUD',
+                'total' => '100.00'
+            ]),
+            'cavv' => null,
+            'id' => 'external-security-id',
+            'request_payload' => 'request-payload',
+            'response_payload' => 'response-payload',
+            'return_url' => 'http://localhost',
+            'secured' => false,
+            'status' => 'completed',
+            'xid' => 'test-xid'
+        ], $data);
     }
 }

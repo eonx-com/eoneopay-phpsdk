@@ -12,7 +12,7 @@ use EoneoPay\PhpSdk\Requests\Fees\Contracts\CreditCards\MastercardContractReques
 use EoneoPay\PhpSdk\Requests\Fees\Contracts\CreditCards\UnionPayContractRequest;
 use EoneoPay\PhpSdk\Requests\Fees\Contracts\CreditCards\VisaContractRequest;
 use EoneoPay\PhpSdk\Responses\Fee;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 class CreditCardContractRequestTest extends RequestTestCase
 {

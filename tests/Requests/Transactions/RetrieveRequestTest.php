@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Requests\Transactions;
 
 use EoneoPay\PhpSdk\Requests\Transactions\RetrieveRequest;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\RetrieveRequest
  */
-class RetrieveRequestTest extends RequestTestCase
+class RetrieveRequestTest extends TransactionTestCase
 {
     /**
      * Test retrieve transaction successfully.

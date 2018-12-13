@@ -5,7 +5,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Fees\Contracts;
 
 use EoneoPay\PhpSdk\Requests\Fees\Contracts\EwalletContractRequest;
 use EoneoPay\PhpSdk\Responses\Fee;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 class EwalletContractRequestTest extends RequestTestCase
 {

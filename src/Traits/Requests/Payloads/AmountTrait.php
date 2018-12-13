@@ -30,9 +30,14 @@ trait AmountTrait
     /**
      * Sub-total amount.
      *
+     * @Assert\Expression(
+     *     "this.subtotal or this.total",
+     *     groups={"amount_validate"},
+     *     message="field is required when total is not present."
+     * )
      * @Assert\Type(type="numeric", groups={"create", "delete", "update"})
      *
-     * @Groups({"create", "delete", "update"})
+     * @Groups({"create", "delete", "update", "amount_validate"})
      *
      * @var null|string
      */
@@ -41,9 +46,14 @@ trait AmountTrait
     /**
      * Total amount.
      *
+     * @Assert\Expression(
+     *     "this.total or this.subtotal",
+     *     groups={"amount_validate"},
+     *     message="field is required when subtoal is not present."
+     * )
      * @Assert\Type(type="numeric", groups={"create", "delete", "update"})
      *
-     * @Groups({"create", "delete", "update"})
+     * @Groups({"create", "delete", "update", "amount_validate"})
      *
      * @var null|string
      */

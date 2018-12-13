@@ -3,24 +3,22 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Requests\SchedulePayments;
 
-use DateTime;
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
-use EoneoPay\PhpSdk\Requests\SchedulePayments\BankAccount\CreateRequest as BankAccountCreateRequest;
-use EoneoPay\PhpSdk\Requests\SchedulePayments\CreditCard\CreateRequest as CreditCardCreateRequest;
-use EoneoPay\PhpSdk\Requests\SchedulePayments\GetRequest;
+use EoneoPay\PhpSdk\Requests\SchedulePayments\BankAccount\CreateRequest;
+use EoneoPay\PhpSdk\Requests\SchedulePayments\BankAccount\GetRequest;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest;
-use EoneoPay\PhpSdk\Responses\SchedulePayment;
+use EoneoPay\PhpSdk\Responses\SchedulePayments\BankAccount;
+use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\BankAccount\CreateRequest
- * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\CreditCard\CreateRequest
- * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\GetRequest
+ * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\BankAccount\GetRequest
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\SchedulePaymentRequest
  */
-class SchedulePaymentRequestTest extends RequestTestCase
+class BankAccountRequestTest extends RequestTestCase
 {
     /**
      * Test create schedule payment successfully.
@@ -28,39 +26,40 @@ class SchedulePaymentRequestTest extends RequestTestCase
      * @return void
      *
      * @throws \EoneoPay\Utils\Exceptions\BaseException
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
      */
-    public function testCreateBankAccountSchedulePaymentsSuccessfully(): void
+    public function testCreateSchedulePaymentsSuccessfully(): void
     {
         $data = $this->getSchedulePaymentData();
 
-        /** @var \EoneoPay\PhpSdk\Responses\SchedulePayment $response */
-        $response = $this->createClient($data)->create(new BankAccountCreateRequest(\array_merge(
+        $response = $this->createClient($data)->create(new CreateRequest(\array_merge(
             $data,
             ['bank_account' => $this->getBankAccount()]
         )));
 
         // assertions
+        self::assertInstanceOf(BankAccount::class, $response);
         $this->assertSchedulePayment($data, $response);
     }
 
     /**
-     * Test create schedule payment successfully.
+     * Test get schedule payment by id successfully.
      *
      * @return void
      *
      * @throws \EoneoPay\Utils\Exceptions\BaseException
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
      */
-    public function testCreateCreditCardSchedulePaymentsSuccessfully(): void
+    public function testGetSchedulePaymentsSuccessfully(): void
     {
         $data = $this->getSchedulePaymentData();
 
-        /** @var \EoneoPay\PhpSdk\Responses\SchedulePayment $response */
-        $response = $this->createClient($data)->create(new CreditCardCreateRequest(\array_merge(
-            $data,
-            ['credit_card' => $this->getCreditCard()]
-        )));
+        $response = $this->createClient($data)->get(new GetRequest([
+            'id' => $data['id']
+        ]));
 
         // assertions
+        self::assertInstanceOf(BankAccount::class, $response);
         $this->assertSchedulePayment($data, $response);
     }
 
@@ -70,6 +69,7 @@ class SchedulePaymentRequestTest extends RequestTestCase
      * @return void
      *
      * @throws \EoneoPay\Utils\Exceptions\BaseException
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
      */
     public function testListSchedulePaymentsSuccessfully(): void
     {
@@ -77,7 +77,6 @@ class SchedulePaymentRequestTest extends RequestTestCase
 
         $response = $this->createClient($data)->list(new GetRequest());
 
-        /** @var \EoneoPay\PhpSdk\Responses\SchedulePayment[] $response */
         self::assertGreaterThan(0, \count($response));
 
         // assertions
@@ -93,27 +92,24 @@ class SchedulePaymentRequestTest extends RequestTestCase
      */
     public function testRemoveSchedulePaymentSuccessfully(): void
     {
-        $response = $this->createClient([], 204)->delete(new RemoveRequest([
-            'id' => 'schedule-payment-id'
-        ]));
-
-        self::assertNull($response);
+        self::assertNull($this->createClient([], 204)->delete(new RemoveRequest([
+            'id' => 'bank-schedule-payment-id'
+        ])));
     }
 
     /**
      * Assert schedule payment unit rest results.
      *
      * @param mixed[] $data
-     * @param \EoneoPay\PhpSdk\Responses\SchedulePayment $response
+     * @param \EoneoPay\PhpSdk\Responses\SchedulePayments\BankAccount $response
      *
      * @return void
      */
-    private function assertSchedulePayment(array $data, SchedulePayment $response): void
+    private function assertSchedulePayment(array $data, BankAccount $response): void
     {
         /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
         $amount = $data['amount'];
 
-        self::assertInstanceOf(SchedulePayment::class, $response);
         self::assertSame(
             $amount->getTotal() ?? null,
             $response->getAmount() ? $response->getAmount()->getTotal() : null
@@ -130,16 +126,18 @@ class SchedulePaymentRequestTest extends RequestTestCase
      * Get schedule payment data.
      *
      * @return mixed[]
+     *
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
      */
     private function getSchedulePaymentData(): array
     {
         return [
             'amount' => new Amount([
                 'currency' => 'AUD',
-                'total' => '100.00'
+                'total' => '20.00'
             ]),
             'end_date' => null,
-            'frequency' => 'monthly',
+            'frequency' => 'fortnightly',
             'id' => $this->generateId('scp'),
             'start_date' => (new DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU)
         ];

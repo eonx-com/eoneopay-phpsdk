@@ -16,17 +16,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @method null|string getId()
  * @method null|string getStartDate()
  */
-class SchedulePayment extends BaseDataTransferObject
+abstract class SchedulePayment extends BaseDataTransferObject
 {
     use SchedulePaymentTrait;
 
     /**
-     * Amount.
+     * Schedule payment amount.
      *
      * @Assert\NotNull(groups={"create"})
-     * @Assert\Valid(groups={"create", "update", "delete"})
+     * @Assert\Valid(groups={"create"})
      *
-     * @Groups({"create", "update", "get", "list"})
+     * @Groups({"create", "get", "list"})
      *
      * @var null|\EoneoPay\PhpSdk\Requests\Payloads\Amount
      */

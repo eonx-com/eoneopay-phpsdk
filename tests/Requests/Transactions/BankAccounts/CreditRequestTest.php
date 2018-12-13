@@ -7,13 +7,13 @@ use EoneoPay\PhpSdk\Requests\Payloads\Token;
 use EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\PrimaryRequest;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\BankAccountTransactionRequest
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\PrimaryRequest
  */
-class CreditRequestTest extends RequestTestCase
+class CreditRequestTest extends TransactionTestCase
 {
     /**
      * Make sure validation exception are expected.

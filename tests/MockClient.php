@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk;
 
-use DateTime;
+use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
@@ -18,6 +18,8 @@ class MockClient extends BaseClient
      * @param mixed[] $content
      * @param int|null $responseCode
      * @param mixed[]|null $header
+     *
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
      */
     public function __construct(array $content, ?int $responseCode = null, ?array $header = null)
     {
@@ -45,6 +47,8 @@ class MockClient extends BaseClient
      * @param mixed[] $content
      *
      * @return mixed[]
+     *
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
      */
     private function formatData(array $content): array
     {

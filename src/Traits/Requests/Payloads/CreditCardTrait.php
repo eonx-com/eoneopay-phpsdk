@@ -9,6 +9,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 trait CreditCardTrait
 {
     /**
+     * Credit card issuer country.
+     *
+     * @Groups({"create", "update", "tokenise", "endpoints_validate"})
+     *
+     * @var null|string
+     */
+    protected $country;
+
+    /**
      * Credit card cvc.
      *
      * @Groups({"create", "update"})
@@ -33,6 +42,33 @@ trait CreditCardTrait
      * @var null|\EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry
      */
     protected $expiry;
+
+    /**
+     * Endpoint id.
+     *
+     * @Groups({"create", "update", "tokenise", "endpoints_validate"})
+     *
+     * @var null|string
+     */
+    protected $id;
+
+    /**
+     * Credit card issuer.
+     *
+     * @Groups({"create", "update", "tokenise", "endpoints_validate"})
+     *
+     * @var null|string
+     */
+    protected $issuer;
+
+    /**
+     * Method.
+     *
+     * @Groups({"create", "update", "tokenise", "endpoints_validate"})
+     *
+     * @var null|string
+     */
+    protected $method;
 
     /**
      * The name of card holder.
@@ -63,6 +99,33 @@ trait CreditCardTrait
      * @var null|string
      */
     protected $number;
+
+    /**
+     * Credit card pan.
+     *
+     * @Groups({"create", "update", "tokenise", "endpoints_validate"})
+     *
+     * @var null|string
+     */
+    protected $pan;
+
+    /**
+     * Prepaid.
+     *
+     * @Groups({"create", "update", "tokenise", "endpoints_validate"})
+     *
+     * @var null|bool
+     */
+    protected $prepaid;
+
+    /**
+     * Credit card scheme.
+     *
+     * @Groups({"create", "update", "tokenise", "endpoints_validate"})
+     *
+     * @var null|string
+     */
+    protected $scheme;
 
     /**
      * Credit card token.

@@ -8,7 +8,7 @@ use EoneoPay\PhpSdk\Requests\Webhooks\WebhookRequest;
 use EoneoPay\PhpSdk\Responses\Webhook;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Webhooks\DeleteRequest

@@ -8,7 +8,7 @@ use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\CreditCardTokenRequest
@@ -66,5 +66,31 @@ class CreditCardTokenRequestTest extends RequestTestCase
             /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
             self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
         }
+    }
+
+    /**
+     * Get tokenised credit card data.
+     *
+     * @return mixed[]
+     */
+    protected function getTokenisedData(): array
+    {
+        return [
+            'credit_card' => [
+                'country' => 'US',
+                'expiry' => [
+                    'month' => '05',
+                    'year' => '2099'
+                ],
+                'id' => \uniqid('', false),
+                'issue' => 'U.S. BANK NATIONAL ASSOCIATION, ND',
+                'method' => 'DEBIT',
+                'pan' => '5123450...0008',
+                'prepaid' => null,
+                'scheme' => 'Mastercard'
+            ],
+            'name' => 'John Wick',
+            'token' => 'WCA3E4HRZXZARDB96BT6'
+        ];
     }
 }

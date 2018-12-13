@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Requests\Transactions\CreditCards;
 
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\SecondaryRequest;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\CreditCardTransactionRequest
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\SecondaryRequest
  */
-class RefundRequestTest extends RequestTestCase
+class RefundRequestTest extends TransactionTestCase
 {
     /**
      * Test a successful refund request.

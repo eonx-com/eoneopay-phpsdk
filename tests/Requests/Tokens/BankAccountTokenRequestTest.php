@@ -7,7 +7,7 @@ use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountTokenRequest
@@ -62,5 +62,25 @@ class BankAccountTokenRequestTest extends RequestTestCase
             /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
             self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
         }
+    }
+
+    /**
+     * Get tokenised bank account data.
+     *
+     * @return mixed[]
+     */
+    protected function getTokenisedData(): array
+    {
+        return [
+            'bank_account' => [
+                'currency' => 'AUD',
+                'id' => \uniqid('', false),
+                'pan' => '123-123...6601',
+                'prefix' => '123123',
+                'number' => '0876601',
+            ],
+            'name' => 'John Wick',
+            'token' => 'FBGBA2VJNTZD3Z9CBKR2'
+        ];
     }
 }

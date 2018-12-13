@@ -7,13 +7,13 @@ use EoneoPay\PhpSdk\Requests\Payloads\Token;
 use EoneoPay\PhpSdk\Requests\Transactions\Ewallets\PrimaryRequest;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\Ewallets\EwalletTransactionRequest
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\Ewallets\PrimaryRequest
  */
-class TransferRequestTest extends RequestTestCase
+class TransferRequestTest extends TransactionTestCase
 {
     /**
      * Make sure the exception structure and validation rules are thrown as expected.

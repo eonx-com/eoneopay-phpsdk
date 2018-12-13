@@ -7,7 +7,7 @@ use EoneoPay\PhpSdk\Requests\Fees\Calculate\EwalletRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Responses\Fees\Calculate\EwalletFee;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Fees\Calculate\CalculateRequest
