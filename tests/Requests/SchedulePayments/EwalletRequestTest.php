@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Requests\SchedulePayments;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
+use EoneoPay\PhpSdk\Requests\Payloads\Ewallet as EwalletPayload;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet\CreateRequest;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet\GetRequest;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest;
@@ -110,8 +111,8 @@ class EwalletRequestTest extends RequestTestCase
         /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
         $amount = $data['amount'];
 
-        self::assertSame($data['ewallet']['pan'], $response->getEwallet()->getPan());
-        self::assertSame($data['ewallet']['reference'], $response->getEwallet()->getReference());
+        $this->assertEwallet($data, $response->getEwallet());
+
         self::assertSame(
             $amount->getTotal() ?? null,
             $response->getAmount() ? $response->getAmount()->getTotal() : null
@@ -122,6 +123,23 @@ class EwalletRequestTest extends RequestTestCase
         );
         self::assertSame($data['frequency'], $response->getFrequency());
         self::assertSame($data['id'], $response->getId());
+    }
+
+    /**
+     * Ewallet endpoint related assertions.
+     *
+     * @param mixed[] $data Expected data
+     * @param \EoneoPay\PhpSdk\Requests\Payloads\Ewallet|null $ewallet Ewallet payload
+     *
+     * @return void
+     */
+    private function assertEwallet(array $data, ?EwalletPayload $ewallet = null): void
+    {
+        self::assertInstanceOf(EwalletPayload::class, $ewallet);
+        if (($ewallet instanceof EwalletPayload) === true) {
+            self::assertSame($data['ewallet']['pan'], $ewallet->getPan());
+            self::assertSame($data['ewallet']['reference'], $ewallet->getReference());
+        }
     }
 
     /**

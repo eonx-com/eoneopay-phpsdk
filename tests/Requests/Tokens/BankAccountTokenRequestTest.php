@@ -77,7 +77,7 @@ class BankAccountTokenRequestTest extends RequestTestCase
                 'id' => \uniqid('', false),
                 'pan' => '123-123...6601',
                 'prefix' => '123123',
-                'number' => '0876601',
+                'number' => '0876601'
             ],
             'name' => 'John Wick',
             'token' => 'FBGBA2VJNTZD3Z9CBKR2'
