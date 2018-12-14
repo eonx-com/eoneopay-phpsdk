@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Requests\SchedulePayments;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
+use EoneoPay\PhpSdk\Requests\Payloads\BankAccount as BankAccountPayload;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\BankAccount\CreateRequest;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\BankAccount\GetRequest;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest;
@@ -11,9 +12,14 @@ use EoneoPay\PhpSdk\Responses\SchedulePayments\BankAccount;
 use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\BankAccountRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\BankAccountResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
+ * @noinspection EfferentObjectCouplingInspection High coupling for testing only
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling for testing only
+ *
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\BankAccount\CreateRequest
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\BankAccount\GetRequest
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest
@@ -31,10 +37,12 @@ class BankAccountRequestTest extends RequestTestCase
      */
     public function testCreateSchedulePaymentsSuccessfully(): void
     {
-        $data = $this->getSchedulePaymentData();
+        $request = $this->getSchedulePaymentData();
+
+        $data = \array_merge($request, $this->getEndpointData());
 
         $response = $this->createClient($data)->create(new CreateRequest(\array_merge(
-            $data,
+            $request,
             ['bank_account' => new BankAccountRequestStub()]
         )));
 
@@ -53,7 +61,7 @@ class BankAccountRequestTest extends RequestTestCase
      */
     public function testGetSchedulePaymentsSuccessfully(): void
     {
-        $data = $this->getSchedulePaymentData();
+        $data = \array_merge($this->getSchedulePaymentData(), $this->getEndpointData());
 
         $response = $this->createClient($data)->get(new GetRequest([
             'id' => $data['id']
@@ -74,7 +82,7 @@ class BankAccountRequestTest extends RequestTestCase
      */
     public function testListSchedulePaymentsSuccessfully(): void
     {
-        $data = [$this->getSchedulePaymentData()];
+        $data = [\array_merge($this->getSchedulePaymentData(), $this->getEndpointData())];
 
         $response = $this->createClient($data)->list(new GetRequest());
 
@@ -112,6 +120,12 @@ class BankAccountRequestTest extends RequestTestCase
         /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
         $amount = $data['amount'];
 
+        self::assertInstanceOf(BankAccountPayload::class, $response->getBankAccount());
+
+        /** @var \EoneoPay\PhpSdk\Requests\Payloads\BankAccount $endpoint */
+        $endpoint = $response->getBankAccount();
+        $this->assertBankAccount($data, $endpoint);
+
         self::assertSame(
             $amount->getTotal() ?? null,
             $response->getAmount() ? $response->getAmount()->getTotal() : null
@@ -122,6 +136,18 @@ class BankAccountRequestTest extends RequestTestCase
         );
         self::assertSame($data['frequency'], $response->getFrequency());
         self::assertSame($data['id'], $response->getId());
+    }
+
+    /**
+     * Get endpoint response data.
+     *
+     * @return mixed[]
+     */
+    private function getEndpointData(): array
+    {
+        return [
+            'bank_account' => (new BankAccountResponseStub())->toArray()
+        ];
     }
 
     /**

@@ -37,10 +37,12 @@ class EwalletRequestTest extends RequestTestCase
      */
     public function testCreateSchedulePaymentsSuccessfully(): void
     {
-        $data = \array_merge($this->getSchedulePaymentData(), $this->getEndpointData());
+        $request = $this->getSchedulePaymentData();
+
+        $data = \array_merge($request, $this->getEndpointData());
 
         $response = $this->createClient($data)->create(new CreateRequest(\array_merge(
-            $data,
+            $request,
             ['ewallet' => new EwalletRequestStub()]
         )));
 
@@ -117,12 +119,12 @@ class EwalletRequestTest extends RequestTestCase
     {
         /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
         $amount = $data['amount'];
-        $ewallet = $response->getEwallet();
 
-        $this->assertInstanceOf(EwalletPayload::class, $ewallet);
-        if (($ewallet instanceof EwalletPayload) === true) {
-            $this->assertEwallet($data, $ewallet);
-        }
+        $this->assertInstanceOf(EwalletPayload::class, $response->getEwallet());
+
+        /** @var \EoneoPay\PhpSdk\Requests\Payloads\Ewallet $ewallet */
+        $ewallet = $response->getEwallet();
+        $this->assertEwallet($data, $ewallet);
 
         self::assertSame(
             $amount->getTotal() ?? null,

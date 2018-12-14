@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Requests\SchedulePayments;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
+use EoneoPay\PhpSdk\Requests\Payloads\CreditCard as CreditCardPayload;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\CreditCard\CreateRequest;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\CreditCard\GetRequest;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest;
@@ -15,6 +16,10 @@ use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
+ * @noinspection EfferentObjectCouplingInspection High coupling for testing only
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling for testing only
+ *
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\CreditCard\CreateRequest
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\CreditCard\GetRequest
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest
@@ -32,10 +37,12 @@ class CreditCardRequestTest extends RequestTestCase
      */
     public function testCreateSchedulePaymentsSuccessfully(): void
     {
-        $data = $this->getSchedulePaymentData();
+        $request = $this->getSchedulePaymentData();
+
+        $data = \array_merge($request, $this->getEndpointData());
 
         $response = $this->createClient($data)->create(new CreateRequest(\array_merge(
-            $data,
+            $request,
             ['credit_card' => new CreditCardRequestStub()]
         )));
 
@@ -113,6 +120,12 @@ class CreditCardRequestTest extends RequestTestCase
         /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
         $amount = $data['amount'];
 
+        self::assertInstanceOf(CreditCardPayload::class, $response->getCreditCard());
+
+        /** @var \EoneoPay\PhpSdk\Requests\Payloads\CreditCard $endpoint */
+        $endpoint = $response->getCreditCard();
+        $this->assertCreditCard($data, $endpoint);
+
         self::assertSame(
             $amount->getTotal() ?? null,
             $response->getAmount() ? $response->getAmount()->getTotal() : null
@@ -123,6 +136,18 @@ class CreditCardRequestTest extends RequestTestCase
         );
         self::assertSame($data['frequency'], $response->getFrequency());
         self::assertSame($data['id'], $response->getId());
+    }
+
+    /**
+     * Get endpoint response data.
+     *
+     * @return mixed[]
+     */
+    private function getEndpointData(): array
+    {
+        return [
+            'credit_card' => (new CreditCardResponseStub())->toArray()
+        ];
     }
 
     /**
@@ -143,18 +168,6 @@ class CreditCardRequestTest extends RequestTestCase
             'frequency' => 'monthly',
             'id' => $this->generateId('scp'),
             'start_date' => (new DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU)
-        ];
-    }
-
-    /**
-     * Get endpoint response data.
-     *
-     * @return mixed[]
-     */
-    private function getEndpointData(): array
-    {
-        return [
-            'credit_card' => (new CreditCardResponseStub())->toArray()
         ];
     }
 }
