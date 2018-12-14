@@ -14,6 +14,15 @@ use EoneoPay\PhpSdk\Requests\Fees\Contracts\CreditCards\VisaContractRequest;
 use EoneoPay\PhpSdk\Responses\Fee;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
+/**
+ * @covers \EoneoPay\PhpSdk\Requests\Fees\Contracts\CreditCards\AmericanExpressContractRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Fees\Contracts\CreditCards\DinersClubContractRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Fees\Contracts\CreditCards\DiscoverContractRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Fees\Contracts\CreditCards\JcbContractRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Fees\Contracts\CreditCards\MastercardContractRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Fees\Contracts\CreditCards\UnionPayContractRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Fees\Contracts\CreditCards\VisaContractRequest
+ */
 class CreditCardContractRequestTest extends RequestTestCase
 {
     /**
@@ -25,37 +34,14 @@ class CreditCardContractRequestTest extends RequestTestCase
      */
     public function testAmericanExpressContractCreate(): void
     {
-        $response = $this->createClient(\array_merge(
-            $this->getFeeRequestData(),
-            [
-                'group' => ContractRequestInterface::GROUP_CREDIT_CARD_AMERICAN_EXPRESS,
-                'type' => 'contract'
-            ]
-        ))->create(new AmericanExpressContractRequest($this->getFeeRequestData()));
+        $request = $this->getFeeRequestData(ContractRequestInterface::GROUP_CREDIT_CARD_AMERICAN_EXPRESS);
+
+        $response = $this->createClient(\array_merge($request, ['type' => 'contract']))->create(
+            new AmericanExpressContractRequest($request)
+        );
 
         self::assertInstanceOf(Fee::class, $response);
         $this->assertions(ContractRequestInterface::GROUP_CREDIT_CARD_AMERICAN_EXPRESS, $response);
-    }
-
-    /**
-     * Test create Bank Account contract fee.
-     *
-     * @return void
-     *
-     * @throws \EoneoPay\Utils\Exceptions\BaseException
-     */
-    public function testBankAccountContractCreate(): void
-    {
-        $response = $this->createClient(\array_merge(
-            $this->getFeeRequestData(),
-            [
-                'group' => ContractRequestInterface::GROUP_BANK_ACCOUNT,
-                'type' => 'contract'
-            ]
-        ))->create(new DinersClubContractRequest($this->getFeeRequestData()));
-
-        self::assertInstanceOf(Fee::class, $response);
-        $this->assertions(ContractRequestInterface::GROUP_BANK_ACCOUNT, $response);
     }
 
     /**
@@ -67,13 +53,11 @@ class CreditCardContractRequestTest extends RequestTestCase
      */
     public function testDinersClubContractCreate(): void
     {
-        $response = $this->createClient(\array_merge(
-            $this->getFeeRequestData(),
-            [
-                'group' => ContractRequestInterface::GROUP_CREDIT_CARD_DINERS_CLUB,
-                'type' => 'contract'
-            ]
-        ))->create(new DinersClubContractRequest($this->getFeeRequestData()));
+        $request = $this->getFeeRequestData(ContractRequestInterface::GROUP_CREDIT_CARD_DINERS_CLUB);
+
+        $response = $this->createClient(\array_merge($request, ['type' => 'contract']))->create(
+            new DinersClubContractRequest($request)
+        );
 
         self::assertInstanceOf(Fee::class, $response);
         $this->assertions(ContractRequestInterface::GROUP_CREDIT_CARD_DINERS_CLUB, $response);
@@ -88,37 +72,14 @@ class CreditCardContractRequestTest extends RequestTestCase
      */
     public function testDiscoverContractCreate(): void
     {
-        $response = $this->createClient(\array_merge(
-            $this->getFeeRequestData(),
-            [
-                'group' => ContractRequestInterface::GROUP_CREDIT_CARD_DISCOVER,
-                'type' => 'contract'
-            ]
-        ))->create(new DiscoverContractRequest($this->getFeeRequestData()));
+        $request = $this->getFeeRequestData(ContractRequestInterface::GROUP_CREDIT_CARD_DISCOVER);
+
+        $response = $this->createClient(\array_merge($request, ['type' => 'contract']))->create(
+            new DiscoverContractRequest($request)
+        );
 
         self::assertInstanceOf(Fee::class, $response);
         $this->assertions(ContractRequestInterface::GROUP_CREDIT_CARD_DISCOVER, $response);
-    }
-
-    /**
-     * Test create Ewallet contract fee.
-     *
-     * @return void
-     *
-     * @throws \EoneoPay\Utils\Exceptions\BaseException
-     */
-    public function testEwalletContractCreate(): void
-    {
-        $response = $this->createClient(\array_merge(
-            $this->getFeeRequestData(),
-            [
-                'group' => ContractRequestInterface::GROUP_EWALLET,
-                'type' => 'contract'
-            ]
-        ))->create(new DinersClubContractRequest($this->getFeeRequestData()));
-
-        self::assertInstanceOf(Fee::class, $response);
-        $this->assertions(ContractRequestInterface::GROUP_EWALLET, $response);
     }
 
     /**
@@ -130,13 +91,11 @@ class CreditCardContractRequestTest extends RequestTestCase
      */
     public function testJcbContractCreate(): void
     {
-        $response = $this->createClient(\array_merge(
-            $this->getFeeRequestData(),
-            [
-                'group' => ContractRequestInterface::GROUP_CREDIT_CARD_JCB,
-                'type' => 'contract'
-            ]
-        ))->create(new JcbContractRequest($this->getFeeRequestData()));
+        $request = $this->getFeeRequestData(ContractRequestInterface::GROUP_CREDIT_CARD_JCB);
+
+        $response = $this->createClient(\array_merge($request, ['type' => 'contract']))->create(
+            new JcbContractRequest($request)
+        );
 
         self::assertInstanceOf(Fee::class, $response);
         $this->assertions(ContractRequestInterface::GROUP_CREDIT_CARD_JCB, $response);
@@ -151,13 +110,11 @@ class CreditCardContractRequestTest extends RequestTestCase
      */
     public function testMastercardContractCreate(): void
     {
-        $response = $this->createClient(\array_merge(
-            $this->getFeeRequestData(),
-            [
-                'group' => ContractRequestInterface::GROUP_CREDIT_CARD_MASTERCARD,
-                'type' => 'contract'
-            ]
-        ))->create(new MastercardContractRequest($this->getFeeRequestData()));
+        $request = $this->getFeeRequestData(ContractRequestInterface::GROUP_CREDIT_CARD_MASTERCARD);
+
+        $response = $this->createClient(\array_merge($request, ['type' => 'contract']))->create(
+            new MastercardContractRequest($request)
+        );
 
         self::assertInstanceOf(Fee::class, $response);
         $this->assertions(ContractRequestInterface::GROUP_CREDIT_CARD_MASTERCARD, $response);
@@ -172,13 +129,11 @@ class CreditCardContractRequestTest extends RequestTestCase
      */
     public function testUnionPayContractCreate(): void
     {
-        $response = $this->createClient(\array_merge(
-            $this->getFeeRequestData(),
-            [
-                'group' => ContractRequestInterface::GROUP_CREDIT_CARD_UNIONPAY,
-                'type' => 'contract'
-            ]
-        ))->create(new UnionPayContractRequest($this->getFeeRequestData()));
+        $request = $this->getFeeRequestData(ContractRequestInterface::GROUP_CREDIT_CARD_UNIONPAY);
+
+        $response = $this->createClient(\array_merge($request, ['type' => 'contract']))->create(
+            new UnionPayContractRequest($request)
+        );
 
         self::assertInstanceOf(Fee::class, $response);
         $this->assertions(ContractRequestInterface::GROUP_CREDIT_CARD_UNIONPAY, $response);
@@ -193,13 +148,11 @@ class CreditCardContractRequestTest extends RequestTestCase
      */
     public function testVisaContractCreate(): void
     {
-        $response = $this->createClient(\array_merge(
-            $this->getFeeRequestData(),
-            [
-                'group' => ContractRequestInterface::GROUP_CREDIT_CARD_VISA,
-                'type' => 'contract'
-            ]
-        ))->create(new VisaContractRequest($this->getFeeRequestData()));
+        $request = $this->getFeeRequestData(ContractRequestInterface::GROUP_CREDIT_CARD_VISA);
+
+        $response = $this->createClient(\array_merge($request, ['type' => 'contract']))->create(
+            new VisaContractRequest($request)
+        );
 
         self::assertInstanceOf(Fee::class, $response);
         $this->assertions(ContractRequestInterface::GROUP_CREDIT_CARD_VISA, $response);
@@ -227,14 +180,22 @@ class CreditCardContractRequestTest extends RequestTestCase
     /**
      * Get contract request data.
      *
+     * @param null|string $group Credit card group
+     *
      * @return mixed[]
      */
-    private function getFeeRequestData(): array
+    private function getFeeRequestData(?string $group = null): array
     {
-        return [
+        $data = [];
+
+        if ($group !== null) {
+            $data = \array_merge($data, ['group' => $group]);
+        }
+
+        return \array_merge([
             'fixed' => '0.02',
             'variable' => '0.14',
             'currency' => 'AUD'
-        ];
+        ], $data);
     }
 }
