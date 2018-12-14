@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Requests\SchedulePayments;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
+use EoneoPay\PhpSdk\Requests\Payloads\Ewallet as EwalletPayload;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet\CreateRequest;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet\GetRequest;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest;
@@ -15,6 +16,10 @@ use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
+ * @noinspection EfferentObjectCouplingInspection High coupling for testing only
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling for testing only
+ *
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet\CreateRequest
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet\GetRequest
  * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest
@@ -112,8 +117,12 @@ class EwalletRequestTest extends RequestTestCase
     {
         /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
         $amount = $data['amount'];
+        $ewallet = $response->getEwallet();
 
-        $this->assertEwallet($data, $response->getEwallet());
+        $this->assertInstanceOf(EwalletPayload::class, $ewallet);
+        if (($ewallet instanceof EwalletPayload) === true) {
+            $this->assertEwallet($data, $ewallet);
+        }
 
         self::assertSame(
             $amount->getTotal() ?? null,
