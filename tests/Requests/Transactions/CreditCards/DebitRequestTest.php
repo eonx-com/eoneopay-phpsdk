@@ -10,6 +10,7 @@ use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
@@ -90,17 +91,20 @@ class DebitRequestTest extends TransactionTestCase
      */
     public function testSuccessfulCreditCardDebit(): void
     {
-        $data = $this->getData();
+        $request = $this->getData();
         $debit = new PrimaryRequest(
-            \array_merge($data, [
+            \array_merge($request, [
                 'action' => 'debit',
                 'credit_card' => new CreditCardRequestStub()
             ])
         );
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
-        $response = $this->createClient($data)->create($debit);
+        $data = \array_merge(
+            $request,
+            ['credit_card' => (new CreditCardResponseStub())->toArray()]
+        );
 
+        $response = $this->createClient($data)->create($debit);
         // assertions
         $this->assertTransactionResponse($data, $response);
     }
@@ -114,8 +118,8 @@ class DebitRequestTest extends TransactionTestCase
      */
     public function testSuccessfulTokenisedCreditCardDebit(): void
     {
-        $data = $this->getData();
-        $debit = new PrimaryRequest(\array_merge($data, [
+        $request = $this->getData();
+        $debit = new PrimaryRequest(\array_merge($request, [
             'action' => 'debit',
             'allocations' => new Allocation([
                 'amount' => '50.00',
@@ -132,9 +136,12 @@ class DebitRequestTest extends TransactionTestCase
             ])
         ]));
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
-        $response = $this->createClient($data)->create($debit);
+        $data = \array_merge(
+            $request,
+            ['credit_card' => (new CreditCardResponseStub())->toArray()]
+        );
 
+        $response = $this->createClient($data)->create($debit);
         // assertions
         $this->assertTransactionResponse($data, $response);
     }

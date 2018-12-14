@@ -8,6 +8,7 @@ use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\SecondaryRequest;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
@@ -26,12 +27,16 @@ class AuthoriseAndCaptureRequestTest extends TransactionTestCase
      */
     public function testAuthoriseSuccessfully(): void
     {
-        $data = $this->getData();
+        $request = $this->getData();
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
+        $data = \array_merge(
+            $request,
+            ['credit_card' => (new CreditCardResponseStub())->toArray()]
+        );
+
         $response = $this->createClient($data)->create(
             new PrimaryRequest(
-                \array_merge($data, [
+                \array_merge($request, [
                     'credit_card' => new CreditCardRequestStub(),
                     'action' => 'authorise'
                 ])
@@ -51,11 +56,15 @@ class AuthoriseAndCaptureRequestTest extends TransactionTestCase
      */
     public function testCaptureSuccessfully(): void
     {
-        $data = $this->getData($this->generateId());
+        $request = $this->getData($this->generateId());
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
+        $data = \array_merge(
+            $request,
+            ['credit_card' => (new CreditCardResponseStub())->toArray()]
+        );
+
         $response = $this->createClient($data)->update(
-            new SecondaryRequest(\array_merge($data, ['credit_card' => new CreditCardRequestStub()]))
+            new SecondaryRequest(\array_merge($request, ['credit_card' => new CreditCardRequestStub()]))
         );
 
         // assertions

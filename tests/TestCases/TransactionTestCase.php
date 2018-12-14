@@ -5,9 +5,35 @@ namespace Tests\EoneoPay\PhpSdk\TestCases;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Responses\Transaction;
+use EoneoPay\PhpSdk\Responses\Transactions\BankAccount;
+use EoneoPay\PhpSdk\Responses\Transactions\CreditCard;
+use EoneoPay\PhpSdk\Responses\Transactions\Ewallet;
 
 class TransactionTestCase extends RequestTestCase
 {
+    /**
+     * Assert transaction endpoint.
+     *
+     * @param mixed[] $data
+     * @param \EoneoPay\PhpSdk\Responses\Transaction $response
+     *
+     * @return void
+     */
+    protected function assertTransactionEndpoint(array $data, Transaction $response): void
+    {
+        if ($response instanceof BankAccount) {
+            $this->assertBankAccount($data, $response->getBankAccount());
+        }
+
+        if ($response instanceof CreditCard) {
+            $this->assertCreditCard($data, $response->getCreditCard());
+        }
+
+        if ($response instanceof Ewallet) {
+            $this->assertEwallet($data, $response->getEwallet());
+        }
+    }
+
     /**
      * Assert transaction response
      *
@@ -21,7 +47,6 @@ class TransactionTestCase extends RequestTestCase
         /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
         $amount = $data['amount'];
 
-        self::assertInstanceOf(Transaction::class, $response);
         self::assertSame(
             $amount->getTotal() ?? null,
             $response->getAmount() ? $response->getAmount()->getTotal() : null
@@ -31,6 +56,9 @@ class TransactionTestCase extends RequestTestCase
             $response->getAmount() ? $response->getAmount()->getCurrency() : null
         );
         self::assertSame('completed', $response->getStatus());
+
+        // assertions for transaction endpoint
+        $this->assertTransactionEndpoint($data, $response);
     }
 
     /**
