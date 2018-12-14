@@ -9,6 +9,7 @@ use EoneoPay\PhpSdk\Requests\Payloads\Token;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
 use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
@@ -58,7 +59,7 @@ class DebitRequestTest extends TransactionTestCase
             [
                 'action' => 'debit',
                 'allocations' => new Allocation([]),
-                'credit_card' => $this->getCreditCard()
+                'credit_card' => new CreditCardRequestStub()
             ]
         ));
 
@@ -93,7 +94,7 @@ class DebitRequestTest extends TransactionTestCase
         $debit = new PrimaryRequest(
             \array_merge($data, [
                 'action' => 'debit',
-                'credit_card' => $this->getCreditCard()
+                'credit_card' => new CreditCardRequestStub()
             ])
         );
 

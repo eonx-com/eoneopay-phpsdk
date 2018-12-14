@@ -6,6 +6,8 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
 use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\EwalletTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\Ewallet;
 use EoneoPay\PhpSdk\Responses\Users\EndpointTokens\EwalletToken;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
@@ -25,7 +27,7 @@ class EwalletTokenRequestTest extends RequestTestCase
         $data = $this->getTokenisedData();
 
         $response = $this->createClient($data)->create(new EwalletTokenRequest([
-            'ewallet' => $this->getEwallet()
+            'ewallet' => new EwalletRequestStub()
         ]));
 
         self::assertInstanceOf(EwalletToken::class, $response);
@@ -43,30 +45,9 @@ class EwalletTokenRequestTest extends RequestTestCase
     protected function getTokenisedData(): array
     {
         return [
-            'ewallet' => [
-                'currency' => 'AUD',
-                'id' => \uniqid('', false),
-                'pan' => '2...H6A3',
-                'reference' => '2JERVUH6A3'
-            ],
+            'ewallet' => (new EwalletResponseStub())->toArray(),
             'name' => 'John Wick',
             'token' => 'BGYTH232E46ZB76YXDE0'
         ];
-    }
-
-    /**
-     * Ewallet assertions.
-     *
-     * @param mixed[] $data Expectations
-     * @param \EoneoPay\PhpSdk\Requests\Payloads\Ewallet $ewallet Ewallet payload response
-     *
-     * @return void
-     */
-    private function assertEwallet(array $data, Ewallet $ewallet): void
-    {
-        self::assertSame($data['ewallet']['currency'], $ewallet->getCurrency());
-        self::assertSame($data['ewallet']['id'], $ewallet->getId());
-        self::assertSame($data['ewallet']['pan'], $ewallet->getPan());
-        self::assertSame($data['ewallet']['reference'], $ewallet->getReference());
     }
 }

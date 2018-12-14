@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Requests\Fees\Contracts;
 
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\Requests\Stubs\Fees\ContractRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Fees\ContractRequestStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**

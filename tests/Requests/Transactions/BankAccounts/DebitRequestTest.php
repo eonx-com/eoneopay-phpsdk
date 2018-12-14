@@ -8,6 +8,7 @@ use EoneoPay\PhpSdk\Requests\Payloads\Token;
 use EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\PrimaryRequest;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\BankAccountRequestStub;
 use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
@@ -97,7 +98,7 @@ class DebitRequestTest extends TransactionTestCase
         $data = $this->getData();
         $debit = new PrimaryRequest(\array_merge($data, [
             'action' => 'debit',
-            'bank_account' => $this->getBankAccount()
+            'bank_account' => new BankAccountRequestStub()
         ]));
 
         /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */

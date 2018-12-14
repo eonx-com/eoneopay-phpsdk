@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Requests\SchedulePayments;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
-use EoneoPay\PhpSdk\Requests\Payloads\Ewallet as EwalletPayload;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet\CreateRequest;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet\GetRequest;
 use EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest;
 use EoneoPay\PhpSdk\Responses\SchedulePayments\Ewallet;
 use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
@@ -35,7 +36,7 @@ class EwalletRequestTest extends RequestTestCase
 
         $response = $this->createClient($data)->create(new CreateRequest(\array_merge(
             $data,
-            ['ewallet' => $this->getEwallet()]
+            ['ewallet' => new EwalletRequestStub()]
         )));
 
         // assertions
@@ -127,23 +128,6 @@ class EwalletRequestTest extends RequestTestCase
     }
 
     /**
-     * Ewallet endpoint related assertions.
-     *
-     * @param mixed[] $data Expected data
-     * @param \EoneoPay\PhpSdk\Requests\Payloads\Ewallet|null $ewallet Ewallet payload
-     *
-     * @return void
-     */
-    private function assertEwallet(array $data, ?EwalletPayload $ewallet = null): void
-    {
-        self::assertInstanceOf(EwalletPayload::class, $ewallet);
-        if (($ewallet instanceof EwalletPayload) === true) {
-            self::assertSame($data['ewallet']['pan'], $ewallet->getPan());
-            self::assertSame($data['ewallet']['reference'], $ewallet->getReference());
-        }
-    }
-
-    /**
      * Get endpoint response data.
      *
      * @return mixed[]
@@ -151,12 +135,7 @@ class EwalletRequestTest extends RequestTestCase
     private function getEndpointData(): array
     {
         return [
-            'ewallet' => [
-                'currency' => 'AUD',
-                'id' => \uniqid('', false),
-                'pan' => '2...H6A3',
-                'reference' => '2JERVUH6A3'
-            ]
+            'ewallet' => (new EwalletResponseStub())->toArray()
         ];
     }
 

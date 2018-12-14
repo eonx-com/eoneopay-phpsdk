@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Responses;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
+use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
 use EoneoPay\PhpSdk\Traits\SecurityTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @method null|string getActionUrl()
  * @method null|Amount getAmount()
  * @method null|string getCavv()
+ * @method null|CreditCard getCreditCard()
  * @method null|string getEnrolmentStatus()
  * @method null|string getId()
  * @method null|string getPayload()
@@ -38,4 +40,13 @@ class Security extends BaseDataTransferObject
      * @var null|\EoneoPay\PhpSdk\Requests\Payloads\Amount
      */
     protected $amount;
+
+    /**
+     * Credit card endpoint.
+     *
+     * @Groups({"create", "update", "get", "list"})
+     *
+     * @var null|\EoneoPay\PhpSdk\Requests\Payloads\CreditCard
+     */
+    protected $creditCard;
 }

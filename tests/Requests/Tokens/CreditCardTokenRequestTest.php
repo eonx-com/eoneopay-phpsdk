@@ -5,10 +5,11 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
 
 use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\CreditCardTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
-use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
 use EoneoPay\PhpSdk\Responses\Users\EndpointTokens\CreditCardToken;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
@@ -28,12 +29,7 @@ class CreditCardTokenRequestTest extends RequestTestCase
         $data = $this->getTokenisedData();
 
         $response = $this->createClient($data)->create(new CreditCardTokenRequest([
-            'credit_card' => new CreditCard([
-                'cvc' => '100',
-                'expiry' => new Expiry(['month' => '05', 'year' => '2021']),
-                'name' => 'John Wick',
-                'number' => '5123450000000008'
-            ])
+            'credit_card' => new CreditCardRequestStub()
         ]));
 
         self::assertInstanceOf(CreditCardToken::class, $response);
@@ -79,48 +75,9 @@ class CreditCardTokenRequestTest extends RequestTestCase
     protected function getTokenisedData(): array
     {
         return [
-            'credit_card' => [
-                'country' => 'US',
-                'expiry' => [
-                    'month' => '05',
-                    'year' => '2099'
-                ],
-                'id' => \uniqid('', false),
-                'issuer' => 'U.S. BANK NATIONAL ASSOCIATION, ND',
-                'method' => 'DEBIT',
-                'pan' => '5123450...0008',
-                'prepaid' => null,
-                'scheme' => 'Mastercard'
-            ],
+            'credit_card' => (new CreditCardResponseStub())->toArray(),
             'name' => 'John Wick',
             'token' => 'WCA3E4HRZXZARDB96BT6'
         ];
-    }
-
-    /**
-     * Credit card assertions.
-     *
-     * @param mixed[] $data Expectations
-     * @param \EoneoPay\PhpSdk\Requests\Payloads\CreditCard $creditCard Credit card payload response
-     *
-     * @return void
-     */
-    private function assertCreditCard(array $data, CreditCard $creditCard): void
-    {
-        $expiry = null;
-
-        if (($creditCard->getExpiry() instanceof Expiry) === true) {
-            $expiry = [
-                'month' => $creditCard->getExpiry()->getMonth(),
-                'year' => $creditCard->getExpiry()->getYear()
-            ];
-        }
-        self::assertSame($data['credit_card']['country'], $creditCard->getCountry());
-        self::assertSame($data['credit_card']['expiry'], $expiry);
-        self::assertSame($data['credit_card']['id'], $creditCard->getId());
-        self::assertSame($data['credit_card']['issuer'], $creditCard->getIssuer());
-        self::assertSame($data['credit_card']['method'], $creditCard->getMethod());
-        self::assertSame($data['credit_card']['pan'], $creditCard->getPan());
-        self::assertSame($data['credit_card']['scheme'], $creditCard->getScheme());
     }
 }

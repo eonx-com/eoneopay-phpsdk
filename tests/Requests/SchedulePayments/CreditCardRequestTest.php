@@ -10,6 +10,8 @@ use EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest;
 use EoneoPay\PhpSdk\Responses\SchedulePayments\CreditCard;
 use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
@@ -34,7 +36,7 @@ class CreditCardRequestTest extends RequestTestCase
 
         $response = $this->createClient($data)->create(new CreateRequest(\array_merge(
             $data,
-            ['credit_card' => $this->getCreditCard()]
+            ['credit_card' => new CreditCardRequestStub()]
         )));
 
         // assertions
@@ -152,19 +154,7 @@ class CreditCardRequestTest extends RequestTestCase
     private function getEndpointData(): array
     {
         return [
-            'credit_card' => [
-                'country' => 'US',
-                'expiry' => [
-                    'month' => '05',
-                    'year' => '2099'
-                ],
-                'id' => \uniqid('', false),
-                'issue' => 'U.S. BANK NATIONAL ASSOCIATION, ND',
-                'method' => 'DEBIT',
-                'pan' => '5123450...0008',
-                'prepaid' => null,
-                'scheme' => 'Mastercard'
-            ]
+            'credit_card' => (new CreditCardResponseStub())->toArray()
         ];
     }
 }

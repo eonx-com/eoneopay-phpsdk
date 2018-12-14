@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\EoneoPay\PhpSdk\Requests\Stubs\Fees;
+namespace Tests\EoneoPay\PhpSdk\Stubs\Fees;
 
 use EoneoPay\PhpSdk\Requests\Fees\ContractRequest;
 

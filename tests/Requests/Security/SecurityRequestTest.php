@@ -5,11 +5,12 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Security;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
-use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
 use EoneoPay\PhpSdk\Requests\Security\SecurityRequest;
 use EoneoPay\PhpSdk\Responses\Security;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
@@ -31,20 +32,17 @@ class SecurityRequestTest extends RequestTestCase
                 'currency' => 'AUD',
                 'total' => '100.00'
             ]),
-            'credit_card' => new CreditCard([
-                'cvc' => '100',
-                'expiry' => new Expiry(['month' => '05', 'year' => '2021']),
-                'name' => 'John Wick',
-                'number' => '5123450000000008'
-            ]),
+            'credit_card' => new CreditCardRequestStub(),
             'id' => 'external-security-id',
             'return_url' => 'http://localhost'
         ]);
 
-        $initiate = $this->createClient($this->getSecurityData())->create($request);
+        $data = $this->getSecurityData();
+        $initiate = $this->createClient($data)->create($request);
 
         self::assertInstanceOf(Security::class, $initiate);
-        /** @var \EoneoPay\PhpSdk\Responses\Security $initiate */
+        self::assertInstanceOf(CreditCard::class, $initiate->getCreditCard());
+        $this->assertCreditCard($data, $initiate->getCreditCard());
         self::assertSame(
             'AUD',
             $initiate->getAmount() ? $initiate->getAmount()->getCurrency() : ''
@@ -166,6 +164,7 @@ class SecurityRequestTest extends RequestTestCase
                 'total' => '100.00'
             ]),
             'cavv' => null,
+            'credit_card' => (new CreditCardResponseStub())->toArray(),
             'id' => 'external-security-id',
             'request_payload' => 'request-payload',
             'response_payload' => 'response-payload',

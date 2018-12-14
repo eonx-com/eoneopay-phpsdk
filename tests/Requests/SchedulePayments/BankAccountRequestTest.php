@@ -10,6 +10,7 @@ use EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest;
 use EoneoPay\PhpSdk\Responses\SchedulePayments\BankAccount;
 use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\BankAccountRequestStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
@@ -34,7 +35,7 @@ class BankAccountRequestTest extends RequestTestCase
 
         $response = $this->createClient($data)->create(new CreateRequest(\array_merge(
             $data,
-            ['bank_account' => $this->getBankAccount()]
+            ['bank_account' => new BankAccountRequestStub()]
         )));
 
         // assertions
