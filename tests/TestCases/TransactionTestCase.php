@@ -21,16 +21,34 @@ class TransactionTestCase extends RequestTestCase
      */
     protected function assertTransactionEndpoint(array $data, Transaction $response): void
     {
-        if ($response instanceof BankAccount) {
-            $this->assertBankAccount($data, $response->getBankAccount());
+        if (($response instanceof BankAccount) === true) {
+            /**
+             * @var \EoneoPay\PhpSdk\Requests\Payloads\BankAccount $endpoint
+             *
+             * @see https://youtrack.jetbrains.com/issue/WI-37859 typehint required until PhpStorm recognises === check
+             */
+            $endpoint = $response->getBankAccount();
+            $this->assertBankAccount($data, $endpoint);
         }
 
-        if ($response instanceof CreditCard) {
-            $this->assertCreditCard($data, $response->getCreditCard());
+        if (($response instanceof CreditCard) === true) {
+            /**
+             * @var \EoneoPay\PhpSdk\Requests\Payloads\CreditCard $endpoint
+             *
+             * @see https://youtrack.jetbrains.com/issue/WI-37859 typehint required until PhpStorm recognises === check
+             */
+            $endpoint = $response->getCreditCard();
+            $this->assertCreditCard($data, $endpoint);
         }
 
-        if ($response instanceof Ewallet) {
-            $this->assertEwallet($data, $response->getEwallet());
+        if (($response instanceof Ewallet) === true) {
+            /**
+             * @var \EoneoPay\PhpSdk\Requests\Payloads\Ewallet $endpoint
+             *
+             * @see https://youtrack.jetbrains.com/issue/WI-37859 typehint required until PhpStorm recognises === check
+             */
+            $endpoint = $response->getEwallet();
+            $this->assertEwallet($data, $endpoint);
         }
     }
 
