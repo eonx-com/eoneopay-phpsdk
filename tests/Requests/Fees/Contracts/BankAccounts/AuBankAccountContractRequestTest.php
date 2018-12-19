@@ -6,7 +6,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Fees\Contracts\BankAccounts;
 use EoneoPay\PhpSdk\Interfaces\Requests\Fees\ContractRequestInterface;
 use EoneoPay\PhpSdk\Requests\Fees\Contracts\BankAccounts\AuBankAccountContractRequest;
 use EoneoPay\PhpSdk\Responses\Fee;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Fees\Contracts\BankAccounts\AuBankAccountContractRequest

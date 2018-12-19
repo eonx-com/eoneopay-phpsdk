@@ -7,7 +7,8 @@ use EoneoPay\PhpSdk\Requests\Fees\Calculate\CreditCardRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Responses\Fees\Calculate\CreditCardFee;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Fees\Calculate\CalculateRequest
@@ -32,7 +33,7 @@ class CreditCardRequestTest extends RequestTestCase
                 'subtotal' => '100.00',
                 'total' => '100.10'
             ]),
-            'credit_card' => $this->getCreditCard()
+            'credit_card' => new CreditCardRequestStub()
         ];
 
         $response = $this->createClient($data)->create(new CreditCardRequest([
@@ -41,7 +42,7 @@ class CreditCardRequestTest extends RequestTestCase
                 'currency' => 'AUD',
                 'total' => '100.10'
             ]),
-            'credit_card' => $this->getCreditCard()
+            'credit_card' => new CreditCardRequestStub()
         ]));
 
         self::assertInstanceOf(CreditCardFee::class, $response);
@@ -63,7 +64,7 @@ class CreditCardRequestTest extends RequestTestCase
                 'amount' => new Amount([
                     'total' => '100.10'
                 ]),
-                'credit_card' => $this->getCreditCard()
+                'credit_card' => new CreditCardRequestStub()
             ]));
         } catch (\Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);

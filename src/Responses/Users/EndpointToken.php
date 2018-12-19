@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method null|string getName()
  * @method null|string getToken()
  */
-class EndpointToken extends BaseDataTransferObject
+abstract class EndpointToken extends BaseDataTransferObject
 {
     /**
      * @Groups({"tokenise"})

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\Transactions;
+namespace EoneoPay\PhpSdk\Requests\Transactions\Ewallets;
 
 use EoneoPay\PhpSdk\Requests\AbstractRequest;
-use EoneoPay\PhpSdk\Responses\Transaction;
+use EoneoPay\PhpSdk\Responses\Transactions\Ewallet;
 use EoneoPay\PhpSdk\Traits\TransactionTrait;
 
 class RetrieveRequest extends AbstractRequest
@@ -16,7 +16,7 @@ class RetrieveRequest extends AbstractRequest
      */
     public function expectObject(): string
     {
-        return Transaction::class;
+        return Ewallet::class;
     }
 
     /**

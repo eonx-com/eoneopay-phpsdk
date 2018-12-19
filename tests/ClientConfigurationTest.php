@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk;
 
 use EoneoPay\PhpSdk\ClientConfiguration;
+use Tests\EoneoPay\PhpSdk\TestCases\TestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\ClientConfiguration

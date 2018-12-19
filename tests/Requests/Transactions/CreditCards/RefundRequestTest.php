@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Requests\Transactions\CreditCards;
 
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\SecondaryRequest;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
+use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\CreditCardTransactionRequest
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\SecondaryRequest
  */
-class RefundRequestTest extends RequestTestCase
+class RefundRequestTest extends TransactionTestCase
 {
     /**
      * Test a successful refund request.
@@ -21,13 +22,16 @@ class RefundRequestTest extends RequestTestCase
      */
     public function testSuccessfulRefundRequest(): void
     {
-        $data = $this->getData($this->generateId());
+        $request = $this->getData($this->generateId());
 
-        $refund = new SecondaryRequest($data);
+        $refund = new SecondaryRequest($request);
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
+        $data = \array_merge(
+            $request,
+            ['credit_card' => (new CreditCardResponseStub())->toArray()]
+        );
+
         $response = $this->createClient($data)->delete($refund);
-
         // assertions
         $this->assertTransactionResponse($data, $response);
     }

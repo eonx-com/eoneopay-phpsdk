@@ -14,21 +14,39 @@ trait BankAccountTrait
      * @Assert\NotBlank(groups={"create", "tokenise"})
      * @Assert\Type(type="string", groups={"create", "tokenise"})
      *
-     * @Groups({"create", "update", "tokenise"})
+     * @Groups({"create", "tokenise"})
      *
      * @var null|string
      */
     protected $country;
 
     /**
+     * Bank account country.
+     *
+     * @Groups({"create", "tokenise"})
+     *
+     * @var null|string
+     */
+    protected $currency;
+
+    /**
+     * Endpoint id.
+     *
+     * @Groups({"create", "tokenise"})
+     *
+     * @var null|string
+     */
+    protected $id;
+
+    /**
      * Bank account name.
      *
      * @Assert\NotBlank(groups={"create", "tokenise"})
-     * @Assert\Type(type="string", groups={"create", "update", "tokenise"})
+     * @Assert\Type(type="string", groups={"create", "tokenise"})
      *
-     * @Groups({"create", "update", "tokenise"})
+     * @Groups({"create", "tokenise"})
      *
-     * @var string
+     * @var null|string
      */
     protected $name;
 
@@ -36,13 +54,22 @@ trait BankAccountTrait
      * Bank account number.
      *
      * @Assert\NotBlank(groups={"create", "tokenise"})
-     * @Assert\Type(type="string", groups={"create", "update", "tokenise"})
+     * @Assert\Type(type="string", groups={"create", "tokenise"})
      *
-     * @Groups({"create", "update", "tokenise"})
+     * @Groups({"create", "tokenise"})
      *
      * @var null|string
      */
     protected $number;
+
+    /**
+     * Bank account pan.
+     *
+     * @Groups({"create", "tokenise"})
+     *
+     * @var null|string
+     */
+    protected $pan;
 
     /**
      * Bank account prefix.
@@ -50,7 +77,7 @@ trait BankAccountTrait
      * @Assert\NotBlank(groups={"create", "tokenise"})
      * @Assert\Type(type="string", groups={"create", "tokenise"})
      *
-     * @Groups({"create", "update", "tokenise"})
+     * @Groups({"create", "tokenise"})
      *
      * @var null|string
      */

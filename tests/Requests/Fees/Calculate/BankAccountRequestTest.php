@@ -7,7 +7,8 @@ use EoneoPay\PhpSdk\Requests\Fees\Calculate\BankAccountRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Responses\Fees\Calculate\BankAccountFee;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\BankAccountRequestStub;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Fees\Calculate\CalculateRequest
@@ -32,7 +33,7 @@ class BankAccountRequestTest extends RequestTestCase
                 'subtotal' => '100.00',
                 'total' => '100.10'
             ]),
-            'bank_account' => $this->getBankAccount()
+            'bank_account' => new BankAccountRequestStub()
         ];
 
         $response = $this->createClient($data)->create(new BankAccountRequest([
@@ -41,7 +42,7 @@ class BankAccountRequestTest extends RequestTestCase
                 'currency' => 'AUD',
                 'total' => '100.10'
             ]),
-            'bank_account' => $this->getBankAccount()
+            'bank_account' => new BankAccountRequestStub()
         ]));
 
         self::assertInstanceOf(BankAccountFee::class, $response);
@@ -63,7 +64,7 @@ class BankAccountRequestTest extends RequestTestCase
                 'amount' => new Amount([
                     'total' => '100.10'
                 ]),
-                'bank_account' => $this->getBankAccount()
+                'bank_account' => new BankAccountRequestStub()
             ]));
         } catch (\Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);

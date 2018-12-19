@@ -7,13 +7,15 @@ use EoneoPay\PhpSdk\Requests\Payloads\Token;
 use EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\PrimaryRequest;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\BankAccountRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\BankAccountResponseStub;
+use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\BankAccountTransactionRequest
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\BankAccounts\PrimaryRequest
  */
-class CreditRequestTest extends RequestTestCase
+class CreditRequestTest extends TransactionTestCase
 {
     /**
      * Make sure validation exception are expected.
@@ -54,12 +56,17 @@ class CreditRequestTest extends RequestTestCase
      */
     public function testSuccessfulBankAccountCredit(): void
     {
-        $data = $this->getData();
+        $request = $this->getData();
 
-        $debit = new PrimaryRequest(\array_merge($data, [
+        $debit = new PrimaryRequest(\array_merge($request, [
             'action' => 'credit',
-            'bank_account' => $this->getBankAccount()
+            'bank_account' => new BankAccountRequestStub()
         ]));
+
+        $data = \array_merge(
+            $request,
+            ['bank_account' => (new BankAccountResponseStub())->toArray()]
+        );
 
         /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
         $response = $this->createClient($data)->create($debit);
@@ -77,14 +84,19 @@ class CreditRequestTest extends RequestTestCase
      */
     public function testSuccessfulTokenisedBankAccountCredit(): void
     {
-        $data = $this->getData();
+        $request = $this->getData();
 
-        $debit = new PrimaryRequest(\array_merge($data, [
+        $debit = new PrimaryRequest(\array_merge($request, [
             'action' => 'credit',
             'bank_account' => new Token([
                 'token' => '7E89WDAVVWHWH83NUC26'
             ])
         ]));
+
+        $data = \array_merge(
+            $request,
+            ['bank_account' => (new BankAccountResponseStub())->toArray()]
+        );
 
         /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
         $response = $this->createClient($data)->create($debit);

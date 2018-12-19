@@ -7,14 +7,16 @@ use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\SecondaryRequest;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
+use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\CreditCardTransactionRequest
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\CreditCards\SecondaryRequest
  */
-class AuthoriseAndCaptureRequestTest extends RequestTestCase
+class AuthoriseAndCaptureRequestTest extends TransactionTestCase
 {
     /**
      * Test authorise a credit card transaction successfully.
@@ -25,13 +27,17 @@ class AuthoriseAndCaptureRequestTest extends RequestTestCase
      */
     public function testAuthoriseSuccessfully(): void
     {
-        $data = $this->getData();
+        $request = $this->getData();
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
+        $data = \array_merge(
+            $request,
+            ['credit_card' => (new CreditCardResponseStub())->toArray()]
+        );
+
         $response = $this->createClient($data)->create(
             new PrimaryRequest(
-                \array_merge($data, [
-                    'credit_card' => $this->getCreditCard(),
+                \array_merge($request, [
+                    'credit_card' => new CreditCardRequestStub(),
                     'action' => 'authorise'
                 ])
             )
@@ -50,11 +56,15 @@ class AuthoriseAndCaptureRequestTest extends RequestTestCase
      */
     public function testCaptureSuccessfully(): void
     {
-        $data = $this->getData($this->generateId());
+        $request = $this->getData($this->generateId());
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
+        $data = \array_merge(
+            $request,
+            ['credit_card' => (new CreditCardResponseStub())->toArray()]
+        );
+
         $response = $this->createClient($data)->update(
-            new SecondaryRequest(\array_merge($data, ['credit_card' => $this->getCreditCard()]))
+            new SecondaryRequest(\array_merge($request, ['credit_card' => new CreditCardRequestStub()]))
         );
 
         // assertions
@@ -77,7 +87,7 @@ class AuthoriseAndCaptureRequestTest extends RequestTestCase
 
         try {
             $this->createClient($data)->create(new PrimaryRequest(
-                \array_merge($data, ['credit_card' => $this->getCreditCard()])
+                \array_merge($data, ['credit_card' => new CreditCardRequestStub()])
             ));
         } catch (Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);

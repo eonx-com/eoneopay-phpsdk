@@ -7,7 +7,8 @@ use EoneoPay\PhpSdk\Requests\Fees\Calculate\EwalletRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Responses\Fees\Calculate\EwalletFee;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletRequestStub;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Fees\Calculate\CalculateRequest
@@ -32,7 +33,7 @@ class EwalletRequestTest extends RequestTestCase
                 'subtotal' => '100.00',
                 'total' => '100.10'
             ]),
-            'ewallet' => $this->getEwallet()
+            'ewallet' => new EwalletRequestStub()
         ];
 
         $response = $this->createClient($data)->create(new EwalletRequest([
@@ -41,7 +42,7 @@ class EwalletRequestTest extends RequestTestCase
                 'currency' => 'AUD',
                 'total' => '100.10'
             ]),
-            'ewallet' => $this->getEwallet()
+            'ewallet' => new EwalletRequestStub()
         ]));
 
         self::assertInstanceOf(EwalletFee::class, $response);
@@ -63,7 +64,7 @@ class EwalletRequestTest extends RequestTestCase
                 'amount' => new Amount([
                     'total' => '100.10'
                 ]),
-                'ewallet' => $this->getEwallet()
+                'ewallet' => new EwalletRequestStub()
             ]));
         } catch (\Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);

@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @method null|Response getResponse()
  * @method null|string getStatus()
  */
-class Transaction extends BaseDataTransferObject
+abstract class Transaction extends BaseDataTransferObject
 {
     use TransactionTrait;
 

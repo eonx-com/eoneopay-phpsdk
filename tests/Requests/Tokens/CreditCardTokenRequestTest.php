@@ -5,10 +5,12 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
 
 use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\CreditCardTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
-use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
+use EoneoPay\PhpSdk\Responses\Users\EndpointTokens\CreditCardToken;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\CreditCardTokenRequest
@@ -26,16 +28,13 @@ class CreditCardTokenRequestTest extends RequestTestCase
     {
         $data = $this->getTokenisedData();
 
-        /** @var \EoneoPay\PhpSdk\Responses\Users\EndpointToken $response */
         $response = $this->createClient($data)->create(new CreditCardTokenRequest([
-            'credit_card' => new CreditCard([
-                'cvc' => '100',
-                'expiry' => new Expiry(['month' => '05', 'year' => '2021']),
-                'name' => 'John Wick',
-                'number' => '5123450000000008'
-            ])
+            'credit_card' => new CreditCardRequestStub()
         ]));
 
+        self::assertInstanceOf(CreditCardToken::class, $response);
+        self::assertInstanceOf(CreditCard::class, $response->getCreditCard());
+        $this->assertCreditCard($data, $response->getCreditCard());
         self::assertSame($data['name'], $response->getName());
         self::assertSame($data['token'], $response->getToken());
     }
@@ -66,5 +65,19 @@ class CreditCardTokenRequestTest extends RequestTestCase
             /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
             self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
         }
+    }
+
+    /**
+     * Get tokenised credit card data.
+     *
+     * @return mixed[]
+     */
+    protected function getTokenisedData(): array
+    {
+        return [
+            'credit_card' => (new CreditCardResponseStub())->toArray(),
+            'name' => 'John Wick',
+            'token' => 'WCA3E4HRZXZARDB96BT6'
+        ];
     }
 }

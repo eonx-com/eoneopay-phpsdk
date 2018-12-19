@@ -7,13 +7,14 @@ use EoneoPay\PhpSdk\Requests\Payloads\Token;
 use EoneoPay\PhpSdk\Requests\Transactions\Ewallets\PrimaryRequest;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletResponseStub;
+use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\Ewallets\EwalletTransactionRequest
  * @covers \EoneoPay\PhpSdk\Requests\Transactions\Ewallets\PrimaryRequest
  */
-class TransferRequestTest extends RequestTestCase
+class TransferRequestTest extends TransactionTestCase
 {
     /**
      * Make sure the exception structure and validation rules are thrown as expected.
@@ -52,9 +53,9 @@ class TransferRequestTest extends RequestTestCase
      */
     public function testSuccessfulCreditCardDebit(): void
     {
-        $data = $this->getData();
-        $debit = new PrimaryRequest(
-            \array_merge($data, [
+        $request = $this->getData();
+        $transfer = new PrimaryRequest(
+            \array_merge($request, [
                 'action' => 'transfer',
                 'ewallet' => new Token([
                     'token' => 'GZNWCUTTUKDKM7APFTM3'
@@ -65,9 +66,12 @@ class TransferRequestTest extends RequestTestCase
             ])
         );
 
-        /** @var \EoneoPay\PhpSdk\Responses\Transaction $response */
-        $response = $this->createClient($data)->create($debit);
+        $data = \array_merge(
+            $request,
+            ['ewallet' => (new EwalletResponseStub())->toArray()]
+        );
 
+        $response = $this->createClient($data)->create($transfer);
         // assertions
         $this->assertTransactionResponse($data, $response);
     }

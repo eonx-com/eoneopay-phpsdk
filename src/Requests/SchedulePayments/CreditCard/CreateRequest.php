@@ -4,12 +4,15 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Requests\SchedulePayments\CreditCard;
 
 use EoneoPay\PhpSdk\Requests\SchedulePayments\SchedulePaymentRequest;
+use EoneoPay\PhpSdk\Responses\SchedulePayments\CreditCard;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateRequest extends SchedulePaymentRequest
 {
     /**
+     * Credit card endpoint.
+     *
      * @Assert\NotNull(groups={"create"})
      * @Assert\Valid(groups={"create"})
      *
@@ -22,10 +25,18 @@ class CreateRequest extends SchedulePaymentRequest
     /**
      * @inheritdoc
      */
+    public function expectObject(): ?string
+    {
+        return CreditCard::class;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function uris(): array
     {
         return [
-            self::CREATE => '/schedule'
+            self::CREATE => \sprintf('/schedules/%s', $this->id)
         ];
     }
 }

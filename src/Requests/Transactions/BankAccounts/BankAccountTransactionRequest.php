@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Requests\Transactions\BankAccounts;
 
 use EoneoPay\PhpSdk\Requests\AbstractRequest;
-use EoneoPay\PhpSdk\Responses\Transaction;
+use EoneoPay\PhpSdk\Responses\Transactions\BankAccount;
 use EoneoPay\PhpSdk\Traits\TransactionTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -38,6 +38,6 @@ abstract class BankAccountTransactionRequest extends AbstractRequest
      */
     public function expectObject(): string
     {
-        return Transaction::class;
+        return BankAccount::class;
     }
 }

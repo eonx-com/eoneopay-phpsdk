@@ -7,7 +7,7 @@ use EoneoPay\PhpSdk\Requests\Users\ApiKeys\CreateRequest;
 use EoneoPay\PhpSdk\Requests\Users\ApiKeys\RevokeRequest;
 use EoneoPay\PhpSdk\Responses\Users\ApiKey;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Requests\Users\ApiKeys\CreateRequest
