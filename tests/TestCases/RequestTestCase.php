@@ -4,12 +4,14 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\TestCases;
 
 use EoneoPay\PhpSdk\Client;
-use EoneoPay\PhpSdk\ClientConfiguration;
 use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCards\Expiry;
 use EoneoPay\PhpSdk\Requests\Payloads\Ewallet;
-use Tests\EoneoPay\PhpSdk\MockClient;
+use EoneoPay\Utils\DateTime;
+use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * @SuppressWarnings(PHPMD.NumberOfChildren) Test case, all request tests extend this
@@ -81,18 +83,19 @@ abstract class RequestTestCase extends TestCase
      * @param mixed[] $body
      * @param int|null $responseCode
      *
-     * @return \Tests\EoneoPay\PhpSdk\MockClient
+     * @return \EoneoPay\PhpSdk\Client
      *
      * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException If string passed to constructor is invalid
      */
-    protected function createClient(?array $body = null, ?int $responseCode = null): MockClient
+    protected function createClient(?array $body = null, ?int $responseCode = null): Client
     {
-        $body = $body ?? [];
-
-        return new MockClient($body, $responseCode, [
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json'
-        ]);
+        return (new Client())->setHandler(new MockHandler([
+            new Response(
+                $responseCode ?? 200,
+                ['Accept' => 'application/json', 'Content-Type' => 'application/json'],
+                \json_encode($this->formatData($body ?? []))
+            )
+        ]));
     }
 
     /**
@@ -102,9 +105,42 @@ abstract class RequestTestCase extends TestCase
      */
     protected function createLiveClient(): Client
     {
-        return new Client(new ClientConfiguration(
-            (string)\getenv('PAYMENTS_API_KEY'),
-            (string)\getenv('PAYMENTS_BASE_URI')
-        ));
+        return (new Client())->setApiKey((string)\getenv('PAYMENTS_API_KEY'))
+            ->setBaseUri((string)\getenv('PAYMENTS_BASE_URI'));
+    }
+
+    /**
+     * Format response data.
+     *
+     * @param mixed[] $content
+     *
+     * @return mixed[]
+     *
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
+     */
+    private function formatData(array $content): array
+    {
+        if (isset($content['amount'])) {
+            /**  @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
+            $amount = $content['amount'];
+
+            $content = \array_replace($content, [
+                'approved' => true,
+                'completed_at' => (new DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU),
+                'amount' => [
+                    'currency' => $amount->getCurrency(),
+                    'payment_fee' => $amount->getPaymentFee(),
+                    'subtotal' => $amount->getSubtotal(),
+                    'total' => $amount->getTotal()
+                ],
+                'status' => 'completed'
+            ]);
+        }
+
+        if (\array_key_exists(0, $content) === true) {
+            $content[0] = $this->formatData($content[0]);
+        }
+
+        return $content;
     }
 }
