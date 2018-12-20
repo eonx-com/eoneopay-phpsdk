@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk;
 
 use EoneoPay\PhpSdk\Interfaces\ClientConfigurationInterface;
-use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Client as Guzzle;
+use GuzzleHttp\Handler\MockHandler;
 use LoyaltyCorp\SdkBlueprint\Sdk\Client as BaseClient;
 
 class Client extends BaseClient
@@ -16,9 +17,16 @@ class Client extends BaseClient
      */
     public function __construct(ClientConfigurationInterface $configuration)
     {
-        parent::__construct(new GuzzleClient([
+        $options = [
             'auth' => [$configuration->getApiKey(), null],
             'base_uri' => $configuration->getBaseUri()
-        ]));
+        ];
+
+        // Only add handler if provided
+        if ($configuration->getHandler() instanceof MockHandler) {
+            $options['handler'] = $configuration->getHandler();
+        }
+
+        parent::__construct(new Guzzle($options));
     }
 }

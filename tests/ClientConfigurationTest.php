@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk;
 
 use EoneoPay\PhpSdk\ClientConfiguration;
+use GuzzleHttp\Handler\MockHandler;
 use Tests\EoneoPay\PhpSdk\TestCases\TestCase;
 
 /**
@@ -18,9 +19,12 @@ class ClientConfigurationTest extends TestCase
      */
     public function testObjectFunctionality(): void
     {
-        $config = new ClientConfiguration('api-key', 'https://api.test.com');
+        $handler = new MockHandler([]);
+
+        $config = new ClientConfiguration('api-key', 'https://api.test.com', $handler);
 
         self::assertSame('api-key', $config->getApiKey());
         self::assertSame('https://api.test.com', $config->getBaseUri());
+        self::assertSame($handler, $config->getHandler());
     }
 }

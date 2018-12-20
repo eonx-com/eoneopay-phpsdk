@@ -5,6 +5,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Users;
 
 use EoneoPay\PhpSdk\Requests\Users\UserRequest;
 use EoneoPay\PhpSdk\Responses\User;
+use EoneoPay\Utils\Exceptions\BaseException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
@@ -24,7 +25,7 @@ class UserRequestTest extends RequestTestCase
 
         try {
             $this->createClient($data)->create(new UserRequest($data));
-        } catch (\Exception $exception) {
+        } catch (BaseException $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [
@@ -49,7 +50,7 @@ class UserRequestTest extends RequestTestCase
     public function testCreateSuccessfully(): void
     {
         $data = [
-            'id' => \uniqid('test-', false),
+            'id' => \uniqid('test-', true),
             'email' => 'genuine.user@email.test',
             'primary_ewallet' => [
                 'reference' => 'FKU24BHHU5',
@@ -79,7 +80,7 @@ class UserRequestTest extends RequestTestCase
     public function testFetchSuccessfully(): void
     {
         $data = [
-            'id' => \uniqid('test-', false),
+            'id' => \uniqid('test-', true),
             'email' => 'genuine.user@email.test'
         ];
 

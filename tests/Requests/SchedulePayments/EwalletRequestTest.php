@@ -120,7 +120,7 @@ class EwalletRequestTest extends RequestTestCase
         /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
         $amount = $data['amount'];
 
-        $this->assertInstanceOf(EwalletPayload::class, $response->getEwallet());
+        self::assertInstanceOf(EwalletPayload::class, $response->getEwallet());
 
         /** @var \EoneoPay\PhpSdk\Requests\Payloads\Ewallet $ewallet */
         $ewallet = $response->getEwallet();

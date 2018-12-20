@@ -27,7 +27,7 @@ class CreditCardResponseStub
                 'month' => '05',
                 'year' => '2099'
             ],
-            'id' => \uniqid('', false),
+            'id' => \uniqid('', true),
             'issuer' => 'U.S. BANK NATIONAL ASSOCIATION, ND',
             'method' => 'DEBIT',
             'pan' => '5123450...0008',

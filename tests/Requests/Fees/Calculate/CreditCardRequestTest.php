@@ -6,6 +6,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Fees\Calculate;
 use EoneoPay\PhpSdk\Requests\Fees\Calculate\CreditCardRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Responses\Fees\Calculate\CreditCardFee;
+use EoneoPay\Utils\Exceptions\BaseException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
@@ -66,7 +67,7 @@ class CreditCardRequestTest extends RequestTestCase
                 ]),
                 'credit_card' => new CreditCardRequestStub()
             ]));
-        } catch (\Exception $exception) {
+        } catch (BaseException $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [

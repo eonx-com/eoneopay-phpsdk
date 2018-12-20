@@ -82,6 +82,8 @@ abstract class RequestTestCase extends TestCase
      * @param int|null $responseCode
      *
      * @return \Tests\EoneoPay\PhpSdk\MockClient
+     *
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException If string passed to constructor is invalid
      */
     protected function createClient(?array $body = null, ?int $responseCode = null): MockClient
     {

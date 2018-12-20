@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk;
 
 use EoneoPay\PhpSdk\Interfaces\ClientConfigurationInterface;
+use GuzzleHttp\Handler\MockHandler;
 
 class ClientConfiguration implements ClientConfigurationInterface
 {
@@ -18,15 +19,22 @@ class ClientConfiguration implements ClientConfigurationInterface
     private $baseUri;
 
     /**
+     * @var \GuzzleHttp\Handler\MockHandler|null
+     */
+    private $handler;
+
+    /**
      * ClientConfiguration constructor.
      *
      * @param string $apiKey
      * @param string $baseUri
+     * @param \GuzzleHttp\Handler\MockHandler|null $handler
      */
-    public function __construct(string $apiKey, string $baseUri)
+    public function __construct(string $apiKey, string $baseUri, ?MockHandler $handler = null)
     {
         $this->apiKey = $apiKey;
         $this->baseUri = $baseUri;
+        $this->handler = $handler;
     }
 
     /**
@@ -47,5 +55,13 @@ class ClientConfiguration implements ClientConfigurationInterface
     public function getBaseUri(): string
     {
         return $this->baseUri;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getHandler(): ?MockHandler
+    {
+        return $this->handler;
     }
 }

@@ -6,6 +6,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Users;
 use EoneoPay\PhpSdk\Requests\Users\ApiKeys\CreateRequest;
 use EoneoPay\PhpSdk\Requests\Users\ApiKeys\RevokeRequest;
 use EoneoPay\PhpSdk\Responses\Users\ApiKey;
+use EoneoPay\Utils\Exceptions\BaseException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
@@ -24,7 +25,7 @@ class ApiKeyRequestTest extends RequestTestCase
     {
         try {
             $this->createClient([])->create(new CreateRequest([]));
-        } catch (\Exception $exception) {
+        } catch (BaseException $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [
@@ -49,7 +50,7 @@ class ApiKeyRequestTest extends RequestTestCase
     {
         /** @var \EoneoPay\PhpSdk\Responses\Users\ApiKey $apiKey */
         $apiKey = $this->createClient([
-            'key' => \uniqid('', false)
+            'key' => \uniqid('', true)
         ])->create(new CreateRequest([
             'id' => 'dodgyUser5'
         ]));
@@ -67,7 +68,7 @@ class ApiKeyRequestTest extends RequestTestCase
     {
         try {
             $this->createClient([])->delete(new RevokeRequest([]));
-        } catch (\Exception $exception) {
+        } catch (BaseException $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [

@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Responses;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
+use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
+use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
+use EoneoPay\PhpSdk\Requests\Payloads\Ewallet;
 use EoneoPay\PhpSdk\Responses\Transactions\Response;
 use EoneoPay\PhpSdk\Traits\TransactionTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
@@ -12,6 +15,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @method null|Amount getAmount()
+ * @method null|BankAccount getBankAccount()
+ * @method null|CreditCard getCreditCard()
+ * @method null|Ewallet getEwallet()
  * @method null|bool getApproved()
  * @method null|string getCompletedAt()
  * @method null|string getId()

@@ -23,7 +23,7 @@ class EwalletResponseStub
     {
         $this->data = \array_merge([
             'currency' => 'AUD',
-            'id' => \uniqid('', false),
+            'id' => \uniqid('', true),
             'pan' => '2...H6A3',
             'reference' => '2JERVUH6A3'
         ], $data ?? []);

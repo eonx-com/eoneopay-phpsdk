@@ -23,7 +23,7 @@ class BankAccountResponseStub
     {
         $this->data = \array_merge([
             'currency' => 'AUD',
-            'id' => \uniqid('', false),
+            'id' => \uniqid('', true),
             'pan' => '123-123...6601',
             'prefix' => '123123',
             'number' => '0876601'

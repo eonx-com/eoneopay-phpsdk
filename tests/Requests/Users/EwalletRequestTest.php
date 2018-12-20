@@ -5,6 +5,7 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Users;
 
 use EoneoPay\PhpSdk\Requests\Users\EwalletRequest;
 use EoneoPay\PhpSdk\Responses\Users\Ewallet;
+use EoneoPay\Utils\Exceptions\BaseException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
@@ -23,7 +24,7 @@ class EwalletRequestTest extends RequestTestCase
     {
         try {
             $this->createClient([])->create(new EwalletRequest([]));
-        } catch (\Exception $exception) {
+        } catch (BaseException $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [
@@ -67,7 +68,7 @@ class EwalletRequestTest extends RequestTestCase
         $ewallets = $this->createClient([
             [
                 'currency' => 'AUD',
-                'id' => \uniqid('', false),
+                'id' => \uniqid('', true),
                 'pan' => '1...2343',
                 'reference' => '1242343'
             ]

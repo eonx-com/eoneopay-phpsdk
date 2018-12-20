@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Interfaces;
 
+use GuzzleHttp\Handler\MockHandler;
+
 interface ClientConfigurationInterface
 {
     /**
@@ -18,4 +20,11 @@ interface ClientConfigurationInterface
      * @return string
      */
     public function getBaseUri(): string;
+
+    /**
+     * Get handler
+     *
+     * @return \GuzzleHttp\Handler\MockHandler|null
+     */
+    public function getHandler(): ?MockHandler;
 }

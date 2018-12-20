@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Requests\Fees\Contracts;
 
+use EoneoPay\Utils\Exceptions\BaseException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\Stubs\Fees\ContractRequestStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
@@ -21,7 +22,7 @@ class ContractRequestTest extends RequestTestCase
     {
         try {
             $this->createClient()->create(new ContractRequestStub());
-        } catch (\Exception $exception) {
+        } catch (BaseException $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
             $expected = [
