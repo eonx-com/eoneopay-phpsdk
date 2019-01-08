@@ -15,7 +15,7 @@ class AllocationStub extends Allocation
     public function __construct(?array $data = null)
     {
         parent::__construct(\array_merge([
-            'ewallet' => 'test-ewallet',
+            'ewallet' => '9H9BXKEKD9',
             'percentage' => '50'
         ], $data ?? []));
     }
