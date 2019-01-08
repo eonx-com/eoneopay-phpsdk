@@ -36,7 +36,7 @@ class PrimaryRequest extends EwalletTransactionRequest
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('/transactions/%s', $this->id)
+            self::CREATE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->secondaryId)
         ];
     }
 }

@@ -96,6 +96,7 @@ class TransactionTestCase extends RequestTestCase
             'id' => $this->generateId('test-'),
             'original_id' => $originalId,
             'name' => 'John Wick',
+            'secondary_id' => $this->generateId('sec-'),
             'statement_description' => 'Test order'
         ];
     }

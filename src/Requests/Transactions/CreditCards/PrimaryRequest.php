@@ -17,7 +17,7 @@ class PrimaryRequest extends CreditCardTransactionRequest
      *
      * @var \EoneoPay\PhpSdk\Requests\Payloads\Allocation|null
      */
-    protected $allocations;
+    protected $allocation;
 
     /**
      * @inheritdoc
@@ -25,7 +25,7 @@ class PrimaryRequest extends CreditCardTransactionRequest
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('/transactions/%s', $this->id)
+            self::CREATE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->secondaryId)
         ];
     }
 }

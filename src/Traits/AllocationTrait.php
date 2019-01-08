@@ -33,4 +33,18 @@ trait AllocationTrait
      * @var null|string
      */
     protected $ewallet;
+
+    /**
+     * Percentage.
+     *
+     * @Assert\NotBlank(groups={"create_schedule"})
+     * @Assert\Type(type="string", groups={"create_schedule"})
+     * @Assert\Type(type="numeric", groups={"create_schedule"})
+     * @Assert\GreaterThan(value="0", groups={"create_schedule"})
+     *
+     * @Groups({"create_schedule"})
+     *
+     * @var null|string
+     */
+    protected $percentage;
 }
