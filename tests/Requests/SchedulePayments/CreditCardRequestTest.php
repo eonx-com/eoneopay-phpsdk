@@ -13,6 +13,7 @@ use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
+use Tests\EoneoPay\PhpSdk\Stubs\SchedulePayments\AllocationStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
@@ -43,7 +44,7 @@ class CreditCardRequestTest extends RequestTestCase
 
         $response = $this->createClient($data)->create(new CreateRequest(\array_merge(
             $request,
-            ['credit_card' => new CreditCardRequestStub()]
+            ['credit_card' => new CreditCardRequestStub(), 'allocation' => new AllocationStub()]
         )));
 
         // assertions

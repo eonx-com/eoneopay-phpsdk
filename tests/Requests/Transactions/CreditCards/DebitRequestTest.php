@@ -59,7 +59,7 @@ class DebitRequestTest extends TransactionTestCase
             $this->getData(),
             [
                 'action' => 'debit',
-                'allocations' => new Allocation([]),
+                'allocation' => new Allocation([]),
                 'credit_card' => new CreditCardRequestStub()
             ]
         ));
@@ -71,9 +71,9 @@ class DebitRequestTest extends TransactionTestCase
 
             $expected = [
                 'violations' => [
-                    'allocations.records' => ['This value should not be null.'],
-                    'allocations.amount' => ['This value should not be blank.'],
-                    'allocations.ewallet' => ['This value should not be blank.']
+                    'allocation.records' => ['This value should not be null.'],
+                    'allocation.amount' => ['This value should not be blank.'],
+                    'allocation.ewallet' => ['This value should not be blank.']
                 ]
             ];
 
@@ -121,7 +121,7 @@ class DebitRequestTest extends TransactionTestCase
         $request = $this->getData();
         $debit = new PrimaryRequest(\array_merge($request, [
             'action' => 'debit',
-            'allocations' => new Allocation([
+            'allocation' => new Allocation([
                 'amount' => '50.00',
                 'ewallet' => 'T9AGW29FKJEU7B7TJFT2',
                 'records' => [

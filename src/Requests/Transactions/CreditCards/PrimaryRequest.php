@@ -17,7 +17,7 @@ class PrimaryRequest extends CreditCardTransactionRequest
      *
      * @var \EoneoPay\PhpSdk\Requests\Payloads\Allocation|null
      */
-    protected $allocations;
+    protected $allocation;
 
     /**
      * @inheritdoc
