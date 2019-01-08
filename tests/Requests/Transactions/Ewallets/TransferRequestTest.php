@@ -35,7 +35,8 @@ class TransferRequestTest extends TransactionTestCase
                     'amount' => ['This value should not be null.'],
                     'ewallet' => ['This value should not be null.'],
                     'action' => ['This value should not be blank.'],
-                    'id' => ['This value should not be blank.']
+                    'id' => ['This value should not be blank.'],
+                    'secondary_id' => ['This value should not be blank.']
                 ]
             ];
 

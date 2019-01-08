@@ -36,7 +36,7 @@ trait TransactionTrait
     /**
      * Transaction id.
      *
-     * @Assert\NotBlank(groups={"create", "update"})
+     * @Assert\NotBlank(groups={"create", "delete", "update"})
      *
      * @Groups({"create", "delete", "update"})
      *
@@ -63,6 +63,17 @@ trait TransactionTrait
      * @var null|string
      */
     protected $originalId;
+
+    /**
+     * Secondary Id.
+     *
+     * @Assert\NotBlank(groups={"create", "delete", "update"})
+     *
+     * @Groups({"create", "delete", "update"})
+     *
+     * @var null|string
+     */
+    protected $secondaryId;
 
     /**
      * Security Id.

@@ -38,7 +38,8 @@ class DebitRequestTest extends TransactionTestCase
                     'amount' => ['This value should not be null.'],
                     'credit_card' => ['This value should not be null.'],
                     'action' => ['This value should not be blank.'],
-                    'id' => ['This value should not be blank.']
+                    'id' => ['This value should not be blank.'],
+                    'secondary_id' => ['This value should not be blank.']
                 ]
             ];
 
