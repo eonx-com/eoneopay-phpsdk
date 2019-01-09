@@ -13,14 +13,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 abstract class EndpointToken extends BaseDataTransferObject
 {
     /**
-     * @Groups({"tokenise"})
+     * @Groups({"tokenise", "token_info"})
      *
      * @var null|string
      */
     protected $name;
 
     /**
-     * @Groups({"tokenise"})
+     * @Groups({"tokenise", "token_info"})
      *
      * @var null|string
      */

@@ -15,7 +15,7 @@ class CreditCardToken extends EndpointToken
     /**
      * Credit card endpoint.
      *
-     * @Groups({"tokenise"})
+     * @Groups({"get", "tokenise"})
      *
      * @var null|\EoneoPay\PhpSdk\Requests\Payloads\CreditCard
      */

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
+namespace Tests\EoneoPay\PhpSdk\Requests\Tokenise;
 
-use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\CreditCardTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
+use EoneoPay\PhpSdk\Requests\Tokenise\CreditCardRequest;
 use EoneoPay\PhpSdk\Responses\Users\EndpointTokens\CreditCardToken;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
@@ -13,9 +13,9 @@ use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
- * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\CreditCardTokenRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Tokenise\CreditCardRequest
  */
-class CreditCardTokenRequestTest extends RequestTestCase
+class CreditCardRequestTest extends RequestTestCase
 {
     /**
      * Test a successful credit card tokenise request.
@@ -28,7 +28,7 @@ class CreditCardTokenRequestTest extends RequestTestCase
     {
         $data = $this->getTokenisedData();
 
-        $response = $this->createClient($data)->create(new CreditCardTokenRequest([
+        $response = $this->createClient($data)->create(new CreditCardRequest([
             'credit_card' => new CreditCardRequestStub()
         ]));
 
@@ -49,7 +49,7 @@ class CreditCardTokenRequestTest extends RequestTestCase
     public function testInvalidRequest(): void
     {
         try {
-            $this->createClient([])->create(new CreditCardTokenRequest([
+            $this->createClient([])->create(new CreditCardRequest([
                 'credit_card' => new CreditCard()
             ]));
         } catch (Exception $exception) {

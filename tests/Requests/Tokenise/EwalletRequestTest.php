@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
+namespace Tests\EoneoPay\PhpSdk\Requests\Tokenise;
 
-use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\EwalletTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\Ewallet;
+use EoneoPay\PhpSdk\Requests\Tokenise\EwalletRequest;
 use EoneoPay\PhpSdk\Responses\Users\EndpointTokens\EwalletToken;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletRequestStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
- * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\EwalletTokenRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Tokenise\EwalletRequest
  */
-class EwalletTokenRequestTest extends RequestTestCase
+class EwalletRequestTest extends RequestTestCase
 {
     /**
      * Test a successful bank account tokenise request.
@@ -26,7 +26,7 @@ class EwalletTokenRequestTest extends RequestTestCase
     {
         $data = $this->getTokenisedData();
 
-        $response = $this->createClient($data)->create(new EwalletTokenRequest([
+        $response = $this->createClient($data)->create(new EwalletRequest([
             'ewallet' => new EwalletRequestStub()
         ]));
 
