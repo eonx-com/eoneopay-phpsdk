@@ -5,9 +5,6 @@ namespace Tests\EoneoPay\PhpSdk\Stubs\Endpoints;
 
 use EoneoPay\PhpSdk\Requests\Endpoints\TokenRequest;
 
-/**
- * @coversNothing
- */
 class TokenRequestStub extends TokenRequest
 {
     /**

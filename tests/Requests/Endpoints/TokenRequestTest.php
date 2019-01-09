@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Requests\Endpoints;
 
-use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\CreditCardRequest;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\TokenRequestStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
@@ -21,7 +21,7 @@ class TokenRequestTest extends RequestTestCase
     public function testGetTokenInfoWillThrowException(): void
     {
         try {
-            $this->createClient()->get(new CreditCardRequest());
+            $this->createClient()->get(new TokenRequestStub());
         } catch (Exception $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 
