@@ -10,7 +10,8 @@ use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
- * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Endpoints\TokenRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\CreditCardRequest
  */
 class CreditCardRequestTest extends RequestTestCase
 {

@@ -10,7 +10,8 @@ use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
- * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Endpoints\TokenRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\EwalletRequest
  */
 class EwalletRequestTest extends RequestTestCase
 {
