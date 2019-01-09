@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\EoneoPay\PhpSdk\Requests\Tokens;
+namespace Tests\EoneoPay\PhpSdk\Requests\Tokenise;
 
-use EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountTokenRequest;
 use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
+use EoneoPay\PhpSdk\Requests\Tokenise\BankAccountRequest;
 use EoneoPay\PhpSdk\Responses\Users\EndpointTokens\BankAccountToken;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
@@ -13,9 +13,9 @@ use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\BankAccountResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
- * @covers \EoneoPay\PhpSdk\Requests\Endpoints\Tokens\BankAccountTokenRequest
+ * @covers \EoneoPay\PhpSdk\Requests\Tokenise\BankAccountRequest
  */
-class BankAccountTokenRequestTest extends RequestTestCase
+class BankAccountRequestTest extends RequestTestCase
 {
     /**
      * Test a successful bank account tokenise request.
@@ -28,7 +28,7 @@ class BankAccountTokenRequestTest extends RequestTestCase
     {
         $data = $this->getTokenisedData();
 
-        $response = $this->createClient($data)->create(new BankAccountTokenRequest([
+        $response = $this->createClient($data)->create(new BankAccountRequest([
             'bank_account' => new BankAccountRequestStub()
         ]));
 
@@ -49,7 +49,7 @@ class BankAccountTokenRequestTest extends RequestTestCase
     public function testInvalidRequest(): void
     {
         try {
-            $this->createClient([])->create(new BankAccountTokenRequest([
+            $this->createClient([])->create(new BankAccountRequest([
                 'bank_account' => new BankAccount()
             ]));
         } catch (Exception $exception) {

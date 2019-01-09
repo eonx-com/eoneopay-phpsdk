@@ -15,7 +15,7 @@ class BankAccountToken extends EndpointToken
     /**
      * Bank account endpoint.
      *
-     * @Groups({"tokenise"})
+     * @Groups({"get", "tokenise"})
      *
      * @var null|\EoneoPay\PhpSdk\Requests\Payloads\BankAccount
      */

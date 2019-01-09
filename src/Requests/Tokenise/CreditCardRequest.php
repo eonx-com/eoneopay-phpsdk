@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\Endpoints\Tokens;
+namespace EoneoPay\PhpSdk\Requests\Tokenise;
 
 use EoneoPay\PhpSdk\Requests\AbstractRequest;
 use EoneoPay\PhpSdk\Responses\Users\EndpointTokens\CreditCardToken;
@@ -10,7 +10,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestValidationGroupAwareInterface
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreditCardTokenRequest extends AbstractRequest implements
+class CreditCardRequest extends AbstractRequest implements
     RequestSerializationGroupAwareInterface,
     RequestValidationGroupAwareInterface
 {

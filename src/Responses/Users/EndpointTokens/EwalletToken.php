@@ -15,7 +15,7 @@ class EwalletToken extends EndpointToken
     /**
      * Ewallet endpoint.
      *
-     * @Groups({"tokenise"})
+     * @Groups({"get", "tokenise"})
      *
      * @var null|\EoneoPay\PhpSdk\Requests\Payloads\Ewallet
      */
