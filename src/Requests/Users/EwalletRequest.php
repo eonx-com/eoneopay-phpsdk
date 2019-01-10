@@ -38,6 +38,7 @@ class EwalletRequest extends AbstractRequest implements
     {
         return [
             self::CREATE => \sprintf('/users/%s/ewallets', $this->id),
+            self::GET => \sprintf('/users/%s/ewallets/%s', $this->id, $this->token ?? $this->reference),
             self::LIST => \sprintf('/users/%s/ewallets', $this->id)
         ];
     }
