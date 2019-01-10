@@ -5,7 +5,9 @@ namespace Tests\EoneoPay\PhpSdk\Requests\Users;
 
 use EoneoPay\PhpSdk\Requests\Users\EwalletRequest;
 use EoneoPay\PhpSdk\Responses\Users\Ewallet;
+use EoneoPay\PhpSdk\Responses\Users\Ewallets\Balances;
 use EoneoPay\Utils\Exceptions\BaseException;
+use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletResponseStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
@@ -16,7 +18,7 @@ use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 class EwalletRequestTest extends RequestTestCase
 {
     /**
-     * Create ewallet will throw exception when id is not provided.
+     * Test that create ewallet will throw exception when id is not provided.
      *
      * @return void
      */
@@ -39,7 +41,7 @@ class EwalletRequestTest extends RequestTestCase
     }
 
     /**
-     * Create ewallet for a user.
+     * Test create ewallet for a user successfully.
      *
      * @return void
      *
@@ -53,6 +55,102 @@ class EwalletRequestTest extends RequestTestCase
 
         self::assertInstanceOf(Ewallet::class, $ewallet);
         self::assertNotNull($ewallet->getReference());
+    }
+
+    /**
+     * Test get ewallet for a user by reference successfully.
+     *
+     * @return void
+     *
+     * @throws \EoneoPay\PhpSdk\Exceptions\ClientNotConfiguredException
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
+     */
+    public function testGetEwalletByReferenceSuccessfully(): void
+    {
+        $reference = 'CYY6G83ZX8';
+        $balances = [
+            'available' => '100.00',
+            'balance' => '100.00'
+        ];
+
+        $responseStub = new EwalletResponseStub(\compact('balances', 'reference'));
+
+        $ewallet = $this->createClient($responseStub->toArray())->get(new EwalletRequest([
+            'id' => 'test-user-1',
+            'reference' => $reference
+        ]));
+
+        self::assertInstanceOf(Ewallet::class, $ewallet);
+        self::assertSame($reference, $ewallet->getReference());
+        self::assertSame(
+            $balances['available'],
+            ($ewallet->getBalances() instanceof Balances) === true ? $ewallet->getBalances()->getAvailable() : ''
+        );
+        self::assertSame(
+            $balances['balance'],
+            ($ewallet->getBalances() instanceof Balances) === true ? $ewallet->getBalances()->getBalance() : ''
+        );
+    }
+
+    /**
+     * Test get ewallet for a user by reference successfully.
+     *
+     * @return void
+     *
+     * @throws \EoneoPay\PhpSdk\Exceptions\ClientNotConfiguredException
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
+     */
+    public function testGetEwalletByTokenSuccessfully(): void
+    {
+        $token = $this->generateId();
+        $balances = [
+            'available' => '50.00',
+            'balance' => '50.00'
+        ];
+
+        $responseStub = new EwalletResponseStub(\compact('balances', 'token'));
+
+        $ewallet = $this->createClient($responseStub->toArray())->get(new EwalletRequest([
+            'id' => 'test-user-1',
+            'token' => $token
+        ]));
+
+        self::assertInstanceOf(Ewallet::class, $ewallet);
+        self::assertSame($token, $ewallet->getToken());
+        self::assertSame(
+            $balances['available'],
+            ($ewallet->getBalances() instanceof Balances) === true ? $ewallet->getBalances()->getAvailable() : ''
+        );
+        self::assertSame(
+            $balances['balance'],
+            ($ewallet->getBalances() instanceof Balances) === true ? $ewallet->getBalances()->getBalance() : ''
+        );
+    }
+
+    /**
+     * Test that get ewallet fails with exception when mandatory data is not provided.
+     *
+     * @return void
+     */
+    public function testGetEwalletFailsWithException(): void
+    {
+        try {
+            $this->createClient()->get(new EwalletRequest([
+                'id' => 'test-user-1'
+            ]));
+        } catch (Exception $exception) {
+            self::assertInstanceOf(ValidationException::class, $exception);
+
+            $expected = [
+                'violations' => [
+                    'reference' => ['This field is required when token is not present.'],
+                    'token' => ['This field is required when reference is not present.']
+                ]
+            ];
+
+            /** @var \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException $exception */
+            self::assertSame($expected, $exception instanceof ValidationException ? $exception->getErrors() : []);
+        }
     }
 
     /**

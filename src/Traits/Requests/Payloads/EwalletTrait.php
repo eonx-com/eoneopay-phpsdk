@@ -55,6 +55,11 @@ trait EwalletTrait
      *
      * @Assert\NotBlank(groups={"create", "tokenise"})
      * @Assert\Type(type="string", groups={"create", "update", "tokenise"})
+     * @Assert\Expression(
+     *     "this.reference or this.token",
+     *     groups={"get"},
+     *     message="This field is required when token is not present."
+     * )
      *
      * @Groups({"create", "update", "tokenise"})
      *
@@ -64,6 +69,12 @@ trait EwalletTrait
 
     /**
      * Ewallet token.
+     *
+     * @Assert\Expression(
+     *     "this.token or this.reference",
+     *     groups={"get"},
+     *     message="This field is required when reference is not present."
+     * )
      *
      * @Groups({"create", "update"})
      *
