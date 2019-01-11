@@ -21,6 +21,7 @@ trait SchedulePaymentTrait
      * Frequency.
      *
      * @Assert\NotBlank(groups={"create"})
+     * @Assert\Regex("/^(-?)P(?=\d|T\d)(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)([DW]))?$/", groups={"create"})
      *
      * @Groups({"create"})
      *

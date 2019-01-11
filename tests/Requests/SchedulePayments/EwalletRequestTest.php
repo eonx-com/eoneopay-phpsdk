@@ -165,7 +165,7 @@ class EwalletRequestTest extends RequestTestCase
                 'total' => '10.00'
             ]),
             'end_date' => null,
-            'frequency' => 'weekly',
+            'frequency' => 'P7D',
             'id' => $this->generateId('scp'),
             'start_date' => (new DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU)
         ];

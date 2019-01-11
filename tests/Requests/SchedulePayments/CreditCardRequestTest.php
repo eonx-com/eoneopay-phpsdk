@@ -166,7 +166,7 @@ class CreditCardRequestTest extends RequestTestCase
                 'total' => '100.00'
             ]),
             'end_date' => null,
-            'frequency' => 'monthly',
+            'frequency' => 'P1M',
             'id' => $this->generateId('scp'),
             'start_date' => (new DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU)
         ];
