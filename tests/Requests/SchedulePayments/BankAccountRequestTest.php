@@ -165,7 +165,7 @@ class BankAccountRequestTest extends RequestTestCase
                 'total' => '20.00'
             ]),
             'end_date' => null,
-            'frequency' => 'fortnightly',
+            'frequency' => 'P14D',
             'id' => $this->generateId('scp'),
             'start_date' => (new DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU)
         ];
