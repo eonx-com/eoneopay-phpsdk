@@ -19,7 +19,9 @@ abstract class SchedulePaymentRequest extends AbstractRequest implements
     /**
      * Schedule payment allocation.
      *
-     * @Groups({"create"})
+     * @Assert\Valid(groups={"create_schedule"})
+     *
+     * @Groups({"create_schedule"})
      *
      * @var null|\EoneoPay\PhpSdk\Requests\Payloads\Allocation
      */

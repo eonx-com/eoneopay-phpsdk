@@ -13,15 +13,14 @@ class Allocation extends BaseDataTransferObject
     use AllocationTrait;
 
     /**
-     * @Assert\NotNull(groups={"create"})
      * @Assert\Count(
-     *     groups={"create"},
+     *     groups={"create_crn", "create_schedule", "create_txn"},
      *     min = 1,
      *     minMessage = "You must provide at least one record.",
      * )
-     * @Assert\Valid(groups={"create"})
+     * @Assert\Valid(groups={"create_crn", "create_schedule", "create_txn"})
      *
-     * @Groups({"create"})
+     * @Groups({"create_crn", "create_schedule", "create_txn"})
      *
      * @var \EoneoPay\PhpSdk\Requests\Payloads\Allocations\Record[]
      */

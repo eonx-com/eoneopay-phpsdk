@@ -11,6 +11,7 @@ use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Transactions\AllocationStub;
 use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
@@ -50,11 +51,11 @@ class DebitRequestTest extends TransactionTestCase
 
     /**
      * Make sure the exception structure and validation rules are thrown as expected
-     * when allocation records are not provided.
+     * when allocation data not provided.
      *
      * @return void
      */
-    public function testInvalidRequestMissingAllocationRecords(): void
+    public function testInvalidRequestMissingAllocationData(): void
     {
         $debit = new PrimaryRequest(\array_merge(
             $this->getData(),
@@ -72,7 +73,6 @@ class DebitRequestTest extends TransactionTestCase
 
             $expected = [
                 'violations' => [
-                    'allocation.records' => ['This value should not be null.'],
                     'allocation.amount' => ['This value should not be blank.'],
                     'allocation.ewallet' => ['This value should not be blank.']
                 ]
@@ -96,6 +96,7 @@ class DebitRequestTest extends TransactionTestCase
         $debit = new PrimaryRequest(
             \array_merge($request, [
                 'action' => 'debit',
+                'allocation' => new AllocationStub(),
                 'credit_card' => new CreditCardRequestStub()
             ])
         );
@@ -122,9 +123,7 @@ class DebitRequestTest extends TransactionTestCase
         $request = $this->getData();
         $debit = new PrimaryRequest(\array_merge($request, [
             'action' => 'debit',
-            'allocation' => new Allocation([
-                'amount' => '50.00',
-                'ewallet' => 'T9AGW29FKJEU7B7TJFT2',
+            'allocation' => new AllocationStub([
                 'records' => [
                     new Record([
                         'amount' => '25.00',

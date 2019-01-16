@@ -51,19 +51,17 @@ class DebitRequestTest extends TransactionTestCase
 
     /**
      * Make sure the exception structure and validation rules are thrown as expected
-     * when allocation records are not provided.
+     * when allocation data not provided.
      *
      * @return void
      */
-    public function testInvalidRequestMissingAllocationRecords(): void
+    public function testInvalidRequestMissingAllocationData(): void
     {
         $debit = new PrimaryRequest(\array_merge(
             $this->getData(),
             [
                 'action' => 'debit',
-                'allocations' => new Allocation([
-                    'records' => []
-                ]),
+                'allocation' => new Allocation([]),
                 'bank_account' => new Token([
                     'token' => '7E89WDAVVWHWH83NUC26'
                 ])
@@ -77,9 +75,8 @@ class DebitRequestTest extends TransactionTestCase
 
             $expected = [
                 'violations' => [
-                    'allocations.records' => ['You must provide at least one record.'],
-                    'allocations.amount' => ['This value should not be blank.'],
-                    'allocations.ewallet' => ['This value should not be blank.']
+                    'allocation.amount' => ['This value should not be blank.'],
+                    'allocation.ewallet' => ['This value should not be blank.']
                 ]
             ];
 

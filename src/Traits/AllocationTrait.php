@@ -11,12 +11,12 @@ trait AllocationTrait
     /**
      * Amount.
      *
-     * @Assert\NotBlank(groups={"create"})
-     * @Assert\Type(type="string", groups={"create"})
-     * @Assert\Type(type="numeric", groups={"create"})
-     * @Assert\GreaterThan(value="0", groups={"create"})
+     * @Assert\NotBlank(groups={"create_txn"})
+     * @Assert\Type(type="string", groups={"create_txn"})
+     * @Assert\Type(type="numeric", groups={"create_txn"})
+     * @Assert\GreaterThan(value="0", groups={"create_txn"})
      *
-     * @Groups({"create"})
+     * @Groups({"create_txn"})
      *
      * @var null|string
      */
@@ -25,10 +25,10 @@ trait AllocationTrait
     /**
      * Ewallet token.
      *
-     * @Assert\NotBlank(groups={"create"})
-     * @Assert\Type(type="string", groups={"create"})
+     * @Assert\NotBlank(groups={"create_crn", "create_schedule", "create_txn"})
+     * @Assert\Type(type="string", groups={"create_crn", "create_schedule", "create_txn"})
      *
-     * @Groups({"create"})
+     * @Groups({"create_crn", "create_schedule", "create_txn"})
      *
      * @var null|string
      */
@@ -37,12 +37,12 @@ trait AllocationTrait
     /**
      * Percentage.
      *
-     * @Assert\NotBlank(groups={"create_schedule"})
-     * @Assert\Type(type="string", groups={"create_schedule"})
-     * @Assert\Type(type="numeric", groups={"create_schedule"})
-     * @Assert\GreaterThan(value="0", groups={"create_schedule"})
+     * @Assert\NotBlank(groups={"create_crn", "create_schedule"})
+     * @Assert\Type(type="string", groups={"create_crn", "create_schedule"})
+     * @Assert\Type(type="numeric", groups={"create_crn", "create_schedule"})
+     * @Assert\GreaterThan(value="0", groups={"create_crn", "create_schedule"})
      *
-     * @Groups({"create_schedule"})
+     * @Groups({"create_crn", "create_schedule"})
      *
      * @var null|string
      */
