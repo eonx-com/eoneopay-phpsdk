@@ -50,11 +50,11 @@ class DebitRequestTest extends TransactionTestCase
 
     /**
      * Make sure the exception structure and validation rules are thrown as expected
-     * when allocation records are not provided.
+     * when allocation data not provided.
      *
      * @return void
      */
-    public function testInvalidRequestMissingAllocationRecords(): void
+    public function testInvalidRequestMissingAllocationData(): void
     {
         $debit = new PrimaryRequest(\array_merge(
             $this->getData(),
@@ -72,7 +72,6 @@ class DebitRequestTest extends TransactionTestCase
 
             $expected = [
                 'violations' => [
-                    'allocation.records' => ['This value should not be null.'],
                     'allocation.amount' => ['This value should not be blank.'],
                     'allocation.ewallet' => ['This value should not be blank.']
                 ]

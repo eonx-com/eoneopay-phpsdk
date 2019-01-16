@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Requests\Users;
 
+use EoneoPay\PhpSdk\Requests\Payloads\Allocation;
 use EoneoPay\PhpSdk\Requests\Payloads\Ewallet;
 use EoneoPay\PhpSdk\Requests\Users\CrnRequest;
 use EoneoPay\PhpSdk\Responses\Users\ReferenceNumber;
@@ -22,7 +23,11 @@ class CrnRequestTest extends RequestTestCase
      */
     public function testGenerateCrnFailsWithException(): void
     {
-        $data = [];
+        $data = [
+            'allocation' => new Allocation([
+                'records' => []
+            ])
+        ];
 
         try {
             $this->createClient($data)->create(new CrnRequest($data));
@@ -31,6 +36,9 @@ class CrnRequestTest extends RequestTestCase
 
             $expected = [
                 'violations' => [
+                    'allocation.records' => ['You must provide at least one record.'],
+                    'allocation.ewallet' => ['This value should not be blank.'],
+                    'allocation.percentage' => ['This value should not be blank.'],
                     'ewallet' => ['This value should not be null.'],
                     'user_id' => ['This value should not be blank.']
                 ]
