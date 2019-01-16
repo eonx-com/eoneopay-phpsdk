@@ -7,10 +7,12 @@ use EoneoPay\PhpSdk\Requests\Payloads\Allocation;
 use EoneoPay\PhpSdk\Requests\Payloads\Allocations\Record;
 use EoneoPay\PhpSdk\Requests\Payloads\Token;
 use EoneoPay\PhpSdk\Requests\Transactions\CreditCards\PrimaryRequest;
+use EoneoPay\Utils\Exceptions\BaseException;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Transactions\AllocationStub;
 use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
@@ -95,6 +97,7 @@ class DebitRequestTest extends TransactionTestCase
         $debit = new PrimaryRequest(
             \array_merge($request, [
                 'action' => 'debit',
+                'allocation' => new AllocationStub(),
                 'credit_card' => new CreditCardRequestStub()
             ])
         );
@@ -121,9 +124,7 @@ class DebitRequestTest extends TransactionTestCase
         $request = $this->getData();
         $debit = new PrimaryRequest(\array_merge($request, [
             'action' => 'debit',
-            'allocation' => new Allocation([
-                'amount' => '50.00',
-                'ewallet' => 'T9AGW29FKJEU7B7TJFT2',
+            'allocation' => new AllocationStub([
                 'records' => [
                     new Record([
                         'amount' => '25.00',

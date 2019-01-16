@@ -16,7 +16,7 @@ class AllocationStub extends Allocation
     {
         parent::__construct(\array_merge([
             'ewallet' => '9H9BXKEKD9',
-            'percentage' => '100.00'
+            'amount' => '100.00'
         ], $data ?? []));
     }
 }
