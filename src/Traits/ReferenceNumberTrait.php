@@ -18,6 +18,15 @@ trait ReferenceNumberTrait
     protected $referenceNumber;
 
     /**
+     * Scheduled payment id.
+     *
+     * @Groups({"create"})
+     *
+     * @var string|null
+     */
+    protected $scheduledId;
+
+    /**
      * User id.
      *
      * @Assert\NotBlank(groups={"create"})
