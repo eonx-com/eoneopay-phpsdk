@@ -13,7 +13,7 @@ use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\ScheduledPaymentRequest
  */
-class SchedulePaymenRequestTest extends RequestTestCase
+class ScheduledPaymentRequestTest extends RequestTestCase
 {
     /**
      * Test schedule payment frequency format validation.
