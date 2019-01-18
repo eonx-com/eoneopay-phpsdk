@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\SchedulePayments;
+namespace EoneoPay\PhpSdk\Requests\ScheduledPayments;
 
-class RemoveRequest extends SchedulePaymentRequest
+class RemoveRequest extends ScheduledPaymentRequest
 {
     /**
      * @inheritdoc

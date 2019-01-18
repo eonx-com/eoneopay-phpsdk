@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\EoneoPay\PhpSdk\Stubs\SchedulePayments;
+namespace Tests\EoneoPay\PhpSdk\Stubs\ScheduledPayments;
 
-use EoneoPay\PhpSdk\Requests\SchedulePayments\SchedulePaymentRequest;
+use EoneoPay\PhpSdk\Requests\ScheduledPayments\ScheduledPaymentRequest;
 
-class SchedulePaymentRequestStub extends SchedulePaymentRequest
+class ScheduledPaymentRequestStub extends ScheduledPaymentRequest
 {
     /**
      * @inheritdoc

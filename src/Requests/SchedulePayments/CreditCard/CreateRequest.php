@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\SchedulePayments\CreditCard;
+namespace EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard;
 
-use EoneoPay\PhpSdk\Requests\SchedulePayments\SchedulePaymentRequest;
-use EoneoPay\PhpSdk\Responses\SchedulePayments\CreditCard;
+use EoneoPay\PhpSdk\Requests\ScheduledPayments\ScheduledPaymentRequest;
+use EoneoPay\PhpSdk\Responses\ScheduledPayments\CreditCard;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreateRequest extends SchedulePaymentRequest
+class CreateRequest extends ScheduledPaymentRequest
 {
     /**
      * Credit card endpoint.
