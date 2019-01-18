@@ -68,6 +68,7 @@ class CrnRequestTest extends RequestTestCase
                 'reference' => 'CYY6G83ZX8',
                 'name' => 'John Wick'
             ]),
+            'scheduled_id' => 'schedule-payment-id',
             'user_id' => 'test-5beb99ff72015'
         ]));
 

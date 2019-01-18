@@ -1,18 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\EoneoPay\PhpSdk\Requests\SchedulePayments;
+namespace Tests\EoneoPay\PhpSdk\Requests\ScheduledPayments;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
-use EoneoPay\PhpSdk\Requests\Payloads\Ewallet as EwalletPayload;
-use EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet\CreateRequest;
-use EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet\GetRequest;
-use EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest;
-use EoneoPay\PhpSdk\Responses\SchedulePayments\Ewallet;
+use EoneoPay\PhpSdk\Requests\Payloads\CreditCard as CreditCardPayload;
+use EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\CreateRequest;
+use EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\GetRequest;
+use EoneoPay\PhpSdk\Requests\ScheduledPayments\RemoveRequest;
+use EoneoPay\PhpSdk\Responses\ScheduledPayments\CreditCard;
 use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
-use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletRequestStub;
-use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletResponseStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
+use Tests\EoneoPay\PhpSdk\Stubs\ScheduledPayments\AllocationStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
@@ -20,12 +21,12 @@ use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling for testing only
  *
- * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet\CreateRequest
- * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\Ewallet\GetRequest
- * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\RemoveRequest
- * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\SchedulePaymentRequest
+ * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\CreateRequest
+ * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\GetRequest
+ * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\RemoveRequest
+ * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\ScheduledPaymentRequest
  */
-class EwalletRequestTest extends RequestTestCase
+class CreditCardRequestTest extends RequestTestCase
 {
     /**
      * Test create schedule payment successfully.
@@ -35,20 +36,20 @@ class EwalletRequestTest extends RequestTestCase
      * @throws \EoneoPay\Utils\Exceptions\BaseException
      * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
      */
-    public function testCreateSchedulePaymentsSuccessfully(): void
+    public function testCreateScheduledPaymentsSuccessfully(): void
     {
-        $request = $this->getSchedulePaymentData();
+        $request = $this->getScheduledPaymentData();
 
         $data = \array_merge($request, $this->getEndpointData());
 
         $response = $this->createClient($data)->create(new CreateRequest(\array_merge(
             $request,
-            ['ewallet' => new EwalletRequestStub()]
+            ['credit_card' => new CreditCardRequestStub(), 'allocation' => new AllocationStub()]
         )));
 
         // assertions
-        self::assertInstanceOf(Ewallet::class, $response);
-        $this->assertSchedulePayment($data, $response);
+        self::assertInstanceOf(CreditCard::class, $response);
+        $this->assertScheduledPayment($data, $response);
     }
 
     /**
@@ -59,17 +60,17 @@ class EwalletRequestTest extends RequestTestCase
      * @throws \EoneoPay\Utils\Exceptions\BaseException
      * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
      */
-    public function testGetSchedulePaymentsSuccessfully(): void
+    public function testGetScheduledPaymentsSuccessfully(): void
     {
-        $data = \array_merge($this->getSchedulePaymentData(), $this->getEndpointData());
+        $data = \array_merge($this->getScheduledPaymentData(), $this->getEndpointData());
 
         $response = $this->createClient($data)->get(new GetRequest([
             'id' => $data['id']
         ]));
 
         // assertions
-        self::assertInstanceOf(Ewallet::class, $response);
-        $this->assertSchedulePayment($data, $response);
+        self::assertInstanceOf(CreditCard::class, $response);
+        $this->assertScheduledPayment($data, $response);
     }
 
     /**
@@ -80,17 +81,17 @@ class EwalletRequestTest extends RequestTestCase
      * @throws \EoneoPay\Utils\Exceptions\BaseException
      * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
      */
-    public function testListSchedulePaymentsSuccessfully(): void
+    public function testListScheduledPaymentsSuccessfully(): void
     {
-        $data = [\array_merge($this->getSchedulePaymentData(), $this->getEndpointData())];
+        $data = [\array_merge($this->getScheduledPaymentData(), $this->getEndpointData())];
 
         $response = $this->createClient($data)->list(new GetRequest());
 
         self::assertGreaterThan(0, \count($response));
 
         // assertions
-        self::assertInstanceOf(Ewallet::class, $response[0]);
-        $this->assertSchedulePayment($data[0], $response[0]);
+        self::assertInstanceOf(CreditCard::class, $response[0]);
+        $this->assertScheduledPayment($data[0], $response[0]);
     }
 
     /**
@@ -100,10 +101,10 @@ class EwalletRequestTest extends RequestTestCase
      *
      * @throws \EoneoPay\Utils\Exceptions\BaseException
      */
-    public function testRemoveSchedulePaymentSuccessfully(): void
+    public function testRemoveScheduledPaymentSuccessfully(): void
     {
         self::assertNull($this->createClient([], 204)->delete(new RemoveRequest([
-            'id' => 'ewallet-schedule-payment-id'
+            'id' => 'card-schedule-payment-id'
         ])));
     }
 
@@ -111,20 +112,20 @@ class EwalletRequestTest extends RequestTestCase
      * Assert schedule payment unit rest results.
      *
      * @param mixed[] $data
-     * @param \EoneoPay\PhpSdk\Responses\SchedulePayments\Ewallet $response
+     * @param \EoneoPay\PhpSdk\Responses\ScheduledPayments\CreditCard $response
      *
      * @return void
      */
-    private function assertSchedulePayment(array $data, Ewallet $response): void
+    private function assertScheduledPayment(array $data, CreditCard $response): void
     {
         /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
         $amount = $data['amount'];
 
-        self::assertInstanceOf(EwalletPayload::class, $response->getEwallet());
+        self::assertInstanceOf(CreditCardPayload::class, $response->getCreditCard());
 
-        /** @var \EoneoPay\PhpSdk\Requests\Payloads\Ewallet $ewallet */
-        $ewallet = $response->getEwallet();
-        $this->assertEwallet($data, $ewallet);
+        /** @var \EoneoPay\PhpSdk\Requests\Payloads\CreditCard $endpoint */
+        $endpoint = $response->getCreditCard();
+        $this->assertCreditCard($data, $endpoint);
 
         self::assertSame(
             $amount->getTotal() ?? null,
@@ -146,7 +147,7 @@ class EwalletRequestTest extends RequestTestCase
     private function getEndpointData(): array
     {
         return [
-            'ewallet' => (new EwalletResponseStub())->toArray()
+            'credit_card' => (new CreditCardResponseStub())->toArray()
         ];
     }
 
@@ -157,15 +158,15 @@ class EwalletRequestTest extends RequestTestCase
      *
      * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
      */
-    private function getSchedulePaymentData(): array
+    private function getScheduledPaymentData(): array
     {
         return [
             'amount' => new Amount([
                 'currency' => 'AUD',
-                'total' => '10.00'
+                'total' => '100.00'
             ]),
             'end_date' => null,
-            'frequency' => 'P7D',
+            'frequency' => 'P1M',
             'id' => $this->generateId('scp'),
             'start_date' => (new DateTime())->format(UtcDateTimeInterface::FORMAT_ZULU)
         ];

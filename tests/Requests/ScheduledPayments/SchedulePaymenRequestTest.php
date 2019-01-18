@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\EoneoPay\PhpSdk\Requests\SchedulePayments;
+namespace Tests\EoneoPay\PhpSdk\Requests\ScheduledPayments;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Exceptions\BaseException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\ValidationException;
-use Tests\EoneoPay\PhpSdk\Stubs\SchedulePayments\SchedulePaymentRequestStub;
+use Tests\EoneoPay\PhpSdk\Stubs\ScheduledPayments\ScheduledPaymentRequestStub;
 use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
 
 /**
- * @covers \EoneoPay\PhpSdk\Requests\SchedulePayments\SchedulePaymentRequest
+ * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\ScheduledPaymentRequest
  */
 class SchedulePaymenRequestTest extends RequestTestCase
 {
@@ -23,7 +23,7 @@ class SchedulePaymenRequestTest extends RequestTestCase
     public function testFrequencyFormatValidation(): void
     {
         try {
-            $this->createClient()->create(new SchedulePaymentRequestStub([
+            $this->createClient()->create(new ScheduledPaymentRequestStub([
                 'amount' => new Amount([
                     'currency' => 'AUD',
                     'total' => '100.00'
@@ -54,7 +54,7 @@ class SchedulePaymenRequestTest extends RequestTestCase
     public function testValidation(): void
     {
         try {
-            $this->createClient()->create(new SchedulePaymentRequestStub());
+            $this->createClient()->create(new ScheduledPaymentRequestStub());
         } catch (BaseException $exception) {
             self::assertInstanceOf(ValidationException::class, $exception);
 

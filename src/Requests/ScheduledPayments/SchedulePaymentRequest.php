@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\SchedulePayments;
+namespace EoneoPay\PhpSdk\Requests\ScheduledPayments;
 
 use EoneoPay\PhpSdk\Requests\AbstractRequest;
-use EoneoPay\PhpSdk\Traits\SchedulePaymentTrait;
+use EoneoPay\PhpSdk\Traits\ScheduledPaymentTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestSerializationGroupAwareInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestValidationGroupAwareInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-abstract class SchedulePaymentRequest extends AbstractRequest implements
+abstract class ScheduledPaymentRequest extends AbstractRequest implements
     RequestSerializationGroupAwareInterface,
     RequestValidationGroupAwareInterface
 {
-    use SchedulePaymentTrait;
+    use ScheduledPaymentTrait;
 
     /**
      * Schedule payment allocation.

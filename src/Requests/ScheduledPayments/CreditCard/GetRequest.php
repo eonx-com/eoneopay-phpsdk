@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Requests\SchedulePayments\CreditCard;
+namespace EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard;
 
-use EoneoPay\PhpSdk\Requests\SchedulePayments\SchedulePaymentRequest;
-use EoneoPay\PhpSdk\Responses\SchedulePayments\CreditCard;
+use EoneoPay\PhpSdk\Requests\ScheduledPayments\ScheduledPaymentRequest;
+use EoneoPay\PhpSdk\Responses\ScheduledPayments\CreditCard;
 
-class GetRequest extends SchedulePaymentRequest
+class GetRequest extends ScheduledPaymentRequest
 {
     /**
      * @inheritdoc
