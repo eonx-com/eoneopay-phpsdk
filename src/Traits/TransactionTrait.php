@@ -56,9 +56,7 @@ trait TransactionTrait
     /**
      * Original transaction id.
      *
-     * @Assert\NotBlank(groups={"update"})
-     *
-     * @Groups({"delete", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @var null|string
      */

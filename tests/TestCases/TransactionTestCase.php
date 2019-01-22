@@ -82,19 +82,20 @@ class TransactionTestCase extends RequestTestCase
     /**
      * Get request data for a transaction.
      *
-     * @param null|string $originalId
+     * @param null|string $orderId
      *
      * @return mixed[]
      */
-    protected function getData(?string $originalId = null): array
+    protected function getData(?string $orderId = null): array
     {
+        $orderId = $orderId ?? $this->generateId('test-');
+
         return [
             'amount' => new Amount([
                 'currency' => 'AUD',
                 'total' => '100.00'
             ]),
-            'id' => $this->generateId('test-'),
-            'original_id' => $originalId,
+            'id' => $orderId,
             'name' => 'John Wick',
             'secondary_id' => $this->generateId('sec-'),
             'statement_description' => 'Test order'
