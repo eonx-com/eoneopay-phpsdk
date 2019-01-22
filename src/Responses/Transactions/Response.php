@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Responses\Transactions;
 
-use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
+use EoneoPay\PhpSdk\Responses\AbstractResponse;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method null|string getAcquirerMessage()
  * @method null|string getGatewayMessage()
  */
-class Response extends BaseDataTransferObject
+class Response extends AbstractResponse
 {
     /**
      * Acquirer code

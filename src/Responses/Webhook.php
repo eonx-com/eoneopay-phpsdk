@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Responses;
 
 use EoneoPay\PhpSdk\Traits\WebhookTrait;
-use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
 
 /**
  * @method null|string getEvent()
@@ -12,7 +11,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
  * @method null|string getId()
  * @method null|string getUrl()
  */
-class Webhook extends BaseDataTransferObject
+class Webhook extends AbstractResponse
 {
     use WebhookTrait;
 }

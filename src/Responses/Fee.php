@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Responses;
 
 use EoneoPay\PhpSdk\Traits\FeeTrait;
-use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
 
 /**
  * @method string|null getCurrency()
@@ -13,7 +12,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
  * @method string|null getType()
  * @method string|null getVariable()
  */
-class Fee extends BaseDataTransferObject
+class Fee extends AbstractResponse
 {
     use FeeTrait;
 }

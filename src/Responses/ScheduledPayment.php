@@ -5,7 +5,6 @@ namespace EoneoPay\PhpSdk\Responses;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Traits\ScheduledPaymentTrait;
-use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -16,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @method null|string getId()
  * @method null|string getStartDate()
  */
-abstract class ScheduledPayment extends BaseDataTransferObject
+abstract class ScheduledPayment extends AbstractResponse
 {
     use ScheduledPaymentTrait;
 
