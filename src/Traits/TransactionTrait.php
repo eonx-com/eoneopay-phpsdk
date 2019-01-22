@@ -54,15 +54,13 @@ trait TransactionTrait
     protected $name;
 
     /**
-     * Original transaction id.
+     * Parent transaction id.
      *
-     * @Assert\NotBlank(groups={"update"})
-     *
-     * @Groups({"delete", "update"})
+     * @Groups({"create", "update"})
      *
      * @var null|string
      */
-    protected $originalId;
+    protected $parentTransactionId;
 
     /**
      * Secondary Id.
