@@ -5,8 +5,8 @@ namespace EoneoPay\PhpSdk\Responses\Fees\Calculate;
 
 use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
+use EoneoPay\PhpSdk\Responses\AbstractResponse;
 use EoneoPay\PhpSdk\Traits\Requests\Calculate\FeeTrait;
-use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @method null|Amount getAmount()
  * @method null|BankAccount getBankAccount()
  */
-class BankAccountFee extends BaseDataTransferObject
+class BankAccountFee extends AbstractResponse
 {
     use FeeTrait;
 

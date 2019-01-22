@@ -7,9 +7,7 @@ use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Requests\Payloads\BankAccount;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard;
 use EoneoPay\PhpSdk\Requests\Payloads\Ewallet;
-use EoneoPay\PhpSdk\Responses\Transactions\Response;
 use EoneoPay\PhpSdk\Traits\TransactionTrait;
-use LoyaltyCorp\SdkBlueprint\Sdk\BaseDataTransferObject;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -21,10 +19,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @method null|bool getApproved()
  * @method null|string getCompletedAt()
  * @method null|string getId()
- * @method null|Response getResponse()
+ * @method null|AbstractResponse getResponse()
  * @method null|string getStatus()
  */
-abstract class Transaction extends BaseDataTransferObject
+abstract class Transaction extends AbstractResponse
 {
     use TransactionTrait;
 
