@@ -54,13 +54,13 @@ trait TransactionTrait
     protected $name;
 
     /**
-     * Original transaction id.
+     * Parent transaction id.
      *
-     * @Groups({"create", "delete", "update"})
+     * @Groups({"create", "update"})
      *
      * @var null|string
      */
-    protected $originalId;
+    protected $parentTransactionId;
 
     /**
      * Secondary Id.
