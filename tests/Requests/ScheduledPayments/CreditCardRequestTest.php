@@ -7,14 +7,16 @@ use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Requests\Payloads\CreditCard as CreditCardPayload;
 use EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\CreateRequest;
 use EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\GetRequest;
+use EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\PayRequest;
 use EoneoPay\PhpSdk\Requests\ScheduledPayments\RemoveRequest;
 use EoneoPay\PhpSdk\Responses\ScheduledPayments\CreditCard;
+use EoneoPay\PhpSdk\Responses\Transactions\CreditCard as CreditCardTransaction;
 use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardRequestStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\CreditCardResponseStub;
 use Tests\EoneoPay\PhpSdk\Stubs\ScheduledPayments\AllocationStub;
-use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @noinspection EfferentObjectCouplingInspection High coupling for testing only
@@ -23,10 +25,11 @@ use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
  *
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\CreateRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\GetRequest
+ * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\PayRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\RemoveRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\ScheduledPaymentRequest
  */
-class CreditCardRequestTest extends RequestTestCase
+class CreditCardRequestTest extends TransactionTestCase
 {
     /**
      * Test create schedule payment successfully.
@@ -92,6 +95,28 @@ class CreditCardRequestTest extends RequestTestCase
         // assertions
         self::assertInstanceOf(CreditCard::class, $response[0]);
         $this->assertScheduledPayment($data[0], $response[0]);
+    }
+
+    /**
+     * Test one off payment successfully.
+     *
+     * @return void
+     *
+     * @throws \EoneoPay\PhpSdk\Exceptions\ClientNotConfiguredException
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
+     */
+    public function testOneOffPaymentSuccessfully(): void
+    {
+        $data = \array_merge(
+            $this->getData(),
+            ['credit_card' => (new CreditCardResponseStub())->toArray()]
+        );
+
+        $response = $this->createClient($data)->create(new PayRequest(['paymentId' => 'valid-id']));
+
+        self::assertInstanceOf(CreditCardTransaction::class, $response);
+        self::assertSame($data['amount']->getTotal(), $response->getAmount()->getTotal());
+        self::assertSame($data['amount']->getCurrency(), $response->getAmount()->getCurrency());
     }
 
     /**

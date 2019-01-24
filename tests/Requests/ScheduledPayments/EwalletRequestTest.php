@@ -7,13 +7,15 @@ use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Requests\Payloads\Ewallet as EwalletPayload;
 use EoneoPay\PhpSdk\Requests\ScheduledPayments\Ewallet\CreateRequest;
 use EoneoPay\PhpSdk\Requests\ScheduledPayments\Ewallet\GetRequest;
+use EoneoPay\PhpSdk\Requests\ScheduledPayments\Ewallet\PayRequest;
 use EoneoPay\PhpSdk\Requests\ScheduledPayments\RemoveRequest;
 use EoneoPay\PhpSdk\Responses\ScheduledPayments\Ewallet;
+use EoneoPay\PhpSdk\Responses\Transactions\Ewallet as EwalletTransaction;
 use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletRequestStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\EwalletResponseStub;
-use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @noinspection EfferentObjectCouplingInspection High coupling for testing only
@@ -22,10 +24,11 @@ use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
  *
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\Ewallet\CreateRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\Ewallet\GetRequest
+ * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\Ewallet\PayRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\RemoveRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\ScheduledPaymentRequest
  */
-class EwalletRequestTest extends RequestTestCase
+class EwalletRequestTest extends TransactionTestCase
 {
     /**
      * Test create schedule payment successfully.
@@ -91,6 +94,28 @@ class EwalletRequestTest extends RequestTestCase
         // assertions
         self::assertInstanceOf(Ewallet::class, $response[0]);
         $this->assertScheduledPayment($data[0], $response[0]);
+    }
+
+    /**
+     * Test one off payment successfully.
+     *
+     * @return void
+     *
+     * @throws \EoneoPay\PhpSdk\Exceptions\ClientNotConfiguredException
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
+     */
+    public function testOneOffPaymentSuccessfully(): void
+    {
+        $data = \array_merge(
+            $this->getData(),
+            ['credit_card' => (new EwalletResponseStub())->toArray()]
+        );
+
+        $response = $this->createClient($data)->create(new PayRequest(['paymentId' => 'valid-id']));
+
+        self::assertInstanceOf(EwalletTransaction::class, $response);
+        self::assertSame($data['amount']->getTotal(), $response->getAmount()->getTotal());
+        self::assertSame($data['amount']->getCurrency(), $response->getAmount()->getCurrency());
     }
 
     /**
