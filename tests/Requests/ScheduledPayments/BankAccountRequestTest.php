@@ -7,13 +7,15 @@ use EoneoPay\PhpSdk\Requests\Payloads\Amount;
 use EoneoPay\PhpSdk\Requests\Payloads\BankAccount as BankAccountPayload;
 use EoneoPay\PhpSdk\Requests\ScheduledPayments\BankAccount\CreateRequest;
 use EoneoPay\PhpSdk\Requests\ScheduledPayments\BankAccount\GetRequest;
+use EoneoPay\PhpSdk\Requests\ScheduledPayments\BankAccount\PayRequest;
 use EoneoPay\PhpSdk\Requests\ScheduledPayments\RemoveRequest;
 use EoneoPay\PhpSdk\Responses\ScheduledPayments\BankAccount;
+use EoneoPay\PhpSdk\Responses\Transactions\BankAccount as BankAccountTransaction;
 use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\BankAccountRequestStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Endpoints\BankAccountResponseStub;
-use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @noinspection EfferentObjectCouplingInspection High coupling for testing only
@@ -22,10 +24,11 @@ use Tests\EoneoPay\PhpSdk\TestCases\RequestTestCase;
  *
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\BankAccount\CreateRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\BankAccount\GetRequest
+ * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\BankAccount\PayRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\RemoveRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\ScheduledPaymentRequest
  */
-class BankAccountRequestTest extends RequestTestCase
+class BankAccountRequestTest extends TransactionTestCase
 {
     /**
      * Test create schedule payment successfully.
@@ -91,6 +94,28 @@ class BankAccountRequestTest extends RequestTestCase
         // assertions
         self::assertInstanceOf(BankAccount::class, $response[0]);
         $this->assertScheduledPayment($data[0], $response[0]);
+    }
+
+    /**
+     * Test one off payment successfully.
+     *
+     * @return void
+     *
+     * @throws \EoneoPay\PhpSdk\Exceptions\ClientNotConfiguredException
+     * @throws \EoneoPay\Utils\Exceptions\InvalidDateTimeStringException
+     */
+    public function testOneOffPaymentSuccessfully(): void
+    {
+        $data = \array_merge(
+            $this->getData(),
+            ['bank_account' => (new BankAccountResponseStub())->toArray()]
+        );
+
+        $response = $this->createClient($data)->create(new PayRequest(['paymentId' => 'valid-id']));
+
+        self::assertInstanceOf(BankAccountTransaction::class, $response);
+        self::assertSame($data['amount']->getTotal(), $response->getAmount()->getTotal());
+        self::assertSame($data['amount']->getCurrency(), $response->getAmount()->getCurrency());
     }
 
     /**

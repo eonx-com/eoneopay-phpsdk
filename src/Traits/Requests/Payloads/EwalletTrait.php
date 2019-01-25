@@ -32,9 +32,6 @@ trait EwalletTrait
     /**
      * Ewallet user's name.
      *
-     * @Assert\NotBlank(groups={"create", "tokenise"})
-     * @Assert\Type(type="string", groups={"create", "update", "tokenise"})
-     *
      * @Groups({"create", "update", "tokenise"})
      *
      * @var string
