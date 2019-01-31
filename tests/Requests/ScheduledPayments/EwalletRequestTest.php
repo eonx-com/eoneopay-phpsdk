@@ -113,11 +113,12 @@ class EwalletRequestTest extends TransactionTestCase
         );
 
         $response = $this->createClient($data)->create(new PayRequest([
-            'paymentId' => 'valid-id',
             'amount' => new Amount([
                 'currency' => $data['amount']->getCurrency(),
                 'total' => $data['amount']->getTotal()
-            ])
+            ]),
+            'ewallet' => new EwalletRequestStub(),
+            'paymentId' => 'valid-id'
         ]));
 
         self::assertInstanceOf(EwalletTransaction::class, $response);

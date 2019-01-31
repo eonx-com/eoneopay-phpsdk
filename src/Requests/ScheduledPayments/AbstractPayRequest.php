@@ -33,6 +33,15 @@ abstract class AbstractPayRequest extends AbstractRequest
     protected $paymentId;
 
     /**
+     * Statement Description.
+     *
+     * @Groups({"create"})
+     *
+     * @var null|string
+     */
+    protected $statementDescription;
+
+    /**
      * @inheritdoc
      */
     public function uris(): array

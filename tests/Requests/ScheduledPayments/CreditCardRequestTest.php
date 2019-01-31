@@ -114,11 +114,12 @@ class CreditCardRequestTest extends TransactionTestCase
         );
 
         $response = $this->createClient($data)->create(new PayRequest([
-            'paymentId' => 'valid-id',
             'amount' => new Amount([
                 'currency' => $data['amount']->getCurrency(),
                 'total' => $data['amount']->getTotal()
-            ])
+            ]),
+            'credit_card' => new CreditCardRequestStub(),
+            'paymentId' => 'valid-id'
         ]));
 
         self::assertInstanceOf(CreditCardTransaction::class, $response);
