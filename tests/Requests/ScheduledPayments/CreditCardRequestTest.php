@@ -23,6 +23,7 @@ use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling for testing only
  *
+ * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\AbstractPayRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\CreateRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\GetRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\CreditCard\PayRequest
@@ -112,11 +113,17 @@ class CreditCardRequestTest extends TransactionTestCase
             ['credit_card' => (new CreditCardResponseStub())->toArray()]
         );
 
-        $response = $this->createClient($data)->create(new PayRequest(['paymentId' => 'valid-id']));
+        $response = $this->createClient($data)->create(new PayRequest([
+            'paymentId' => 'valid-id',
+            'amount' => new Amount([
+                'currency' => $data['amount']->getCurrency(),
+                'total' => $data['amount']->getTotal()
+            ])
+        ]));
 
         self::assertInstanceOf(CreditCardTransaction::class, $response);
-        self::assertSame($data['amount']->getTotal(), $response->getAmount()->getTotal());
         self::assertSame($data['amount']->getCurrency(), $response->getAmount()->getCurrency());
+        self::assertSame($data['amount']->getTotal(), $response->getAmount()->getTotal());
     }
 
     /**
