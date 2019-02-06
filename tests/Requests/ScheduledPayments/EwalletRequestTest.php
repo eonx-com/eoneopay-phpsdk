@@ -22,6 +22,7 @@ use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling for testing only
  *
+ * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\AbstractPayRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\Ewallet\CreateRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\Ewallet\GetRequest
  * @covers \EoneoPay\PhpSdk\Requests\ScheduledPayments\Ewallet\PayRequest
@@ -111,7 +112,14 @@ class EwalletRequestTest extends TransactionTestCase
             ['credit_card' => (new EwalletResponseStub())->toArray()]
         );
 
-        $response = $this->createClient($data)->create(new PayRequest(['paymentId' => 'valid-id']));
+        $response = $this->createClient($data)->create(new PayRequest([
+            'amount' => new Amount([
+                'currency' => $data['amount']->getCurrency(),
+                'total' => $data['amount']->getTotal()
+            ]),
+            'ewallet' => new EwalletRequestStub(),
+            'id' => 'valid-id'
+        ]));
 
         self::assertInstanceOf(EwalletTransaction::class, $response);
         self::assertSame($data['amount']->getTotal(), $response->getAmount()->getTotal());

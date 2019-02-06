@@ -11,17 +11,17 @@ trait AmountTrait
     /**
      * Currency.
      *
-     * @Assert\NotBlank(groups={"create", "delete", "update"})
-     * @Assert\Currency(groups={"create", "delete", "update"})
+     * @Assert\NotBlank(groups={"create", "delete", "pay", "update"})
+     * @Assert\Currency(groups={"create", "delete", "pay", "update"})
      *
-     * @Groups({"create", "delete", "update"})
+     * @Groups({"create", "delete", "pay", "update"})
      *
      * @var null|string
      */
     protected $currency;
 
     /**
-     * @Groups({"create", "delete", "update"})
+     * @Groups({"create", "delete", "pay", "update"})
      *
      * @var null|string
      */
@@ -35,9 +35,9 @@ trait AmountTrait
      *     groups={"amount_validate"},
      *     message="field is required when total is not present."
      * )
-     * @Assert\Type(type="numeric", groups={"create", "delete", "update"})
+     * @Assert\Type(type="numeric", groups={"create", "delete", "pay", "update"})
      *
-     * @Groups({"create", "delete", "update", "amount_validate"})
+     * @Groups({"create", "delete", "update", "pay", "amount_validate"})
      *
      * @var null|string
      */
@@ -51,9 +51,9 @@ trait AmountTrait
      *     groups={"amount_validate"},
      *     message="field is required when subtoal is not present."
      * )
-     * @Assert\Type(type="numeric", groups={"create", "delete", "update"})
+     * @Assert\Type(type="numeric", groups={"create", "delete", "pay", "update"})
      *
-     * @Groups({"create", "delete", "update", "amount_validate"})
+     * @Groups({"create", "delete", "update", "pay", "amount_validate"})
      *
      * @var null|string
      */

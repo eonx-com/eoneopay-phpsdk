@@ -3,23 +3,22 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Requests\ScheduledPayments\BankAccount;
 
-use EoneoPay\PhpSdk\Requests\AbstractRequest;
+use EoneoPay\PhpSdk\Requests\ScheduledPayments\AbstractPayRequest;
 use EoneoPay\PhpSdk\Responses\Transactions\BankAccount;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class PayRequest extends AbstractRequest
+class PayRequest extends AbstractPayRequest
 {
     /**
-     * Payment id
+     * @Assert\NotNull(groups={"pay"})
+     * @Assert\Valid(groups={"pay"})
      *
-     * @Assert\NotBlank(groups={"create"})
+     * @Groups({"pay"})
      *
-     * @Groups({"create"})
-     *
-     * @var null|string
+     * @var null|\EoneoPay\PhpSdk\Requests\Payloads\BankAccount|\EoneoPay\PhpSdk\Requests\Payloads\Token
      */
-    protected $paymentId;
+    protected $bankAccount;
 
     /**
      * @inheritdoc
@@ -27,15 +26,5 @@ class PayRequest extends AbstractRequest
     public function expectObject(): ?string
     {
         return BankAccount::class;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function uris(): array
-    {
-        return [
-            self::CREATE => \sprintf('/schedules/%s/pay', $this->paymentId)
-        ];
     }
 }

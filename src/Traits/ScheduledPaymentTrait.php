@@ -32,7 +32,7 @@ trait ScheduledPaymentTrait
     /**
      * Payment id
      *
-     * @Assert\NotBlank(groups={"create", "delete", "get"})
+     * @Assert\NotBlank(groups={"create", "delete", "get", "pay"})
      *
      * @Groups({"create"})
      *
