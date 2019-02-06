@@ -118,7 +118,7 @@ class BankAccountRequestTest extends TransactionTestCase
                 'total' => $data['amount']->getTotal()
             ]),
             'bank_account' => new BankAccountRequestStub(),
-            'paymentId' => 'valid-id'
+            'id' => 'valid-id'
         ]));
 
         self::assertInstanceOf(BankAccountTransaction::class, $response);

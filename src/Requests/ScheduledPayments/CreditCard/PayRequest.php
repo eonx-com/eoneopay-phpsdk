@@ -11,10 +11,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class PayRequest extends AbstractPayRequest
 {
     /**
-     * @Assert\NotNull(groups={"create"})
-     * @Assert\Valid(groups={"create"})
+     * @Assert\NotNull(groups={"pay"})
+     * @Assert\Valid(groups={"pay"})
      *
-     * @Groups({"create"})
+     * @Groups({"pay"})
      *
      * @var null|\EoneoPay\PhpSdk\Requests\Payloads\CreditCard|\EoneoPay\PhpSdk\Requests\Payloads\Token
      */
