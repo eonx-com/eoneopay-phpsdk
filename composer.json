@@ -20,7 +20,7 @@
     "php": ">=7.1",
     "eoneopay/utils": "dev-master",
     "ext-json": "*",
-    "loyaltycorp/sdkblueprint": "dev-master"
+    "loyaltycorp/sdkblueprint": "dev-feature/PYMT-410-create-sdk-blueprint"
   },
   "require-dev": {
     "eoneopay/standards": "dev-master",
