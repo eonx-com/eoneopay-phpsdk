@@ -16,7 +16,7 @@ class Ewallet extends PaymentSource
     {
         parent::__construct($data);
 
-        $this->type = 'ewallet';
+        $this->type = self::SOURCE_EWALLET;
     }
 
     /**

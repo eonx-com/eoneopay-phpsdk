@@ -16,7 +16,7 @@ class CreditCard extends PaymentSource
     {
         parent::__construct($data);
 
-        $this->type = 'credit_card';
+        $this->type = self::SOURCE_CREDIT_CARD;
     }
 
     /**

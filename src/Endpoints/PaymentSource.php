@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints;
 
+use EoneoPay\PhpSdk\Interfaces\Endpoints\PaymentSourceInterface;
 use EoneoPay\PhpSdk\Traits\PaymentSourceTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
@@ -21,7 +22,7 @@ use EoneoPay\PhpSdk\Annotations\Repository;
  *
  * @Repository(repositoryClass="EoneoPay\PhpSdk\Repositories\PaymentSourceRepository")
  */
-class PaymentSource extends Entity
+class PaymentSource extends Entity implements PaymentSourceInterface
 {
     use PaymentSourceTrait;
 

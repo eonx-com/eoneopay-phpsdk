@@ -16,7 +16,7 @@ class BankAccount extends PaymentSource
     {
         parent::__construct($data);
 
-        $this->type = 'bank_account';
+        $this->type = self::SOURCE_BANK_ACCOUNT;
     }
 
     /**
