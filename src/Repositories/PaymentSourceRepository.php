@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Repositories;
 
 use EoneoPay\PhpSdk\Endpoints\PaymentSource;
-use EoneoPay\PhpSdk\ExceptionFactory;
-use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Repository;
 
 class PaymentSourceRepository extends Repository
@@ -23,10 +21,6 @@ class PaymentSourceRepository extends Repository
      */
     public function findByToken(string $token, string $apikey): PaymentSource
     {
-        try {
-            return $this->getApiManager()->findOneBy(PaymentSource::class, $apikey, \compact('token'));
-        } catch (InvalidApiResponseException $exception) {
-            throw (new ExceptionFactory($exception))->create();
-        }
-    }
+       return $this->getApiManager()->findOneBy(PaymentSource::class, $apikey, \compact('token'));   
+ }
 }

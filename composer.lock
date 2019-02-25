@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6fed85aa0fc4345c2d6a4fb0c22456f",
+    "content-hash": "f2fe376eda7296ce94df4a763dbd7716",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1844,6 +1844,62 @@
                 "issues": "https://github.com/loyaltycorp/standards/issues"
             },
             "time": "2019-01-18T03:28:12+00:00"
+        },
+        {
+            "name": "indigophp/doctrine-annotation-autoload",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/indigophp/doctrine-annotation-autoload.git",
+                "reference": "5c2018e7b1277f691600e69b4d3177b706e8aa80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/indigophp/doctrine-annotation-autoload/zipball/5c2018e7b1277f691600e69b4d3177b706e8aa80",
+                "reference": "5c2018e7b1277f691600e69b4d3177b706e8aa80",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/eoneopay/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "doctrine/annotations": "*",
+                "php": ">=5.4"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Indigo\\Composer\\DoctrineAnnotationAutoloadPlugin",
+                "branch-alias": {
+                    "dev-master": "0.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Indigo\\Composer\\": "src/"
+                }
+            },
+            "notification-url": "https://repo.packagist.com/eoneopay/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com"
+                }
+            ],
+            "description": "Hooks into Composer autoload generation and adds Doctrine annotation autoloading",
+            "homepage": "https://indigophp.com",
+            "keywords": [
+                "annotation",
+                "autoload",
+                "doctrine"
+            ],
+            "time": "2015-11-12T12:29:47+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
