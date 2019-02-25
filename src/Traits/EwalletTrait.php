@@ -1,12 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Traits\Users;
+namespace EoneoPay\PhpSdk\Traits;
 
 use Symfony\Component\Serializer\Annotation\Groups;
 
 trait EwalletTrait
 {
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var mixed[]
+     */
+    protected $balances;
+
     /**
      * @Groups({"create", "get", "list", "update"})
      *
@@ -49,5 +56,10 @@ trait EwalletTrait
      */
     protected $type;
 
-
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var mixed[]
+     */
+    protected $user;
 }

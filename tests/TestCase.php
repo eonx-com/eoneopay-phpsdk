@@ -30,7 +30,8 @@ abstract class TestCase extends BaseTestCase
         ?array $body = null,
         ?int $responseCode = null,
         ?bool $useLiveClient = null
-    ): ApiManagerInterface {
+    ): ApiManagerInterface
+    {
         return new ApiManager(
             new RequestHandler(
                 $useLiveClient ? $this->createLiveClient() : $this->createClient($body, $responseCode),
@@ -62,6 +63,16 @@ abstract class TestCase extends BaseTestCase
     {
         /** @noinspection ArgumentEqualsDefaultValueInspection EA inspections require both parameters to be passed */
         return \uniqid($prefix ?? '', false);
+    }
+
+    /**
+     * Get API Key
+     *
+     * @return string
+     */
+    protected function getApiKey(): string
+    {
+        return (string)\getenv('PAYMENTS_API_KEY');
     }
 
     /**

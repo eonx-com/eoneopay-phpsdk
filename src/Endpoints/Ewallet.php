@@ -1,15 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Endpoints\Users;
+namespace EoneoPay\PhpSdk\Endpoints;
 
-use EoneoPay\PhpSdk\Traits\Users\EwalletTrait;
-use LoyaltyCorp\SdkBlueprint\Sdk\Annotations\Repository;
+use EoneoPay\PhpSdk\Traits\EwalletTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
-/**
- * @Repository(repositoryClass="EoneoPay\PhpSdk\Repositories\Users\UserRepository")
- */
 class Ewallet extends Entity
 {
     use EwalletTrait;
@@ -32,7 +28,8 @@ class Ewallet extends Entity
     public function uris(): array
     {
         return [
-            self::CREATE => 'http://payments.box/ewallets'
+            self::CREATE => 'http://payments.box/ewallets',
+            self::GET => \sprintf('http://payments.box/ewallets/%s', $this->reference)
         ];
     }
 }
