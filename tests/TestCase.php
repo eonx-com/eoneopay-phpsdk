@@ -66,13 +66,23 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Get API Key
+     * Get API Key from PHPUnit config file
      *
      * @return string
      */
     protected function getApiKey(): string
     {
         return (string)\getenv('PAYMENTS_API_KEY');
+    }
+
+    /**
+     * Get Credit card token from PHPUnit config file
+     *
+     * @return string
+     */
+    protected function getCreditCardToken(): string
+    {
+        return (string)\getenv('PAYMENTS_TOKEN_CREDIT_CARD');
     }
 
     /**
