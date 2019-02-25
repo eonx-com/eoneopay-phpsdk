@@ -21,12 +21,12 @@ class ApiKeyRepository extends Repository
      * @param string $apiKey
      * @param string $userId
      *
-     * @return \EoneoPay\PhpSdk\Endpoints\Users\ApiKey|null
+     * @return \EoneoPay\PhpSdk\Endpoints\Users\ApiKey
      *
      * @throws \EoneoPay\Utils\Exceptions\BaseException
      * one of ClientException, CriticalException, RuntimeException, ValidationException
      */
-    public function createKey(string $apiKey, string $userId): ?ApiKey
+    public function createKey(string $apiKey, string $userId): ApiKey
     {
         try {
             return $this->getApiManager()->create($apiKey, new ApiKey(\compact('userId')));

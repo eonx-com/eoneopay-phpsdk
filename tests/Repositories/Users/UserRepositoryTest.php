@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Repositories\Users;
 
+use EoneoPay\PhpSdk\Endpoints\Users\Ewallet;
 use EoneoPay\PhpSdk\Endpoints\Users\User;
+use EoneoPay\PhpSdk\Exceptions\ClientException;
 use EoneoPay\PhpSdk\Exceptions\ValidationException;
 use EoneoPay\PhpSdk\Repositories\Users\UserRepository;
 use Tests\EoneoPay\PhpSdk\TestCase;
@@ -13,6 +15,47 @@ use Tests\EoneoPay\PhpSdk\TestCase;
  */
 class UserRepositoryTest extends TestCase
 {
+    /**
+     * Test creation of ewallet
+     *
+     * @return void
+     */
+    public function testEwalletCreation(): void
+    {
+
+        $id = $this->generateId();
+        $ewallet = $this->createApiManager([
+            'currency' => 'AUD',
+            'id' => $id,
+            'pan' => 'G...2T89',
+            'primary' => false,
+            'reference' => 'GEHBB72T89',
+            'type' => 'ewallet'
+        ])->getRepository(Ewallet::class)->createEwallet((string)\getenv('PAYMENTS_API_KEY'));
+
+        self::assertIsString($ewallet->getId());
+        self::assertNotEmpty($ewallet->getType());
+    }
+
+    /**
+     * Test if exception code is covered
+     *
+     * @return void
+     */
+    public function testExceptionIsThrownOnEwalletCreationWithWrongKey(): void
+    {
+        $this->expectException(ClientException::class);
+        $id = $this->generateId();
+        $this->createApiManager([
+            'code' => 4401,
+            'message' => 'Unauthorised.',
+            'sub_code' => 1,
+            'time' => '2019-02-25T02=>31=>59Z'
+        ], 401)
+            ->getRepository(Ewallet::class)
+            ->createEwallet('wrong_key');
+    }
+
     /**
      * Test if appropriate exception is thrown if user already exists, or any other response error
      *
