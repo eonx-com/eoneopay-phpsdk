@@ -17,7 +17,7 @@ trait ApiKeyTrait
     /**
      * @Groups({"create"})
      *
-     * @var string
+     * @var string External User Id
      */
-    protected $userId;
+    protected $id;
 }

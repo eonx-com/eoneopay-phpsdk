@@ -6,7 +6,7 @@
  * Time: 13:58
  */
 
-namespace Tests\EoneoPay\PhpSdk\Endpoints\Users;
+namespace Tests\EoneoPay\PhpSdk\Endpoints;
 
 use EoneoPay\PhpSdk\Endpoints\Ewallet;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
@@ -43,8 +43,7 @@ class EwalletTest extends TestCase
                 'updated_at' => '2019-02-22T03=>09=>44Z'
             ]
         ];
-
-
+        
         $ewallet = $this->createApiManager($response, 200)
             ->findOneBy(
                 Ewallet::class,

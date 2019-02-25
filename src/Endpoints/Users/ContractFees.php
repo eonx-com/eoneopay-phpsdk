@@ -8,8 +8,9 @@
 
 namespace EoneoPay\PhpSdk\Endpoints\Users;
 
+use EoneoPay\Externals\ORM\Entity;
 
-class ContractFees
+class ContractFees extends Entity
 {
 
 }

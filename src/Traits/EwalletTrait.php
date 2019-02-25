@@ -59,7 +59,7 @@ trait EwalletTrait
     /**
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var mixed[]
+     * @var \EoneoPay\PhpSdk\Endpoints\Users\User
      */
     protected $user;
 }

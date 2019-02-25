@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Traits;
 
+use EoneoPay\PhpSdk\Endpoints\PaymentSource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 trait SecurityTrait
@@ -73,7 +74,7 @@ trait SecurityTrait
     /**
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var mixed[]|null
+     * @var PaymentSource|null
      */
     protected $paymentSource;
 

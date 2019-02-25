@@ -17,12 +17,23 @@ trait UserTrait
      *
      * @var string
      */
+    protected $createdAt;
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string
+     */
     protected $email;
-
     /**
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string User selected external id
      */
     protected $id;
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string
+     */
+    protected $updatedAt;
 }
