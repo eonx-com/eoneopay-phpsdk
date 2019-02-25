@@ -27,7 +27,7 @@ class PaymentSource extends Entity
     public function uris(): array
     {
         return [
-            self::GET => \sprintf('http://localhost/tokens/%s', $this->token)
+            self::GET => \sprintf('http://payments.box/tokens/%s', $this->token)
         ];
     }
 }

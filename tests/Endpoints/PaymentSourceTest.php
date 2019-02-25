@@ -23,14 +23,14 @@ class PaymentSourceTest extends TestCase
             'id' => $this->generateId(),
             'name' => 'John Wick',
             'pan' => '512345...0008',
-            'token' => 'VRG2VR4F39343HM4D3N2',
+            'token' => (string)\getenv('PAYMENTS_TOKEN_CREDIT_CARD'),
             'type' => 'credit_card'
         ])->getRepository(PaymentSource::class)->findByToken(
-            'VRG2VR4F39343HM4D3N2',
+            (string)\getenv('PAYMENTS_TOKEN_CREDIT_CARD'),
             (string)\getenv('PAYMENTS_API_KEY')
         );
 
-        self::assertInstanceOf(CreditCard::class,$paymentSource);
-        self::assertSame('VRG2VR4F39343HM4D3N2', $paymentSource->getToken());
+        self::assertInstanceOf(CreditCard::class, $paymentSource);
+        self::assertSame((string)\getenv('PAYMENTS_TOKEN_CREDIT_CARD'), $paymentSource->getToken());
     }
 }

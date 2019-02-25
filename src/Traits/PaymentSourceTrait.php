@@ -31,7 +31,9 @@ trait PaymentSourceTrait
     /**
      * Payment source type discriminator.
      *
-     * @var string
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string|null
      */
     protected $type;
 }

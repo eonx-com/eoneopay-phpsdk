@@ -22,20 +22,33 @@ abstract class TestCase extends BaseTestCase
      *
      * @param mixed[]|null $body
      * @param int|null $responseCode
+     * @param bool $useLiveClient Switch between mock client and live client
      *
      * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\ApiManagerInterface
      */
-    protected function createApiManager(?array $body = null, ?int $responseCode = null): ApiManagerInterface
-    {
+    protected function createApiManager(
+        ?array $body = null,
+        ?int $responseCode = null,
+        ?bool $useLiveClient = null
+    ): ApiManagerInterface {
         return new ApiManager(
             new RequestHandler(
-                $this->createClient($body, $responseCode),
-//                $this->createLiveClient(),
+                $useLiveClient ? $this->createLiveClient() : $this->createClient($body, $responseCode),
                 new ResponseHandler(),
                 new SerializerFactory(),
                 new UrnFactory()
             )
         );
+    }
+
+    /**
+     * Create live http client.
+     *
+     * @return \GuzzleHttp\ClientInterface
+     */
+    protected function createLiveClient(): ClientInterface
+    {
+        return new Client(['base_uri' => (string)\getenv('PAYMENTS_BASE_URI')]);
     }
 
     /**
@@ -70,15 +83,5 @@ abstract class TestCase extends BaseTestCase
                 )
             ])
         ]);
-    }
-
-    /**
-     * Create live http client.
-     *
-     * @return \GuzzleHttp\ClientInterface
-     */
-    protected function createLiveClient(): ClientInterface
-    {
-        return new Client(['base_uri' => (string)\getenv('PAYMENTS_BASE_URI')]);
     }
 }
