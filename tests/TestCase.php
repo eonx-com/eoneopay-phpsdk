@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk;
 
+use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
+use EoneoPay\PhpSdk\Managers\EoneoPayApiManager;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Handler\MockHandler;
@@ -11,8 +13,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Factories\SerializerFactory;
 use LoyaltyCorp\SdkBlueprint\Sdk\Factories\UrnFactory;
 use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\RequestHandler;
 use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\ResponseHandler;
-use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\ApiManagerInterface;
-use LoyaltyCorp\SdkBlueprint\Sdk\Managers\ApiManager;
+use LoyaltyCorp\SdkBlueprint\Sdk\Managers\SdkManager;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -23,19 +24,17 @@ abstract class TestCase extends BaseTestCase
      * @param mixed[]|null $body
      * @param int|null $responseCode
      *
-     * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\ApiManagerInterface
+     * @return \EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface
      */
-    protected function createApiManager(?array $body = null, ?int $responseCode = null): ApiManagerInterface
+    protected function createApiManager(?array $body = null, ?int $responseCode = null): EoneoPayApiManagerInterface
     {
-        return new ApiManager(
-            new RequestHandler(
-                $this->createClient($body, $responseCode),
-//                $this->createLiveClient(),
-                new ResponseHandler(),
-                new SerializerFactory(),
-                new UrnFactory()
-            )
-        );
+        return new EoneoPayApiManager(new SdkManager(new RequestHandler(
+            $this->createClient($body, $responseCode),
+//            $this->createLiveClient(),
+            new ResponseHandler(),
+            new SerializerFactory(),
+            new UrnFactory()
+        )));
     }
 
     /**

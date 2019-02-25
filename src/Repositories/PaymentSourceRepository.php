@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Repositories;
 
 use EoneoPay\PhpSdk\Endpoints\PaymentSource;
-use LoyaltyCorp\SdkBlueprint\Sdk\Repository;
+use EoneoPay\PhpSdk\Repository;
 
 class PaymentSourceRepository extends Repository
 {
@@ -18,7 +18,7 @@ class PaymentSourceRepository extends Repository
      */
     public function findByToken(string $token, string $apikey): ?PaymentSource
     {
-        $paymentSource = $this->getApiManager()->findOneBy(PaymentSource::class, \compact('token'), $apikey);
+        $paymentSource = $this->getApiManager()->findOneBy(PaymentSource::class, $apikey, \compact('token'));
 
         if (($paymentSource instanceof PaymentSource) !== true) {
             return null;

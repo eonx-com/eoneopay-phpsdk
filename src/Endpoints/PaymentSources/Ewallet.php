@@ -8,6 +8,18 @@ use EoneoPay\PhpSdk\Endpoints\PaymentSource;
 class Ewallet extends PaymentSource
 {
     /**
+     * Ewallet constructor.
+     *
+     * @param mixed|null $data
+     */
+    public function __construct(?array $data = null)
+    {
+        parent::__construct($data);
+
+        $this->type = 'ewallet';
+    }
+
+    /**
      * @inheritdoc
      */
     public function uris(): array
