@@ -29,6 +29,11 @@ class ApiKeyRepositoryTest extends TestCase
     }
 
 
+    /**
+     * Test if exception is thrown on bad response
+     *
+     * @return void
+     */
     public function testCreateThrowsException(): void
     {
         $this->expectException(ClientException::class);
@@ -57,6 +62,11 @@ class ApiKeyRepositoryTest extends TestCase
         self::assertIsBool($apiKey);
     }
 
+    /**
+     * Test if exception is thrown on bad response
+     *
+     * @return void
+     */
     public function testRemoveThrowsException(): void
     {
         $this->expectException(ClientException::class);
