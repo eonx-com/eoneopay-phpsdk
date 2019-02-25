@@ -9,6 +9,8 @@
 namespace EoneoPay\PhpSdk\Repositories\Users;
 
 use EoneoPay\PhpSdk\Endpoints\Users\ApiKey;
+use EoneoPay\PhpSdk\ExceptionFactory;
+use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Repository;
 
 class ApiKeyRepository extends Repository
@@ -20,19 +22,18 @@ class ApiKeyRepository extends Repository
      * @param string $userId
      *
      * @return \EoneoPay\PhpSdk\Endpoints\Users\ApiKey|null
+     *
+     * @throws \EoneoPay\Utils\Exceptions\BaseException
      * one of ClientException, CriticalException, RuntimeException, ValidationException
      */
     public function createKey(string $apiKey, string $userId): ?ApiKey
     {
-        $apiKey = $this->getApiManager()->create($apiKey, new ApiKey(\compact('userId')));
-
-        if (($apiKey instanceof ApiKey) !== true) {
-            return null;
+        try {
+            return $this->getApiManager()->create($apiKey, new ApiKey(\compact('userId')));
+        } catch (InvalidApiResponseException $exception) {
+            throw (new ExceptionFactory($exception))->create();
         }
-
-        return $apiKey;
     }
-
 
     /**
      * Remove a key
@@ -41,9 +42,16 @@ class ApiKeyRepository extends Repository
      * @param string $key Key to remove
      *
      * @return bool
+     *
+     * @throws \EoneoPay\Utils\Exceptions\BaseException
+     * one of ClientException, CriticalException, RuntimeException, ValidationException
      */
     public function deleteKey(string $apiKey, string $key): bool
     {
-        return $this->getApiManager()->delete($apiKey, new ApiKey(\compact('key')));
+        try {
+            return $this->getApiManager()->delete($apiKey, new ApiKey(\compact('key')));
+        } catch (InvalidApiResponseException $exception) {
+            throw (new ExceptionFactory($exception))->create();
+        }
     }
 }

@@ -25,6 +25,7 @@ class UserRepository extends Repository
      * @return \EoneoPay\PhpSdk\Endpoints\Users\User|null
      *
      * @throws \EoneoPay\Utils\Exceptions\BaseException
+     * one of ClientException, CriticalException, RuntimeException, ValidationException
      */
     public function create(string $apiKey, string $id, string $email): ?User
     {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\EoneoPay\PhpSdk\Repositories;
+namespace Tests\EoneoPay\PhpSdk\Repositories\Users;
 
 use EoneoPay\PhpSdk\Endpoints\Users\User;
 use EoneoPay\PhpSdk\Exceptions\ValidationException;
