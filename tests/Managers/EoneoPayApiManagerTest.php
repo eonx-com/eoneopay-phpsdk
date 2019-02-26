@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Managers;
 
+use EoneoPay\PhpSdk\Factories\ExceptionFactory;
 use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
 use EoneoPay\PhpSdk\Interfaces\RepositoryInterface;
 use EoneoPay\PhpSdk\Managers\EoneoPayApiManager;
@@ -192,6 +193,6 @@ class EoneoPayApiManagerTest extends TestCase
      */
     private function getManager(?EntityInterface $entity = null): EoneoPayApiManagerInterface
     {
-        return new EoneoPayApiManager(new SdkManagerStub($entity));
+        return new EoneoPayApiManager(new SdkManagerStub($entity), new ExceptionFactory());
     }
 }

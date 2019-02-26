@@ -3,16 +3,24 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\Users;
 
-use EoneoPay\PhpSdk\Annotations\Repository;
-use EoneoPay\PhpSdk\Traits\Users\UserTrait;
+use EoneoPay\PhpSdk\Endpoints\User;
+use EoneoPay\PhpSdk\Traits\Users\ContractTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
- * @Repository(repositoryClass="EoneoPay\PhpSdk\Repositories\Users\UserRepository")
+ * @method string|null getCreatedAt()
+ * @method string|null getCurrency()
+ * @method string|null getEwallet()
+ * @method string|null getFixedFee()
+ * @method string|null getGroup()
+ * @method string|null getType()
+ * @method string|null getUpdatedAt()
+ * @method User|null getUser()
+ * @method string|null getVariableRate()
  */
-class User extends Entity
+class Contract extends Entity
 {
-    use UserTrait;
+    use ContractTrait;
 
     /**
      * Get uri for this entity.
@@ -31,9 +39,8 @@ class User extends Entity
      */
     public function uris(): array
     {
-        return
-            [
-                self::CREATE => \sprintf('http://payments.box/users/%s', $this->id)
-            ];
+        return [
+            self::CREATE => \sprintf('/users/%s/contracts', $this->getUser()->getId())
+        ];
     }
 }

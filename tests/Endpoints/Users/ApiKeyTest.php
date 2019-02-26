@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints\Users;
 
+use EoneoPay\PhpSdk\Endpoints\User;
 use EoneoPay\PhpSdk\Endpoints\Users\ApiKey;
-use EoneoPay\PhpSdk\Endpoints\Users\User;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
@@ -50,7 +50,7 @@ class ApiKeyTest extends TestCase
             ],
             201
         )
-            ->create($this->getApiKey(), new ApiKey(['id' => 'external-user-id']));
+            ->create('api-key', new ApiKey(['user' => new User(['id' => 'external-user-id'])]));
 
 
         self::assertIsString($apiKey->getKey());
@@ -65,8 +65,7 @@ class ApiKeyTest extends TestCase
     public function testRemoveKey(): void
     {
         $apiKey = $this->createApiManager(null, 204)
-            ->getRepository(ApiKey::class)
-            ->deleteKey((string)\getenv('PAYMENTS_API_KEY'), 'RHMCY4H9B7X69AW4');
+            ->delete('api-key', new ApiKey(['user' => new User(['id' => 'external-user-id'])]));
 
         self::assertIsBool($apiKey);
     }

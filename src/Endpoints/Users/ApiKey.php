@@ -3,12 +3,16 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\Users;
 
-use EoneoPay\PhpSdk\Annotations\Repository;
+use EoneoPay\PhpSdk\Endpoints\User;
 use EoneoPay\PhpSdk\Traits\Users\ApiKeyTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
- * @Repository(repositoryClass="EoneoPay\PhpSdk\Repositories\Users\ApiKeyRepository")
+ * @method string|null getCreatedAt()
+ * @method string|null getKey()
+ * @method User|null getTargetUser()
+ * @method User|null getUser()
+ * @method string|null getUpdatedAt()
  */
 class ApiKey extends Entity
 {
@@ -20,8 +24,8 @@ class ApiKey extends Entity
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('http://payments.box/users/%s/apikeys', $this->id),
-            self::DELETE => \sprintf('http://payments.box/apikeys/%s', $this->key)
+            self::CREATE => \sprintf('/users/%s/apikeys', $this->getUser()->getId()),
+            self::DELETE => \sprintf('/apikeys/%s', $this->getKey())
         ];
     }
 }

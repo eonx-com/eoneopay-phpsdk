@@ -1,14 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Codeint
- * Date: 25/02/2019
- * Time: 16:14
- */
+declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints;
 
 use EoneoPay\PhpSdk\Endpoints\Security;
+use EoneoPay\PhpSdk\Exceptions\RuntimeException;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
@@ -16,7 +12,6 @@ use Tests\EoneoPay\PhpSdk\TestCase;
  */
 class SecurityTest extends TestCase
 {
-
     /**
      * Simple test count number of uri's used
      *
@@ -25,7 +20,7 @@ class SecurityTest extends TestCase
     public function testCountUri(): void
     {
         $security = new Security();
-        self::assertCount(1, $security->uris());
+        self::assertCount(2, $security->uris());
     }
 
     /**
@@ -35,7 +30,6 @@ class SecurityTest extends TestCase
      */
     public function testInitiateSecurity(): void
     {
-        // TODO: maybe move the static responses to a common place
         $response = [
             'action_url' => 'https=>//bne-stripe1.ap.gateway.mastercard.com/acs/MastercardACS/c11cd85b-66cd-4af9-bd3e-beca29c5ae0c',
             'amount' => [
@@ -83,14 +77,14 @@ class SecurityTest extends TestCase
             'xid' => 'HVYed7tXDxWoIDZy7HDR3CfVJOw='
         ];
         $security = $this->createApiManager($response, 200)
-            ->create($this->getApiKey(), new Security([
+            ->create('api-key', new Security([
                 'id' => 'external-security-id',
                 'amount' => [
                     'currency' => 'AUD',
                     'total' => '90.00'
                 ],
                 'payment_source' => [
-                    'token' => $this->getCreditCardToken(),
+                    'token' => 'credit-card-token',
                     'type' => 'credit_card'
                 ],
                 'return_url' => 'https://your-url/3dsecure'
@@ -98,5 +92,26 @@ class SecurityTest extends TestCase
 
         self::assertIsString($security->getActionUrl());
         self::assertIsString($security->getRequestPayload());
+    }
+
+    /**
+     * Test verify security throws Runtime exception on invalid payload
+     *
+     * @return void
+     */
+    public function testVerifySecurityExceptionOnInvalidPayload(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->createApiManager(
+            [
+                'code' => 5242,
+                'message' => 'Invalid payload or security validation response received.',
+                'sub_code' => 1,
+                'time' => '2019-02-26T03=>01=>47Z'
+            ],
+            500
+        )->update('api-key', new Security([
+            'payload' => 'payload'
+        ]));
     }
 }

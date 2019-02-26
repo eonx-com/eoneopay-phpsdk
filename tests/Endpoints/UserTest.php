@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\EoneoPay\PhpSdk\Endpoints\Users;
+namespace Tests\EoneoPay\PhpSdk\Endpoints;
 
-use EoneoPay\PhpSdk\Endpoints\Users\User;
+use EoneoPay\PhpSdk\Endpoints\User;
 use EoneoPay\PhpSdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
@@ -47,7 +47,7 @@ class UserTest extends TestCase
             ]
         ], 400)
             ->create(
-                $this->getApiKey(),
+                'api-key',
                 new User([
                     'id' => $this->userId,
                     'email' => $this->userEmail
@@ -72,7 +72,7 @@ class UserTest extends TestCase
             'updated_at' => '2019-02-26T00=>01=>39Z'
         ], 201)
             ->create(
-                $this->getApiKey(),
+                'api-key',
                 new User([
                     'id' => $this->userId,
                     'email' => $this->userEmail
@@ -100,6 +100,4 @@ class UserTest extends TestCase
             $this->userEmail = $this->generateId('email') . '@email.com';
         }
     }
-
-
 }

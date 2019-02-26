@@ -1,15 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Codeint
- * Date: 25/02/2019
- * Time: 13:58
- */
+declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints;
 
 use EoneoPay\PhpSdk\Endpoints\Ewallet;
-use EoneoPay\PhpSdk\Endpoints\Users\User;
+use EoneoPay\PhpSdk\Endpoints\User;
 use EoneoPay\PhpSdk\Exceptions\ClientException;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
@@ -50,7 +45,7 @@ class EwalletTest extends TestCase
         $ewallet = $this->createApiManager($response, 200)
             ->findOneBy(
                 Ewallet::class,
-                $this->getApiKey(),
+                'api-key',
                 ['reference' => 'JEKYYFZAR0']
             );
 
@@ -88,7 +83,7 @@ class EwalletTest extends TestCase
                 ]
             ],
             201
-        )->create($this->getApiKey(), new Ewallet());
+        )->create('api-key', new Ewallet());
 
         self::assertIsString($ewallet->getId());
         self::assertNotEmpty($ewallet->getType());
@@ -119,6 +114,6 @@ class EwalletTest extends TestCase
     public function testUriIsCreated(): void
     {
         $ewallet = new Ewallet();
-        self::assertCount(2, $ewallet->uris());
+        self::assertCount(3, $ewallet->uris());
     }
 }

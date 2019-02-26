@@ -137,7 +137,7 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
         }
 
         if ($reflectionClass->getParentClass() !== false) {
-            return $this->getRepository(\get_class($reflectionClass->getParentClass()));
+            return $this->getRepository($reflectionClass->getParentClass()->getName());
         }
 
         return new Repository($this, $entityClass);

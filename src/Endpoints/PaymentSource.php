@@ -10,9 +10,16 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
 
 /**
- * @method string|null getToken()
+ * @method mixed[]|null getBin()
+ * @method string|null getCreatedAt()
+ * @method mixed[]|null getExpiry()
+ * @method string|null getFacility()
+ * @method string|null getId()
+ * @method string|null getName()
  * @method string|null getPan()
+ * @method string|null getToken()
  * @method string|null getType()
+ * @method string|null getUpdatedAt()
  *
  * @DiscriminatorMap(typeProperty="type", mapping={
  *     "bank_account"="EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount",
@@ -32,7 +39,7 @@ class PaymentSource extends Entity implements PaymentSourceInterface
     public function uris(): array
     {
         return [
-            self::GET => \sprintf('http://payments.box/tokens/%s', $this->token)
+            self::GET => \sprintf('/tokens/%s', $this->getToken())
         ];
     }
 }

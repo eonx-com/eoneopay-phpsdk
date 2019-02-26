@@ -1,25 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Traits;
+namespace EoneoPay\PhpSdk\Traits\Users;
 
 use Symfony\Component\Serializer\Annotation\Groups;
 
-trait EwalletTrait
+trait ContractTrait
 {
-    /**
-     * @Groups({"get", "list", "update"})
-     *
-     * @var mixed[]|null
-     */
-    protected $balances;
-
     /**
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
      */
     protected $createdAt;
+
     /**
      * @Groups({"create", "get", "list", "update"})
      *
@@ -30,30 +24,23 @@ trait EwalletTrait
     /**
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string|null
+     * @var \EoneoPay\PhpSdk\Endpoints\Ewallet|null
      */
-    protected $id;
+    protected $ewallet;
 
     /**
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
      */
-    protected $pan;
-
-    /**
-     * @Groups({"create", "get", "list", "update"})
-     *
-     * @var bool
-     */
-    protected $primary;
+    protected $fixedFee;
 
     /**
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
      */
-    protected $reference;
+    protected $group;
 
     /**
      * @Groups({"create", "get", "list", "update"})
@@ -75,4 +62,13 @@ trait EwalletTrait
      * @var \EoneoPay\PhpSdk\Endpoints\User|null
      */
     protected $user;
+
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string|null
+     */
+    protected $variableRate;
+
+
 }
