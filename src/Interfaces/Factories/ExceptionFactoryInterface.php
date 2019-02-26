@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Codeint
- * Date: 26/02/2019
- * Time: 09:18
- */
+declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Interfaces\Factories;
 

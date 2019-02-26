@@ -69,6 +69,4 @@ trait ContractTrait
      * @var string|null
      */
     protected $variableRate;
-
-
 }

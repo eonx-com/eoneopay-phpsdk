@@ -17,8 +17,6 @@ class EwalletTest extends TestCase
      * Test Ewallet details are returned back
      *
      * @return void
-     *
-     * @throws \EoneoPay\Utils\Exceptions\BaseException
      */
     public function testEwalletBalance(): void
     {
@@ -45,27 +43,23 @@ class EwalletTest extends TestCase
         $ewallet = $this->createApiManager($response, 200)
             ->findOneBy(
                 Ewallet::class,
-                'api-key',
+                (string)\getenv('PAYMENTS_API_KEY'),
                 ['reference' => 'JEKYYFZAR0']
             );
 
-        self::assertSame('JEKYYFZAR0', $ewallet->getReference());
+        self::assertSame('JEKYYFZAR0', ($ewallet instanceof Ewallet) ? $ewallet->getReference() : null);
         // check if it has balances
         self::assertObjectHasAttribute('balances', $ewallet);
-        self::assertInstanceOf(User::class, $ewallet->getUser());
+        self::assertInstanceOf(User::class, ($ewallet instanceof Ewallet) ? $ewallet->getUser() : null);
     }
 
     /**
      * Test creation of ewallet
      *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException
-     *
      * @return void
      */
     public function testEwalletCreation(): void
     {
-
-        $id = $this->generateId();
         $ewallet = $this->createApiManager(
             [
                 'created_at' => '2019-02-26T00=>14=>25Z',
@@ -83,11 +77,11 @@ class EwalletTest extends TestCase
                 ]
             ],
             201
-        )->create('api-key', new Ewallet());
+        )->create((string)\getenv('PAYMENTS_API_KEY'), new Ewallet());
 
-        self::assertIsString($ewallet->getId());
-        self::assertNotEmpty($ewallet->getType());
-        self::assertInstanceOf(User::class, $ewallet->getUser());
+        self::assertIsString(($ewallet instanceof Ewallet) ? $ewallet->getId() : null);
+        self::assertNotEmpty(($ewallet instanceof Ewallet) ? $ewallet->getType() : null);
+        self::assertInstanceOf(User::class, ($ewallet instanceof Ewallet) ? $ewallet->getUser() : null);
     }
 
     /**

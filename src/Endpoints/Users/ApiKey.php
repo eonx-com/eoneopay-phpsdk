@@ -24,7 +24,7 @@ class ApiKey extends Entity
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('/users/%s/apikeys', $this->getUser()->getId()),
+            self::CREATE => \sprintf('/users/%s/apikeys', $this->getUser()->getId() ?? null),
             self::DELETE => \sprintf('/apikeys/%s', $this->getKey())
         ];
     }

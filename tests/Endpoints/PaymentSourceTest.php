@@ -35,7 +35,7 @@ class PaymentSourceTest extends TestCase
 
         $paymentSource = $repository->findByToken(
             '3T93F7TXCVGX4ZV7AFW2',
-            'api-key'
+            (string)\getenv('PAYMENTS_API_KEY')
         );
 
         self::assertInstanceOf(BankAccount::class, $paymentSource);
@@ -63,7 +63,7 @@ class PaymentSourceTest extends TestCase
 
         $paymentSource = $repository->findByToken(
             'VRG2VR4F39343HM4D3N2',
-            'api-key'
+            (string)\getenv('PAYMENTS_API_KEY')
         );
 
         self::assertInstanceOf(CreditCard::class, $paymentSource);
@@ -91,7 +91,7 @@ class PaymentSourceTest extends TestCase
 
         $paymentSource = $repository->findByToken(
             'EM2J8GZ3G8KAKA72VF30',
-            'api-key'
+            (string)\getenv('PAYMENTS_API_KEY')
         );
 
         self::assertInstanceOf(Ewallet::class, $paymentSource);

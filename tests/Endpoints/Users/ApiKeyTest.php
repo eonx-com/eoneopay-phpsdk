@@ -50,11 +50,14 @@ class ApiKeyTest extends TestCase
             ],
             201
         )
-            ->create('api-key', new ApiKey(['user' => new User(['id' => 'external-user-id'])]));
+            ->create(
+                (string)\getenv('PAYMENTS_API_KEY'),
+                new ApiKey(['user' => new User(['id' => 'external-user-id'])])
+            );
 
 
-        self::assertIsString($apiKey->getKey());
-        self::assertInstanceOf(User::class, $apiKey->getUser());
+        self::assertIsString(($apiKey instanceof ApiKey) ? $apiKey->getKey() : null);
+        self::assertInstanceOf(User::class, ($apiKey instanceof ApiKey) ? $apiKey->getUser() : null);
     }
 
     /**
@@ -65,7 +68,10 @@ class ApiKeyTest extends TestCase
     public function testRemoveKey(): void
     {
         $apiKey = $this->createApiManager(null, 204)
-            ->delete('api-key', new ApiKey(['user' => new User(['id' => 'external-user-id'])]));
+            ->delete(
+                (string)\getenv('PAYMENTS_API_KEY'),
+                new ApiKey(['user' => new User(['id' => 'external-user-id'])])
+            );
 
         self::assertIsBool($apiKey);
     }

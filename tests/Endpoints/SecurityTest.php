@@ -31,7 +31,7 @@ class SecurityTest extends TestCase
     public function testInitiateSecurity(): void
     {
         $response = [
-            'action_url' => 'https=>//bne-stripe1.ap.gateway.mastercard.com/acs/MastercardACS/c11cd85b-66cd-4af9-bd3e-beca29c5ae0c',
+            'action_url' => 'https://bne-stripe1.ap.gateway.mastercard.com/',
             'amount' => [
                 'currency' => 'AUD',
                 'total' => '90.00'
@@ -68,7 +68,7 @@ class SecurityTest extends TestCase
                 'type' => 'credit_card',
                 'updated_at' => '2019-02-22T03=>08=>13Z'
             ],
-            'request_payload' => 'eAFVUdluwjAQfEfiH6Kor42dqyFoY5QSVVD1QBTo8WYlLkTKheO0yd/XJqG0fvLMese7MzBr80z7YrxOyyLQTQPrGiviMkmLfaBvN3fXE31GxiPYHDhj0QuLG84IPLK6pnumpUmgWxhj0/E83/dNVyewCtfsSGDQJFLSsACdoWzl8YEWggCNj7fLJ+Lapu1iQAOEnPFlRGyMPctzJoB6DAXNGXkoO5qJTpuXvNLCphacZikFdCpCXDaF4B3B9g2gM4CGZ+QgRFVPEcr6/li2G3GZG7RBgNQDQJe5Vo2asJZrtmlCFrt3lnjiLWpfy2X00XmLaG3PP3f3z98BIPUCEioYsbDpY8tyNexMXX9qOYBOPNBcjUXCbaRd+djAatWegkr9FPbAlzYC+suA9JrLMM4LnRGwtioLJjWlr793QJe55wvlbiykj65p2Y4rtfsj/RwKSiWVZsnUzJOMAoBUKxoilJ6cYpbMv/jHox+jTLdK',
+            'request_payload' => 'dummy-payload',
             'response_payload' => null,
             'return_url' => 'https=>//your-url/3dsecure',
             'secured' => null,
@@ -77,7 +77,7 @@ class SecurityTest extends TestCase
             'xid' => 'HVYed7tXDxWoIDZy7HDR3CfVJOw='
         ];
         $security = $this->createApiManager($response, 200)
-            ->create('api-key', new Security([
+            ->create((string)\getenv('PAYMENTS_API_KEY'), new Security([
                 'id' => 'external-security-id',
                 'amount' => [
                     'currency' => 'AUD',
@@ -90,8 +90,7 @@ class SecurityTest extends TestCase
                 'return_url' => 'https://your-url/3dsecure'
             ]));
 
-        self::assertIsString($security->getActionUrl());
-        self::assertIsString($security->getRequestPayload());
+        self::assertIsString(($security instanceof Security) ? $security->getActionUrl() : null);
     }
 
     /**
@@ -110,7 +109,7 @@ class SecurityTest extends TestCase
                 'time' => '2019-02-26T03=>01=>47Z'
             ],
             500
-        )->update('api-key', new Security([
+        )->update((string)\getenv('PAYMENTS_API_KEY'), new Security([
             'payload' => 'payload'
         ]));
     }

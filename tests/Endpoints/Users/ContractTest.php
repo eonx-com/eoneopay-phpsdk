@@ -51,7 +51,7 @@ class ContractTest extends TestCase
                 'variable_rate' => '0.10'
             ],
             200
-        )->create('4UM78RDZW93B84UJ', new Contract(
+        )->create((string)\getenv('PAYMENTS_API_KEY'), new Contract(
             [
                 'group' => 'mastercard',
                 'currency' => 'AUD',
@@ -61,6 +61,6 @@ class ContractTest extends TestCase
             ]
         ));
 
-        self::assertInstanceOf(Ewallet::class, $contract->getEwallet());
+        self::assertInstanceOf(Ewallet::class, ($contract instanceof Contract) ? $contract->getEwallet() : null);
     }
 }

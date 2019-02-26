@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Codeint
- * Date: 25/02/2019
- * Time: 11:54
- */
+declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Exceptions;
 

@@ -8,7 +8,7 @@ use EoneoPay\PhpSdk\Exceptions\ValidationException;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
- * @covers \EoneoPay\PhpSdk\Endpoints\Users\User
+ * @covers \EoneoPay\PhpSdk\Endpoints\User
  */
 class UserTest extends TestCase
 {
@@ -47,7 +47,7 @@ class UserTest extends TestCase
             ]
         ], 400)
             ->create(
-                'api-key',
+                (string)\getenv('PAYMENTS_API_KEY'),
                 new User([
                     'id' => $this->userId,
                     'email' => $this->userEmail
@@ -72,17 +72,39 @@ class UserTest extends TestCase
             'updated_at' => '2019-02-26T00=>01=>39Z'
         ], 201)
             ->create(
-                'api-key',
+                (string)\getenv('PAYMENTS_API_KEY'),
                 new User([
                     'id' => $this->userId,
                     'email' => $this->userEmail
                 ])
             );
 
-        self::assertSame($this->userEmail, $user->getEmail());
+        self::assertSame($this->userEmail, ($user instanceof User) ? $user->getEmail() : null);
 
         // Exception thrown asserts
         $this->checkExceptionThrownOnExistingUserCreation();
+    }
+
+    /**
+     * Test get profile returns a User
+     *
+     * @return void
+     */
+    public function testGetProfile(): void
+    {
+        $user = $this->createApiManager([
+            'created_at' => '2019-02-22T03=>09=>44Z',
+            'email' => 'example@user.test',
+            'updated_at' => '2019-02-22T03=>09=>44Z'
+        ], 201)
+            ->findOneBy(
+                User::class,
+                (string)\getenv('PAYMENTS_API_KEY'),
+                []
+            );
+
+        self::assertInstanceOf(User::class, $user);
+        self::assertIsString(($user instanceof User) ? $user->getEmail() : null);
     }
 
     /**

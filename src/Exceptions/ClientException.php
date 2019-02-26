@@ -8,7 +8,6 @@ use Throwable;
 
 class ClientException extends BaseNotFoundException
 {
-
     /**
      * The sub error code.
      *

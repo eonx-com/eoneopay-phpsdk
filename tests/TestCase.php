@@ -33,14 +33,12 @@ abstract class TestCase extends BaseTestCase
             new SdkManager(
                 new RequestHandler(
                     $this->createClient($body, $responseCode),
-//                $this->createLiveClient(),
                     new ResponseHandler(),
                     new SerializerFactory(),
                     new UrnFactory()
                 )
             ),
             new ExceptionFactory()
-
         );
     }
 

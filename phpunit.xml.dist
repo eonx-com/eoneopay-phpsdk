@@ -21,6 +21,5 @@
     <php>
         <env name="PAYMENTS_API_KEY" value="4UM78RDZW93B84UJ"/>
         <env name="PAYMENTS_BASE_URI" value="http://payments.box"/>
-        <env name="PAYMENTS_TOKEN_CREDIT_CARD" value="JED4DKKFRRDM9WWJD9B9"/>
     </php>
 </phpunit>

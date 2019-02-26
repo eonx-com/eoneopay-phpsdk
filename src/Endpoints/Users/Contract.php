@@ -40,7 +40,7 @@ class Contract extends Entity
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('/users/%s/contracts', $this->getUser()->getId())
+            self::CREATE => \sprintf('/users/%s/contracts', $this->getUser()->getId() ?? null)
         ];
     }
 }

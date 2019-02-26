@@ -12,7 +12,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method string|null getCurrency()
  * @method string|null getId()
  * @method string|null getPan()
- * @method string|null getPrimary()
+ * @method bool getPrimary()
  * @method string|null getReference()
  * @method string|null getType()
  * @method string|null getUpdatedAt()
