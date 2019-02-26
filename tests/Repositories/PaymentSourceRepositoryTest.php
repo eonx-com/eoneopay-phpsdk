@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Repositories;
 
-use EoneoPay\PhpSdk\Endpoints\PaymentSource;
-use EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount;
-use EoneoPay\PhpSdk\Exceptions\ClientException;
+use EoneoPay\PhpSdk\Endpoints\PaymentSources\CreditCard;
+use EoneoPay\PhpSdk\Repositories\PaymentSourceRepository;
+use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
+use Tests\EoneoPay\PhpSdk\Stubs\Entities\EntityStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Managers\EoneoPayApiManagerStub;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
@@ -14,38 +16,33 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 class PaymentSourceRepositoryTest extends TestCase
 {
     /**
-     * Test a exception is thrown when a invalid token is sent through
+     * Test find by token successfully.
      *
      * @return void
      */
-    public function testExceptionThrownOnNotValidToken(): void
+    public function testFindByToken(): void
     {
-        $this->expectException(ClientException::class);
-        $repository = $this->createApiManager(
-            [
-                'code' => 4701,
-                'message' => 'Token provided is invalid or not found.',
-                'sub_code' => 1
-            ],
-            404
-        )->getRepository(BankAccount::class);
-        $repository->findByToken('invalid_token_sent', (string)\getenv('PAYMENTS_API_KEY'));
+        $creditCard = new CreditCard([
+            'token' => $this->generateId()
+        ]);
+
+        $actual = $this->getRepository($creditCard)->findByToken($creditCard->getToken() ?? '', 'api-key');
+
+        self::assertSame($creditCard->getToken(), $actual->getToken() ?? '');
     }
 
     /**
-     * Test Valid payment source is returned
+     * Get repository.
      *
-     * @return void
+     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface|null $entity
+     *
+     * @return \EoneoPay\PhpSdk\Repositories\PaymentSourceRepository
      */
-    public function testValidPaymentSourceReturned(): void
+    private function getRepository(?EntityInterface $entity = null): PaymentSourceRepository
     {
-
-        $repository = $this->createApiManager([
-            'type' => 'ewallet'
-        ])->getRepository(PaymentSource::class);
-
-        $paymentSource = $repository->findByToken((string)\getenv('PAYMENTS_TOKEN_CREDIT_CARD'), (string)\getenv('PAYMENTS_API_KEY'));
-        self::assertNotNull($paymentSource);
-        self::assertInstanceOf(PaymentSource::class, $paymentSource);
+        return new PaymentSourceRepository(
+            new EoneoPayApiManagerStub($entity ?? new EntityStub()),
+            \get_class($entity ?? new EntityStub())
+        );
     }
 }

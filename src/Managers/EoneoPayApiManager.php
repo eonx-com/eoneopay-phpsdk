@@ -131,8 +131,12 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
         $classAnnotations = (new AnnotationReader())->getClassAnnotations($reflectionClass);
 
         foreach ($classAnnotations as $annotation) {
-            if (($annotation instanceof RepositoryAnnotation) === true) {
-                return new $annotation->repositoryClass($this, $entityClass);
+            if (($annotation instanceof RepositoryAnnotation) === true &&
+                (($repository = new $annotation->repositoryClass(
+                    $this,
+                    $entityClass
+                )) instanceof RepositoryInterface) === true) {
+                return $repository;
             }
         }
 

@@ -18,12 +18,4 @@ class CreditCard extends PaymentSource
 
         $this->type = self::SOURCE_CREDIT_CARD;
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function uris(): array
-    {
-        return \array_merge(parent::uris(), []);
-    }
 }

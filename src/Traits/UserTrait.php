@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Codeint
- * Date: 22/02/2019
- * Time: 16:24
- */
+declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Traits;
 
