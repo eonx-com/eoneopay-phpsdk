@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Managers;
 
+use EoneoPay\PhpSdk\Exceptions\CriticalException;
 use EoneoPay\PhpSdk\Factories\ExceptionFactory;
 use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
 use EoneoPay\PhpSdk\Interfaces\RepositoryInterface;
@@ -38,6 +39,23 @@ class EoneoPayApiManagerTest extends TestCase
     }
 
     /**
+     * Test if create exception is thrown on invalid response
+     *
+     * @return void
+     */
+    public function testCreateException(): void
+    {
+        $this->expectException(CriticalException::class);
+        $this->createApiManager([
+            'code' => 0
+        ], 400)
+            ->create(
+                'api-key',
+                new EntityStub()
+            );
+    }
+
+    /**
      * Test create entity successfully.
      *
      * @return void
@@ -47,6 +65,23 @@ class EoneoPayApiManagerTest extends TestCase
         $expected = new EntityStub(['entityId' => $this->generateId()]);
 
         self::assertTrue($this->getManager()->delete('api-key', $expected));
+    }
+
+    /**
+     * Test if delete exception is thrown on invalid response
+     *
+     * @return void
+     */
+    public function testDeleteException(): void
+    {
+        $this->expectException(CriticalException::class);
+        $this->createApiManager([
+            'code' => 0
+        ], 400)
+            ->delete(
+                'api-key',
+                new EntityStub()
+            );
     }
 
     /**
@@ -87,6 +122,23 @@ class EoneoPayApiManagerTest extends TestCase
     }
 
     /**
+     * Test if find exception is thrown on invalid response
+     *
+     * @return void
+     */
+    public function testFindAllException(): void
+    {
+        $this->expectException(CriticalException::class);
+        $this->createApiManager([
+            'code' => 0
+        ], 400)
+            ->findAll(
+                EntityStub::class,
+                'api-key'
+            );
+    }
+
+    /**
      * Test that find by with provided criteria will return expected number of entities.
      *
      * @return void
@@ -105,6 +157,42 @@ class EoneoPayApiManagerTest extends TestCase
             $expected->getEntityId(),
             ($entities[0] instanceof EntityStub) === true ? $entities[0]->getEntityId() : null
         );
+    }
+
+    /**
+     * Test if find exception is thrown on invalid response
+     *
+     * @return void
+     */
+    public function testFindByException(): void
+    {
+        $this->expectException(CriticalException::class);
+        $this->createApiManager([
+            'code' => 0
+        ], 400)
+            ->findBy(
+                EntityStub::class,
+                'api-key',
+                []
+            );
+    }
+
+    /**
+     * Test if find exception is thrown on invalid response
+     *
+     * @return void
+     */
+    public function testFindException(): void
+    {
+        $this->expectException(CriticalException::class);
+        $this->createApiManager([
+            'code' => 0
+        ], 400)
+            ->find(
+                EntityStub::class,
+                'api-key',
+                'dummy-id'
+            );
     }
 
     /**
@@ -128,13 +216,31 @@ class EoneoPayApiManagerTest extends TestCase
     }
 
     /**
+     * Test if find one by exception is thrown on invalid response
+     *
+     * @return void
+     */
+    public function testFindOneByException(): void
+    {
+        $this->expectException(CriticalException::class);
+        $this->createApiManager([
+            'code' => 0
+        ], 400)
+            ->findOneBy(
+                EntityStub::class,
+                'api-key',
+                []
+            );
+    }
+
+    /**
      * Test that getRepository() method always returns a repository.
      *
      * @return void
      */
     public function testGetRepository(): void
     {
-        /** @noinspection UnnecessaryAssertionInspection Testing that getRepository() always returns a repository  */
+        /** @noinspection UnnecessaryAssertionInspection Testing that getRepository() always returns a repository */
         self::assertInstanceOf(
             RepositoryInterface::class,
             $this->getManager()->getRepository(EntityStub::class)
@@ -182,6 +288,23 @@ class EoneoPayApiManagerTest extends TestCase
             'updated@email.test',
             ($actual instanceof UserStub) === true ? $actual->getEmail() : null
         );
+    }
+
+    /**
+     * Test if update exception is thrown on invalid response
+     *
+     * @return void
+     */
+    public function testUpdateException(): void
+    {
+        $this->expectException(CriticalException::class);
+        $this->createApiManager([
+            'code' => 0
+        ], 400)
+            ->update(
+                'api-key',
+                new EntityStub()
+            );
     }
 
     /**

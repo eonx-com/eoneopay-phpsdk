@@ -14,10 +14,12 @@ class PaymentSourceRepository extends Repository
      * @param string $token Payment source token
      * @param string $apikey Api key
      *
-     * @return \EoneoPay\PhpSdk\Endpoints\PaymentSource
+     * @return \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
-    public function findByToken(string $token, string $apikey): PaymentSource
+    public function findByToken(string $token, string $apikey): ?PaymentSource
     {
-        return $this->getApiManager()->findOneBy(PaymentSource::class, $apikey, \compact('token'));
+        $entity = $this->getApiManager()->findOneBy(PaymentSource::class, $apikey, \compact('token'));
+
+        return ($entity instanceof PaymentSource) === true ? $entity : null;
     }
 }

@@ -66,6 +66,19 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
+     * Create body
+     *
+     * @param mixed[] $body
+     *
+     * @return string
+     */
+    private function createBody(?array $body): string
+    {
+        $enBody = \json_encode($body ?? []);
+        return ($enBody === false) ? '' : $enBody;
+    }
+
+    /**
      * Get http client with mock handler.
      *
      * @param mixed[]|null $body
@@ -80,7 +93,7 @@ abstract class TestCase extends BaseTestCase
                 new Response(
                     $responseCode ?? 200,
                     ['Accept' => 'application/json', 'Content-Type' => 'application/json'],
-                    \json_encode($body ?? [])
+                    $this->createBody($body)
                 )
             ])
         ]);
