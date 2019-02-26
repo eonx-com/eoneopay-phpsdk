@@ -1,44 +1,26 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk;
+namespace EoneoPay\PhpSdk\Factories;
 
 use EoneoPay\PhpSdk\Exceptions\ClientException;
 use EoneoPay\PhpSdk\Exceptions\CriticalException;
 use EoneoPay\PhpSdk\Exceptions\RuntimeException;
 use EoneoPay\PhpSdk\Exceptions\ValidationException;
+use EoneoPay\PhpSdk\Interfaces\Factories\ExceptionFactoryInterface;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
 
-class ExceptionFactory
+class ExceptionFactory implements ExceptionFactoryInterface
 {
     /**
-     * The error code.
-     *
-     * @var \EoneoPay\Externals\HttpClient\Exceptions\InvalidApiResponseException
+     * @inheritdoc
      */
-    private $exception;
-
-    /**
-     * Initialize the attribute.
-     *
-     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException $exception
-     */
-    public function __construct(InvalidApiResponseException $exception)
+    public function create(InvalidApiResponseException $exception): Exception
     {
-        $this->exception = $exception;
-    }
+        $content = \json_decode($exception->getResponse()->getContent(), true);
 
-    /**
-     * Create exception object based on error code range.
-     *
-     * @return \EoneoPay\Utils\Exceptions\BaseException
-     */
-    public function create(): Exception
-    {
-        $content = \json_decode($this->exception->getResponse()->getContent(), true);
-
-        $code = $content['code'] ?? $this->exception->getCode();
+        $code = $content['code'] ?? $exception->getCode();
 
         $message = $content['message'] ?? $content['exception'] ?? '';
 

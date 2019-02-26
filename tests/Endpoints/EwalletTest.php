@@ -9,7 +9,8 @@
 namespace Tests\EoneoPay\PhpSdk\Endpoints;
 
 use EoneoPay\PhpSdk\Endpoints\Ewallet;
-use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
+use EoneoPay\PhpSdk\Endpoints\Users\User;
+use EoneoPay\PhpSdk\Exceptions\ClientException;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
@@ -21,6 +22,8 @@ class EwalletTest extends TestCase
      * Test Ewallet details are returned back
      *
      * @return void
+     *
+     * @throws \EoneoPay\Utils\Exceptions\BaseException
      */
     public function testEwalletBalance(): void
     {
@@ -43,7 +46,7 @@ class EwalletTest extends TestCase
                 'updated_at' => '2019-02-22T03=>09=>44Z'
             ]
         ];
-        
+
         $ewallet = $this->createApiManager($response, 200)
             ->findOneBy(
                 Ewallet::class,
@@ -54,10 +57,13 @@ class EwalletTest extends TestCase
         self::assertSame('JEKYYFZAR0', $ewallet->getReference());
         // check if it has balances
         self::assertObjectHasAttribute('balances', $ewallet);
+        self::assertInstanceOf(User::class, $ewallet->getUser());
     }
 
     /**
      * Test creation of ewallet
+     *
+     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException
      *
      * @return void
      */
@@ -65,17 +71,28 @@ class EwalletTest extends TestCase
     {
 
         $id = $this->generateId();
-        $ewallet = $this->createApiManager([
-            'currency' => 'AUD',
-            'id' => $id,
-            'pan' => 'G...2T89',
-            'primary' => false,
-            'reference' => 'GEHBB72T89',
-            'type' => 'ewallet'
-        ])->create((string)\getenv('PAYMENTS_API_KEY'), new Ewallet());
+        $ewallet = $this->createApiManager(
+            [
+                'created_at' => '2019-02-26T00=>14=>25Z',
+                'currency' => 'AUD',
+                'id' => 'dad99a43563c72a19a99aae4b1605b49',
+                'pan' => 'W...J3X7',
+                'primary' => false,
+                'reference' => 'WCMKZAJ3X7',
+                'type' => 'ewallet',
+                'updated_at' => '2019-02-26T00=>14=>25Z',
+                'user' => [
+                    'created_at' => '2019-02-22T03=>09=>44Z',
+                    'email' => 'example@user.test',
+                    'updated_at' => '2019-02-22T03=>09=>44Z'
+                ]
+            ],
+            201
+        )->create($this->getApiKey(), new Ewallet());
 
         self::assertIsString($ewallet->getId());
         self::assertNotEmpty($ewallet->getType());
+        self::assertInstanceOf(User::class, $ewallet->getUser());
     }
 
     /**
@@ -85,7 +102,7 @@ class EwalletTest extends TestCase
      */
     public function testExceptionIsThrownOnEwalletCreationWithWrongKey(): void
     {
-        $this->expectException(InvalidApiResponseException::class);
+        $this->expectException(ClientException::class);
         $this->createApiManager([
             'code' => 4401,
             'message' => 'Unauthorised.',

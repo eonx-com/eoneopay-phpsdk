@@ -8,11 +8,10 @@
 
 namespace EoneoPay\PhpSdk\Repositories\Users;
 
-use EoneoPay\PhpSdk\Endpoints\Ewallet;
 use EoneoPay\PhpSdk\Endpoints\Users\User;
 use EoneoPay\PhpSdk\ExceptionFactory;
+use EoneoPay\PhpSdk\Repository;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
-use LoyaltyCorp\SdkBlueprint\Sdk\Repository;
 
 class UserRepository extends Repository
 {

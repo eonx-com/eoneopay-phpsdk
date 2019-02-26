@@ -8,12 +8,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait EwalletTrait
 {
     /**
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"get", "list", "update"})
      *
-     * @var mixed[]
+     * @var mixed[]|null
      */
     protected $balances;
 
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string
+     */
+    protected $createdAt;
     /**
      * @Groups({"create", "get", "list", "update"})
      *
@@ -55,6 +61,13 @@ trait EwalletTrait
      * @var string
      */
     protected $type;
+
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string
+     */
+    protected $updatedAt;
 
     /**
      * @Groups({"create", "get", "list", "update"})

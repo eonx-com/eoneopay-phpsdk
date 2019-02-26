@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk;
 
+use EoneoPay\PhpSdk\Factories\ExceptionFactory;
 use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
 use EoneoPay\PhpSdk\Managers\EoneoPayApiManager;
 use GuzzleHttp\Client;
@@ -27,16 +28,20 @@ abstract class TestCase extends BaseTestCase
      *
      * @return \EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface
      */
-    protected function createApiManager(?array $body = null, ?int $responseCode = null): ApiManagerInterface
+    protected function createApiManager(?array $body = null, ?int $responseCode = null): EoneoPayApiManagerInterface
     {
-        return new ApiManager(
-            new RequestHandler(
-                $this->createClient($body, $responseCode),
-//                $this->createLiveClient(),
-                new ResponseHandler(),
-                new SerializerFactory(),
-                new UrnFactory()
-            )
+        return new EoneoPayApiManager(
+            new SdkManager(
+                new RequestHandler(
+//                    $this->createClient($body, $responseCode),
+                $this->createLiveClient(),
+                    new ResponseHandler(),
+                    new SerializerFactory(),
+                    new UrnFactory()
+                )
+            ),
+            new ExceptionFactory()
+
         );
     }
 

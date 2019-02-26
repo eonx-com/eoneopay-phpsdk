@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\Users;
 
+use EoneoPay\PhpSdk\Annotations\Repository;
 use EoneoPay\PhpSdk\Traits\Users\UserTrait;
-use LoyaltyCorp\SdkBlueprint\Sdk\Annotations\Repository;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**

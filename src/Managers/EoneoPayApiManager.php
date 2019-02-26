@@ -3,17 +3,27 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Managers;
 
-use EoneoPay\PhpSdk\Annotations\Repository as RepositoryAnnotation;
 use Doctrine\Common\Annotations\AnnotationReader;
+use EoneoPay\PhpSdk\Annotations\Repository as RepositoryAnnotation;
 use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
+use EoneoPay\PhpSdk\Interfaces\Factories\ExceptionFactoryInterface;
 use EoneoPay\PhpSdk\Interfaces\RepositoryInterface;
 use EoneoPay\PhpSdk\Repository;
+use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestAwareInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface;
 
 final class EoneoPayApiManager implements EoneoPayApiManagerInterface
 {
+
+    /**
+     * Exception Factory
+     *
+     * @var \EoneoPay\PhpSdk\Interfaces\Factories\ExceptionFactoryInterface
+     */
+    private $exceptionFactory;
+
     /**
      * Sdk Manager.
      *
@@ -25,9 +35,11 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
      * Construct EoneoPay api manager.
      *
      * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface $sdkManager
+     * @param \EoneoPay\PhpSdk\Interfaces\Factories\ExceptionFactoryInterface $exceptionFactory
      */
-    public function __construct(SdkManagerInterface $sdkManager)
+    public function __construct(SdkManagerInterface $sdkManager, ExceptionFactoryInterface $exceptionFactory)
     {
+        $this->exceptionFactory = $exceptionFactory;
         $this->sdkManager = $sdkManager;
     }
 
@@ -36,7 +48,11 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
      */
     public function create(string $apikey, EntityInterface $entity): EntityInterface
     {
-        return $this->sdkManager->execute($entity, RequestAwareInterface::CREATE, $apikey);
+        try {
+            return $this->sdkManager->execute($entity, RequestAwareInterface::CREATE, $apikey);
+        } catch (InvalidApiResponseException $exception) {
+            throw $this->exceptionFactory->create($exception);
+        }
     }
 
     /**
@@ -44,9 +60,12 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
      */
     public function delete(string $apikey, EntityInterface $entity): bool
     {
-        $this->sdkManager->execute($entity, RequestAwareInterface::DELETE, $apikey);
-
-        return true;
+        try {
+            $this->sdkManager->execute($entity, RequestAwareInterface::DELETE, $apikey);
+            return true;
+        } catch (InvalidApiResponseException $exception) {
+            throw $this->exceptionFactory->create($exception);
+        }
     }
 
     /**
@@ -55,8 +74,11 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
     public function find(string $entityName, string $apikey, string $entityId): EntityInterface
     {
         $entity = new $entityName(['id' => $entityId]);
-
-        return $this->sdkManager->execute($entity, RequestAwareInterface::GET, $apikey);
+        try {
+            return $this->sdkManager->execute($entity, RequestAwareInterface::GET, $apikey);
+        } catch (InvalidApiResponseException $exception) {
+            throw $this->exceptionFactory->create($exception);
+        }
     }
 
     /**
@@ -64,7 +86,11 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
      */
     public function findAll(string $entityName, string $apikey): array
     {
-        return $this->sdkManager->execute(new $entityName(), RequestAwareInterface::LIST, $apikey);
+        try {
+            return $this->sdkManager->execute(new $entityName(), RequestAwareInterface::LIST, $apikey);
+        } catch (InvalidApiResponseException $exception) {
+            throw $this->exceptionFactory->create($exception);
+        }
     }
 
     /**
@@ -73,8 +99,11 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
     public function findBy(string $entityName, string $apikey, array $criteria): array
     {
         $entity = new $entityName($criteria);
-
-        return $this->sdkManager->execute($entity, RequestAwareInterface::LIST, $apikey);
+        try {
+            return $this->sdkManager->execute($entity, RequestAwareInterface::LIST, $apikey);
+        } catch (InvalidApiResponseException $exception) {
+            throw $this->exceptionFactory->create($exception);
+        }
     }
 
     /**
@@ -83,8 +112,11 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
     public function findOneBy(string $entityName, string $apikey, array $criteria): EntityInterface
     {
         $entity = new $entityName($criteria);
-
-        return $this->sdkManager->execute($entity, RequestAwareInterface::GET, $apikey);
+        try {
+            return $this->sdkManager->execute($entity, RequestAwareInterface::GET, $apikey);
+        } catch (InvalidApiResponseException $exception) {
+            throw $this->exceptionFactory->create($exception);
+        }
     }
 
     /**
@@ -116,6 +148,10 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
      */
     public function update(string $apikey, EntityInterface $entity): EntityInterface
     {
-        return $this->sdkManager->execute($entity, RequestAwareInterface::UPDATE, $apikey);
+        try {
+            return $this->sdkManager->execute($entity, RequestAwareInterface::UPDATE, $apikey);
+        } catch (InvalidApiResponseException $exception) {
+            throw $this->exceptionFactory->create($exception);
+        }
     }
 }

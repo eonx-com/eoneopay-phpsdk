@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Endpoints\Users;
 
 use EoneoPay\PhpSdk\Endpoints\Users\ApiKey;
+use EoneoPay\PhpSdk\Endpoints\Users\User;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
@@ -30,11 +31,30 @@ class ApiKeyTest extends TestCase
      */
     public function testCreateKey(): void
     {
-        $apiKey = $this->createApiManager(['key' => 'XXJ3DEG8FH49TNR3'])
-            ->getRepository(ApiKey::class)
-            ->createKey((string)\getenv('PAYMENTS_API_KEY'), 'external-user-id');
+        $apiKey = $this->createApiManager(
+            [
+                'created_at' => '2019-02-25T23=>36=>48Z',
+                'key' => 'PNYH33ZHKVX3HBAT',
+                'target_user' => [
+                    'created_at' => '2019-02-24T23=>34=>11Z',
+                    'email' => 'examples@user.test',
+                    'id' => 'external-user-ids',
+                    'updated_at' => '2019-02-24T23=>34=>11Z'
+                ],
+                'updated_at' => '2019-02-25T23=>36=>48Z',
+                'user' => [
+                    'created_at' => '2019-02-12T22=>08=>30Z',
+                    'email' => 'payments@eoneopay.com',
+                    'updated_at' => '2019-02-12T22=>08=>30Z'
+                ]
+            ],
+            201
+        )
+            ->create($this->getApiKey(), new ApiKey(['id' => 'external-user-id']));
 
-        self::assertSame('XXJ3DEG8FH49TNR3', $apiKey->getKey());
+
+        self::assertIsString($apiKey->getKey());
+        self::assertInstanceOf(User::class, $apiKey->getUser());
     }
 
     /**

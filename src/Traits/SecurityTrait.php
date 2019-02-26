@@ -74,7 +74,7 @@ trait SecurityTrait
     /**
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var PaymentSource|null
+     * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
     protected $paymentSource;
 

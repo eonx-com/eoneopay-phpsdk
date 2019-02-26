@@ -10,14 +10,42 @@ trait ApiKeyTrait
     /**
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string
+     * @var string|null
      */
-    protected $key;
+    protected $createdAt;
 
     /**
      * @Groups({"create"})
      *
-     * @var string External User Id
+     * @var string|null External User Id
      */
     protected $id;
+
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string|null
+     */
+    protected $key;
+
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\Users\User|null
+     */
+    protected $targetUser;
+
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string|null
+     */
+    protected $updatedAt;
+
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\Users\User|null
+     */
+    protected $user;
 }

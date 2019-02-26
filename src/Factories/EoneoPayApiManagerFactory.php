@@ -20,13 +20,20 @@ class EoneoPayApiManagerFactory implements EoneoPayApiManagerFactoryInterface
      */
     public function create(string $baseUri): EoneoPayApiManagerInterface
     {
-        return new EoneoPayApiManager(new SdkManager(
-            new RequestHandler(new GuzzleClient([
-                'base_uri' => $baseUri
-            ]),
-            new ResponseHandler(),
-            new SerializerFactory(),
-            new UrnFactory()
-        )));
+        return new EoneoPayApiManager(
+            new SdkManager(
+                new RequestHandler(
+                    new GuzzleClient(
+                        [
+                            'base_uri' => $baseUri
+                        ]
+                    ),
+                    new ResponseHandler(),
+                    new SerializerFactory(),
+                    new UrnFactory()
+                )
+            ),
+            new ExceptionFactory()
+        );
     }
 }
