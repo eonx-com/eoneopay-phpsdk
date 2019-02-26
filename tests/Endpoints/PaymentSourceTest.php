@@ -30,7 +30,7 @@ class PaymentSourceTest extends TestCase
 
         $paymentSource = $repository->findByToken(
             'VRG2VR4F39343HM4D3N2',
-            (string)\getenv('PAYMENTS_API_KEY')
+            'api-key'
         );
 
         self::assertInstanceOf(CreditCard::class, $paymentSource);
