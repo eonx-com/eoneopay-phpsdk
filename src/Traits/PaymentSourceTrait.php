@@ -8,6 +8,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait PaymentSourceTrait
 {
     /**
+     * Payment source bib
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var mixed[]|null
@@ -15,6 +17,8 @@ trait PaymentSourceTrait
     protected $bin;
 
     /**
+     * Created at date
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
@@ -22,6 +26,8 @@ trait PaymentSourceTrait
     protected $createdAt;
 
     /**
+     * Expiry month and year
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var mixed[]|null
@@ -29,6 +35,8 @@ trait PaymentSourceTrait
     protected $expiry;
 
     /**
+     * Payment source facility
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
@@ -36,6 +44,8 @@ trait PaymentSourceTrait
     protected $facility;
 
     /**
+     * Payment source id
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string
@@ -43,6 +53,8 @@ trait PaymentSourceTrait
     protected $id;
 
     /**
+     * Payment source name
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
@@ -50,6 +62,8 @@ trait PaymentSourceTrait
     protected $name;
 
     /**
+     * Payment source pan
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string
@@ -57,6 +71,8 @@ trait PaymentSourceTrait
     protected $pan;
 
     /**
+     * Payment source token
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string
@@ -73,6 +89,8 @@ trait PaymentSourceTrait
     protected $type;
 
     /**
+     * Updated at date
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
