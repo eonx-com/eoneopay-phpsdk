@@ -17,6 +17,16 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\ResponseHandler;
 use LoyaltyCorp\SdkBlueprint\Sdk\Managers\SdkManager;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
+/**
+ * @noinspection EfferentObjectCouplingInspection
+ *
+ * @coversNothing
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects) Centralised logic for all tests
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity) Class has all centralised logic for all tests
+ * @SuppressWarnings(PHPMD.NumberOfChildren) All tests extend this class
+ * @SuppressWarnings(PHPMD.Superglobals) Application route loading is based on HTTP_HOST before bootstrapping
+ */
 abstract class TestCase extends BaseTestCase
 {
     /**

@@ -1,15 +1,33 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Codeint
- * Date: 27/02/2019
- * Time: 08:43
- */
+declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Exceptions;
 
+use EoneoPay\PhpSdk\Exceptions\RuntimeException;
+use Tests\EoneoPay\PhpSdk\TestCase;
 
-class RuntimeExceptionTest
+/**
+ * @covers \EoneoPay\PhpSdk\Exceptions\RuntimeException
+ */
+class RuntimeExceptionTest extends TestCase
 {
+    /**
+     * Test get error code.
+     *
+     * @return void
+     */
+    public function testGetErrorCode(): void
+    {
+        self::assertSame(1120, (new RuntimeException('', 1120))->getErrorCode());
+    }
 
+    /**
+     * Test get error sub code.
+     *
+     * @return void
+     */
+    public function testGetErrorSubCode(): void
+    {
+        self::assertSame(2, (new RuntimeException('', 1120, null, 2))->getErrorSubCode());
+    }
 }

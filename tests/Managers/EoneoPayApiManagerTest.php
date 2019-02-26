@@ -39,23 +39,6 @@ class EoneoPayApiManagerTest extends TestCase
     }
 
     /**
-     * Test if create exception is thrown on invalid response
-     *
-     * @return void
-     */
-    public function testCreateException(): void
-    {
-        $this->expectException(CriticalException::class);
-        $this->createApiManager([
-            'code' => 0
-        ], 400)
-            ->create(
-                'api-key',
-                new EntityStub()
-            );
-    }
-
-    /**
      * Test create entity successfully.
      *
      * @return void
@@ -67,22 +50,7 @@ class EoneoPayApiManagerTest extends TestCase
         self::assertTrue($this->getManager()->delete('api-key', $expected));
     }
 
-    /**
-     * Test if delete exception is thrown on invalid response
-     *
-     * @return void
-     */
-    public function testDeleteException(): void
-    {
-        $this->expectException(CriticalException::class);
-        $this->createApiManager([
-            'code' => 0
-        ], 400)
-            ->delete(
-                'api-key',
-                new EntityStub()
-            );
-    }
+
 
     /**
      * Test that find will return expected entity.
@@ -121,22 +89,7 @@ class EoneoPayApiManagerTest extends TestCase
         );
     }
 
-    /**
-     * Test if find exception is thrown on invalid response
-     *
-     * @return void
-     */
-    public function testFindAllException(): void
-    {
-        $this->expectException(CriticalException::class);
-        $this->createApiManager([
-            'code' => 0
-        ], 400)
-            ->findAll(
-                EntityStub::class,
-                'api-key'
-            );
-    }
+
 
     /**
      * Test that find by with provided criteria will return expected number of entities.
@@ -159,23 +112,7 @@ class EoneoPayApiManagerTest extends TestCase
         );
     }
 
-    /**
-     * Test if find exception is thrown on invalid response
-     *
-     * @return void
-     */
-    public function testFindByException(): void
-    {
-        $this->expectException(CriticalException::class);
-        $this->createApiManager([
-            'code' => 0
-        ], 400)
-            ->findBy(
-                EntityStub::class,
-                'api-key',
-                []
-            );
-    }
+
 
     /**
      * Test if find exception is thrown on invalid response
@@ -215,23 +152,7 @@ class EoneoPayApiManagerTest extends TestCase
         );
     }
 
-    /**
-     * Test if find one by exception is thrown on invalid response
-     *
-     * @return void
-     */
-    public function testFindOneByException(): void
-    {
-        $this->expectException(CriticalException::class);
-        $this->createApiManager([
-            'code' => 0
-        ], 400)
-            ->findOneBy(
-                EntityStub::class,
-                'api-key',
-                []
-            );
-    }
+
 
     /**
      * Test that getRepository() method always returns a repository.
@@ -290,22 +211,7 @@ class EoneoPayApiManagerTest extends TestCase
         );
     }
 
-    /**
-     * Test if update exception is thrown on invalid response
-     *
-     * @return void
-     */
-    public function testUpdateException(): void
-    {
-        $this->expectException(CriticalException::class);
-        $this->createApiManager([
-            'code' => 0
-        ], 400)
-            ->update(
-                'api-key',
-                new EntityStub()
-            );
-    }
+
 
     /**
      * Get EoneoPay api manager.
