@@ -15,9 +15,6 @@ class PaymentSourceRepository extends Repository
      * @param string $apikey Api key
      *
      * @return \EoneoPay\PhpSdk\Endpoints\PaymentSource
-     *
-     * @throws \EoneoPay\Utils\Exceptions\BaseException
-     * one of ClientException, CriticalException, RuntimeException, ValidationException
      */
     public function findByToken(string $token, string $apikey): PaymentSource
     {

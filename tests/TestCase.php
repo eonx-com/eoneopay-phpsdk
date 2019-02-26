@@ -24,7 +24,6 @@ abstract class TestCase extends BaseTestCase
      *
      * @param mixed[]|null $body
      * @param int|null $responseCode
-     * @param bool $useLiveClient Switch between mock client and live client
      *
      * @return \EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface
      */
@@ -33,8 +32,8 @@ abstract class TestCase extends BaseTestCase
         return new EoneoPayApiManager(
             new SdkManager(
                 new RequestHandler(
-//                    $this->createClient($body, $responseCode),
-                $this->createLiveClient(),
+                    $this->createClient($body, $responseCode),
+//                $this->createLiveClient(),
                     new ResponseHandler(),
                     new SerializerFactory(),
                     new UrnFactory()
