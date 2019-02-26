@@ -64,7 +64,7 @@ abstract class TestCase extends BaseTestCase
                 new Response(
                     $responseCode ?? 200,
                     ['Accept' => 'application/json', 'Content-Type' => 'application/json'],
-                    \json_encode($body ?? [])
+                    \json_encode($body ?? []) ?: ''
                 )
             ])
         ]);
