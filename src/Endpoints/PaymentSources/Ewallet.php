@@ -18,12 +18,4 @@ class Ewallet extends PaymentSource
 
         $this->type = self::SOURCE_EWALLET;
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function uris(): array
-    {
-        return \array_merge(parent::uris(), []);
-    }
 }

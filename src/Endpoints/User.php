@@ -6,6 +6,10 @@ namespace EoneoPay\PhpSdk\Endpoints;
 use EoneoPay\PhpSdk\Traits\UserTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
+/**
+ * @method string|null getEmail()
+ * @method string|null getId()
+ */
 class User extends Entity
 {
     use UserTrait;
@@ -15,6 +19,8 @@ class User extends Entity
      */
     public function uris(): array
     {
-        return [];
+        return [
+            self::CREATE => \sprintf('/%s', $this->id)
+        ];
     }
 }

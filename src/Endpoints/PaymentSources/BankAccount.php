@@ -18,12 +18,4 @@ class BankAccount extends PaymentSource
 
         $this->type = self::SOURCE_BANK_ACCOUNT;
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function uris(): array
-    {
-        return \array_merge(parent::uris(), []);
-    }
 }

@@ -15,4 +15,11 @@ trait UserTrait
      * @var string|null
      */
     protected $email;
+
+    /**
+     * User id.
+     *
+     * @var string|null
+     */
+    protected $id;
 }
