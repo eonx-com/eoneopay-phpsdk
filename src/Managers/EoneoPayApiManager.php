@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Managers;
 
-use EoneoPay\PhpSdk\Annotations\Repository as RepositoryAnnotation;
 use Doctrine\Common\Annotations\AnnotationReader;
+use EoneoPay\PhpSdk\Annotations\Repository as RepositoryAnnotation;
 use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
 use EoneoPay\PhpSdk\Interfaces\RepositoryInterface;
 use EoneoPay\PhpSdk\Repository;

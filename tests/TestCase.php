@@ -30,7 +30,6 @@ abstract class TestCase extends BaseTestCase
     {
         return new EoneoPayApiManager(new SdkManager(new RequestHandler(
             $this->createClient($body, $responseCode),
-//            $this->createLiveClient(),
             new ResponseHandler(),
             new SerializerFactory(),
             new UrnFactory()

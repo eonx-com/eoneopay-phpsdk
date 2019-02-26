@@ -21,6 +21,7 @@ class EoneoPayApiManagerFactoryTest extends TestCase
     {
         self::assertInstanceOf(
             EoneoPayApiManager::class,
-            (new EoneoPayApiManagerFactory())->create('http://localhost'));
+            (new EoneoPayApiManagerFactory())->create('http://localhost')
+        );
     }
 }
