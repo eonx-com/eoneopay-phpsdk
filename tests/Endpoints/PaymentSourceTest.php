@@ -19,18 +19,24 @@ class PaymentSourceTest extends TestCase
      */
     public function testGetTokenInfoSuccessfully(): void
     {
-        $paymentSource = $this->createApiManager([
+        /** @var \EoneoPay\PhpSdk\Repositories\PaymentSourceRepository $repository */
+        $repository = $this->createApiManager([
             'id' => $this->generateId(),
             'name' => 'John Wick',
             'pan' => '512345...0008',
-            'token' => (string)\getenv('PAYMENTS_TOKEN_CREDIT_CARD'),
+            'token' => 'VRG2VR4F39343HM4D3N2',
             'type' => 'credit_card'
-        ])->getRepository(PaymentSource::class)->findByToken(
-            (string)\getenv('PAYMENTS_TOKEN_CREDIT_CARD'),
+        ])->getRepository(PaymentSource::class);
+
+        $paymentSource = $repository->findByToken(
+            'VRG2VR4F39343HM4D3N2',
             (string)\getenv('PAYMENTS_API_KEY')
         );
 
         self::assertInstanceOf(CreditCard::class, $paymentSource);
-        self::assertSame((string)\getenv('PAYMENTS_TOKEN_CREDIT_CARD'), $paymentSource->getToken());
+        self::assertSame(
+            'VRG2VR4F39343HM4D3N2',
+            ($paymentSource instanceof PaymentSource) === true ? $paymentSource->getToken() : null
+        );
     }
 }

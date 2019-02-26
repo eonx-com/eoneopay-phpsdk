@@ -10,7 +10,7 @@ class BankAccount extends PaymentSource
     /**
      * Bank account constructor.
      *
-     * @param mixed|null $data
+     * @param mixed[]|null $data
      */
     public function __construct(?array $data = null)
     {

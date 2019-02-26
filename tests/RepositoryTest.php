@@ -23,7 +23,6 @@ class RepositoryTest extends TestCase
         $entities = $this->getRepository(new EntityStub())->findAll('api-key');
 
         self::assertCount(1, $entities);
-
     }
 
     /**
@@ -35,10 +34,13 @@ class RepositoryTest extends TestCase
     {
         $expected = new EntityStub(['entityId' => $this->generateId()]);
 
-        $actual = $this->getRepository($expected)->findById($expected->getEntityId(), 'api-key');
+        $actual = $this->getRepository($expected)->findById($expected->getEntityId() ?? '', 'api-key');
 
         self::assertInstanceOf(EntityStub::class, $actual);
-        self::assertSame($expected->getEntityId(), $actual->getEntityId());
+        self::assertSame(
+            $expected->getEntityId(),
+            ($actual instanceof EntityStub) === true ? $actual->getEntityId() : null
+        );
     }
 
     /**

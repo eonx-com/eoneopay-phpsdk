@@ -30,7 +30,10 @@ class EoneoPayApiManagerTest extends TestCase
         $actual = $this->getManager()->create('api-key', $expected);
 
         self::assertInstanceOf(EntityStub::class, $actual);
-        $this->performAssertions($expected, $actual);
+        self::assertSame(
+            $expected->getEntityId(),
+            ($actual instanceof EntityStub) === true ? $actual->getEntityId() : null
+        );
     }
 
     /**
@@ -54,10 +57,13 @@ class EoneoPayApiManagerTest extends TestCase
     {
         $expected = new EntityStub(['entityId' => $this->generateId()]);
 
-        $actual = $this->getManager($expected)->find(EntityStub::class, 'api-key', $expected->getEntityId());
+        $actual = $this->getManager($expected)->find(EntityStub::class, 'api-key', $expected->getEntityId() ?? '');
 
         self::assertInstanceOf(EntityStub::class, $actual);
-        $this->performAssertions($expected, $actual);
+        self::assertSame(
+            $expected->getEntityId(),
+            ($actual instanceof EntityStub) === true ? $actual->getEntityId() : null
+        );
     }
 
     /**
@@ -73,7 +79,10 @@ class EoneoPayApiManagerTest extends TestCase
 
         self::assertCount(1, $entities);
         self::assertInstanceOf(EntityStub::class, $entities[0]);
-        $this->performAssertions($expected, $entities[0]);
+        self::assertSame(
+            $expected->getEntityId(),
+            ($entities[0] instanceof EntityStub) === true ? $entities[0]->getEntityId() : null
+        );
     }
 
     /**
@@ -91,7 +100,10 @@ class EoneoPayApiManagerTest extends TestCase
 
         self::assertCount(1, $entities);
         self::assertInstanceOf(EntityStub::class, $entities[0]);
-        $this->performAssertions($expected, $entities[0]);
+        self::assertSame(
+            $expected->getEntityId(),
+            ($entities[0] instanceof EntityStub) === true ? $entities[0]->getEntityId() : null
+        );
     }
 
     /**
@@ -108,7 +120,10 @@ class EoneoPayApiManagerTest extends TestCase
         ]);
 
         self::assertInstanceOf(EntityStub::class, $actual);
-        $this->performAssertions($expected, $actual);
+        self::assertSame(
+            $expected->getEntityId(),
+            ($actual instanceof EntityStub) === true ? $actual->getEntityId() : null
+        );
     }
 
     /**
@@ -158,8 +173,14 @@ class EoneoPayApiManagerTest extends TestCase
         ]));
 
         self::assertInstanceOf(UserStub::class, $actual);
-        self::assertSame($expected->getUserId(), $actual->getUserId());
-        self::assertSame('updated@email.test', $actual->getEmail());
+        self::assertSame(
+            $expected->getUserId(),
+            ($actual instanceof UserStub) === true ? $actual->getUserId() : null
+        );
+        self::assertSame(
+            'updated@email.test',
+            ($actual instanceof UserStub) === true ? $actual->getEmail() : null
+        );
     }
 
     /**
@@ -172,18 +193,5 @@ class EoneoPayApiManagerTest extends TestCase
     private function getManager(?EntityInterface $entity = null): EoneoPayApiManagerInterface
     {
         return new EoneoPayApiManager(new SdkManagerStub($entity));
-    }
-
-    /**
-     * Perform assertions.
-     *
-     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $expected
-     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $actual
-     *
-     * @return void
-     */
-    private function performAssertions(EntityInterface $expected, EntityInterface $actual): void
-    {
-        self::assertSame($expected->getEntityId(), $actual->getEntityId());
     }
 }

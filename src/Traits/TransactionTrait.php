@@ -17,6 +17,13 @@ trait TransactionTrait
     protected $action;
 
     /**
+     * Transaction allocation.
+     *
+     * @var mixed[]|null
+     */
+    protected $allocation;
+
+    /**
      * Transaction amount.
      *
      * @Groups({"create", "delete", "get", "list", "update"})
@@ -26,6 +33,24 @@ trait TransactionTrait
     protected $amount;
 
     /**
+     * Approved.
+     *
+     * @Groups({"create", "delete", "get", "list", "update"})
+     *
+     * @var bool
+     */
+    protected $approved;
+
+    /**
+     * Created at date.
+     *
+     * @Groups({"create", "delete", "get", "list", "update"})
+     *
+     * @var string|null
+     */
+    protected $createdAt;
+
+    /**
      * Order id.
      *
      * @Groups({"create", "delete", "get", "list", "update"})
@@ -33,6 +58,22 @@ trait TransactionTrait
      * @var string|null
      */
     protected $id;
+
+    /**
+     * Transaction metadata.
+     *
+     * @Groups({"create", "delete", "get", "list", "update"})
+     *
+     * @var mixed[]|null
+     */
+    protected $metadata;
+
+    /**
+     * Parent transaction.
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\Transaction|null
+     */
+    protected $parent;
 
     /**
      * Payment destination.
@@ -51,6 +92,20 @@ trait TransactionTrait
     protected $paymentSource;
 
     /**
+     * Transaction response.
+     *
+     * @var mixed[]
+     */
+    protected $response;
+
+    /**
+     * Transaction security.
+     *
+     * @var mixed
+     */
+    protected $security;
+
+    /**
      * Transaction statement description.
      *
      * @Groups({"create", "delete", "get", "list", "update"})
@@ -60,6 +115,13 @@ trait TransactionTrait
     protected $statementDescription;
 
     /**
+     * Transaction status.
+     *
+     * @var string|null
+     */
+    protected $status;
+
+    /**
      * Transaction id.
      *
      * @Groups({"create", "delete", "get", "list", "update"})
@@ -67,6 +129,13 @@ trait TransactionTrait
      * @var string|null
      */
     protected $transactionId;
+
+    /**
+     * Transaction updated at date.
+     *
+     * @var string|null
+     */
+    protected $updatedAt;
 
     /**
      * User associated with this transaction.

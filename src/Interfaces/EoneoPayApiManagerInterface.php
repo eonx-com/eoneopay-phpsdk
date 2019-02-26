@@ -8,91 +8,84 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 interface EoneoPayApiManagerInterface
 {
     /**
-     * Create a POST
+     * Request to create a new entity.
      *
-     * @param string $apikey
-     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $entity
+     * @param string $apikey Api key
+     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $entity Entity to be created
      *
-     * @throws \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException
-     * one of ClientException, CriticalException, RuntimeException, ValidationException
-     *
-     * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface
+     * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface Created entity
      */
     public function create(string $apikey, EntityInterface $entity): EntityInterface;
 
     /**
-     * @param string $apikey
-     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $entity
+     * Request to delete an entity.
      *
-     * @throws \EoneoPay\Utils\Exceptions\BaseException
-     * one of ClientException, CriticalException, RuntimeException, ValidationException
+     * @param string $apikey Api key
+     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $entity Entity to be deleted
      *
      * @return bool
      */
     public function delete(string $apikey, EntityInterface $entity): bool;
 
     /**
-     * @param string $entityName
-     * @param string $apikey
-     * @param string $entityId
+     * Request to find an entity by id.
      *
-     * @throws \EoneoPay\Utils\Exceptions\BaseException
-     * one of ClientException, CriticalException, RuntimeException, ValidationException
+     * @param string $entityName Entity name to search
+     * @param string $apikey Api key
+     * @param string $entityId Entity id
      *
      * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface
      */
     public function find(string $entityName, string $apikey, string $entityId): EntityInterface;
 
     /**
-     * @param string $entityName
-     * @param string $apikey
+     * Request to find all entities with given entity class.
      *
-     * @throws \EoneoPay\Utils\Exceptions\BaseException
-     * one of ClientException, CriticalException, RuntimeException, ValidationException
+     * @param string $entityName Entity class name
+     * @param string $apikey Api key
      *
      * @return mixed[]
      */
     public function findAll(string $entityName, string $apikey): array;
 
     /**
-     * @param string $entityName
-     * @param string $apikey
-     * @param mixed[] $criteria
+     * Request to find entities by give criteria.
      *
-     * @throws \EoneoPay\Utils\Exceptions\BaseException
-     * one of ClientException, CriticalException, RuntimeException, ValidationException
+     * @param string $entityName Entity class name
+     * @param string $apikey Api key
+     * @param mixed[] $criteria Search criteria
      *
      * @return mixed[]
      */
     public function findBy(string $entityName, string $apikey, array $criteria): array;
 
     /**
-     * Find one
+     * Request to find an entity with given criteria
      *
-     * @param string $entityName
-     * @param string $apikey
-     * @param mixed[] $criteria
-     *
-     * @throws \EoneoPay\Utils\Exceptions\BaseException
-     * one of ClientException, CriticalException, RuntimeException, ValidationException
+     * @param string $entityName Entity class name
+     * @param string $apikey Api key
+     * @param mixed[] $criteria Search criteria
      *
      * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface
      */
     public function findOneBy(string $entityName, string $apikey, array $criteria): EntityInterface;
 
     /**
-     * @inheritdoc
+     * Get entity repository.
+     *
+     * @param string $entityClass Entity class name
+     *
+     * @return \EoneoPay\PhpSdk\Interfaces\RepositoryInterface
      */
     public function getRepository(string $entityClass): RepositoryInterface;
 
     /**
-     * @param string $apikey
-     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $entity
+     * Request to update an entity.
      *
-     * @throws \EoneoPay\Utils\Exceptions\BaseException
-     * one of ClientException, CriticalException, RuntimeException, ValidationException
+     * @param string $apikey Api key
+     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $entity Entity to be updated
      *
-     * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface
+     * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface Updated entity
      */
     public function update(string $apikey, EntityInterface $entity): EntityInterface;
 }
