@@ -67,6 +67,8 @@ trait SecurityTrait
     protected $enrolmentStatus;
 
     /**
+     * Security Id
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
@@ -74,6 +76,8 @@ trait SecurityTrait
     protected $id;
 
     /**
+     * Security metadata
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var mixed[]|null
@@ -81,6 +85,8 @@ trait SecurityTrait
     protected $metadata;
 
     /**
+     * Security payload
+     *
      * @Groups({"update"})
      *
      * @var string
@@ -88,6 +94,8 @@ trait SecurityTrait
     protected $payload;
 
     /**
+     * Security payment source
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
@@ -95,6 +103,8 @@ trait SecurityTrait
     protected $paymentSource;
 
     /**
+     * Security request payload
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
@@ -102,6 +112,8 @@ trait SecurityTrait
     protected $requestPayload;
 
     /**
+     * Security response payload
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
@@ -109,6 +121,8 @@ trait SecurityTrait
     protected $responsePayload;
 
     /**
+     * Security return url
+     *
      * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null

@@ -10,10 +10,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
 
 /**
- * @method mixed[]|null getBin()
  * @method string|null getCreatedAt()
- * @method mixed[]|null getExpiry()
- * @method string|null getFacility()
  * @method string|null getId()
  * @method string|null getName()
  * @method string|null getPan()
@@ -32,13 +29,13 @@ use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
 class PaymentSource extends Entity implements PaymentSourceInterface
 {
     use PaymentSourceTrait;
-
     /**
      * @inheritdoc
      */
     public function uris(): array
     {
         return [
+            self::CREATE => '/tokens',
             self::GET => \sprintf('/tokens/%s', $this->getToken())
         ];
     }

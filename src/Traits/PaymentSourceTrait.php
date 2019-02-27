@@ -8,15 +8,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait PaymentSourceTrait
 {
     /**
-     * Payment source bib
-     *
-     * @Groups({"create", "get", "list", "update"})
-     *
-     * @var mixed[]|null
-     */
-    protected $bin;
-
-    /**
      * Created at date
      *
      * @Groups({"create", "get", "list", "update"})
@@ -24,24 +15,6 @@ trait PaymentSourceTrait
      * @var string|null
      */
     protected $createdAt;
-
-    /**
-     * Expiry month and year
-     *
-     * @Groups({"create", "get", "list", "update"})
-     *
-     * @var mixed[]|null
-     */
-    protected $expiry;
-
-    /**
-     * Payment source facility
-     *
-     * @Groups({"create", "get", "list", "update"})
-     *
-     * @var string|null
-     */
-    protected $facility;
 
     /**
      * Payment source id

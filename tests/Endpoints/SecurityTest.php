@@ -110,6 +110,7 @@ class SecurityTest extends TestCase
             ],
             500
         )->update((string)\getenv('PAYMENTS_API_KEY'), new Security([
+            'id' => 'external-security-id',
             'payload' => 'payload'
         ]));
     }

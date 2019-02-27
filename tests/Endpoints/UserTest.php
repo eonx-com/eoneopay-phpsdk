@@ -13,18 +13,14 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 class UserTest extends TestCase
 {
     /**
-     * @var string
+     * @var \EoneoPay\PhpSdk\Endpoints\User
      */
-    private $userEmail;
-
-    /**
-     * @var string
-     */
-    private $userId;
+    private $user;
 
     /**
      * Check if creating existing user throws exception
      * Does not start with 'test' as needs to run after a valid user has been created
+     * in testCreateUser
      *
      * @return void
      */
@@ -48,10 +44,7 @@ class UserTest extends TestCase
         ], 400)
             ->create(
                 (string)\getenv('PAYMENTS_API_KEY'),
-                new User([
-                    'id' => $this->userId,
-                    'email' => $this->userEmail
-                ])
+                $this->getUser()
             );
     }
 
@@ -62,26 +55,20 @@ class UserTest extends TestCase
      */
     public function testCreateUser(): void
     {
-        // Generate user details
-        $this->generateUserDetails();
-
         $user = $this->createApiManager([
             'created_at' => '2019-02-26T00=>01=>39Z',
-            'id' => $this->userId,
-            'email' => $this->userEmail,
+            'id' => $this->getUser()->getId(),
+            'email' => $this->getUser()->getEmail(),
             'updated_at' => '2019-02-26T00=>01=>39Z'
         ], 201)
             ->create(
                 (string)\getenv('PAYMENTS_API_KEY'),
-                new User([
-                    'id' => $this->userId,
-                    'email' => $this->userEmail
-                ])
+                $this->getUser()
             );
 
-        self::assertSame($this->userEmail, ($user instanceof User) ? $user->getEmail() : null);
+        self::assertSame($this->getUser()->getEmail(), ($user instanceof User) ? $user->getEmail() : null);
 
-        // Exception thrown asserts
+        // Exception thrown assertion
         $this->checkExceptionThrownOnExistingUserCreation();
     }
 
@@ -108,18 +95,22 @@ class UserTest extends TestCase
     }
 
     /**
-     * Generate User details to use in multiple test cases
+     * Helper function to generate user
      *
-     * @return void
+     * @return \EoneoPay\PhpSdk\Endpoints\User
      */
-    private function generateUserDetails(): void
+    private function getUser(): User
     {
-        if ($this->userId === null) {
-            $this->userId = $this->generateId('ext_id_');
+        if ($this->user === null) {
+            $userId = $this->generateId('ext_id_');
+            $userEmail = $this->generateId('email') . '@email.com';
+
+            $this->user = new User([
+                'id' => $userId,
+                'email' => $userEmail
+            ]);
         }
 
-        if ($this->userEmail === null) {
-            $this->userEmail = $this->generateId('email') . '@email.com';
-        }
+        return $this->user;
     }
 }
