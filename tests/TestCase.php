@@ -3,27 +3,58 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk;
 
-use Symfony\Component\Validator\ConstraintViolationListInterface;
+use EoneoPay\PhpSdk\Factories\ExceptionFactory;
+use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
+use EoneoPay\PhpSdk\Managers\EoneoPayApiManager;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
+use LoyaltyCorp\SdkBlueprint\Sdk\Factories\SerializerFactory;
+use LoyaltyCorp\SdkBlueprint\Sdk\Factories\UrnFactory;
+use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\RequestHandler;
+use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\ResponseHandler;
+use LoyaltyCorp\SdkBlueprint\Sdk\Managers\SdkManager;
+use PHPUnit\Framework\TestCase as BaseTestCase;
 
-abstract class TestCase extends \PHPUnit\Framework\TestCase
+/**
+ * @coversNothing
+ *
+ * @SuppressWarnings(PHPMD.NumberOfChildren) All tests extend this class
+ */
+abstract class TestCase extends BaseTestCase
 {
     /**
-     * Parse errors and get the error message array.
+     * Create api manager instnace.
      *
-     * @param \Symfony\Component\Validator\ConstraintViolationListInterface $errors
+     * @param mixed[]|null $body
+     * @param int|null $responseCode
      *
-     * @return string[]|null
+     * @return \EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface
      */
-    protected function parseValidationErrors(ConstraintViolationListInterface $errors): ?array
+    protected function createApiManager(?array $body = null, ?int $responseCode = null): EoneoPayApiManagerInterface
     {
-        $messages = null;
+        return new EoneoPayApiManager(
+            new SdkManager(
+                new RequestHandler(
+                    $this->createClient($body, $responseCode),
+                    new ResponseHandler(),
+                    new SerializerFactory(),
+                    new UrnFactory()
+                )
+            ),
+            new ExceptionFactory()
+        );
+    }
 
-        /** @var \Symfony\Component\Validator\ConstraintViolation $error */
-        foreach ($errors as $error) {
-            $messages[$error->getPropertyPath()] = $error->getMessage();
-        }
-
-        return $messages;
+    /**
+     * Create live http client.
+     *
+     * @return \GuzzleHttp\ClientInterface
+     */
+    protected function createLiveClient(): ClientInterface
+    {
+        return new Client(['base_uri' => (string)\getenv('PAYMENTS_BASE_URI')]);
     }
 
     /**
@@ -37,5 +68,39 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     {
         /** @noinspection ArgumentEqualsDefaultValueInspection EA inspections require both parameters to be passed */
         return \uniqid($prefix ?? '', false);
+    }
+
+    /**
+     * Create body
+     *
+     * @param mixed[] $body
+     *
+     * @return string
+     */
+    private function createBody(?array $body): string
+    {
+        $enBody = \json_encode($body ?? []);
+        return ($enBody === false) ? '' : $enBody;
+    }
+
+    /**
+     * Get http client with mock handler.
+     *
+     * @param mixed[]|null $body
+     * @param int|null $responseCode
+     *
+     * @return \GuzzleHttp\ClientInterface
+     */
+    private function createClient(?array $body = null, ?int $responseCode = null): ClientInterface
+    {
+        return new Client([
+            'handler' => new MockHandler([
+                new Response(
+                    $responseCode ?? 200,
+                    ['Accept' => 'application/json', 'Content-Type' => 'application/json'],
+                    $this->createBody($body)
+                )
+            ])
+        ]);
     }
 }

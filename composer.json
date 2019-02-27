@@ -24,12 +24,25 @@
   },
   "require-dev": {
     "eoneopay/standards": "dev-master",
+    "indigophp/doctrine-annotation-autoload": "^0.1.0",
+    "laravel/lumen-framework": "^5.5",
     "phpmd/phpmd": "^2.6",
-    "phpstan/phpstan": "^0.9",
+    "phpstan/phpstan": "^0.11",
     "phpunit/phpunit": "^7.0",
     "roave/security-advisories": "dev-master",
     "sebastian/phpcpd": "^4.0",
     "squizlabs/php_codesniffer": "3.*"
+  },
+  "suggest": {
+    "indigophp/doctrine-annotation-autoload": "Recommended to autoload custom doctrine annotations",
+    "laravel/framework": "^5.5",
+    "laravel/lumen-framework": "^5.5",
+    "phpmd/phpmd": "Check coding best practices",
+    "phpstan/phpstan": "Static analysis of code to detect potential errors",
+    "phpunit/phpunit": "Run unit tests",
+    "sebastian/phpcpd": "Detect code duplication",
+    "sensiolabs/security-checker": "Check project's dependencies for known vulnerabilities",
+    "squizlabs/php_codesniffer": "Check code style"
   },
   "autoload": {
     "psr-4": {
