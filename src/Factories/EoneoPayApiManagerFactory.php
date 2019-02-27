@@ -11,6 +11,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Factories\SerializerFactory;
 use LoyaltyCorp\SdkBlueprint\Sdk\Factories\UrnFactory;
 use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\RequestHandler;
 use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\ResponseHandler;
+use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Managers\SdkManager;
 
 class EoneoPayApiManagerFactory implements EoneoPayApiManagerFactoryInterface
@@ -21,19 +22,27 @@ class EoneoPayApiManagerFactory implements EoneoPayApiManagerFactoryInterface
     public function create(string $baseUri): EoneoPayApiManagerInterface
     {
         return new EoneoPayApiManager(
-            new SdkManager(
-                new RequestHandler(
-                    new GuzzleClient(
-                        [
-                            'base_uri' => $baseUri
-                        ]
-                    ),
-                    new ResponseHandler(),
-                    new SerializerFactory(),
-                    new UrnFactory()
-                )
-            ),
+            $this->createSdkManager($baseUri),
             new ExceptionFactory()
+        );
+    }
+
+    /**
+     * Create sdk manager instance.
+     *
+     * @param string $baseUri Api base uri
+     *
+     * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface
+     */
+    private function createSdkManager(string $baseUri): SdkManagerInterface
+    {
+        return new SdkManager(
+            new RequestHandler(
+                new GuzzleClient(['base_uri' => $baseUri]),
+                new ResponseHandler(),
+                new SerializerFactory(),
+                new UrnFactory()
+            )
         );
     }
 }
