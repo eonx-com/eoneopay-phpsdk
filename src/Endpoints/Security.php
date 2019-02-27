@@ -31,19 +31,7 @@ class Security extends Entity
     use SecurityTrait;
 
     /**
-     * Get uri for this entity.
-     *
-     * For an example,
-     *
-     * return [
-     *      self::CREATE => 'http://localhost/<endpoint-path>',
-     *      self::DELETE => 'http://localhost/<endpoint-path>',
-     *      self::GET => 'http://localhost/<endpoint-path>',
-     *      self::LIST => 'http://localhost/<endpoint-path>',
-     *      self::UPDATE => 'http://localhost/<endpoint-path>'
-     * ];
-     *
-     * @return mixed[] Api endpoint uris
+     * @inheritdoc
      */
     public function uris(): array
     {
