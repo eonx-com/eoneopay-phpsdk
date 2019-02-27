@@ -19,7 +19,7 @@
         </whitelist>
     </filter>
     <php>
-        <env name="PAYMENTS_API_KEY" value="RE2UFJXYE949K2NG"/>
-        <env name="PAYMENTS_BASE_URI" value="http://payments.eoneopay.box"/>
+        <env name="PAYMENTS_API_KEY" value="4UM78RDZW93B84UJ"/>
+        <env name="PAYMENTS_BASE_URI" value="http://payments.box"/>
     </php>
 </phpunit>

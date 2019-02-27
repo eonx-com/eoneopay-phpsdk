@@ -4,110 +4,160 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Traits;
 
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 trait SecurityTrait
 {
     /**
-     * Action url.
+     * Security action url
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "get", "list", "update"})
      *
-     * @var null|string
+     * @var string|null
      */
     protected $actionUrl;
 
     /**
-     * Cavv.
+     * Amount array with currency and total
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "get", "list", "update"})
      *
-     * @var null|string
+     * @var mixed[]|null
+     */
+    protected $amount;
+
+    /**
+     * Authentication result
+     *
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string|null
+     */
+    protected $authenticaionResult;
+
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string|null
      */
     protected $cavv;
 
     /**
-     * Enrolment status.
+     * Created at date
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "get", "list", "update"})
      *
-     * @var null|string
+     * @var string|null
+     */
+    protected $createdAt;
+
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string|null
+     */
+    protected $eci;
+
+    /**
+     * Enrolment status
+     *
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string|null
      */
     protected $enrolmentStatus;
 
     /**
-     * Transaction id.
+     * Security Id
      *
-     * @Assert\NotBlank(groups={"create", "update"})
+     * @Groups({"create", "get", "list", "update"})
      *
-     * @Groups({"create", "update"})
-     *
-     * @var null|string
+     * @var string|null
      */
     protected $id;
 
     /**
-     * Payload for verification.
+     * Security metadata
      *
-     * @Assert\NotBlank(groups={"update"})
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var mixed[]|null
+     */
+    protected $metadata;
+
+    /**
+     * Security payload
      *
      * @Groups({"update"})
      *
-     * @var null|string
+     * @var string
      */
     protected $payload;
 
     /**
-     * Request payload.
+     * Security payment source
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "get", "list", "update"})
      *
-     * @var null|string
+     * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
+     */
+    protected $paymentSource;
+
+    /**
+     * Security request payload
+     *
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string|null
      */
     protected $requestPayload;
 
     /**
-     * Response payload.
+     * Security response payload
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "get", "list", "update"})
      *
-     * @var null|string
+     * @var string|null
      */
     protected $responsePayload;
 
     /**
-     * Return url.
+     * Security return url
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "get", "list", "update"})
      *
-     * @var null|string
+     * @var string|null
      */
     protected $returnUrl;
 
     /**
-     * Secured.
+     * @Groups({"create", "get", "list", "update"})
      *
-     * @Groups({"create", "update"})
-     *
-     * @var null|bool
+     * @var string|null
      */
     protected $secured;
 
     /**
-     * Status.
+     * Status
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "get", "list", "update"})
      *
-     * @var null|string
+     * @var string|null
      */
     protected $status;
 
     /**
-     * Xid.
+     * Updated at date
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "get", "list", "update"})
      *
-     * @var null|string
+     * @var string|null
+     */
+    protected $updatedAt;
+
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string|null
      */
     protected $xid;
 }

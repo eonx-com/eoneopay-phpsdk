@@ -3,102 +3,78 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\TestCases;
 
-use EoneoPay\PhpSdk\Requests\Payloads\Amount;
-use EoneoPay\PhpSdk\Responses\Transaction;
-use EoneoPay\PhpSdk\Responses\Transactions\BankAccount;
-use EoneoPay\PhpSdk\Responses\Transactions\CreditCard;
-use EoneoPay\PhpSdk\Responses\Transactions\Ewallet;
+use EoneoPay\PhpSdk\Endpoints\Transaction;
+use EoneoPay\PhpSdk\Endpoints\User;
+use EoneoPay\PhpSdk\Interfaces\Endpoints\TransactionInterface;
+use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
+use Tests\EoneoPay\PhpSdk\TestCase;
 
-class TransactionTestCase extends RequestTestCase
+/**
+ * @coversNothing
+ */
+class TransactionTestCase extends TestCase
 {
     /**
-     * Assert transaction endpoint.
+     * Create transaction response.
      *
-     * @param mixed[] $data
-     * @param \EoneoPay\PhpSdk\Responses\Transaction $response
-     *
-     * @return void
-     */
-    protected function assertTransactionEndpoint(array $data, Transaction $response): void
-    {
-        if (($response instanceof BankAccount) === true) {
-            /**
-             * @var \EoneoPay\PhpSdk\Requests\Payloads\BankAccount $endpoint
-             *
-             * @see https://youtrack.jetbrains.com/issue/WI-37859 typehint required until PhpStorm recognises === check
-             */
-            $endpoint = $response->getBankAccount();
-            $this->assertBankAccount($data, $endpoint);
-        }
-
-        if (($response instanceof CreditCard) === true) {
-            /**
-             * @var \EoneoPay\PhpSdk\Requests\Payloads\CreditCard $endpoint
-             *
-             * @see https://youtrack.jetbrains.com/issue/WI-37859 typehint required until PhpStorm recognises === check
-             */
-            $endpoint = $response->getCreditCard();
-            $this->assertCreditCard($data, $endpoint);
-        }
-
-        if (($response instanceof Ewallet) === true) {
-            /**
-             * @var \EoneoPay\PhpSdk\Requests\Payloads\Ewallet $endpoint
-             *
-             * @see https://youtrack.jetbrains.com/issue/WI-37859 typehint required until PhpStorm recognises === check
-             */
-            $endpoint = $response->getEwallet();
-            $this->assertEwallet($data, $endpoint);
-        }
-    }
-
-    /**
-     * Assert transaction response
-     *
-     * @param mixed[] $data
-     * @param \EoneoPay\PhpSdk\Responses\Transaction $response
-     *
-     * @return void
-     */
-    protected function assertTransactionResponse(array $data, Transaction $response): void
-    {
-        /** @var \EoneoPay\PhpSdk\Requests\Payloads\Amount $amount */
-        $amount = $data['amount'];
-
-        self::assertSame(
-            $amount->getTotal() ?? null,
-            $response->getAmount() ? $response->getAmount()->getTotal() : null
-        );
-        self::assertSame(
-            $amount->getCurrency() ?? null,
-            $response->getAmount() ? $response->getAmount()->getCurrency() : null
-        );
-        self::assertSame('completed', $response->getStatus());
-
-        // assertions for transaction endpoint
-        $this->assertTransactionEndpoint($data, $response);
-    }
-
-    /**
-     * Get request data for a transaction.
-     *
-     * @param null|string $orderId
+     * @param mixed[]|null $data
      *
      * @return mixed[]
      */
-    protected function getData(?string $orderId = null): array
+    protected function createResponse(?array $data = null): array
     {
-        $orderId = $orderId ?? $this->generateId('test-');
-
-        return [
-            'amount' => new Amount([
+        return \array_merge([
+            'action' => TransactionInterface::ACTION_DEBIT,
+            'amount' => [
                 'currency' => 'AUD',
+                'payment_fee' => '0.00',
+                'subtotal' => '100.00',
                 'total' => '100.00'
-            ]),
-            'id' => $orderId,
-            'name' => 'John Wick',
-            'secondary_id' => $this->generateId('sec-'),
-            'statement_description' => 'Test order'
-        ];
+            ],
+            'id' => \uniqid('ord', false),
+            'paymentSource' => [
+                'token' => 'VRG2VR4F39343HM4D3N2',
+                'type' => 'credit_card'
+            ],
+            'transactionId' => \uniqid('txn', false),
+            'paymentDestination' => [
+                'id' => \uniqid('', false),
+                'pan' => '2...H6A3',
+                'type' => 'ewallet'
+            ],
+            'statementDescription' => 'PAYMENT GATEWAY',
+            'user' => new User([
+                'email' => 'user@email.test'
+            ])
+        ], $data ?? []);
+    }
+
+    /**
+     * Perform transaction assertions.
+     *
+     * @param \EoneoPay\PhpSdk\Endpoints\Transaction $expected
+     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $actual
+     *
+     * @return void
+     */
+    protected function performTransactionAssertions(Transaction $expected, EntityInterface $actual): void
+    {
+        self::assertInstanceOf(Transaction::class, $actual);
+        self::assertSame(
+            $expected->getAmount(),
+            ($actual instanceof Transaction) === true ? $actual->getAmount() : null
+        );
+        self::assertSame(
+            $expected->getAction(),
+            ($actual instanceof Transaction) === true ? $actual->getAction() : null
+        );
+        self::assertSame(
+            $expected->getId(),
+            ($actual instanceof Transaction) === true ? $actual->getId() : null
+        );
+        self::assertSame(
+            $expected->getTransactionId(),
+            ($actual instanceof Transaction) === true ? $actual->getTransactionId() : null
+        );
     }
 }

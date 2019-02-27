@@ -1,45 +1,45 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Traits;
+namespace EoneoPay\PhpSdk\Traits\PaymentSources;
 
 use Symfony\Component\Serializer\Annotation\Groups;
 
-trait UserTrait
+trait BankAccountTrait
 {
     /**
-     * Created at date
+     * Bank account country
      *
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string
+     * @var string|null
      */
-    protected $createdAt;
+    protected $country;
 
     /**
-     * User email
+     * Bank account currency
      *
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string
+     * @var string|null
      */
-    protected $email;
+    protected $currency;
 
     /**
-     * User id
+     * Bank account number
      *
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string User selected external id
+     * @var string|null
      */
-    protected $id;
+    protected $number;
 
     /**
-     * Updated at date
+     * Bank account prefix
      *
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string
+     * @var string|null
      */
-    protected $updatedAt;
+    protected $prefix;
 }

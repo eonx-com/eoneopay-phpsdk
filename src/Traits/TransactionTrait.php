@@ -4,97 +4,145 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Traits;
 
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 trait TransactionTrait
 {
     /**
-     * Action.
+     * Transaction action.
      *
-     * @Assert\NotBlank(groups={"create"})
+     * @Groups({"create", "delete", "get", "list", "update"})
      *
-     * @Groups({"create", "delete", "update"})
-     *
-     * @var null|mixed
+     * @var string|null
      */
     protected $action;
 
     /**
+     * Transaction allocation.
+     *
+     * @var mixed[]|null
+     */
+    protected $allocation;
+
+    /**
+     * Transaction amount.
+     *
+     * @Groups({"create", "delete", "get", "list", "update"})
+     *
+     * @var mixed[]|null
+     */
+    protected $amount;
+
+    /**
      * Approved.
      *
-     * @var null|bool
+     * @Groups({"create", "delete", "get", "list", "update"})
+     *
+     * @var bool
      */
     protected $approved;
 
     /**
-     * Completed date.
+     * Created at date.
      *
-     * @var null|string
+     * @Groups({"create", "delete", "get", "list", "update"})
+     *
+     * @var string|null
      */
-    protected $completedAt;
+    protected $createdAt;
 
     /**
-     * Transaction id.
+     * Order id.
      *
-     * @Assert\NotBlank(groups={"create", "delete", "update"})
+     * @Groups({"create", "delete", "get", "list", "update"})
      *
-     * @Groups({"create", "delete", "update"})
-     *
-     * @var null|string
+     * @var string|null
      */
     protected $id;
 
     /**
-     * Remitter Name
+     * Transaction metadata.
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create", "delete", "get", "list", "update"})
      *
-     * @var null|string
+     * @var mixed[]|null
      */
-    protected $name;
+    protected $metadata;
 
     /**
-     * Parent transaction id.
+     * Parent transaction.
      *
-     * @Groups({"create", "update"})
-     *
-     * @var null|string
+     * @var \EoneoPay\PhpSdk\Endpoints\Transaction|null
      */
-    protected $parentTransactionId;
+    protected $parent;
 
     /**
-     * Secondary Id.
+     * Payment destination.
      *
-     * @Assert\NotBlank(groups={"create", "delete", "update"})
-     *
-     * @Groups({"create", "delete", "update"})
-     *
-     * @var null|string
+     * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
-    protected $secondaryId;
+    protected $paymentDestination;
 
     /**
-     * Security Id.
+     * Payment source.
      *
-     * @Groups({"create", "delete", "update"})
+     * @Groups({"create", "delete", "get", "list", "update"})
      *
-     * @var null|string
+     * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
-    protected $securityId;
+    protected $paymentSource;
 
     /**
-     * Statement Description.
+     * Transaction response.
      *
-     * @Groups({"create", "delete", "update"})
+     * @var mixed[]
+     */
+    protected $response;
+
+    /**
+     * Transaction security.
      *
-     * @var null|string
+     * @var mixed
+     */
+    protected $security;
+
+    /**
+     * Transaction statement description.
+     *
+     * @Groups({"create", "delete", "get", "list", "update"})
+     *
+     * @var string|null
      */
     protected $statementDescription;
 
     /**
      * Transaction status.
      *
-     * @var null|string
+     * @var string|null
      */
     protected $status;
+
+    /**
+     * Transaction id.
+     *
+     * @Groups({"create", "delete", "get", "list", "update"})
+     *
+     * @var string|null
+     */
+    protected $transactionId;
+
+    /**
+     * Transaction updated at date.
+     *
+     * @var string|null
+     */
+    protected $updatedAt;
+
+    /**
+     * User associated with this transaction.
+     *
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\User
+     */
+    protected $user;
 }

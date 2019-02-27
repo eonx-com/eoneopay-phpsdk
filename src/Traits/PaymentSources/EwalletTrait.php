@@ -1,45 +1,45 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Traits;
+namespace EoneoPay\PhpSdk\Traits\PaymentSources;
 
 use Symfony\Component\Serializer\Annotation\Groups;
 
-trait UserTrait
+trait EwalletTrait
 {
     /**
-     * Created at date
+     * Ewallet currency
      *
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string
+     * @var string|null
      */
-    protected $createdAt;
+    protected $currency;
 
     /**
-     * User email
+     * If is primary
      *
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string
+     * @var bool
      */
-    protected $email;
+    protected $primary;
 
     /**
-     * User id
+     * Ewallet user reference
      *
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string User selected external id
+     * @var string|null
      */
-    protected $id;
+    protected $reference;
 
     /**
-     * Updated at date
+     * Ewallet user
      *
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string
+     * @var \EoneoPay\PhpSdk\Endpoints\User|null
      */
-    protected $updatedAt;
+    protected $user;
 }

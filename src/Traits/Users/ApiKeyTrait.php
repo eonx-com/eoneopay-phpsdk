@@ -1,45 +1,44 @@
 <?php
 declare(strict_types=1);
 
-namespace EoneoPay\PhpSdk\Traits;
+namespace EoneoPay\PhpSdk\Traits\Users;
 
 use Symfony\Component\Serializer\Annotation\Groups;
 
-trait UserTrait
+trait ApiKeyTrait
 {
     /**
-     * Created at date
-     *
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string
+     * @var string|null
      */
     protected $createdAt;
 
     /**
-     * User email
-     *
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string
+     * @var string|null
      */
-    protected $email;
+    protected $key;
 
     /**
-     * User id
-     *
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string User selected external id
+     * @var \EoneoPay\PhpSdk\Endpoints\User|null
      */
-    protected $id;
+    protected $targetUser;
 
     /**
-     * Updated at date
-     *
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string
+     * @var string|null
      */
     protected $updatedAt;
+
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\User|null
+     */
+    protected $user;
 }
