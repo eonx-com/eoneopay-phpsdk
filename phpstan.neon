@@ -3,6 +3,3 @@ parameters:
         -
             message: '#Call to method singleton\(\) on an unknown class Illuminate\\Foundation\\Application.#'
             path: src/External/Libraries/Bridge/Laravel/Providers
-        -
-            message: '#Call to method register\(\) on an unknown class Illuminate\\Foundation\\Application.#'
-            path: src/External/Libraries/Bridge/Laravel/Providers
