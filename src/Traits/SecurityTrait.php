@@ -132,7 +132,7 @@ trait SecurityTrait
     /**
      * @Groups({"create", "get", "list", "update"})
      *
-     * @var string|null
+     * @var bool|null
      */
     protected $secured;
 
