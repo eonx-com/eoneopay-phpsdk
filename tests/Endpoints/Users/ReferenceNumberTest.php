@@ -30,6 +30,7 @@ class ReferenceNumberTest extends TestCase
      */
     public function testCreateReference(): void
     {
+        /** @var \EoneoPay\PhpSdk\Endpoints\Users\ReferenceNumber $reference */
         $reference = $this->createApiManager(
             [
                 'allocationEwallet' => [
@@ -82,5 +83,6 @@ class ReferenceNumberTest extends TestCase
         ));
 
         self::assertInstanceOf(ReferenceNumber::class, $reference);
+        self::assertRegExp('/\d{10}/', $reference->getReferenceNumber());
     }
 }
