@@ -13,6 +13,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method mixed[]|null getHeaders()
  * @method string|null getUrl()
  * @method User|null getUser()
+ * @method $this setUrl(string $url)
+ * @method $this setHeaders(array $headers)
  */
 class Webhook extends Entity
 {
