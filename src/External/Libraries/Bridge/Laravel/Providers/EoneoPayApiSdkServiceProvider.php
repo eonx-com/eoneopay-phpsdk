@@ -3,14 +3,16 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\External\Libraries\Bridge\Laravel\Providers;
 
+use EoneoPay\PhpSdk\Factories\ExceptionFactory;
+use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
+use EoneoPay\PhpSdk\Managers\EoneoPayApiManager;
+use GuzzleHttp\Client;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Lumen\Application;
 use LoyaltyCorp\SdkBlueprint\Sdk\Factories\SerializerFactory;
 use LoyaltyCorp\SdkBlueprint\Sdk\Factories\UrnFactory;
 use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\RequestHandler;
 use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\ResponseHandler;
-use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\Handlers\RequestHandlerInterface;
-use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Managers\SdkManager;
 
 class EoneoPayApiSdkServiceProvider extends ServiceProvider
@@ -22,17 +24,22 @@ class EoneoPayApiSdkServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // bind handlers
-        $this->app->singleton(RequestHandlerInterface::class, function (Application $app) {
-            return new RequestHandler(
-                $app->make('eoneopay_api_client'),
-                new ResponseHandler(),
-                new SerializerFactory(),
-                new UrnFactory()
-            );
+        $this->app->singleton('eoneopay_api_client', function () {
+            return new Client(['base_uri' => \env('EONEOPAY_API_BASE_URI')]);
         });
 
-        // bind manager
-        $this->app->singleton(SdkManagerInterface::class, SdkManager::class);
+        $this->app->singleton(EoneoPayApiManagerInterface::class, function (Container $application) {
+            return new EoneoPayApiManager(
+                new SdkManager(
+                    new RequestHandler(
+                        $application->make('eoneopay_api_client'),
+                        new ResponseHandler(),
+                        new SerializerFactory(),
+                        new UrnFactory()
+                    )
+                ),
+                new ExceptionFactory()
+            );
+        });
     }
 }

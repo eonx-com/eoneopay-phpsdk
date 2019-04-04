@@ -26,7 +26,7 @@ class PaymentSourceRepositoryTest extends TestCase
             'token' => $this->generateId()
         ]);
 
-        $actual = $this->getRepository($creditCard)->findByToken($creditCard->getToken() ?? '', 'api-key');
+        $actual = $this->getRepository($creditCard)->findByToken('api-key', $creditCard->getToken() ?? '');
 
         self::assertSame(
             $creditCard->getToken(),

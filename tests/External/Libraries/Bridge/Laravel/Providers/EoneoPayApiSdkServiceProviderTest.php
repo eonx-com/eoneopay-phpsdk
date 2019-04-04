@@ -4,12 +4,10 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\External\Libraries\Bridge\Laravel\Providers;
 
 use EoneoPay\PhpSdk\External\Libraries\Bridge\Laravel\Providers\EoneoPayApiSdkServiceProvider;
+use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
+use EoneoPay\PhpSdk\Managers\EoneoPayApiManager;
 use GuzzleHttp\Client;
 use Laravel\Lumen\Application;
-use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\RequestHandler;
-use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\Handlers\RequestHandlerInterface;
-use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface;
-use LoyaltyCorp\SdkBlueprint\Sdk\Managers\SdkManager;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
@@ -31,9 +29,6 @@ class EoneoPayApiSdkServiceProviderTest extends TestCase
 
         $this->app = new Application();
         $this->app->register(EoneoPayApiSdkServiceProvider::class);
-        $this->app->singleton('eoneopay_api_client', function () {
-            return new Client();
-        });
     }
 
     /**
@@ -43,13 +38,10 @@ class EoneoPayApiSdkServiceProviderTest extends TestCase
      */
     public function testServiceProviderRegistersBindingsInContainer(): void
     {
+        self::assertInstanceOf(Client::class, $this->app->make('eoneopay_api_client'));
         self::assertInstanceOf(
-            RequestHandler::class,
-            $this->app->make(RequestHandlerInterface::class)
-        );
-        self::assertInstanceOf(
-            SdkManager::class,
-            $this->app->make(SdkManagerInterface::class)
+            EoneoPayApiManager::class,
+            $this->app->make(EoneoPayApiManagerInterface::class)
         );
     }
 }
