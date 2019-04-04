@@ -19,5 +19,12 @@ trait ReferenceNumberTrait
      *
      * @var string|null
      */
+    protected $type;
+
+    /**
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var string|null
+     */
     protected $userId;
 }

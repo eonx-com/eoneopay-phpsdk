@@ -8,8 +8,10 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
  * @method getReferenceNumber()
+ * @method getType()
  * @method getUserId()
  * @method setReferenceNumber()
+ * @method setType()
  * @method setUserId()
  */
 class ReferenceNumber extends Entity

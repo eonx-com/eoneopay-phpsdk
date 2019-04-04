@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Endpoints\Users;
 
 use EoneoPay\PhpSdk\Endpoints\Users\ReferenceNumber;
+use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
+use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
@@ -24,14 +26,65 @@ class ReferenceNumberTest extends TestCase
     }
 
     /**
-     * Test Create a key successfully
+     * Test that a reference is created successfully
      *
      * @return  void
      */
     public function testCreateReference(): void
     {
         /** @var \EoneoPay\PhpSdk\Endpoints\Users\ReferenceNumber $reference */
-        $reference = $this->createApiManager(
+        $reference = $this->getApi()->create((string)\getenv('PAYMENTS_API_KEY'), new ReferenceNumber(
+            [
+                'ewallet' => [
+                    'reference' => '2JERVUH6A3'
+                ],
+                'type' => 'bpay'
+            ]
+        ));
+
+        // Assert that the instance matches
+        self::assertInstanceOf(ReferenceNumber::class, $reference);
+
+        // Assert that the reference number is 10 digits
+        self::assertRegExp('/\d{10}/', $reference->getReferenceNumber());
+    }
+
+    /**
+     * Test that the generated URIs match what we are expecting
+     *
+     * @return void
+     */
+    public function testUrisGenerateCorrectly(): void
+    {
+        $uris = $this->getApi()->create((string)\getenv('PAYMENTS_API_KEY'), new ReferenceNumber(
+            [
+                'ewallet' => [
+                    'reference' => '2JERVUH6A3'
+                ],
+                'type' => 'bpay',
+                'userId' => 'user1'
+            ]
+        ))->uris();
+
+        $expected = [
+            EntityInterface::CREATE => '/\/users\/[A-Za-z0-9]+\/reference/'
+        ];
+
+        // Assert that each generated URI matches the regular expression
+        foreach ($expected as $method => $regex) {
+            self::assertArrayHasKey($method, $uris);
+            self::assertRegExp($regex, $uris[$method]);
+        }
+    }
+
+    /**
+     * Gets the test API manager instance
+     *
+     * @return \EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface
+     */
+    private function getApi(): EoneoPayApiManagerInterface
+    {
+        return $this->createApiManager(
             [
                 'allocationEwallet' => [
                     'created_at' => '2019-04-01T00:48:20Z',
@@ -73,16 +126,6 @@ class ReferenceNumberTest extends TestCase
                 ]
             ],
             200
-        )->create((string)\getenv('PAYMENTS_API_KEY'), new ReferenceNumber(
-            [
-                'ewallet' => [
-                    'reference' => '2JERVUH6A3'
-                ],
-                'type' => 'bpay'
-            ]
-        ));
-
-        self::assertInstanceOf(ReferenceNumber::class, $reference);
-        self::assertRegExp('/\d{10}/', $reference->getReferenceNumber());
+        );
     }
 }
