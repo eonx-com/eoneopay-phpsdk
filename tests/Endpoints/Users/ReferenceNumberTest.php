@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints\Users;
 
+use EoneoPay\PhpSdk\Endpoints\Ewallet;
+use EoneoPay\PhpSdk\Endpoints\User;
 use EoneoPay\PhpSdk\Endpoints\Users\ReferenceNumber;
 use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
-use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
@@ -35,46 +36,21 @@ class ReferenceNumberTest extends TestCase
         /** @var \EoneoPay\PhpSdk\Endpoints\Users\ReferenceNumber $reference */
         $reference = $this->getApi()->create((string)\getenv('PAYMENTS_API_KEY'), new ReferenceNumber(
             [
-                'ewallet' => [
+                'ewallet' => new Ewallet([
                     'reference' => '2JERVUH6A3'
-                ],
-                'type' => 'bpay'
+                ]),
+                'type' => 'bpay',
+                'user' => new User([
+                    'id' => 'some-id'
+                ])
             ]
         ));
 
         // Assert that the instance matches
         self::assertInstanceOf(ReferenceNumber::class, $reference);
 
-        // Assert that the reference number is 10 digits
-        self::assertRegExp('/\d{10}/', $reference->getReferenceNumber());
-    }
-
-    /**
-     * Test that the generated URIs match what we are expecting
-     *
-     * @return void
-     */
-    public function testUrisGenerateCorrectly(): void
-    {
-        $uris = $this->getApi()->create((string)\getenv('PAYMENTS_API_KEY'), new ReferenceNumber(
-            [
-                'ewallet' => [
-                    'reference' => '2JERVUH6A3'
-                ],
-                'type' => 'bpay',
-                'userId' => 'user1'
-            ]
-        ))->uris();
-
-        $expected = [
-            EntityInterface::CREATE => '/\/users\/[A-Za-z0-9]+\/reference/'
-        ];
-
-        // Assert that each generated URI matches the regular expression
-        foreach ($expected as $method => $regex) {
-            self::assertArrayHasKey($method, $uris);
-            self::assertRegExp($regex, $uris[$method]);
-        }
+        // Assert that the reference number was provided
+        self::assertRegExp('/\d+/', $reference->getReferenceNumber());
     }
 
     /**
