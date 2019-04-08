@@ -13,6 +13,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method mixed[]|null getAmount()
  * @method bool|null getApproved()
  * @method string|null getCreatedAt()
+ * @method PaymentSource|null getFundingSource()
  * @method string|null getId()
  * @method mixed[]|null getMetadata()
  * @method Transaction|null getParent()
