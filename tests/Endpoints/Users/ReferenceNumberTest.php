@@ -15,15 +15,20 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 class ReferenceNumberTest extends TestCase
 {
     /***
-     * Base test to check class exists
+     * Base test to check class constructs as expected
      *
      * @return void
      */
-    public function testClassExists(): void
+    public function testClassConstructor(): void
     {
-        $class = new ReferenceNumber();
+        $class = new ReferenceNumber([
+            'type' => 'bpay',
+            'referenceNumber' => 'test-reference'
+        ]);
 
         self::assertInstanceOf(ReferenceNumber::class, $class);
+        self::assertSame('bpay', $class->getType());
+        self::assertSame('test-reference', $class->getReferenceNumber());
     }
 
     /**
