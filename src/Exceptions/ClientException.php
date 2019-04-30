@@ -16,20 +16,23 @@ class ClientException extends BaseNotFoundException
     protected $subCode;
 
     /**
-     * Instantiate attributes.
+     * BaseException constructor.
      *
      * @param null|string $message
-     * @param null|int $code
-     * @param null|\Throwable $previous
-     * @param null|int $subCode
+     * @param mixed[]|null $messageParameters Parameters for $message
+     * @param int|null $code
+     * @param \Throwable|null $previous
+     * @param int|null $subCode
      */
     public function __construct(
         ?string $message = null,
+        ?array $messageParameters = null,
         ?int $code = null,
         ?Throwable $previous = null,
         ?int $subCode = null
     ) {
-        parent::__construct($message ?? '', $code ?? 0, $previous);
+        parent::__construct($message ?? '', $messageParameters, $code ?? 0, $previous);
+
         $this->subCode = $subCode ?? 0;
     }
 
