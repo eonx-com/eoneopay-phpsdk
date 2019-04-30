@@ -15,7 +15,7 @@ class ClientExceptionTest extends TestCase
      */
     public function testGetErrorCode(): void
     {
-        self::assertSame(1120, (new ClientException('', 1120))->getErrorCode());
+        self::assertSame(1120, (new ClientException('', null, 1120))->getErrorCode());
     }
 
     /**
@@ -25,6 +25,6 @@ class ClientExceptionTest extends TestCase
      */
     public function testGetErrorSubCode(): void
     {
-        self::assertSame(2, (new ClientException('', 1120, null, 2))->getErrorSubCode());
+        self::assertSame(2, (new ClientException('', null, 1120, null, 2))->getErrorSubCode());
     }
 }

@@ -18,7 +18,7 @@ class CriticalExceptionTest extends TestCase
      */
     public function testGetErrorCode(): void
     {
-        $exception = new CriticalException(null, 1000);
+        $exception = new CriticalException(null, null, 1000);
         self::assertSame(1000, $exception->getErrorCode());
     }
 
@@ -40,7 +40,7 @@ class CriticalExceptionTest extends TestCase
      */
     public function testGetErrorSubCode(): void
     {
-        $exception = new CriticalException(null, 1000, null, 1);
+        $exception = new CriticalException(null, null, 1000, null, 1);
         self::assertSame(1, $exception->getErrorSubCode());
     }
 }

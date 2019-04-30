@@ -1,5 +1,2 @@
 parameters:
     ignoreErrors:
-        -
-            message: '#Call to method singleton\(\) on an unknown class Illuminate\\Foundation\\Application.#'
-            path: src/External/Libraries/Bridge/Laravel/Providers

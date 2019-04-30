@@ -29,13 +29,13 @@ class ExceptionFactory implements ExceptionFactoryInterface
         }
 
         if ($code >= 5000 && $code <= 5999) {
-            return new RuntimeException($message, $code);
+            return new RuntimeException($message, null, $code);
         }
 
         if ($code >= 4000 && $code <= 4999) {
-            return new ClientException($message, $code);
+            return new ClientException($message, null, $code);
         }
 
-        return new CriticalException($message, $code);
+        return new CriticalException($message, null, $code);
     }
 }
