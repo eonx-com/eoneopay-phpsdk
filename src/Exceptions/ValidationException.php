@@ -19,6 +19,7 @@ class ValidationException extends BaseValidationExceptions
      * Instantiate attributes.
      *
      * @param null|string $message
+     * @param null|mixed[] $messageParameters
      * @param null|int $code
      * @param null|\Throwable $previous
      * @param null|string[] $errors
@@ -26,12 +27,13 @@ class ValidationException extends BaseValidationExceptions
      */
     public function __construct(
         ?string $message = null,
+        ?array $messageParameters = null,
         ?int $code = null,
         ?Throwable $previous = null,
         ?array $errors = null,
         ?int $subCode = null
     ) {
-        parent::__construct($message ?? '', $code ?? 0, $previous, $errors);
+        parent::__construct($message ?? '', $messageParameters, $code ?? 0, $previous, $errors);
 
         $this->subCode = $subCode ?? 0;
     }
