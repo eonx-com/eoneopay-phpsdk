@@ -18,7 +18,7 @@ class ValidationExceptionTest extends TestCase
      */
     public function testGetErrorCode(): void
     {
-        self::assertSame(1000, (new ValidationException('', 1000))->getErrorCode());
+        self::assertSame(1000, (new ValidationException('', null, 1000))->getErrorCode());
     }
 
     /**
@@ -28,6 +28,6 @@ class ValidationExceptionTest extends TestCase
      */
     public function testGetErrorSubCode(): void
     {
-        self::assertSame(3, (new ValidationException('', 1000, null, null, 3))->getErrorSubCode());
+        self::assertSame(3, (new ValidationException('', null, 1000, null, null, 3))->getErrorSubCode());
     }
 }
