@@ -42,6 +42,15 @@ trait TransactionTrait
     protected $approved;
 
     /**
+     * Completed at date
+     *
+     * @Groups({"create", "delete", "get", "list", "update"})
+     *
+     * @var string|null
+     */
+    protected $completedAt;
+
+    /**
      * Created at date.
      *
      * @Groups({"create", "delete", "get", "list", "update"})

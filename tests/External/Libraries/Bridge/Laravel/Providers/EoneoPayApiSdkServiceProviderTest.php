@@ -35,6 +35,8 @@ class EoneoPayApiSdkServiceProviderTest extends TestCase
      * Test provider registers bindings as expected
      *
      * @return void
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function testServiceProviderRegistersBindingsInContainer(): void
     {

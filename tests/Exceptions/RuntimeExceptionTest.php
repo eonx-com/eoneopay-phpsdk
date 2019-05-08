@@ -18,7 +18,7 @@ class RuntimeExceptionTest extends TestCase
      */
     public function testGetErrorCode(): void
     {
-        self::assertSame(1120, (new RuntimeException('', 1120))->getErrorCode());
+        self::assertSame(1120, (new RuntimeException('', null, 1120))->getErrorCode());
     }
 
     /**
@@ -28,6 +28,6 @@ class RuntimeExceptionTest extends TestCase
      */
     public function testGetErrorSubCode(): void
     {
-        self::assertSame(2, (new RuntimeException('', 1120, null, 2))->getErrorSubCode());
+        self::assertSame(2, (new RuntimeException('', null, 1120, null, 2))->getErrorSubCode());
     }
 }
