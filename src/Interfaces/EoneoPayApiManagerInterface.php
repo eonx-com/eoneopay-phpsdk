@@ -23,9 +23,9 @@ interface EoneoPayApiManagerInterface
      * @param string $apikey Api key
      * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $entity Entity to be deleted
      *
-     * @return bool
+     * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface|null Delete entity or null
      */
-    public function delete(string $apikey, EntityInterface $entity): bool;
+    public function delete(string $apikey, EntityInterface $entity): ?EntityInterface;
 
     /**
      * Request to find an entity by id.
