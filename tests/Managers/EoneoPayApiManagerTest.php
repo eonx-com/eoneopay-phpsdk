@@ -47,7 +47,7 @@ class EoneoPayApiManagerTest extends TestCase
     {
         $expected = new EntityStub(['entityId' => $this->generateId()]);
 
-        self::assertTrue($this->getManager()->delete('api-key', $expected));
+        self::assertInstanceOf(EntityInterface::class, $this->getManager()->delete('api-key', $expected));
     }
 
 

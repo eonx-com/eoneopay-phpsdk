@@ -57,6 +57,6 @@ class SecondaryTransactionsTest extends TransactionTestCase
             'paymentSource' => new CreditCard($data['paymentSource'])
         ]));
 
-        self::assertTrue($this->createApiManager()->delete('api-key', $expected));
+        self::assertInstanceOf(Transaction::class, $this->createApiManager()->delete('api-key', $expected));
     }
 }

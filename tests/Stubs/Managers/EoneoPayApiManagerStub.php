@@ -36,9 +36,9 @@ class EoneoPayApiManagerStub implements EoneoPayApiManagerInterface
     /**
      * @inheritdoc
      */
-    public function delete(string $apikey, EntityInterface $entity): bool
+    public function delete(string $apikey, EntityInterface $entity): ?EntityInterface
     {
-        return true;
+        return null;
     }
 
     /**

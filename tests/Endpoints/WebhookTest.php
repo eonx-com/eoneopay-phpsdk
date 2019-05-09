@@ -71,7 +71,7 @@ class WebhookTest extends TestCase
             ])
         );
 
-        self::assertTrue($webhook);
+        self::assertInstanceOf(Webhook::class, $webhook);
     }
 
     /**

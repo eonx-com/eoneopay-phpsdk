@@ -15,6 +15,56 @@ use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 class PrimaryTransactionsTest extends TransactionTestCase
 {
     /**
+     * Test allocation transfer transaction successfully.
+     *
+     * @return void
+     */
+    public function testAllocationTransactionFundingSource(): void
+    {
+        $data = $this->createResponse([
+            'action' => Transaction::ACTION_TRANSFER,
+            'paymentSource' => [
+                'token' => \mb_strtoupper($this->generateId()),
+                'type' => 'ewallet'
+            ],
+            'paymentDestination' => [
+                'token' => \mb_strtoupper($this->generateId()),
+                'type' => 'ewallet'
+            ],
+            'fundingSource' => [
+                'country' => 'AU',
+                'currency' => 'AUD',
+                'name' => 'John Wick',
+                'pan' => '123-456...4321',
+                'prefix' => '123-456',
+                'token' => \mb_strtoupper($this->generateId()),
+                'type' => 'bank_account'
+            ]
+        ]);
+
+        $expected = new Transaction(\array_merge($data, [
+            'paymentSource' => new Ewallet($data['paymentSource'])
+        ]));
+
+        $actual = $this->createApiManager($this->createResponse($data))
+            ->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
+
+        $this->performTransactionAssertions($expected, $actual);
+        self::assertInstanceOf(
+            Ewallet::class,
+            ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
+        );
+        self::assertInstanceOf(
+            Ewallet::class,
+            ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
+        );
+        self::assertInstanceOf(
+            BankAccount::class,
+            ($actual instanceof Transaction) === true ? $actual->getFundingSource() : null
+        );
+    }
+
+    /**
      * Test authorise transaction successfully.
      *
      * @return void
@@ -35,39 +85,6 @@ class PrimaryTransactionsTest extends TransactionTestCase
         $this->performTransactionAssertions($expected, $actual);
         self::assertInstanceOf(
             CreditCard::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
-        );
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
-        );
-    }
-
-    /**
-     * Test debit transaction successfully.
-     *
-     * @return void
-     */
-    public function testDebitSuccessfully(): void
-    {
-        $data = $this->createResponse([
-            'action' => Transaction::ACTION_DEBIT,
-            'paymentSource' => [
-                'token' => \mb_strtoupper($this->generateId()),
-                'type' => 'bank_account'
-            ]
-        ]);
-
-        $expected = new Transaction(\array_merge($data, [
-            'paymentSource' => new BankAccount($data['paymentSource'])
-        ]));
-
-        $actual = $this->createApiManager($this->createResponse($data))
-            ->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
-
-        $this->performTransactionAssertions($expected, $actual);
-        self::assertInstanceOf(
-            BankAccount::class,
             ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
         );
         self::assertInstanceOf(
@@ -110,6 +127,39 @@ class PrimaryTransactionsTest extends TransactionTestCase
         );
         self::assertInstanceOf(
             BankAccount::class,
+            ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
+        );
+    }
+
+    /**
+     * Test debit transaction successfully.
+     *
+     * @return void
+     */
+    public function testDebitSuccessfully(): void
+    {
+        $data = $this->createResponse([
+            'action' => Transaction::ACTION_DEBIT,
+            'paymentSource' => [
+                'token' => \mb_strtoupper($this->generateId()),
+                'type' => 'bank_account'
+            ]
+        ]);
+
+        $expected = new Transaction(\array_merge($data, [
+            'paymentSource' => new BankAccount($data['paymentSource'])
+        ]));
+
+        $actual = $this->createApiManager($this->createResponse($data))
+            ->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
+
+        $this->performTransactionAssertions($expected, $actual);
+        self::assertInstanceOf(
+            BankAccount::class,
+            ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
+        );
+        self::assertInstanceOf(
+            Ewallet::class,
             ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
         );
     }

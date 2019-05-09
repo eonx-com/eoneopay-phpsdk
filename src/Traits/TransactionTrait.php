@@ -60,6 +60,13 @@ trait TransactionTrait
     protected $createdAt;
 
     /**
+     * Original funding source for allocation transaction.
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
+     */
+    protected $fundingSource;
+
+    /**
      * Order id.
      *
      * @Groups({"create", "delete", "get", "list", "update"})
