@@ -57,11 +57,10 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
     /**
      * @inheritdoc
      */
-    public function delete(string $apikey, EntityInterface $entity): bool
+    public function delete(string $apikey, EntityInterface $entity): ?EntityInterface
     {
         try {
-            $this->sdkManager->execute($entity, RequestAwareInterface::DELETE, $apikey);
-            return true;
+            return $this->sdkManager->execute($entity, RequestAwareInterface::DELETE, $apikey);
         } catch (InvalidApiResponseException $exception) {
             throw $this->exceptionFactory->create($exception);
         }
@@ -134,7 +133,8 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
                 (($repository = new $annotation->repositoryClass(
                     $this,
                     $entityClass
-                )) instanceof RepositoryInterface) === true) {
+                )) instanceof RepositoryInterface) === true
+            ) {
                 return $repository;
             }
         }

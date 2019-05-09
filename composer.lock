@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "671c4923b644e64ac05a277e323d763b",
@@ -497,16 +497,16 @@
         },
         {
             "name": "loyaltycorp/sdkblueprint",
-            "version": "v1.0.0-beta1",
+            "version": "v1.0.0-beta2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/loyaltycorp/sdkblueprint.git",
-                "reference": "0ec544e020a3f152101f850d5d406167a2e9f405"
+                "reference": "60cbd2db8c4ec37d197494abd6a1e3f4cbcb7490"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/loyaltycorp/sdkblueprint/zipball/0ec544e020a3f152101f850d5d406167a2e9f405",
-                "reference": "0ec544e020a3f152101f850d5d406167a2e9f405",
+                "url": "https://api.github.com/repos/loyaltycorp/sdkblueprint/zipball/60cbd2db8c4ec37d197494abd6a1e3f4cbcb7490",
+                "reference": "60cbd2db8c4ec37d197494abd6a1e3f4cbcb7490",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -575,10 +575,10 @@
                 "sdk"
             ],
             "support": {
-                "source": "https://github.com/loyaltycorp/sdkblueprint/tree/v1.0.0-beta1",
+                "source": "https://github.com/loyaltycorp/sdkblueprint/tree/v1.0.0-beta2",
                 "issues": "https://github.com/loyaltycorp/sdkblueprint/issues"
             },
-            "time": "2019-04-30T00:44:29+00:00"
+            "time": "2019-05-09T00:48:01+00:00"
         },
         {
             "name": "psr/cache",

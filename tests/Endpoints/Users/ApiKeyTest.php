@@ -73,6 +73,6 @@ class ApiKeyTest extends TestCase
                 new ApiKey(['user' => new User(['id' => 'external-user-id'])])
             );
 
-        self::assertIsBool($apiKey);
+        self::assertNull($apiKey);
     }
 }
