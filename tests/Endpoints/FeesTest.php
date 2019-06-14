@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Endpoints;
 
 use EoneoPay\PhpSdk\Endpoints\Fees;
+use EoneoPay\PhpSdk\Endpoints\PaymentSources\CreditCard;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
@@ -56,7 +57,7 @@ class FeesTest extends TestCase
             $fees->getAmount()
         );
         // Loose assertion due to symfony serializer handling this as a separate endpoint
-        self::assertObjectHasAttribute('paymentDestination', $fees);
+        self::assertInstanceOf(CreditCard::class, $fees->getPaymentDestination());
         self::assertNull($fees->getPaymentSource());
     }
 
