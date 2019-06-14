@@ -15,7 +15,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 class FeesRepositoryTest extends TestCase
 {
     /**
-     * Data provider for input used for calculcating fees from transaction
+     * Data provider for input used for calculating fees from transaction
      *
      * @return iterable|mixed[]
      */
@@ -33,7 +33,7 @@ class FeesRepositoryTest extends TestCase
     }
 
     /**
-     * Test the calculcation of fees repository passthrough
+     * Test the calculation of fees repository passthrough
      *
      * @param \EoneoPay\PhpSdk\Endpoints\Transaction $transaction
      * @param \EoneoPay\PhpSdk\Endpoints\Fees $expectedFee

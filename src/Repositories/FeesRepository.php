@@ -20,7 +20,7 @@ class FeesRepository extends Repository
     public function calculateFees(
         string $apiKey,
         Transaction $transaction
-    ): Fees {
+    ): ?Fees {
         $fee = $this->getApiManager()->create(
             $apiKey,
             new Fees(\array_filter([
@@ -31,11 +31,6 @@ class FeesRepository extends Repository
             ]))
         );
 
-        /**
-         * @var \EoneoPay\PhpSdk\Endpoints\Fees $fee
-         *
-         * @see https://youtrack.jetbrains.com/issue/WI-37859 typehint required until PhpStorm recognises ===
-         */
-        return ($fee instanceof Fees) ? $fee : new Fees();
+        return ($fee instanceof Fees) ? $fee : null;
     }
 }

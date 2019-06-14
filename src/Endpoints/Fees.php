@@ -8,7 +8,12 @@ use EoneoPay\PhpSdk\Traits\FeesTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
- * @Repository(repositoryClass="EoneoPay\PhpSdk\Repositories\PaymentSourceRepository")
+ * @method string|null getAction()
+ * @method mixed[]|null getAmount()
+ * @method PaymentSource|null getPaymentDestination()
+ * @method PaymentSource|null getPaymentSource()
+ *
+ * @Repository(repositoryClass="EoneoPay\PhpSdk\Repositories\FeesRepository")
  */
 class Fees extends Entity
 {
