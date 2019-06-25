@@ -8,9 +8,8 @@ use EoneoPay\PhpSdk\Exceptions\CriticalException;
 use EoneoPay\PhpSdk\Exceptions\RuntimeException;
 use EoneoPay\PhpSdk\Exceptions\ValidationException;
 use EoneoPay\PhpSdk\Factories\ExceptionFactory;
-use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
-use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\ResponseInterface;
+use LoyaltyCorp\SdkBlueprint\Sdk\Response;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
@@ -19,46 +18,79 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 class ExceptionFactoryTest extends TestCase
 {
     /**
-     * Test create exceptions
+     * Returns data for testCreate
      *
-     * @return void
+     * @return mixed[]
      */
-    public function testCreate(): void
+    public function getCreateData(): iterable
     {
+        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
+            'code' => 1999,
+            'message' => 'internal system error'
+        ]) ?: null));
 
-        $data = '{"code" : 1999, "message" : "internal system error"}';
-        self::assertInstanceOf(CriticalException::class, $this->createException($data));
+        yield 'critical exception' => [
+            'responseException' => $responseException,
+            'expectedExceptionClass' => CriticalException::class,
+            'expectedExceptionMessage' => 'internal system error'
+        ];
 
-        $data = '{"code" : 6000, "message" : "internal system error"}';
-        self::assertInstanceOf(ValidationException::class, $this->createException($data));
+        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
+            'code' => 6000,
+            'message' => 'validation exception'
+        ]) ?: null));
 
-        $data = '{"code" : 5000, "message" : "internal system error"}';
-        self::assertInstanceOf(RuntimeException::class, $this->createException($data));
+        yield 'validation exception' => [
+            'responseException' => $responseException,
+            'expectedExceptionClass' => ValidationException::class,
+            'expectedExceptionMessage' => 'validation exception'
+        ];
 
-        $data = '{"code" : 4000, "message" : "internal system error"}';
-        self::assertInstanceOf(ClientException::class, $this->createException($data));
+        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
+            'code' => 5000,
+            'message' => 'runtime exception'
+        ]) ?: null));
+
+        yield 'runtime exception' => [
+            'responseException' => $responseException,
+            'expectedExceptionClass' => RuntimeException::class,
+            'expectedExceptionMessage' => 'runtime exception'
+        ];
+
+        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
+            'code' => 4000,
+            'message' => 'client exception'
+        ]) ?: null));
+
+        yield 'client exception' => [
+            'responseException' => $responseException,
+            'expectedExceptionClass' => ClientException::class,
+            'expectedExceptionMessage' => 'client exception'
+        ];
     }
 
     /**
-     * Create exception based on response data
+     * Test create exceptions
      *
-     * @param string $data Response data as json
+     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException $responseException
+     * @param string $expectedClass
+     * @param string $expectedMessage
      *
-     * @return \Exception
+     * @return void
+     *
+     * @dataProvider getCreateData
      */
-    private function createException(string $data): Exception
-    {
-        /**
-         * @var \PHPUnit\Framework\MockObject\MockObject
-         */
-        $mockResponse = $this->createMock(ResponseInterface::class);
-        $mockResponse->method('getContent')->willReturn($data);
-        /**
-         * @var \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\ResponseInterface
-         */
-        $response = $mockResponse;
+    public function testCreate(
+        InvalidApiResponseException $responseException,
+        string $expectedClass,
+        string $expectedMessage
+    ): void {
+        $factory = new ExceptionFactory();
+        $exception = $factory->create($responseException);
 
-        $responseException = new InvalidApiResponseException($response);
-        return (new ExceptionFactory())->create($responseException);
+        /** @noinspection UnnecessaryAssertionInspection Variable exception classes returned */
+        self::assertInstanceOf($expectedClass, $exception);
+        self::assertSame($expectedMessage, $exception->getMessage());
+        self::assertSame($responseException, $exception->getPrevious());
     }
 }
