@@ -13,7 +13,7 @@ interface ExceptionFactoryInterface
      *
      * @param \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException $exception
      *
-     * @return \EoneoPay\Utils\Exceptions\BaseException
+     * @return \Exception
      */
     public function create(InvalidApiResponseException $exception): Exception;
 }
