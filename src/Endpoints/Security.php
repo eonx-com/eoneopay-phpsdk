@@ -21,7 +21,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method string|null getRequestPayload()
  * @method string|null getResponsePayload()
  * @method string|null getReturnUrl()
- * @method string|null getSecured()
+ * @method bool|null getSecured()
  * @method string|null getStatus()
  * @method string|null getUpdatedAt()
  * @method string|null getXid()
