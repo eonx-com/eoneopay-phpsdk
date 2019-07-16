@@ -8,6 +8,7 @@ use EoneoPay\PhpSdk\Exceptions\CriticalException;
 use EoneoPay\PhpSdk\Exceptions\RuntimeException;
 use EoneoPay\PhpSdk\Exceptions\ValidationException;
 use EoneoPay\PhpSdk\Factories\ExceptionFactory;
+use EoneoPay\Utils\Interfaces\Exceptions\ExceptionInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Response;
 use Tests\EoneoPay\PhpSdk\TestCase;
@@ -31,41 +32,82 @@ class ExceptionFactoryTest extends TestCase
 
         yield 'critical exception' => [
             'responseException' => $responseException,
-            'expectedExceptionClass' => CriticalException::class,
-            'expectedExceptionMessage' => 'internal system error'
+            'expectedException' => new CriticalException(
+                'internal system error',
+                null,
+                1999,
+                $responseException,
+                0
+            )
+        ];
+
+        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
+            'code' => 1999,
+            'sub_code' => 2,
+            'message' => 'internal system error'
+        ]) ?: null));
+
+        yield 'critical exception with sub code' => [
+            'responseException' => $responseException,
+            'expectedException' => new CriticalException(
+                'internal system error',
+                null,
+                1999,
+                $responseException,
+                2
+            )
         ];
 
         $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
             'code' => 6000,
+            'sub_code' => 1,
             'message' => 'validation exception'
         ]) ?: null));
 
         yield 'validation exception' => [
             'responseException' => $responseException,
-            'expectedExceptionClass' => ValidationException::class,
-            'expectedExceptionMessage' => 'validation exception'
+            'expectedException' => new ValidationException(
+                'validation exception',
+                null,
+                6000,
+                $responseException,
+                null,
+                1
+            )
         ];
 
         $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
             'code' => 5000,
+            'sub_code' => 3,
             'message' => 'runtime exception'
         ]) ?: null));
 
         yield 'runtime exception' => [
             'responseException' => $responseException,
-            'expectedExceptionClass' => RuntimeException::class,
-            'expectedExceptionMessage' => 'runtime exception'
+            'expectedException' => new RuntimeException(
+                'runtime exception',
+                null,
+                5000,
+                $responseException,
+                3
+            )
         ];
 
         $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
             'code' => 4000,
+            'sub_code' => 4,
             'message' => 'client exception'
         ]) ?: null));
 
         yield 'client exception' => [
             'responseException' => $responseException,
-            'expectedExceptionClass' => ClientException::class,
-            'expectedExceptionMessage' => 'client exception'
+            'expectedException' => new ClientException(
+                'client exception',
+                null,
+                4000,
+                $responseException,
+                4
+            )
         ];
     }
 
@@ -73,8 +115,7 @@ class ExceptionFactoryTest extends TestCase
      * Test create exceptions
      *
      * @param \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException $responseException
-     * @param string $expectedClass
-     * @param string $expectedMessage
+     * @param \EoneoPay\Utils\Interfaces\Exceptions\ExceptionInterface $expectedException
      *
      * @return void
      *
@@ -82,15 +123,11 @@ class ExceptionFactoryTest extends TestCase
      */
     public function testCreate(
         InvalidApiResponseException $responseException,
-        string $expectedClass,
-        string $expectedMessage
+        ExceptionInterface $expectedException
     ): void {
         $factory = new ExceptionFactory();
         $exception = $factory->create($responseException);
 
-        /** @noinspection UnnecessaryAssertionInspection Variable exception classes returned */
-        self::assertInstanceOf($expectedClass, $exception);
-        self::assertSame($expectedMessage, $exception->getMessage());
-        self::assertSame($responseException, $exception->getPrevious());
+        self::assertEquals($expectedException, $exception);
     }
 }
