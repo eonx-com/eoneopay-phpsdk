@@ -22,20 +22,47 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
         $code = $content['code'] ?? $exception->getCode();
 
+        $subCode = $content['sub_code'] ?? 0;
+
         $message = $content['message'] ?? $content['exception'] ?? '';
 
         if (($code >= 6000) && ($code <= 6999)) {
-            return new ValidationException($message, null, $code, $exception);
+            return new ValidationException(
+                $message,
+                null,
+                $code,
+                $exception,
+                null,
+                $subCode
+            );
         }
 
         if ($code >= 5000 && $code <= 5999) {
-            return new RuntimeException($message, null, $code, $exception);
+            return new RuntimeException(
+                $message,
+                null,
+                $code,
+                $exception,
+                $subCode
+            );
         }
 
         if ($code >= 4000 && $code <= 4999) {
-            return new ClientException($message, null, $code, $exception);
+            return new ClientException(
+                $message,
+                null,
+                $code,
+                $exception,
+                $subCode
+            );
         }
 
-        return new CriticalException($message, null, $code, $exception);
+        return new CriticalException(
+            $message,
+            null,
+            $code,
+            $exception,
+            $subCode
+        );
     }
 }
