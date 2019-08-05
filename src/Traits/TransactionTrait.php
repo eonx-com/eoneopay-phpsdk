@@ -37,7 +37,7 @@ trait TransactionTrait
      *
      * @Groups({"create", "delete", "get", "list", "update"})
      *
-     * @var bool
+     * @var bool|null
      */
     protected $approved;
 
