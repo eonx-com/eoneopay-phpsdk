@@ -122,15 +122,6 @@ trait TransactionTrait
     protected $security;
 
     /**
-     * Transaction statement description.
-     *
-     * @Groups({"create", "delete", "get", "list", "update"})
-     *
-     * @var string|null
-     */
-    protected $statementDescription;
-
-    /**
      * Transaction status.
      *
      * @var string|null
