@@ -42,7 +42,6 @@ class TransactionTestCase extends TestCase
                 'pan' => '2...H6A3',
                 'type' => 'ewallet'
             ],
-            'statementDescription' => 'PAYMENT GATEWAY',
             'user' => new User([
                 'email' => 'user@email.test'
             ])
