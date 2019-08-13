@@ -42,15 +42,6 @@ trait TransactionTrait
     protected $approved;
 
     /**
-     * Completed at date
-     *
-     * @Groups({"create", "delete", "get", "list", "update"})
-     *
-     * @var string|null
-     */
-    protected $completedAt;
-
-    /**
      * Created at date.
      *
      * @Groups({"create", "delete", "get", "list", "update"})
@@ -58,6 +49,15 @@ trait TransactionTrait
      * @var string|null
      */
     protected $createdAt;
+
+    /**
+     * When the transaction was finalised.
+     *
+     * @Groups({"create", "delete", "get", "list", "update"})
+     *
+     * @var string|null
+     */
+    protected $finalisedAt;
 
     /**
      * Original funding source for allocation transaction.
