@@ -39,6 +39,7 @@ class Transaction extends Entity implements TransactionInterface
         return [
             self::CREATE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
             self::DELETE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
+            self::GET => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
             self::UPDATE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId)
         ];
     }
