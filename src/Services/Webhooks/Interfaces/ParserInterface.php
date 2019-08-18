@@ -12,6 +12,17 @@ use Psr\Http\Message\RequestInterface;
 interface ParserInterface
 {
     /**
+     * Attempts to aprse the provided content in to the entity identified by the provided class name.
+     *
+     * @param string $content The content to parse.
+     * @param string $contentType The type of the content (i.e. 'json', or 'xml')
+     * @param string $className The full class name to parse the content in to.
+     *
+     * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface
+     */
+    public function parse(string $content, string $contentType, string $className): EntityInterface;
+
+    /**
      * Attempts to parse the provided request data in to the entity identified by the provided class name.
      *
      * @param \Psr\Http\Message\RequestInterface $request
@@ -19,5 +30,5 @@ interface ParserInterface
      *
      * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface
      */
-    public function toObject(RequestInterface $request, string $className): EntityInterface;
+    public function parseRequest(RequestInterface $request, string $className): EntityInterface;
 }

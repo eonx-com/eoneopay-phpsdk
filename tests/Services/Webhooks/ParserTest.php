@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Services\Webhooks;
 
 use EoneoPay\PhpSdk\Endpoints\PaymentSource;
+use EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount;
 use EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException;
 use EoneoPay\PhpSdk\Services\Webhooks\Parser;
 use GuzzleHttp\Psr7\Request;
@@ -78,8 +79,8 @@ JSON
     }
 
     /**
-     * Tests that the 'toObject' method successfully converts the provided JSON from a
-     * token revocation webhook request, in to a typed object (of type BankAccount).
+     * Tests that the 'parseRequest' method successfully converts the provided JSON from a webhook request, in to a
+     * typed object.
      *
      * @param string $targetClass
      * @param \Psr\Http\Message\RequestInterface $request
@@ -87,64 +88,85 @@ JSON
      * @return void
      *
      * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
-     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\DeserializedObjectNotEntityException
-     * @throws \ReflectionException
      *
      * @dataProvider getWebhookTestRequests
      */
-    public function testToObjectSuccessful(string $targetClass, RequestInterface $request): void
+    public function testParseRequestSuccessful(string $targetClass, RequestInterface $request): void
     {
         $serializerFactory = new SerializerFactory();
         $parser = $this->getInstance($serializerFactory);
 
-        $result = $parser->toObject($request, $targetClass);
+        $result = $parser->parseRequest($request, $targetClass);
 
         self::assertNotNull($result);
     }
 
     /**
-     * Tests that the 'toObject' method throws an exception when the provided class name is not
+     * Tests that the 'parse' method successfully converts the provided JSON to a typed object.
+     *
+     * @return void
+     *
+     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
+     */
+    public function testParseSuccessful(): void
+    {
+        $serializerFactory = new SerializerFactory();
+        $parser = $this->getInstance($serializerFactory);
+        $json = <<<JSON
+{
+    "country": "AU",
+    "created_at": "2019-07-31T06:08:07Z",
+    "currency": "AUD",
+    "customer": {"email": "customer@example.com"},
+    "id": "cc0a468f1fb821f457977d8f6b7f3f63",
+    "name": "User Name",
+    "number": "987654321",
+    "one_time": false,
+    "pan": "123-456...4321",
+    "prefix": "123-456",
+    "token": "FDJ9934242YBP3C2ZC43",
+    "type": "bank_account",
+    "updated_at": "2019-07-31T06:08:07Z"
+}
+JSON;
+        $expected = new BankAccount([
+            'country' => 'AU',
+            'createdAt' => '2019-07-31T06:08:07Z',
+            'currency' => 'AUD',
+            'id' => 'cc0a468f1fb821f457977d8f6b7f3f63',
+            'name' => 'User Name',
+            'number' => '987654321',
+            'oneTime' => false,
+            'pan' => '123-456...4321',
+            'prefix' => '123-456',
+            'token' => 'FDJ9934242YBP3C2ZC43',
+            'type' => 'bank_account',
+            'updatedAt' => '2019-07-31T06:08:07Z'
+        ]);
+
+        $result = $parser->parse($json, 'json', BankAccount::class);
+
+        /** @var \EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount $result */
+        self::assertInstanceOf(BankAccount::class, $result);
+        self::assertEquals($expected, $result);
+    }
+
+    /**
+     * Tests that the 'parse' method throws an exception when the provided class name is not
      * that of a class which implements EntityInterface.
      *
      * @return void
      *
-     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\DeserializedObjectNotEntityException
      * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
-     * @throws \ReflectionException
      */
-    public function testToObjectThrowsExceptionOnNonEntityClass(): void
+    public function testParseThrowsExceptionOnNonEntityClass(): void
     {
         $this->expectException(InvalidEntityClassException::class);
 
         $serializerFactory = new SerializerFactory();
         $parser = $this->getInstance($serializerFactory);
 
-        $parser->toObject(
-            new Request('get', '/'),
-            __CLASS__
-        );
-    }
-
-    /**
-     * Tests that the 'toObject' method throws an exception when the provided class does not exist.
-     *
-     * @return void
-     *
-     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\DeserializedObjectNotEntityException
-     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
-     * @throws \ReflectionException
-     */
-    public function testToObjectThrowsExceptionOnNonExistentClass(): void
-    {
-        $this->expectException(InvalidEntityClassException::class);
-
-        $serializerFactory = new SerializerFactory();
-        $parser = $this->getInstance($serializerFactory);
-
-        $parser->toObject(
-            new Request('get', '/'),
-            'NotARealClass'
-        );
+        $parser->parse('{}', 'json', \stdClass::class);
     }
 
     /**

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Services\Webhooks;
 
-use EoneoPay\PhpSdk\Services\Webhooks\Exceptions\DeserializedObjectNotEntityException;
 use EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException;
 use EoneoPay\PhpSdk\Services\Webhooks\Interfaces\ParserInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
@@ -29,39 +28,41 @@ class Parser implements ParserInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Attempts to aprse the provided content in to the entity identified by the provided class name.
+     *
+     * @param string $content The content to parse.
+     * @param string $contentType The type of the content (i.e. 'json', or 'xml')
+     * @param string $className The full class name to parse the content in to.
+     *
+     * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface
      *
      * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
-     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\DeserializedObjectNotEntityException
-     * @throws \ReflectionException
      */
-    public function toObject(RequestInterface $request, string $className): EntityInterface
+    public function parse(string $content, string $contentType, string $className): EntityInterface
     {
-        // Ensure that the provided class name exists and that it implements EntityInterface
-        if (\class_exists($className) === false ||
-            \in_array(EntityInterface::class, (new \ReflectionClass($className))->getInterfaceNames(), true) === false
-        ) {
-            throw new InvalidEntityClassException($className);
-        }
-
         // Get the serializer instance
         $serializer = $this->serializerFactory->create();
 
-        // Get the request body content
-        $body = $request->getBody();
-        $content = $body->getContents();
-
         // Attempt to deserialize the JSON in to an object
-        $instance = $serializer->deserialize($content, $className, 'json');
+        $instance = $serializer->deserialize($content, $className, $contentType);
 
-        // @codeCoverageIgnoreStart
-        // Sanity check, unable to test as the passed class is checked for EntityInterface above
+        // Ensure the parsed instance implements EntityInterface
         if (($instance instanceof EntityInterface) === false) {
-            throw new DeserializedObjectNotEntityException($instance);
+            throw new InvalidEntityClassException($className);
         }
 
-        // @codeCoverageIgnoreEnd
-
         return $instance;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
+     */
+    public function parseRequest(RequestInterface $request, string $className): EntityInterface
+    {
+        $content = $request->getBody()->getContents();
+
+        return $this->parse($content, 'json', $className);
     }
 }
