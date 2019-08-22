@@ -14,21 +14,21 @@ interface ParserInterface
     /**
      * Attempts to aprse the provided content in to the entity identified by the provided class name.
      *
+     * @param string $className The full class name to parse the content in to.
      * @param string $content The content to parse.
      * @param string $contentType The type of the content (i.e. 'json', or 'xml')
-     * @param string $className The full class name to parse the content in to.
      *
      * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface
      */
-    public function parse(string $content, string $contentType, string $className): EntityInterface;
+    public function parse(string $className, string $content, string $contentType): EntityInterface;
 
     /**
      * Attempts to parse the provided request data in to the entity identified by the provided class name.
      *
-     * @param \Psr\Http\Message\RequestInterface $request
      * @param string $className
+     * @param \Psr\Http\Message\RequestInterface $request
      *
      * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface
      */
-    public function parseRequest(RequestInterface $request, string $className): EntityInterface;
+    public function parseRequest(string $className, RequestInterface $request): EntityInterface;
 }

@@ -79,8 +79,8 @@ JSON
     }
 
     /**
-     * Tests that the 'parseRequest' method successfully converts the provided JSON from a webhook request, in to a
-     * typed object.
+     * Tests that the 'parseRequest' method accepts a Request instance and returns an instance of the provided
+     * $targetClass class name.
      *
      * @param string $targetClass
      * @param \Psr\Http\Message\RequestInterface $request
@@ -93,10 +93,9 @@ JSON
      */
     public function testParseRequestSuccessful(string $targetClass, RequestInterface $request): void
     {
-        $serializerFactory = new SerializerFactory();
-        $parser = $this->getInstance($serializerFactory);
+        $parser = $this->getInstance();
 
-        $result = $parser->parseRequest($request, $targetClass);
+        $result = $parser->parseRequest($targetClass, $request);
 
         self::assertNotNull($result);
     }
@@ -144,7 +143,7 @@ JSON;
             'updatedAt' => '2019-07-31T06:08:07Z'
         ]);
 
-        $result = $parser->parse($json, 'json', BankAccount::class);
+        $result = $parser->parse(BankAccount::class, $json, 'json');
 
         /** @var \EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount $result */
         self::assertInstanceOf(BankAccount::class, $result);
@@ -163,10 +162,9 @@ JSON;
     {
         $this->expectException(InvalidEntityClassException::class);
 
-        $serializerFactory = new SerializerFactory();
-        $parser = $this->getInstance($serializerFactory);
+        $parser = $this->getInstance();
 
-        $parser->parse('{}', 'json', \stdClass::class);
+        $parser->parse(\stdClass::class, '{}', 'json');
     }
 
     /**

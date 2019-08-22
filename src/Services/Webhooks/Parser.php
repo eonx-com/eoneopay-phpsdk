@@ -28,17 +28,11 @@ class Parser implements ParserInterface
     }
 
     /**
-     * Attempts to aprse the provided content in to the entity identified by the provided class name.
-     *
-     * @param string $content The content to parse.
-     * @param string $contentType The type of the content (i.e. 'json', or 'xml')
-     * @param string $className The full class name to parse the content in to.
-     *
-     * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface
+     * {@inheritdoc}
      *
      * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
      */
-    public function parse(string $content, string $contentType, string $className): EntityInterface
+    public function parse(string $className, string $content, string $contentType): EntityInterface
     {
         // Get the serializer instance
         $serializer = $this->serializerFactory->create();
@@ -59,10 +53,10 @@ class Parser implements ParserInterface
      *
      * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
      */
-    public function parseRequest(RequestInterface $request, string $className): EntityInterface
+    public function parseRequest(string $className, RequestInterface $request): EntityInterface
     {
         $content = $request->getBody()->getContents();
 
-        return $this->parse($content, 'json', $className);
+        return $this->parse($className, $content, 'json');
     }
 }

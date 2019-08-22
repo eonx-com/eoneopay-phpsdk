@@ -1,0 +1,8 @@
+services:
+    -
+        class: EoneoPay\Standards\Phpstan\FactoryMethodReturnTypeExtension
+        arguments:
+            - EoneoPay\PhpSdk\Services\Webhooks\Interfaces\ParserInterface
+            - ['parse', 'parseRequest']
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
