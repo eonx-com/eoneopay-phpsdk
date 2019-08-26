@@ -97,6 +97,8 @@ JSON
 
         $result = $parser->parseRequest($targetClass, $request);
 
+        // @todo: SerializerFactory and Seralizer need to be stubbed so that we can assert the parser result.
+        // @see: https://loyaltycorp.atlassian.net/browse/PYMT-1222
         self::assertNotNull($result);
     }
 
