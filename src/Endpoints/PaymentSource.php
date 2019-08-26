@@ -29,6 +29,7 @@ use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
 class PaymentSource extends Entity implements PaymentSourceInterface
 {
     use PaymentSourceTrait;
+
     /**
      * @inheritdoc
      */

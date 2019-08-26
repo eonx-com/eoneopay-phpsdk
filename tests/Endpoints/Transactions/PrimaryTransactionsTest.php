@@ -140,6 +140,10 @@ class PrimaryTransactionsTest extends TransactionTestCase
     {
         $data = $this->createResponse([
             'action' => Transaction::ACTION_DEBIT,
+            'metadata' => [
+                'ping0' => 'pong0',
+                'ping1' => 'pong1'
+            ],
             'paymentSource' => [
                 'token' => \mb_strtoupper($this->generateId()),
                 'type' => 'bank_account'
