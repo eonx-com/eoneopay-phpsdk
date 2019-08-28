@@ -88,6 +88,6 @@ class EwalletTest extends TestCase
     {
         $class = new Ewallet();
         self::assertIsArray($class->uris());
-        self::assertCount(2, $class->uris());
+        self::assertCount(3, $class->uris());
     }
 }

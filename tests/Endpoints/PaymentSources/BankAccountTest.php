@@ -86,6 +86,6 @@ class BankAccountTest extends TestCase
     {
         $class = new BankAccount();
         self::assertIsArray($class->uris());
-        self::assertCount(2, $class->uris());
+        self::assertCount(3, $class->uris());
     }
 }
