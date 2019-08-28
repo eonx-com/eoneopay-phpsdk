@@ -100,6 +100,6 @@ class CreditCardTest extends TestCase
     {
         $class = new CreditCard();
         self::assertIsArray($class->uris());
-        self::assertCount(2, $class->uris());
+        self::assertCount(3, $class->uris());
     }
 }

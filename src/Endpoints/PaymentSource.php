@@ -37,6 +37,7 @@ class PaymentSource extends Entity implements PaymentSourceInterface
     {
         return [
             self::CREATE => '/tokens',
+            self::DELETE => \sprintf('/tokens/%s', $this->getToken()),
             self::GET => \sprintf('/tokens/%s', $this->getToken())
         ];
     }
