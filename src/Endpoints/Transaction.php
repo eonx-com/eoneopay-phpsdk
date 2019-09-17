@@ -5,12 +5,13 @@ namespace EoneoPay\PhpSdk\Endpoints;
 
 use EoneoPay\PhpSdk\Interfaces\Endpoints\TransactionInterface;
 use EoneoPay\PhpSdk\Traits\TransactionTrait;
+use EoneoPay\PhpSdk\ValueTypes\Amount;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
  * @method string|null getAction()
  * @method mixed[]|null getAllocation()
- * @method mixed[]|null getAmount()
+ * @method Amount|null getAmount()
  * @method bool|null getApproved()
  * @method string|null getCreatedAt()
  * @method string|null getFinalisedAt()

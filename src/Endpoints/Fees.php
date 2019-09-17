@@ -5,11 +5,12 @@ namespace EoneoPay\PhpSdk\Endpoints;
 
 use EoneoPay\PhpSdk\Annotations\Repository;
 use EoneoPay\PhpSdk\Traits\FeesTrait;
+use EoneoPay\PhpSdk\ValueTypes\Amount;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
  * @method string|null getAction()
- * @method mixed[]|null getAmount()
+ * @method Amount|null getAmount()
  * @method PaymentSource|null getPaymentDestination()
  * @method PaymentSource|null getPaymentSource()
  *

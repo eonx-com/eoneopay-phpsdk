@@ -21,7 +21,7 @@ trait FeesTrait
      *
      * @Groups({"create"})
      *
-     * @var mixed[]|null
+     * @var \EoneoPay\PhpSdk\ValueTypes\Amount|null
      */
     protected $amount;
 
