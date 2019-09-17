@@ -31,7 +31,7 @@ class PaymentSource extends Entity implements PaymentSourceInterface
     use PaymentSourceTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {

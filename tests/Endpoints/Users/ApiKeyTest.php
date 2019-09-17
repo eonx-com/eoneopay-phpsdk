@@ -13,18 +13,6 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 final class ApiKeyTest extends TestCase
 {
     /**
-     * Base test to check class exists.
-     *
-     * @return void
-     */
-    public function testClassExists(): void
-    {
-        $class = new ApiKey();
-
-        self::assertInstanceOf(ApiKey::class, $class);
-    }
-
-    /**
      * Test Create a key successfully.
      *
      * @return  void

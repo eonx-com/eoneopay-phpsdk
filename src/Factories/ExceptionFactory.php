@@ -14,7 +14,9 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
 final class ExceptionFactory implements ExceptionFactoryInterface
 {
     /**
-     * @inheritdoc
+     * @noinspection MultipleReturnStatementsInspection Creating exceptions in this manner is most efficient
+     *
+     * {@inheritdoc}
      */
     public function create(InvalidApiResponseException $exception): Exception
     {

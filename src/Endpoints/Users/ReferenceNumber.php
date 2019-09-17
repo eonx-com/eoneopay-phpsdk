@@ -35,7 +35,7 @@ class ReferenceNumber extends Entity
     protected $user;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {

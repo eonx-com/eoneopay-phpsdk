@@ -99,7 +99,8 @@ JSON
 
         // @todo: SerializerFactory and Seralizer need to be stubbed so that we can assert the parser result.
         // @see: https://loyaltycorp.atlassian.net/browse/PYMT-1222
-        self::assertNotNull($result);
+        /** @noinspection UnnecessaryAssertionInspection Testing concrete implementation passed by data provider */
+        self::assertInstanceOf($targetClass, $result);
     }
 
     /**

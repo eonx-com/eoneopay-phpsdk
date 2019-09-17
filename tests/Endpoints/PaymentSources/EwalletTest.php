@@ -48,35 +48,13 @@ final class EwalletTest extends TestCase
         )->create('4UM78RDZW93B84UJ', $ewallet);
 
         self::assertInstanceOf(Ewallet::class, $actual);
-        self::assertIsString(($actual instanceof Ewallet) ? $actual->getToken() : null);
-    }
 
-    /**
-     * Test that get token information will return ewallet payment source.
-     *
-     * @return void
-     */
-    public function testGetEwalletTokenInfoSuccessfully(): void
-    {
-        /** @var \EoneoPay\PhpSdk\Repositories\PaymentSourceRepository $repository */
-        $repository = $this->createApiManager([
-            'id' => $this->generateId(),
-            'name' => 'John Wick',
-            'pan' => 'K...WCB7',
-            'token' => 'EM2J8GZ3G8KAKA72VF30',
-            'type' => 'ewallet',
-        ])->getRepository(PaymentSource::class);
-
-        $paymentSource = $repository->findByToken(
-            'EM2J8GZ3G8KAKA72VF30',
-            (string)\getenv('PAYMENTS_API_KEY')
-        );
-
-        self::assertInstanceOf(Ewallet::class, $paymentSource);
-        self::assertSame(
-            'EM2J8GZ3G8KAKA72VF30',
-            ($paymentSource instanceof PaymentSource) === true ? $paymentSource->getToken() : null
-        );
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\PaymentSources\Ewallet $actual
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertIsString($actual->getToken());
     }
 
     /**
@@ -104,10 +82,32 @@ final class EwalletTest extends TestCase
         );
 
         self::assertInstanceOf(Ewallet::class, $paymentSource);
-        self::assertSame(
-            $ewalletId,
-            ($paymentSource instanceof Ewallet) === true ? $paymentSource->getId() : null
+        self::assertSame($ewalletId, $paymentSource->getId());
+    }
+
+    /**
+     * Test that get token information will return ewallet payment source.
+     *
+     * @return void
+     */
+    public function testGetEwalletTokenInfoSuccessfully(): void
+    {
+        /** @var \EoneoPay\PhpSdk\Repositories\PaymentSourceRepository $repository */
+        $repository = $this->createApiManager([
+            'id' => $this->generateId(),
+            'name' => 'John Wick',
+            'pan' => 'K...WCB7',
+            'token' => 'EM2J8GZ3G8KAKA72VF30',
+            'type' => 'ewallet',
+        ])->getRepository(PaymentSource::class);
+
+        $paymentSource = $repository->findByToken(
+            'EM2J8GZ3G8KAKA72VF30',
+            (string)\getenv('PAYMENTS_API_KEY')
         );
+
+        self::assertInstanceOf(Ewallet::class, $paymentSource);
+        self::assertSame('EM2J8GZ3G8KAKA72VF30', $paymentSource->getToken());
     }
 
     /**
@@ -118,7 +118,7 @@ final class EwalletTest extends TestCase
     public function testUriIsCreated(): void
     {
         $class = new Ewallet();
-        self::assertIsArray($class->uris());
+
         self::assertCount(3, $class->uris());
     }
 }

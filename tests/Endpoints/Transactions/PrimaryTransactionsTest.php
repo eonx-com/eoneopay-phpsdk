@@ -49,19 +49,11 @@ final class PrimaryTransactionsTest extends TransactionTestCase
         $actual = $this->createApiManager($this->createResponse($data))
             ->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
 
-        $this->performTransactionAssertions($expected, $actual);
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
-        );
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
-        );
-        self::assertInstanceOf(
-            BankAccount::class,
-            ($actual instanceof Transaction) === true ? $actual->getFundingSource() : null
-        );
+        $actual = $this->performTransactionAssertions($expected, $actual);
+
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentSource());
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
+        self::assertInstanceOf(BankAccount::class, $actual->getFundingSource());
     }
 
     /**
@@ -82,15 +74,10 @@ final class PrimaryTransactionsTest extends TransactionTestCase
         $actual = $this->createApiManager($this->createResponse($data))
             ->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
 
-        $this->performTransactionAssertions($expected, $actual);
-        self::assertInstanceOf(
-            CreditCard::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
-        );
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
-        );
+        $actual = $this->performTransactionAssertions($expected, $actual);
+
+        self::assertInstanceOf(CreditCard::class, $actual->getPaymentSource());
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
     }
 
     /**
@@ -120,15 +107,10 @@ final class PrimaryTransactionsTest extends TransactionTestCase
             ],
         ]))->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
 
-        $this->performTransactionAssertions($expected, $actual);
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
-        );
-        self::assertInstanceOf(
-            BankAccount::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
-        );
+        $actual = $this->performTransactionAssertions($expected, $actual);
+
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentSource());
+        self::assertInstanceOf(BankAccount::class, $actual->getPaymentDestination());
     }
 
     /**
@@ -157,15 +139,10 @@ final class PrimaryTransactionsTest extends TransactionTestCase
         $actual = $this->createApiManager($this->createResponse($data))
             ->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
 
-        $this->performTransactionAssertions($expected, $actual);
-        self::assertInstanceOf(
-            BankAccount::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
-        );
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
-        );
+        $actual = $this->performTransactionAssertions($expected, $actual);
+
+        self::assertInstanceOf(BankAccount::class, $actual->getPaymentSource());
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
     }
 
     /**
@@ -198,14 +175,9 @@ final class PrimaryTransactionsTest extends TransactionTestCase
 
         $actual = $this->createApiManager($data)->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
 
-        $this->performTransactionAssertions($expected, $actual);
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
-        );
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
-        );
+        $actual = $this->performTransactionAssertions($expected, $actual);
+
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentSource());
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
     }
 }

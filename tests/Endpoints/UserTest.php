@@ -90,7 +90,13 @@ final class UserTest extends TestCase
             );
 
         self::assertInstanceOf(User::class, $user);
-        self::assertIsString(($user instanceof User) ? $user->getEmail() : null);
+
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\User $user
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertIsString($user->getEmail());
     }
 
     /**

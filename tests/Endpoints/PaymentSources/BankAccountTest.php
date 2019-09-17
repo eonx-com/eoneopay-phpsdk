@@ -46,7 +46,13 @@ final class BankAccountTest extends TestCase
         )->create('4UM78RDZW93B84UJ', $bankAccount);
 
         self::assertInstanceOf(BankAccount::class, $actual);
-        self::assertIsString(($actual instanceof PaymentSource) ? $actual->getToken() : null);
+
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount $actual
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertIsString($actual->getToken());
     }
 
     /**
@@ -71,10 +77,7 @@ final class BankAccountTest extends TestCase
         );
 
         self::assertInstanceOf(BankAccount::class, $paymentSource);
-        self::assertSame(
-            '3T93F7TXCVGX4ZV7AFW2',
-            ($paymentSource instanceof PaymentSource) === true ? $paymentSource->getToken() : null
-        );
+        self::assertSame('3T93F7TXCVGX4ZV7AFW2', $paymentSource->getToken());
     }
 
     /**
@@ -85,7 +88,7 @@ final class BankAccountTest extends TestCase
     public function testUriIsCreated(): void
     {
         $class = new BankAccount();
-        self::assertIsArray($class->uris());
+
         self::assertCount(3, $class->uris());
     }
 }

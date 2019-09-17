@@ -18,9 +18,9 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Managers\SdkManager;
 final class EoneoPayApiSdkServiceProvider extends ServiceProvider
 {
     /**
-     * Register services.
+     * @noinspection PhpMissingParentCallCommonInspection Parent implementation is empty
      *
-     * @return void
+     * {@inheritdoc}
      */
     public function register(): void
     {

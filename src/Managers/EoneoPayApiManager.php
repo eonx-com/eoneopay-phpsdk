@@ -15,6 +15,9 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestAwareInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface;
 use ReflectionClass;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects) Main class of package, high coupling required to handle all actions
+ */
 final class EoneoPayApiManager implements EoneoPayApiManagerInterface
 {
     /**
@@ -44,31 +47,37 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @throws \Exception Exception factory generates a range of exceptions
      */
     public function create(string $apikey, EntityInterface $entity): EntityInterface
     {
         try {
             return $this->sdkManager->execute($entity, RequestAwareInterface::CREATE, $apikey);
-        } catch (InvalidApiResponseException $exception) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (InvalidApiResponseException $exception) {
             throw $this->exceptionFactory->create($exception);
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @throws \Exception Exception factory generates a range of exceptions
      */
     public function delete(string $apikey, EntityInterface $entity): ?EntityInterface
     {
         try {
             return $this->sdkManager->execute($entity, RequestAwareInterface::DELETE, $apikey);
-        } catch (InvalidApiResponseException $exception) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (InvalidApiResponseException $exception) {
             throw $this->exceptionFactory->create($exception);
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @throws \Exception Exception factory generates a range of exceptions
      */
     public function find(string $entityName, string $apikey, string $entityId): EntityInterface
     {
@@ -76,25 +85,29 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
 
         try {
             return $this->sdkManager->execute($entity, RequestAwareInterface::GET, $apikey);
-        } catch (InvalidApiResponseException $exception) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (InvalidApiResponseException $exception) {
             throw $this->exceptionFactory->create($exception);
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @throws \Exception Exception factory generates a range of exceptions
      */
     public function findAll(string $entityName, string $apikey): array
     {
         try {
             return $this->sdkManager->execute(new $entityName(), RequestAwareInterface::LIST, $apikey);
-        } catch (InvalidApiResponseException $exception) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (InvalidApiResponseException $exception) {
             throw $this->exceptionFactory->create($exception);
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @throws \Exception Exception factory generates a range of exceptions
      */
     public function findBy(string $entityName, string $apikey, array $criteria): array
     {
@@ -102,13 +115,15 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
 
         try {
             return $this->sdkManager->execute($entity, RequestAwareInterface::LIST, $apikey);
-        } catch (InvalidApiResponseException $exception) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (InvalidApiResponseException $exception) {
             throw $this->exceptionFactory->create($exception);
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @throws \Exception Exception factory generates a range of exceptions
      */
     public function findOneBy(string $entityName, string $apikey, array $criteria): EntityInterface
     {
@@ -116,13 +131,13 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
 
         try {
             return $this->sdkManager->execute($entity, RequestAwareInterface::GET, $apikey);
-        } catch (InvalidApiResponseException $exception) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (InvalidApiResponseException $exception) {
             throw $this->exceptionFactory->create($exception);
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \ReflectionException
@@ -136,13 +151,15 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
+     * @throws \Exception Exception factory generates a range of exceptions
      */
     public function update(string $apikey, EntityInterface $entity): EntityInterface
     {
         try {
             return $this->sdkManager->execute($entity, RequestAwareInterface::UPDATE, $apikey);
-        } catch (InvalidApiResponseException $exception) {
+        } /** @noinspection PhpRedundantCatchClauseInspection */ catch (InvalidApiResponseException $exception) {
             throw $this->exceptionFactory->create($exception);
         }
     }

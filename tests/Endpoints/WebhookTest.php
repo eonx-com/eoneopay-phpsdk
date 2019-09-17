@@ -6,7 +6,6 @@ namespace Tests\EoneoPay\PhpSdk\Endpoints;
 use EoneoPay\PhpSdk\Endpoints\Webhook;
 use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
-use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
@@ -33,11 +32,15 @@ final class WebhookTest extends TestCase
             ])
         );
 
-        self::assertSame(
-            'http://sdktest.local',
-            ($webhook instanceof Webhook) === true ? $webhook->getUrl() : null
-        );
-        self::assertCount(1, $this->getHeaders($webhook));
+        self::assertInstanceOf(Webhook::class, $webhook);
+
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\Webhook $webhook
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertSame('http://sdktest.local', $webhook->getUrl());
+        self::assertCount(1, $webhook->getHeaders() ?? []);
     }
 
     /**
@@ -92,27 +95,14 @@ final class WebhookTest extends TestCase
             ])
         );
 
-        self::assertSame(
-            'http://sdktest.local',
-            ($webhook instanceof Webhook) === true ? $webhook->getUrl() : null
-        );
-    }
+        self::assertInstanceOf(Webhook::class, $webhook);
 
-    /**
-     * Get webhook headers.
-     *
-     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $webhook
-     *
-     * @return mixed[]
-     */
-    private function getHeaders(EntityInterface $webhook): array
-    {
-        if (($webhook instanceof Webhook) === true &&
-            ($webhook->getHeaders() !== null)) {
-            return $webhook->getHeaders();
-        }
-
-        return [];
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\Webhook $webhook
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertSame('http://sdktest.local', $webhook->getUrl());
     }
 
     /**

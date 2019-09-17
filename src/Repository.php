@@ -36,7 +36,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findAll(string $apikey): array
     {
@@ -44,7 +44,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findById(string $entityId, string $apikey): EntityInterface
     {

@@ -19,7 +19,7 @@ class ApiKey extends Entity
     use ApiKeyTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {

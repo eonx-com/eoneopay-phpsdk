@@ -60,7 +60,13 @@ final class CreditCardTest extends TestCase
         )->create('4UM78RDZW93B84UJ', $creditCard);
 
         self::assertInstanceOf(CreditCard::class, $actual);
-        self::assertIsString(($actual instanceof CreditCard) ? $actual->getToken() : null);
+
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\PaymentSources\CreditCard $actual
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertIsString($actual->getToken());
     }
 
     /**
@@ -85,10 +91,7 @@ final class CreditCardTest extends TestCase
         );
 
         self::assertInstanceOf(CreditCard::class, $paymentSource);
-        self::assertSame(
-            'VRG2VR4F39343HM4D3N2',
-            ($paymentSource instanceof PaymentSource) === true ? $paymentSource->getToken() : null
-        );
+        self::assertSame('VRG2VR4F39343HM4D3N2', $paymentSource->getToken());
     }
 
     /**
@@ -99,7 +102,7 @@ final class CreditCardTest extends TestCase
     public function testUriIsCreated(): void
     {
         $class = new CreditCard();
-        self::assertIsArray($class->uris());
+
         self::assertCount(3, $class->uris());
     }
 }

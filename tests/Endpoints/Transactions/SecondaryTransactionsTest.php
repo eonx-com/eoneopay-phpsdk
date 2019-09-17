@@ -31,15 +31,10 @@ final class SecondaryTransactionsTest extends TransactionTestCase
 
         $actual = $this->createApiManager($data)->update('api-key', $expected);
 
-        $this->performTransactionAssertions($expected, $actual);
-        self::assertInstanceOf(
-            CreditCard::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
-        );
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
-        );
+        $actual = $this->performTransactionAssertions($expected, $actual);
+
+        self::assertInstanceOf(CreditCard::class, $actual->getPaymentSource());
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
     }
 
     /**

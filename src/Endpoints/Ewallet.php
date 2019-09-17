@@ -23,7 +23,7 @@ class Ewallet extends Entity
     use EwalletTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {

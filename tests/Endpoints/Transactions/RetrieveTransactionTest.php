@@ -46,15 +46,10 @@ final class RetrieveTransactionTest extends TransactionTestCase
             'transactionId' => 'transaction1',
         ]);
 
-        $this->performTransactionAssertions($expected, $actual);
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
-        );
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
-        );
+        $actual = $this->performTransactionAssertions($expected, $actual);
+
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentSource());
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
     }
 
     /**

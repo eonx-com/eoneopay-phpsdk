@@ -49,7 +49,7 @@ final class UserStub extends Entity
     protected $userId;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {

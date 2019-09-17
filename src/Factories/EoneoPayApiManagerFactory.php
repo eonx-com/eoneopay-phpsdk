@@ -17,7 +17,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Managers\SdkManager;
 final class EoneoPayApiManagerFactory implements EoneoPayApiManagerFactoryInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function create(string $baseUri): EoneoPayApiManagerInterface
     {

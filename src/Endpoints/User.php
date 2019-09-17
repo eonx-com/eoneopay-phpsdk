@@ -17,7 +17,7 @@ class User extends Entity
     use UserTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {

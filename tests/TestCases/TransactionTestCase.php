@@ -54,26 +54,22 @@ abstract class TransactionTestCase extends TestCase
      * @param \EoneoPay\PhpSdk\Endpoints\Transaction $expected
      * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $actual
      *
-     * @return void
+     * @return \EoneoPay\PhpSdk\Endpoints\Transaction
      */
-    protected function performTransactionAssertions(Transaction $expected, EntityInterface $actual): void
+    protected function performTransactionAssertions(Transaction $expected, EntityInterface $actual): Transaction
     {
         self::assertInstanceOf(Transaction::class, $actual);
-        self::assertSame(
-            $expected->getAmount(),
-            ($actual instanceof Transaction) === true ? $actual->getAmount() : null
-        );
-        self::assertSame(
-            $expected->getAction(),
-            ($actual instanceof Transaction) === true ? $actual->getAction() : null
-        );
-        self::assertSame(
-            $expected->getId(),
-            ($actual instanceof Transaction) === true ? $actual->getId() : null
-        );
-        self::assertSame(
-            $expected->getTransactionId(),
-            ($actual instanceof Transaction) === true ? $actual->getTransactionId() : null
-        );
+
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\Transaction $actual
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertSame($expected->getAmount(), $actual->getAmount());
+        self::assertSame($expected->getAction(), $actual->getAction());
+        self::assertSame($expected->getId(), $actual->getId());
+        self::assertSame($expected->getTransactionId(), $actual->getTransactionId());
+
+        return $actual;
     }
 }

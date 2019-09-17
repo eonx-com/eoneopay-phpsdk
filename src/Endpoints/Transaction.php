@@ -32,7 +32,7 @@ class Transaction extends Entity implements TransactionInterface
     use TransactionTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {

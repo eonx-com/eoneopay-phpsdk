@@ -26,7 +26,6 @@ final class ReferenceNumberTest extends TestCase
             'referenceNumber' => 'test-reference',
         ]);
 
-        self::assertInstanceOf(ReferenceNumber::class, $class);
         self::assertSame('bpay', $class->getType());
         self::assertSame('test-reference', $class->getReferenceNumber());
     }
@@ -50,9 +49,6 @@ final class ReferenceNumberTest extends TestCase
                 ]),
             ]
         ));
-
-        // Assert that the instance matches
-        self::assertInstanceOf(ReferenceNumber::class, $reference);
 
         // Assert that the reference number was provided
         self::assertRegExp('/\d+/', $reference->getReferenceNumber());

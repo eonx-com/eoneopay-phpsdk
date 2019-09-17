@@ -61,6 +61,13 @@ final class ContractTest extends TestCase
             ]
         ));
 
-        self::assertInstanceOf(Ewallet::class, ($contract instanceof Contract) ? $contract->getEwallet() : null);
+        self::assertInstanceOf(Contract::class, $contract);
+
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\Users\Contract $contract
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertInstanceOf(Ewallet::class, $contract->getEwallet());
     }
 }

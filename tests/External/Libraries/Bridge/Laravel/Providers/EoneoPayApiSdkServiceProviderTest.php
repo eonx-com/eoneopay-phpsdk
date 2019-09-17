@@ -21,22 +21,9 @@ final class EoneoPayApiSdkServiceProviderTest extends TestCase
     private $app;
 
     /**
-     * @inheritdoc
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->app = new Application();
-        $this->app->register(EoneoPayApiSdkServiceProvider::class);
-    }
-
-    /**
      * Test provider registers bindings as expected.
      *
      * @return void
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function testServiceProviderRegistersBindingsInContainer(): void
     {
@@ -45,5 +32,16 @@ final class EoneoPayApiSdkServiceProviderTest extends TestCase
             EoneoPayApiManager::class,
             $this->app->make(EoneoPayApiManagerInterface::class)
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->app = new Application();
+        $this->app->register(EoneoPayApiSdkServiceProvider::class);
     }
 }

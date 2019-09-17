@@ -31,7 +31,7 @@ class Security extends Entity
     use SecurityTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {

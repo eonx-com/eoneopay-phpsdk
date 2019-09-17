@@ -10,6 +10,6 @@ use EoneoPay\PhpSdk\Repository;
  *
  * @coversNothing
  */
-final class UserRepositoryStub extends Repository
+final class ParentRepositoryStub extends Repository
 {
 }

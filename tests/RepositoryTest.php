@@ -37,10 +37,13 @@ final class RepositoryTest extends TestCase
         $actual = $this->getRepository($expected)->findById($expected->getEntityId() ?? '', 'api-key');
 
         self::assertInstanceOf(EntityStub::class, $actual);
-        self::assertSame(
-            $expected->getEntityId(),
-            ($actual instanceof EntityStub) === true ? $actual->getEntityId() : null
-        );
+
+        /**
+         * @var \Tests\EoneoPay\PhpSdk\Stubs\Entities\EntityStub $actual
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertSame($expected->getEntityId(), $actual->getEntityId());
     }
 
     /**
