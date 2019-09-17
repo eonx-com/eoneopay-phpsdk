@@ -6,7 +6,7 @@ namespace EoneoPay\PhpSdk\Exceptions;
 use EoneoPay\Utils\Exceptions\CriticalException as BaseCriticalException;
 use Throwable;
 
-class CriticalException extends BaseCriticalException
+final class CriticalException extends BaseCriticalException
 {
     /**
      * The error sub code.
@@ -18,7 +18,7 @@ class CriticalException extends BaseCriticalException
     /**
      * BaseException constructor.
      *
-     * @param null|string $message
+     * @param string|null $message
      * @param mixed[]|null $messageParameters Parameters for $message
      * @param int|null $code
      * @param \Throwable|null $previous

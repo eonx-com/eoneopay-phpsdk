@@ -31,13 +31,13 @@ class Security extends Entity
     use SecurityTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {
         return [
             self::CREATE => \sprintf('/security/%s', $this->getId()),
-            self::UPDATE => \sprintf('/security/%s', $this->getId())
+            self::UPDATE => \sprintf('/security/%s', $this->getId()),
         ];
     }
 }

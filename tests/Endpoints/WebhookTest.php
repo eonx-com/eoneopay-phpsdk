@@ -6,13 +6,12 @@ namespace Tests\EoneoPay\PhpSdk\Endpoints;
 use EoneoPay\PhpSdk\Endpoints\Webhook;
 use EoneoPay\Utils\DateTime;
 use EoneoPay\Utils\Interfaces\UtcDateTimeInterface;
-use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\Webhook
  */
-class WebhookTest extends TestCase
+final class WebhookTest extends TestCase
 {
     /**
      * Test create webhook successfully.
@@ -29,15 +28,19 @@ class WebhookTest extends TestCase
             (string)\getenv('PAYMENTS_API_KEY'),
             new Webhook([
                 'headers' => ['sdkkey1' => 'sdkval1'],
-                'url' => 'http://sdktest.local'
+                'url' => 'http://sdktest.local',
             ])
         );
 
-        self::assertSame(
-            'http://sdktest.local',
-            ($webhook instanceof Webhook) === true ? $webhook->getUrl() : null
-        );
-        self::assertCount(1, $this->getHeaders($webhook));
+        self::assertInstanceOf(Webhook::class, $webhook);
+
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\Webhook $webhook
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertSame('http://sdktest.local', $webhook->getUrl());
+        self::assertCount(1, $webhook->getHeaders() ?? []);
     }
 
     /**
@@ -50,7 +53,7 @@ class WebhookTest extends TestCase
     public function testList(): void
     {
         $webhooks = $this->createApiManager([
-            $this->getResponseData()
+            $this->getResponseData(),
         ])->findAll(Webhook::class, (string)\getenv('PAYMENTS_API_KEY'));
 
         self::assertCount(1, $webhooks);
@@ -67,7 +70,7 @@ class WebhookTest extends TestCase
             (string)\getenv('PAYMENTS_API_KEY'),
             new Webhook([
                 'headers' => ['sdkkey1' => 'sdkval1'],
-                'url' => 'http://original.local'
+                'url' => 'http://original.local',
             ])
         );
 
@@ -88,31 +91,18 @@ class WebhookTest extends TestCase
         $webhook = $this->createApiManager($response)->update(
             (string)\getenv('PAYMENTS_API_KEY'),
             new Webhook([
-                'url' => 'http://original.local'
+                'url' => 'http://original.local',
             ])
         );
 
-        self::assertSame(
-            'http://sdktest.local',
-            ($webhook instanceof Webhook) === true ? $webhook->getUrl() : null
-        );
-    }
+        self::assertInstanceOf(Webhook::class, $webhook);
 
-    /**
-     * Get webhook headers.
-     *
-     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $webhook
-     *
-     * @return mixed[]
-     */
-    private function getHeaders(EntityInterface $webhook): array
-    {
-        if (($webhook instanceof Webhook) === true &&
-            ($webhook->getHeaders() !== null)) {
-            return $webhook->getHeaders();
-        }
-
-        return [];
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\Webhook $webhook
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertSame('http://sdktest.local', $webhook->getUrl());
     }
 
     /**
@@ -134,9 +124,9 @@ class WebhookTest extends TestCase
             'user' => [
                 'created_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU),
                 'email' => 'user@email.test',
-                'updated_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU)
+                'updated_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU),
             ],
-            'updated_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU)
+            'updated_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU),
 
         ];
     }

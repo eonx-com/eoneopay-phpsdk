@@ -17,14 +17,14 @@ class User extends Entity
     use UserTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {
         return
             [
                 self::CREATE => \sprintf('/users/%s', $this->getId()),
-                self::GET => '/me'
+                self::GET => '/me',
             ];
     }
 }

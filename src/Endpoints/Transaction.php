@@ -32,7 +32,7 @@ class Transaction extends Entity implements TransactionInterface
     use TransactionTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {
@@ -40,7 +40,7 @@ class Transaction extends Entity implements TransactionInterface
             self::CREATE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
             self::DELETE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
             self::GET => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
-            self::UPDATE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId)
+            self::UPDATE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
         ];
     }
 }

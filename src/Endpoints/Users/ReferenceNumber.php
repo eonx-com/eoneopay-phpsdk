@@ -35,12 +35,12 @@ class ReferenceNumber extends Entity
     protected $user;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {
         return [
-            self::CREATE => '/reference'
+            self::CREATE => '/reference',
         ];
     }
 }

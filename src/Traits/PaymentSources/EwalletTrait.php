@@ -8,7 +8,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait EwalletTrait
 {
     /**
-     * Ewallet currency
+     * Ewallet currency.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -17,7 +17,7 @@ trait EwalletTrait
     protected $currency;
 
     /**
-     * If is primary
+     * If is primary.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -26,7 +26,7 @@ trait EwalletTrait
     protected $primary;
 
     /**
-     * Ewallet user reference
+     * Ewallet user reference.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -35,7 +35,7 @@ trait EwalletTrait
     protected $reference;
 
     /**
-     * Ewallet user
+     * Ewallet user.
      *
      * @Groups({"create", "get", "list", "update"})
      *

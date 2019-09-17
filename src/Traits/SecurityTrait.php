@@ -8,7 +8,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait SecurityTrait
 {
     /**
-     * Security action url
+     * Security action url.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -17,7 +17,7 @@ trait SecurityTrait
     protected $actionUrl;
 
     /**
-     * Amount array with currency and total
+     * Amount array with currency and total.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -26,7 +26,7 @@ trait SecurityTrait
     protected $amount;
 
     /**
-     * Authentication result
+     * Authentication result.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -42,7 +42,7 @@ trait SecurityTrait
     protected $cavv;
 
     /**
-     * Created at date
+     * Created at date.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -58,7 +58,7 @@ trait SecurityTrait
     protected $eci;
 
     /**
-     * Enrolment status
+     * Enrolment status.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -67,7 +67,7 @@ trait SecurityTrait
     protected $enrolmentStatus;
 
     /**
-     * Security Id
+     * Security Id.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -76,7 +76,7 @@ trait SecurityTrait
     protected $id;
 
     /**
-     * Security metadata
+     * Security metadata.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -85,7 +85,7 @@ trait SecurityTrait
     protected $metadata;
 
     /**
-     * Security payload
+     * Security payload.
      *
      * @Groups({"update"})
      *
@@ -94,7 +94,7 @@ trait SecurityTrait
     protected $payload;
 
     /**
-     * Security payment source
+     * Security payment source.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -103,7 +103,7 @@ trait SecurityTrait
     protected $paymentSource;
 
     /**
-     * Security request payload
+     * Security request payload.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -112,7 +112,7 @@ trait SecurityTrait
     protected $requestPayload;
 
     /**
-     * Security response payload
+     * Security response payload.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -121,7 +121,7 @@ trait SecurityTrait
     protected $responsePayload;
 
     /**
-     * Security return url
+     * Security return url.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -137,7 +137,7 @@ trait SecurityTrait
     protected $secured;
 
     /**
-     * Status
+     * Status.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -146,7 +146,7 @@ trait SecurityTrait
     protected $status;
 
     /**
-     * Updated at date
+     * Updated at date.
      *
      * @Groups({"create", "get", "list", "update"})
      *

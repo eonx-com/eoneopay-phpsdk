@@ -8,7 +8,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait EwalletTrait
 {
     /**
-     * Ewallet balance
+     * Ewallet balance.
      *
      * @Groups({"get", "list", "update"})
      *
@@ -17,7 +17,7 @@ trait EwalletTrait
     protected $balances;
 
     /**
-     * Created at date
+     * Created at date.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -26,7 +26,7 @@ trait EwalletTrait
     protected $createdAt;
 
     /**
-     * Ewallet currency
+     * Ewallet currency.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -35,7 +35,7 @@ trait EwalletTrait
     protected $currency;
 
     /**
-     * Ewallet id
+     * Ewallet id.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -44,7 +44,7 @@ trait EwalletTrait
     protected $id;
 
     /**
-     * Ewallet pan
+     * Ewallet pan.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -53,7 +53,7 @@ trait EwalletTrait
     protected $pan;
 
     /**
-     * If is primary
+     * If is primary.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -62,7 +62,7 @@ trait EwalletTrait
     protected $primary;
 
     /**
-     * Ewallet user reference
+     * Ewallet user reference.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -71,7 +71,7 @@ trait EwalletTrait
     protected $reference;
 
     /**
-     * Ewallet type
+     * Ewallet type.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -80,7 +80,7 @@ trait EwalletTrait
     protected $type;
 
     /**
-     * Updated at date
+     * Updated at date.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -89,7 +89,7 @@ trait EwalletTrait
     protected $updatedAt;
 
     /**
-     * Ewallet user
+     * Ewallet user.
      *
      * @Groups({"create", "get", "list", "update"})
      *

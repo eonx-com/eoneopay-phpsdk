@@ -7,7 +7,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestAwareInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface;
 
-class SdkManagerStub implements SdkManagerInterface
+final class SdkManagerStub implements SdkManagerInterface
 {
     /**
      * The entity.
@@ -27,7 +27,7 @@ class SdkManagerStub implements SdkManagerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function execute(EntityInterface $entity, string $action, ?string $apikey = null)
     {

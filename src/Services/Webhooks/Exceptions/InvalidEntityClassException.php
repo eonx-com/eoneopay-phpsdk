@@ -8,7 +8,7 @@ use EoneoPay\PhpSdk\Exceptions\RuntimeException;
 /**
  * An exception that is thrown when the requested entity class does not exist.
  */
-class InvalidEntityClassException extends RuntimeException
+final class InvalidEntityClassException extends RuntimeException
 {
     /**
      * Constructs a new instance of InvalidEntityClassException.

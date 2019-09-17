@@ -12,7 +12,7 @@ use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\Transaction
  */
-class SecondaryTransactionsTest extends TransactionTestCase
+final class SecondaryTransactionsTest extends TransactionTestCase
 {
     /**
      * Test capture transaction successfully.
@@ -22,24 +22,19 @@ class SecondaryTransactionsTest extends TransactionTestCase
     public function testCaptureSuccessfully(): void
     {
         $data = $this->createResponse([
-            'action' => TransactionInterface::ACTION_CAPTURE
+            'action' => TransactionInterface::ACTION_CAPTURE,
         ]);
 
         $expected = new Transaction(\array_merge($data, [
-            'paymentSource' => new CreditCard($data['paymentSource'])
+            'paymentSource' => new CreditCard($data['paymentSource']),
         ]));
 
         $actual = $this->createApiManager($data)->update('api-key', $expected);
 
-        $this->performTransactionAssertions($expected, $actual);
-        self::assertInstanceOf(
-            CreditCard::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
-        );
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
-        );
+        $actual = $this->performTransactionAssertions($expected, $actual);
+
+        self::assertInstanceOf(CreditCard::class, $actual->getPaymentSource());
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
     }
 
     /**
@@ -50,11 +45,11 @@ class SecondaryTransactionsTest extends TransactionTestCase
     public function testRefundSuccessfully(): void
     {
         $data = $this->createResponse([
-            'action' => TransactionInterface::ACTION_REFUND
+            'action' => TransactionInterface::ACTION_REFUND,
         ]);
 
         $expected = new Transaction(\array_merge($data, [
-            'paymentSource' => new CreditCard($data['paymentSource'])
+            'paymentSource' => new CreditCard($data['paymentSource']),
         ]));
 
         self::assertInstanceOf(Transaction::class, $this->createApiManager()->delete('api-key', $expected));

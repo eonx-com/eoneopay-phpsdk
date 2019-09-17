@@ -11,10 +11,10 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\Ewallet
  */
-class EwalletTest extends TestCase
+final class EwalletTest extends TestCase
 {
     /**
-     * Test Ewallet details are returned back
+     * Test Ewallet details are returned back.
      *
      * @return void
      */
@@ -23,7 +23,7 @@ class EwalletTest extends TestCase
         $response = [
             'balances' => [
                 'available' => '0.00',
-                'balance' => '0.00'
+                'balance' => '0.00',
             ],
             'created_at' => '2019-02-25T02=>40=>32Z',
             'currency' => 'AUD',
@@ -36,8 +36,8 @@ class EwalletTest extends TestCase
             'user' => [
                 'created_at' => '2019-02-22T03=>09=>44Z',
                 'email' => 'example@user.test',
-                'updated_at' => '2019-02-22T03=>09=>44Z'
-            ]
+                'updated_at' => '2019-02-22T03=>09=>44Z',
+            ],
         ];
 
         $ewallet = $this->createApiManager($response, 200)
@@ -54,7 +54,7 @@ class EwalletTest extends TestCase
     }
 
     /**
-     * Test creation of ewallet
+     * Test creation of ewallet.
      *
      * @return void
      */
@@ -73,8 +73,8 @@ class EwalletTest extends TestCase
                 'user' => [
                     'created_at' => '2019-02-22T03=>09=>44Z',
                     'email' => 'example@user.test',
-                    'updated_at' => '2019-02-22T03=>09=>44Z'
-                ]
+                    'updated_at' => '2019-02-22T03=>09=>44Z',
+                ],
             ],
             201
         )->create((string)\getenv('PAYMENTS_API_KEY'), new Ewallet());
@@ -85,7 +85,7 @@ class EwalletTest extends TestCase
     }
 
     /**
-     * Test if exception code is covered
+     * Test if exception code is covered.
      *
      * @return void
      */
@@ -96,12 +96,12 @@ class EwalletTest extends TestCase
             'code' => 4401,
             'message' => 'Unauthorised.',
             'sub_code' => 1,
-            'time' => '2019-02-25T02=>31=>59Z'
+            'time' => '2019-02-25T02=>31=>59Z',
         ], 401)->create('wrong_key', new Ewallet());
     }
 
     /**
-     * Test to check if Uri has been entered
+     * Test to check if Uri has been entered.
      *
      * @return void
      */

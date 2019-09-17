@@ -25,7 +25,7 @@ class Fees extends Entity
     public function uris(): array
     {
         return [
-            self::CREATE => '/calculate/fees'
+            self::CREATE => '/calculate/fees',
         ];
     }
 }

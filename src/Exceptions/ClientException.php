@@ -6,7 +6,7 @@ namespace EoneoPay\PhpSdk\Exceptions;
 use EoneoPay\Utils\Exceptions\NotFoundException as BaseNotFoundException;
 use Throwable;
 
-class ClientException extends BaseNotFoundException
+final class ClientException extends BaseNotFoundException
 {
     /**
      * The sub error code.
@@ -18,7 +18,7 @@ class ClientException extends BaseNotFoundException
     /**
      * BaseException constructor.
      *
-     * @param null|string $message
+     * @param string|null $message
      * @param mixed[]|null $messageParameters Parameters for $message
      * @param int|null $code
      * @param \Throwable|null $previous

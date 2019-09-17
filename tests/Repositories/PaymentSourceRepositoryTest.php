@@ -13,7 +13,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Repositories\PaymentSourceRepository
  */
-class PaymentSourceRepositoryTest extends TestCase
+final class PaymentSourceRepositoryTest extends TestCase
 {
     /**
      * Test find by token successfully.
@@ -23,7 +23,7 @@ class PaymentSourceRepositoryTest extends TestCase
     public function testFindByToken(): void
     {
         $creditCard = new CreditCard([
-            'token' => $this->generateId()
+            'token' => $this->generateId(),
         ]);
 
         $actual = $this->getRepository($creditCard)->findByToken('api-key', $creditCard->getToken() ?? '');

@@ -8,7 +8,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait UserTrait
 {
     /**
-     * Created at date
+     * Created at date.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -17,7 +17,7 @@ trait UserTrait
     protected $createdAt;
 
     /**
-     * User email
+     * User email.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -26,7 +26,7 @@ trait UserTrait
     protected $email;
 
     /**
-     * User id
+     * User id.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -35,7 +35,7 @@ trait UserTrait
     protected $id;
 
     /**
-     * Updated at date
+     * Updated at date.
      *
      * @Groups({"create", "get", "list", "update"})
      *

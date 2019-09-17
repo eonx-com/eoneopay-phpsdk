@@ -9,7 +9,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
  */
-class InvalidEntityClassExceptionTest extends TestCase
+final class InvalidEntityClassExceptionTest extends TestCase
 {
     /**
      * Test get error code.

@@ -20,6 +20,11 @@ class PaymentSourceRepository extends Repository
     {
         $entity = $this->getApiManager()->findOneBy(PaymentSource::class, $apikey, \compact('token'));
 
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource $entity
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises === check
+         */
         return ($entity instanceof PaymentSource) === true ? $entity : null;
     }
 }

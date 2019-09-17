@@ -16,10 +16,10 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Factories\ExceptionFactory
  */
-class ExceptionFactoryTest extends TestCase
+final class ExceptionFactoryTest extends TestCase
 {
     /**
-     * Returns data for testCreate
+     * Returns data for testCreate.
      *
      * @return mixed[]
      */
@@ -27,7 +27,7 @@ class ExceptionFactoryTest extends TestCase
     {
         $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
             'code' => 1999,
-            'message' => 'internal system error'
+            'message' => 'internal system error',
         ]) ?: null));
 
         yield 'critical exception' => [
@@ -38,13 +38,13 @@ class ExceptionFactoryTest extends TestCase
                 1999,
                 $responseException,
                 0
-            )
+            ),
         ];
 
         $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
             'code' => 1999,
             'sub_code' => 2,
-            'message' => 'internal system error'
+            'message' => 'internal system error',
         ]) ?: null));
 
         yield 'critical exception with sub code' => [
@@ -55,13 +55,13 @@ class ExceptionFactoryTest extends TestCase
                 1999,
                 $responseException,
                 2
-            )
+            ),
         ];
 
         $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
             'code' => 6000,
             'sub_code' => 1,
-            'message' => 'validation exception'
+            'message' => 'validation exception',
         ]) ?: null));
 
         yield 'validation exception' => [
@@ -73,13 +73,13 @@ class ExceptionFactoryTest extends TestCase
                 $responseException,
                 null,
                 1
-            )
+            ),
         ];
 
         $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
             'code' => 5000,
             'sub_code' => 3,
-            'message' => 'runtime exception'
+            'message' => 'runtime exception',
         ]) ?: null));
 
         yield 'runtime exception' => [
@@ -90,13 +90,13 @@ class ExceptionFactoryTest extends TestCase
                 5000,
                 $responseException,
                 3
-            )
+            ),
         ];
 
         $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
             'code' => 4000,
             'sub_code' => 4,
-            'message' => 'client exception'
+            'message' => 'client exception',
         ]) ?: null));
 
         yield 'client exception' => [
@@ -107,12 +107,12 @@ class ExceptionFactoryTest extends TestCase
                 4000,
                 $responseException,
                 4
-            )
+            ),
         ];
     }
 
     /**
-     * Test create exceptions
+     * Test create exceptions.
      *
      * @param \LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException $responseException
      * @param \EoneoPay\Utils\Interfaces\Exceptions\ExceptionInterface $expectedException
