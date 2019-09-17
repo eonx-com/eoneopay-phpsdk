@@ -16,7 +16,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Services\Webhooks\Parser
  */
-class ParserTest extends TestCase
+final class ParserTest extends TestCase
 {
     /**
      * Gets various test webhook requests to ensure successfull parsing.
@@ -31,7 +31,7 @@ class ParserTest extends TestCase
                 'POST',
                 '/listen/eoneopay/token',
                 [],
-                <<<JSON
+                <<<'JSON'
 {
     "country": "AU",
     "created_at": "2019-07-31T06:08:07Z",
@@ -48,7 +48,7 @@ class ParserTest extends TestCase
     "updated_at": "2019-07-31T06:08:07Z"
 }
 JSON
-            )
+            ),
         ];
 
         yield 'Token Revocation' => [
@@ -57,7 +57,7 @@ JSON
                 'POST',
                 '/listen/eoneopay/token_revoke',
                 [],
-                <<<JSON
+                <<<'JSON'
 {
     "country": "AU",
     "created_at": "2019-07-31T06:08:07Z",
@@ -74,7 +74,7 @@ JSON
     "updated_at": "2019-07-31T06:08:07Z"
 }
 JSON
-            )
+            ),
         ];
     }
 
@@ -113,7 +113,7 @@ JSON
     {
         $serializerFactory = new SerializerFactory();
         $parser = $this->getInstance($serializerFactory);
-        $json = <<<JSON
+        $json = <<<'JSON'
 {
     "country": "AU",
     "created_at": "2019-07-31T06:08:07Z",
@@ -142,7 +142,7 @@ JSON;
             'prefix' => '123-456',
             'token' => 'FDJ9934242YBP3C2ZC43',
             'type' => 'bank_account',
-            'updatedAt' => '2019-07-31T06:08:07Z'
+            'updatedAt' => '2019-07-31T06:08:07Z',
         ]);
 
         $result = $parser->parse(BankAccount::class, $json, 'json');

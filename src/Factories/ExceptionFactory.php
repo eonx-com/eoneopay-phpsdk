@@ -11,7 +11,7 @@ use EoneoPay\PhpSdk\Interfaces\Factories\ExceptionFactoryInterface;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
 
-class ExceptionFactory implements ExceptionFactoryInterface
+final class ExceptionFactory implements ExceptionFactoryInterface
 {
     /**
      * @inheritdoc

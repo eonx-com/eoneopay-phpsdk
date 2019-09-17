@@ -24,7 +24,7 @@ class User extends Entity
         return
             [
                 self::CREATE => \sprintf('/users/%s', $this->getId()),
-                self::GET => '/me'
+                self::GET => '/me',
             ];
     }
 }

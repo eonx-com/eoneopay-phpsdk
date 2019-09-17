@@ -11,10 +11,10 @@ use Tests\EoneoPay\PhpSdk\TestCase;
  * @covers \EoneoPay\PhpSdk\Endpoints\PaymentSource
  * @covers \EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount
  */
-class BankAccountTest extends TestCase
+final class BankAccountTest extends TestCase
 {
     /**
-     * Test if bank account token is created successfully
+     * Test if bank account token is created successfully.
      *
      * @return void
      */
@@ -26,7 +26,7 @@ class BankAccountTest extends TestCase
                 'name' => 'User Name',
                 'number' => '987654321',
                 'prefix' => '123456',
-                'type' => 'bank_account'
+                'type' => 'bank_account',
             ]
         );
         $actual = $this->createApiManager(
@@ -41,7 +41,7 @@ class BankAccountTest extends TestCase
                 'prefix' => '123-456',
                 'token' => 'G88THZKX423DFGREVWY9',
                 'type' => 'bank_account',
-                'updated_at' => '2019-02-14T06=>14=>06Z'
+                'updated_at' => '2019-02-14T06=>14=>06Z',
             ]
         )->create('4UM78RDZW93B84UJ', $bankAccount);
 
@@ -62,7 +62,7 @@ class BankAccountTest extends TestCase
             'name' => 'John Wick',
             'pan' => '123-456...4321',
             'token' => '3T93F7TXCVGX4ZV7AFW2',
-            'type' => 'bank_account'
+            'type' => 'bank_account',
         ])->getRepository(PaymentSource::class);
 
         $paymentSource = $repository->findByToken(
@@ -78,7 +78,7 @@ class BankAccountTest extends TestCase
     }
 
     /**
-     * Test if uri is created
+     * Test if uri is created.
      *
      * @return void
      */

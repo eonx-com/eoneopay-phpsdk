@@ -6,9 +6,9 @@ namespace EoneoPay\PhpSdk\Annotations;
 use Doctrine\Common\Annotations\Annotation;
 
 /**
- * @Annotation
+ * @Annotation()
  */
-class Repository
+final class Repository
 {
     /**
      * Entity repository class.

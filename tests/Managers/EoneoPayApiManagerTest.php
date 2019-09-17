@@ -18,7 +18,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Managers\EoneoPayApiManager
  */
-class EoneoPayApiManagerTest extends TestCase
+final class EoneoPayApiManagerTest extends TestCase
 {
     /**
      * Test create entity successfully.
@@ -49,8 +49,6 @@ class EoneoPayApiManagerTest extends TestCase
 
         self::assertInstanceOf(EntityInterface::class, $this->getManager()->delete('api-key', $expected));
     }
-
-
 
     /**
      * Test that find will return expected entity.
@@ -89,8 +87,6 @@ class EoneoPayApiManagerTest extends TestCase
         );
     }
 
-
-
     /**
      * Test that find by with provided criteria will return expected number of entities.
      *
@@ -101,7 +97,7 @@ class EoneoPayApiManagerTest extends TestCase
         $expected = new EntityStub(['entityId' => $this->generateId()]);
 
         $entities = $this->getManager($expected)->findBy(EntityStub::class, 'api-key', [
-            'entityId' => $expected->getEntityId()
+            'entityId' => $expected->getEntityId(),
         ]);
 
         self::assertCount(1, $entities);
@@ -112,10 +108,8 @@ class EoneoPayApiManagerTest extends TestCase
         );
     }
 
-
-
     /**
-     * Test if find exception is thrown on invalid response
+     * Test if find exception is thrown on invalid response.
      *
      * @return void
      */
@@ -123,7 +117,7 @@ class EoneoPayApiManagerTest extends TestCase
     {
         $this->expectException(CriticalException::class);
         $this->createApiManager([
-            'code' => 0
+            'code' => 0,
         ], 400)
             ->find(
                 EntityStub::class,
@@ -142,7 +136,7 @@ class EoneoPayApiManagerTest extends TestCase
         $expected = new EntityStub(['entityId' => $this->generateId()]);
 
         $actual = $this->getManager($expected)->findOneBy(EntityStub::class, 'api-key', [
-            'entityId' => $expected->getEntityId()
+            'entityId' => $expected->getEntityId(),
         ]);
 
         self::assertInstanceOf(EntityStub::class, $actual);
@@ -151,8 +145,6 @@ class EoneoPayApiManagerTest extends TestCase
             ($actual instanceof EntityStub) === true ? $actual->getEntityId() : null
         );
     }
-
-
 
     /**
      * Test that getRepository() method always returns a repository.
@@ -192,12 +184,12 @@ class EoneoPayApiManagerTest extends TestCase
 
         $expected = new UserStub([
             'userId' => $userId,
-            'email' => 'updated@email.test'
+            'email' => 'updated@email.test',
         ]);
 
         $actual = $this->getManager($expected)->update('api-key', new UserStub([
             'userId' => $userId,
-            'email' => 'original@email.test'
+            'email' => 'original@email.test',
         ]));
 
         self::assertInstanceOf(UserStub::class, $actual);
@@ -210,8 +202,6 @@ class EoneoPayApiManagerTest extends TestCase
             ($actual instanceof UserStub) === true ? $actual->getEmail() : null
         );
     }
-
-
 
     /**
      * Get EoneoPay api manager.

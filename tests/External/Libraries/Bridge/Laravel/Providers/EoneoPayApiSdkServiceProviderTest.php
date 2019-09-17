@@ -13,7 +13,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\External\Libraries\Bridge\Laravel\Providers\EoneoPayApiSdkServiceProvider
  */
-class EoneoPayApiSdkServiceProviderTest extends TestCase
+final class EoneoPayApiSdkServiceProviderTest extends TestCase
 {
     /**
      * @var \Laravel\Lumen\Application
@@ -32,7 +32,7 @@ class EoneoPayApiSdkServiceProviderTest extends TestCase
     }
 
     /**
-     * Test provider registers bindings as expected
+     * Test provider registers bindings as expected.
      *
      * @return void
      *

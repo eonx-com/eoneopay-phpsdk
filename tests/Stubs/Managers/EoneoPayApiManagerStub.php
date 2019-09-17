@@ -8,7 +8,7 @@ use EoneoPay\PhpSdk\Interfaces\RepositoryInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 use Tests\EoneoPay\PhpSdk\Stubs\Repositories\RepositorySub;
 
-class EoneoPayApiManagerStub implements EoneoPayApiManagerInterface
+final class EoneoPayApiManagerStub implements EoneoPayApiManagerInterface
 {
     /**
      * @var \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface|null

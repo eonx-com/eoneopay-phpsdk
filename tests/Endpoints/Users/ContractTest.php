@@ -11,10 +11,10 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\Users\Contract
  */
-class ContractTest extends TestCase
+final class ContractTest extends TestCase
 {
     /**
-     * Test contract fees create or update
+     * Test contract fees create or update.
      *
      * @return void
      */
@@ -36,8 +36,8 @@ class ContractTest extends TestCase
                     'user' => [
                         'created_at' => '2019-02-24T23=>34=>11Z',
                         'email' => 'examples@user.test',
-                        'updated_at' => '2019-02-24T23=>34=>11Z'
-                    ]
+                        'updated_at' => '2019-02-24T23=>34=>11Z',
+                    ],
                 ],
                 'fixed_fee' => '0.02',
                 'group' => 'Mastercard',
@@ -46,9 +46,9 @@ class ContractTest extends TestCase
                 'user' => [
                     'created_at' => '2019-02-24T23=>34=>11Z',
                     'email' => 'examples@user.test',
-                    'updated_at' => '2019-02-24T23=>34=>11Z'
+                    'updated_at' => '2019-02-24T23=>34=>11Z',
                 ],
-                'variable_rate' => '0.10'
+                'variable_rate' => '0.10',
             ],
             200
         )->create((string)\getenv('PAYMENTS_API_KEY'), new Contract(
@@ -57,7 +57,7 @@ class ContractTest extends TestCase
                 'currency' => 'AUD',
                 'fixed_fee' => '0.02',
                 'variable_rate' => '0.10',
-                'user' => new User(['id' => 'external-user-id'])
+                'user' => new User(['id' => 'external-user-id']),
             ]
         ));
 

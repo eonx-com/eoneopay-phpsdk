@@ -31,7 +31,7 @@ class Ewallet extends Entity
         return [
             self::CREATE => '/ewallets',
             self::GET => \sprintf('/ewallets/%s', $this->id ?? $this->reference),
-            self::LIST => '/ewallets'
+            self::LIST => '/ewallets',
         ];
     }
 }

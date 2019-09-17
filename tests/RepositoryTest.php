@@ -11,7 +11,7 @@ use Tests\EoneoPay\PhpSdk\Stubs\Managers\EoneoPayApiManagerStub;
 /**
  * @covers \EoneoPay\PhpSdk\Repository
  */
-class RepositoryTest extends TestCase
+final class RepositoryTest extends TestCase
 {
     /**
      * Test that find all will return expected number of entities.

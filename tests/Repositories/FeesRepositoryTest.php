@@ -12,10 +12,10 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Repositories\FeesRepository
  */
-class FeesRepositoryTest extends TestCase
+final class FeesRepositoryTest extends TestCase
 {
     /**
-     * Data provider for input used for calculating fees from transaction
+     * Data provider for input used for calculating fees from transaction.
      *
      * @return iterable|mixed[]
      */
@@ -23,17 +23,17 @@ class FeesRepositoryTest extends TestCase
     {
         yield 'Empty input, empty output' => [
             'transaction' => new Transaction(),
-            'expectedFees' => new Fees()
+            'expectedFees' => new Fees(),
         ];
 
         yield 'Nulled values removed' => [
             'transaction' => new Transaction(['paymentDestination' => null, 'paymentSource' => null]),
-            'expectedFees' => new Fees()
+            'expectedFees' => new Fees(),
         ];
     }
 
     /**
-     * Test the calculation of fees repository passthrough
+     * Test the calculation of fees repository passthrough.
      *
      * @param \EoneoPay\PhpSdk\Endpoints\Transaction $transaction
      * @param \EoneoPay\PhpSdk\Endpoints\Fees $expectedFee
@@ -55,7 +55,7 @@ class FeesRepositoryTest extends TestCase
     }
 
     /**
-     * Instantiate an instance of the repository
+     * Instantiate an instance of the repository.
      *
      * @return \EoneoPay\PhpSdk\Repositories\FeesRepository
      */

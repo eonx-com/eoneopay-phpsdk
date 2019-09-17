@@ -14,6 +14,7 @@ use EoneoPay\PhpSdk\Traits\PaymentSources\CreditCardTrait;
 class CreditCard extends PaymentSource
 {
     use CreditCardTrait;
+
     /**
      * Credit card constructor.
      *

@@ -10,10 +10,10 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\Security
  */
-class SecurityTest extends TestCase
+final class SecurityTest extends TestCase
 {
     /**
-     * Simple test count number of uri's used
+     * Simple test count number of uri's used.
      *
      * @return void
      */
@@ -24,7 +24,7 @@ class SecurityTest extends TestCase
     }
 
     /**
-     * Test initiate a security call
+     * Test initiate a security call.
      *
      * @return void
      */
@@ -34,7 +34,7 @@ class SecurityTest extends TestCase
             'action_url' => 'https://bne-stripe1.ap.gateway.mastercard.com/',
             'amount' => [
                 'currency' => 'AUD',
-                'total' => '90.00'
+                'total' => '90.00',
             ],
             'authentication_result' => null,
             'cavv' => null,
@@ -53,12 +53,12 @@ class SecurityTest extends TestCase
                     'issuer' => 'BANCO DEL PICHINCHA, C.A.',
                     'prepaid' => null,
                     'scheme' => 'MASTERCARD',
-                    'updated_at' => '2019-02-13T22=>10=>24Z'
+                    'updated_at' => '2019-02-13T22=>10=>24Z',
                 ],
                 'created_at' => '2019-02-22T03=>08=>07Z',
                 'expiry' => [
                     'month' => '11',
-                    'year' => '2099'
+                    'year' => '2099',
                 ],
                 'facility' => 'Mastercard',
                 'id' => '1a05c6ac43c7a93088a7bff15e3625f4',
@@ -66,7 +66,7 @@ class SecurityTest extends TestCase
                 'pan' => '512345...0008',
                 'token' => 'JED4DKKFRRDM9WWJD9B9',
                 'type' => 'credit_card',
-                'updated_at' => '2019-02-22T03=>08=>13Z'
+                'updated_at' => '2019-02-22T03=>08=>13Z',
             ],
             'request_payload' => 'dummy-payload',
             'response_payload' => null,
@@ -74,27 +74,27 @@ class SecurityTest extends TestCase
             'secured' => null,
             'status' => 'pending',
             'updated_at' => '2019-02-25T04=>59=>24Z',
-            'xid' => 'HVYed7tXDxWoIDZy7HDR3CfVJOw='
+            'xid' => 'HVYed7tXDxWoIDZy7HDR3CfVJOw=',
         ];
         $security = $this->createApiManager($response, 200)
             ->create((string)\getenv('PAYMENTS_API_KEY'), new Security([
                 'id' => 'external-security-id',
                 'amount' => [
                     'currency' => 'AUD',
-                    'total' => '90.00'
+                    'total' => '90.00',
                 ],
                 'payment_source' => [
                     'token' => 'credit-card-token',
-                    'type' => 'credit_card'
+                    'type' => 'credit_card',
                 ],
-                'return_url' => 'https://your-url/3dsecure'
+                'return_url' => 'https://your-url/3dsecure',
             ]));
 
         self::assertIsString(($security instanceof Security) ? $security->getActionUrl() : null);
     }
 
     /**
-     * Test verify security throws Runtime exception on invalid payload
+     * Test verify security throws Runtime exception on invalid payload.
      *
      * @return void
      */
@@ -106,12 +106,12 @@ class SecurityTest extends TestCase
                 'code' => 5242,
                 'message' => 'Invalid payload or security validation response received.',
                 'sub_code' => 1,
-                'time' => '2019-02-26T03=>01=>47Z'
+                'time' => '2019-02-26T03=>01=>47Z',
             ],
             500
         )->update((string)\getenv('PAYMENTS_API_KEY'), new Security([
             'id' => 'external-security-id',
-            'payload' => 'payload'
+            'payload' => 'payload',
         ]));
     }
 }

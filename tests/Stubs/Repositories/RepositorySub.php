@@ -5,6 +5,6 @@ namespace Tests\EoneoPay\PhpSdk\Stubs\Repositories;
 
 use EoneoPay\PhpSdk\Repository;
 
-class RepositorySub extends Repository
+final class RepositorySub extends Repository
 {
 }

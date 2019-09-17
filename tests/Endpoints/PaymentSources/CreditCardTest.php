@@ -11,10 +11,10 @@ use Tests\EoneoPay\PhpSdk\TestCase;
  * @covers \EoneoPay\PhpSdk\Endpoints\PaymentSource
  * @covers \EoneoPay\PhpSdk\Endpoints\PaymentSources\CreditCard
  */
-class CreditCardTest extends TestCase
+final class CreditCardTest extends TestCase
 {
     /**
-     * Test if credit card token is created successfully
+     * Test if credit card token is created successfully.
      *
      * @return void
      */
@@ -24,11 +24,11 @@ class CreditCardTest extends TestCase
             [
                 'expiry' => [
                     'month' => '11',
-                    'year' => '2099'
+                    'year' => '2099',
                 ],
                 'name' => 'User Name',
                 'number' => '5123450000000008',
-                'type' => 'credit_card'
+                'type' => 'credit_card',
             ]
         );
         $actual = $this->createApiManager(
@@ -42,12 +42,12 @@ class CreditCardTest extends TestCase
                     'issuer' => 'BANCO DEL PICHINCHA, C.A.',
                     'prepaid' => null,
                     'scheme' => 'MASTERCARD',
-                    'updated_at' => '2019-02-13T22=>10=>24Z'
+                    'updated_at' => '2019-02-13T22=>10=>24Z',
                 ],
                 'created_at' => '2019-02-22T03=>08=>07Z',
                 'expiry' => [
                     'month' => '11',
-                    'year' => '2099'
+                    'year' => '2099',
                 ],
                 'facility' => 'Mastercard',
                 'id' => '1a05c6ac43c7a93088a7bff15e3625f4',
@@ -55,7 +55,7 @@ class CreditCardTest extends TestCase
                 'pan' => '512345...0008',
                 'token' => 'BBEJ6JGRHAZ2KUBD89C3',
                 'type' => 'credit_card',
-                'updated_at' => '2019-02-22T03=>08=>13Z'
+                'updated_at' => '2019-02-22T03=>08=>13Z',
             ]
         )->create('4UM78RDZW93B84UJ', $creditCard);
 
@@ -76,7 +76,7 @@ class CreditCardTest extends TestCase
             'name' => 'John Wick',
             'pan' => '512345...0008',
             'token' => 'VRG2VR4F39343HM4D3N2',
-            'type' => 'credit_card'
+            'type' => 'credit_card',
         ])->getRepository(PaymentSource::class);
 
         $paymentSource = $repository->findByToken(
@@ -92,7 +92,7 @@ class CreditCardTest extends TestCase
     }
 
     /**
-     * Test if uri is created
+     * Test if uri is created.
      *
      * @return void
      */

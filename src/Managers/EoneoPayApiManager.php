@@ -13,11 +13,12 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestAwareInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface;
+use ReflectionClass;
 
 final class EoneoPayApiManager implements EoneoPayApiManagerInterface
 {
     /**
-     * Exception Factory
+     * Exception Factory.
      *
      * @var \EoneoPay\PhpSdk\Interfaces\Factories\ExceptionFactoryInterface
      */
@@ -72,6 +73,7 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
     public function find(string $entityName, string $apikey, string $entityId): EntityInterface
     {
         $entity = new $entityName(['id' => $entityId]);
+
         try {
             return $this->sdkManager->execute($entity, RequestAwareInterface::GET, $apikey);
         } catch (InvalidApiResponseException $exception) {
@@ -97,6 +99,7 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
     public function findBy(string $entityName, string $apikey, array $criteria): array
     {
         $entity = new $entityName($criteria);
+
         try {
             return $this->sdkManager->execute($entity, RequestAwareInterface::LIST, $apikey);
         } catch (InvalidApiResponseException $exception) {
@@ -110,6 +113,7 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
     public function findOneBy(string $entityName, string $apikey, array $criteria): EntityInterface
     {
         $entity = new $entityName($criteria);
+
         try {
             return $this->sdkManager->execute($entity, RequestAwareInterface::GET, $apikey);
         } catch (InvalidApiResponseException $exception) {
@@ -125,7 +129,7 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
      */
     public function getRepository(string $entityClass): RepositoryInterface
     {
-        $reflectionClass = new \ReflectionClass($entityClass);
+        $reflectionClass = new ReflectionClass($entityClass);
 
         // Attempt to create repository by any means necessary
         return $this->createRepository($entityClass, $reflectionClass) ?? new Repository($this, $entityClass);
@@ -144,7 +148,7 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
     }
 
     /**
-     * Recursively find a repository from an entity or it's parents
+     * Recursively find a repository from an entity or it's parents.
      *
      * @param string $entityClass The original entity class that we are searching for
      * @param \ReflectionClass $reflectionClass

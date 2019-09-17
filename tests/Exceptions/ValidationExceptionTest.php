@@ -9,7 +9,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Exceptions\ValidationException
  */
-class ValidationExceptionTest extends TestCase
+final class ValidationExceptionTest extends TestCase
 {
     /**
      * Test get error code.

@@ -24,7 +24,7 @@ class Repository implements RepositoryInterface
     private $entityClass;
 
     /**
-     * Construct default repository
+     * Construct default repository.
      *
      * @param \EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface $apiManager
      * @param string $entityClass

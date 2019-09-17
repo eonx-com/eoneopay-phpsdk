@@ -11,10 +11,10 @@ use Tests\EoneoPay\PhpSdk\TestCase;
  * @covers \EoneoPay\PhpSdk\Endpoints\PaymentSource
  * @covers \EoneoPay\PhpSdk\Endpoints\PaymentSources\Ewallet
  */
-class EwalletTest extends TestCase
+final class EwalletTest extends TestCase
 {
     /**
-     * Test if Ewalllet token is created successfully
+     * Test if Ewalllet token is created successfully.
      *
      * @return void
      */
@@ -24,7 +24,7 @@ class EwalletTest extends TestCase
             [
                 'name' => 'User Name',
                 'reference' => 'JEKYYFZAR0',
-                'type' => 'ewallet'
+                'type' => 'ewallet',
             ]
         );
         $actual = $this->createApiManager(
@@ -42,8 +42,8 @@ class EwalletTest extends TestCase
                 'user' => [
                     'created_at' => '2019-02-22T03=>09=>44Z',
                     'email' => 'example@user.test',
-                    'updated_at' => '2019-02-22T03=>09=>44Z'
-                ]
+                    'updated_at' => '2019-02-22T03=>09=>44Z',
+                ],
             ]
         )->create('4UM78RDZW93B84UJ', $ewallet);
 
@@ -64,7 +64,7 @@ class EwalletTest extends TestCase
             'name' => 'John Wick',
             'pan' => 'K...WCB7',
             'token' => 'EM2J8GZ3G8KAKA72VF30',
-            'type' => 'ewallet'
+            'type' => 'ewallet',
         ])->getRepository(PaymentSource::class);
 
         $paymentSource = $repository->findByToken(
@@ -93,7 +93,7 @@ class EwalletTest extends TestCase
             'name' => 'John Wick',
             'pan' => 'K...WCB7',
             'token' => 'EM2J8GZ3G8KAKA72VF30',
-            'type' => 'ewallet'
+            'type' => 'ewallet',
         ]);
 
         /** @var \EoneoPay\PhpSdk\Endpoints\PaymentSource $paymentSource */
@@ -111,7 +111,7 @@ class EwalletTest extends TestCase
     }
 
     /**
-     * Test if uri is created
+     * Test if uri is created.
      *
      * @return void
      */

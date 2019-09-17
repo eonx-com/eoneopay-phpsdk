@@ -14,7 +14,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\ResponseHandler;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Managers\SdkManager;
 
-class EoneoPayApiManagerFactory implements EoneoPayApiManagerFactoryInterface
+final class EoneoPayApiManagerFactory implements EoneoPayApiManagerFactoryInterface
 {
     /**
      * @inheritdoc

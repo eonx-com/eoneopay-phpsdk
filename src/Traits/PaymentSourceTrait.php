@@ -8,7 +8,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait PaymentSourceTrait
 {
     /**
-     * Created at date
+     * Created at date.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -17,7 +17,7 @@ trait PaymentSourceTrait
     protected $createdAt;
 
     /**
-     * Payment source id
+     * Payment source id.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -26,7 +26,7 @@ trait PaymentSourceTrait
     protected $id;
 
     /**
-     * Payment source name
+     * Payment source name.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -35,7 +35,7 @@ trait PaymentSourceTrait
     protected $name;
 
     /**
-     * Payment source pan
+     * Payment source pan.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -44,7 +44,7 @@ trait PaymentSourceTrait
     protected $pan;
 
     /**
-     * Payment source token
+     * Payment source token.
      *
      * @Groups({"create", "get", "list", "update"})
      *
@@ -62,7 +62,7 @@ trait PaymentSourceTrait
     protected $type;
 
     /**
-     * Updated at date
+     * Updated at date.
      *
      * @Groups({"create", "get", "list", "update"})
      *

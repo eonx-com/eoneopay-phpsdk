@@ -12,7 +12,7 @@ use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\Transaction
  */
-class PrimaryTransactionsTest extends TransactionTestCase
+final class PrimaryTransactionsTest extends TransactionTestCase
 {
     /**
      * Test allocation transfer transaction successfully.
@@ -25,11 +25,11 @@ class PrimaryTransactionsTest extends TransactionTestCase
             'action' => Transaction::ACTION_TRANSFER,
             'paymentSource' => [
                 'token' => \mb_strtoupper($this->generateId()),
-                'type' => 'ewallet'
+                'type' => 'ewallet',
             ],
             'paymentDestination' => [
                 'token' => \mb_strtoupper($this->generateId()),
-                'type' => 'ewallet'
+                'type' => 'ewallet',
             ],
             'fundingSource' => [
                 'country' => 'AU',
@@ -38,12 +38,12 @@ class PrimaryTransactionsTest extends TransactionTestCase
                 'pan' => '123-456...4321',
                 'prefix' => '123-456',
                 'token' => \mb_strtoupper($this->generateId()),
-                'type' => 'bank_account'
-            ]
+                'type' => 'bank_account',
+            ],
         ]);
 
         $expected = new Transaction(\array_merge($data, [
-            'paymentSource' => new Ewallet($data['paymentSource'])
+            'paymentSource' => new Ewallet($data['paymentSource']),
         ]));
 
         $actual = $this->createApiManager($this->createResponse($data))
@@ -72,11 +72,11 @@ class PrimaryTransactionsTest extends TransactionTestCase
     public function testAuthoriseSuccessfully(): void
     {
         $data = $this->createResponse([
-            'action' => Transaction::ACTION_AUTHORISE
+            'action' => Transaction::ACTION_AUTHORISE,
         ]);
 
         $expected = new Transaction(\array_merge($data, [
-            'paymentSource' => new CreditCard($data['paymentSource'])
+            'paymentSource' => new CreditCard($data['paymentSource']),
         ]));
 
         $actual = $this->createApiManager($this->createResponse($data))
@@ -104,20 +104,20 @@ class PrimaryTransactionsTest extends TransactionTestCase
             'action' => Transaction::ACTION_CREDIT,
             'paymentDestination' => [
                 'token' => \mb_strtoupper($this->generateId()),
-                'type' => 'bank_account'
-            ]
+                'type' => 'bank_account',
+            ],
         ]);
 
         $expected = new Transaction(\array_merge($data, [
-            'paymentDestination' => new BankAccount($data['paymentDestination'])
+            'paymentDestination' => new BankAccount($data['paymentDestination']),
         ]));
 
         $actual = $this->createApiManager(\array_merge($data, [
             'paymentSource' => [
                 'id' => \uniqid('', false),
                 'pan' => '2...H6A3',
-                'type' => 'ewallet'
-            ]
+                'type' => 'ewallet',
+            ],
         ]))->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
 
         $this->performTransactionAssertions($expected, $actual);
@@ -142,16 +142,16 @@ class PrimaryTransactionsTest extends TransactionTestCase
             'action' => Transaction::ACTION_DEBIT,
             'metadata' => [
                 'ping0' => 'pong0',
-                'ping1' => 'pong1'
+                'ping1' => 'pong1',
             ],
             'paymentSource' => [
                 'token' => \mb_strtoupper($this->generateId()),
-                'type' => 'bank_account'
-            ]
+                'type' => 'bank_account',
+            ],
         ]);
 
         $expected = new Transaction(\array_merge($data, [
-            'paymentSource' => new BankAccount($data['paymentSource'])
+            'paymentSource' => new BankAccount($data['paymentSource']),
         ]));
 
         $actual = $this->createApiManager($this->createResponse($data))
@@ -181,19 +181,19 @@ class PrimaryTransactionsTest extends TransactionTestCase
                 'id' => \uniqid('', false),
                 'pan' => 'D...T001',
                 'token' => \mb_strtoupper($this->generateId()),
-                'type' => 'ewallet'
+                'type' => 'ewallet',
             ],
             'paymentSource' => [
                 'id' => \uniqid('', false),
                 'pan' => 'K...WCB7',
                 'token' => \mb_strtoupper($this->generateId()),
-                'type' => 'ewallet'
-            ]
+                'type' => 'ewallet',
+            ],
         ]);
 
         $expected = new Transaction(\array_merge($data, [
             'paymentDestination' => new Ewallet($data['paymentDestination']),
-            'paymentSource' => new Ewallet($data['paymentSource'])
+            'paymentSource' => new Ewallet($data['paymentSource']),
         ]));
 
         $actual = $this->createApiManager($data)->create((string)\getenv('PAYMENTS_API_KEY'), $expected);

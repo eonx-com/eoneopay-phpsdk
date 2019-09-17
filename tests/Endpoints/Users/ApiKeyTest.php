@@ -10,10 +10,10 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\Users\ApiKey
  */
-class ApiKeyTest extends TestCase
+final class ApiKeyTest extends TestCase
 {
-    /***
-     * Base test to check class exists
+    /**
+     * Base test to check class exists.
      *
      * @return void
      */
@@ -25,7 +25,7 @@ class ApiKeyTest extends TestCase
     }
 
     /**
-     * Test Create a key successfully
+     * Test Create a key successfully.
      *
      * @return  void
      */
@@ -39,14 +39,14 @@ class ApiKeyTest extends TestCase
                     'created_at' => '2019-02-24T23=>34=>11Z',
                     'email' => 'examples@user.test',
                     'id' => 'external-user-ids',
-                    'updated_at' => '2019-02-24T23=>34=>11Z'
+                    'updated_at' => '2019-02-24T23=>34=>11Z',
                 ],
                 'updated_at' => '2019-02-25T23=>36=>48Z',
                 'user' => [
                     'created_at' => '2019-02-12T22=>08=>30Z',
                     'email' => 'payments@eoneopay.com',
-                    'updated_at' => '2019-02-12T22=>08=>30Z'
-                ]
+                    'updated_at' => '2019-02-12T22=>08=>30Z',
+                ],
             ],
             201
         )
@@ -55,13 +55,12 @@ class ApiKeyTest extends TestCase
                 new ApiKey(['user' => new User(['id' => 'external-user-id'])])
             );
 
-
         self::assertIsString(($apiKey instanceof ApiKey) ? $apiKey->getKey() : null);
         self::assertInstanceOf(User::class, ($apiKey instanceof ApiKey) ? $apiKey->getUser() : null);
     }
 
     /**
-     * Test remove key
+     * Test remove key.
      *
      * @return void
      */

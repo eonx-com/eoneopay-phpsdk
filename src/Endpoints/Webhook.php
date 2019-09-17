@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints;
 
-use EoneoPay\PhpSdk\Endpoints\User;
 use EoneoPay\PhpSdk\Traits\WebhookTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -38,7 +37,7 @@ class Webhook extends Entity
             self::CREATE => '/webhooks',
             self::UPDATE => \sprintf('/webhooks/%s', $this->id),
             self::LIST => '/webhooks',
-            self::DELETE => \sprintf('/webhooks/%s', $this->id)
+            self::DELETE => \sprintf('/webhooks/%s', $this->id),
         ];
     }
 }

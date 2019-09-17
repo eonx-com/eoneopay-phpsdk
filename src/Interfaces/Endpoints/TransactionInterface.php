@@ -6,42 +6,42 @@ namespace EoneoPay\PhpSdk\Interfaces\Endpoints;
 interface TransactionInterface
 {
     /**
-     * Transaction authorise action
+     * Transaction authorise action.
      *
      * @var string
      */
     public const ACTION_AUTHORISE = 'authorise';
 
     /**
-     * Transaction capture action
+     * Transaction capture action.
      *
      * @var string
      */
     public const ACTION_CAPTURE = 'capture';
 
     /**
-     * Transaction credit action
+     * Transaction credit action.
      *
      * @var string
      */
     public const ACTION_CREDIT = 'credit';
 
     /**
-     * Transaction debit action
+     * Transaction debit action.
      *
      * @var string
      */
     public const ACTION_DEBIT = 'debit';
 
     /**
-     * Transaction refund action
+     * Transaction refund action.
      *
      * @var string
      */
     public const ACTION_REFUND = 'refund';
 
     /**
-     * Transaction transfer action
+     * Transaction transfer action.
      *
      * @var string
      */

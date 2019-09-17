@@ -12,10 +12,10 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\Users\ReferenceNumber
  */
-class ReferenceNumberTest extends TestCase
+final class ReferenceNumberTest extends TestCase
 {
-    /***
-     * Base test to check class constructs as expected
+    /**
+     * Base test to check class constructs as expected.
      *
      * @return void
      */
@@ -23,7 +23,7 @@ class ReferenceNumberTest extends TestCase
     {
         $class = new ReferenceNumber([
             'type' => 'bpay',
-            'referenceNumber' => 'test-reference'
+            'referenceNumber' => 'test-reference',
         ]);
 
         self::assertInstanceOf(ReferenceNumber::class, $class);
@@ -32,7 +32,7 @@ class ReferenceNumberTest extends TestCase
     }
 
     /**
-     * Test that a reference is created successfully
+     * Test that a reference is created successfully.
      *
      * @return  void
      */
@@ -42,12 +42,12 @@ class ReferenceNumberTest extends TestCase
         $reference = $this->getApi()->create((string)\getenv('PAYMENTS_API_KEY'), new ReferenceNumber(
             [
                 'ewallet' => new Ewallet([
-                    'reference' => '2JERVUH6A3'
+                    'reference' => '2JERVUH6A3',
                 ]),
                 'type' => 'bpay',
                 'user' => new User([
-                    'id' => 'some-id'
-                ])
+                    'id' => 'some-id',
+                ]),
             ]
         ));
 
@@ -59,7 +59,7 @@ class ReferenceNumberTest extends TestCase
     }
 
     /**
-     * Gets the test API manager instance
+     * Gets the test API manager instance.
      *
      * @return \EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface
      */
@@ -79,8 +79,8 @@ class ReferenceNumberTest extends TestCase
                     'user' => [
                         'created_at' => '2019-04-01T23:34:11Z',
                         'email' => 'user@example.com',
-                        'updated_at' => '2019-04-01T23:34:11Z'
-                    ]
+                        'updated_at' => '2019-04-01T23:34:11Z',
+                    ],
                 ],
                 'created_at' => '2019-02-28T05:43:31Z',
                 'ewallet' => [
@@ -95,16 +95,16 @@ class ReferenceNumberTest extends TestCase
                     'user' => [
                         'created_at' => '2019-04-01T23:34:11Z',
                         'email' => 'user@example.com',
-                        'updated_at' => '2019-04-01T23:34:11Z'
-                    ]
+                        'updated_at' => '2019-04-01T23:34:11Z',
+                    ],
                 ],
                 'reference_number' => '2757767146',
                 'updated_at' => '2019-03-04T03:19:03Z',
                 'user' => [
                     'created_at' => '2019-04-01T23:34:11Z',
                     'email' => 'user@example.com',
-                    'updated_at' => '2019-04-01T23:34:11Z'
-                ]
+                    'updated_at' => '2019-04-01T23:34:11Z',
+                ],
             ],
             200
         );

@@ -40,7 +40,7 @@ class ReferenceNumber extends Entity
     public function uris(): array
     {
         return [
-            self::CREATE => '/reference'
+            self::CREATE => '/reference',
         ];
     }
 }

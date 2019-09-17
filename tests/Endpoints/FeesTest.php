@@ -10,10 +10,10 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\Fees
  */
-class FeesTest extends TestCase
+final class FeesTest extends TestCase
 {
     /**
-     * Test the hydration of endpoint object
+     * Test the hydration of endpoint object.
      *
      * @return void
      */
@@ -25,19 +25,19 @@ class FeesTest extends TestCase
                 'currency' => 'AUD',
                 'payment_fee' => '4.00',
                 'subtotal' => '96.00',
-                'total' => '100.00'
+                'total' => '100.00',
             ],
             'payment_destination' => [
                 'expiry' => [
                     'month' => '5',
-                    'year' => '2099'
+                    'year' => '2099',
                 ],
                 'facility' => 'Visa',
                 'name' => 'Endpoint Name',
                 'pan' => '2.....5',
                 'token' => 'A1B8',
-                'type' => 'credit_card'
-            ]
+                'type' => 'credit_card',
+            ],
         ];
 
         /**
@@ -52,7 +52,7 @@ class FeesTest extends TestCase
                 'currency' => 'AUD',
                 'payment_fee' => '4.00',
                 'subtotal' => '96.00',
-                'total' => '100.00'
+                'total' => '100.00',
             ],
             $fees->getAmount()
         );
@@ -62,7 +62,7 @@ class FeesTest extends TestCase
     }
 
     /**
-     * Ensure uris method has create with the correct endpoint
+     * Ensure uris method has create with the correct endpoint.
      *
      * @return void
      */

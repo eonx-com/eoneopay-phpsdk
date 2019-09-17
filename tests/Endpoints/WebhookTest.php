@@ -12,7 +12,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\Webhook
  */
-class WebhookTest extends TestCase
+final class WebhookTest extends TestCase
 {
     /**
      * Test create webhook successfully.
@@ -29,7 +29,7 @@ class WebhookTest extends TestCase
             (string)\getenv('PAYMENTS_API_KEY'),
             new Webhook([
                 'headers' => ['sdkkey1' => 'sdkval1'],
-                'url' => 'http://sdktest.local'
+                'url' => 'http://sdktest.local',
             ])
         );
 
@@ -50,7 +50,7 @@ class WebhookTest extends TestCase
     public function testList(): void
     {
         $webhooks = $this->createApiManager([
-            $this->getResponseData()
+            $this->getResponseData(),
         ])->findAll(Webhook::class, (string)\getenv('PAYMENTS_API_KEY'));
 
         self::assertCount(1, $webhooks);
@@ -67,7 +67,7 @@ class WebhookTest extends TestCase
             (string)\getenv('PAYMENTS_API_KEY'),
             new Webhook([
                 'headers' => ['sdkkey1' => 'sdkval1'],
-                'url' => 'http://original.local'
+                'url' => 'http://original.local',
             ])
         );
 
@@ -88,7 +88,7 @@ class WebhookTest extends TestCase
         $webhook = $this->createApiManager($response)->update(
             (string)\getenv('PAYMENTS_API_KEY'),
             new Webhook([
-                'url' => 'http://original.local'
+                'url' => 'http://original.local',
             ])
         );
 
@@ -134,9 +134,9 @@ class WebhookTest extends TestCase
             'user' => [
                 'created_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU),
                 'email' => 'user@email.test',
-                'updated_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU)
+                'updated_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU),
             ],
-            'updated_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU)
+            'updated_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU),
 
         ];
     }

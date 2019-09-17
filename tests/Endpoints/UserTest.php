@@ -10,7 +10,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\User
  */
-class UserTest extends TestCase
+final class UserTest extends TestCase
 {
     /**
      * @var \EoneoPay\PhpSdk\Endpoints\User
@@ -20,13 +20,12 @@ class UserTest extends TestCase
     /**
      * Check if creating existing user throws exception
      * Does not start with 'test' as needs to run after a valid user has been created
-     * in testCreateUser
+     * in testCreateUser.
      *
      * @return void
      */
     public function checkExceptionThrownOnExistingUserCreation(): void
     {
-
         $this->expectException(ValidationException::class);
         $this->createApiManager([
             'code' => 6210,
@@ -35,12 +34,12 @@ class UserTest extends TestCase
             'time' => '2019-02-26T00=>04=>13Z',
             'violations' => [
                 'email' => [
-                    'The email has already been taken.'
+                    'The email has already been taken.',
                 ],
                 'external_id' => [
-                    'The external_id has already been taken.'
-                ]
-            ]
+                    'The external_id has already been taken.',
+                ],
+            ],
         ], 400)
             ->create(
                 (string)\getenv('PAYMENTS_API_KEY'),
@@ -49,7 +48,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * Test Create User
+     * Test Create User.
      *
      * @return void
      */
@@ -59,7 +58,7 @@ class UserTest extends TestCase
             'created_at' => '2019-02-26T00=>01=>39Z',
             'id' => $this->getUser()->getId(),
             'email' => $this->getUser()->getEmail(),
-            'updated_at' => '2019-02-26T00=>01=>39Z'
+            'updated_at' => '2019-02-26T00=>01=>39Z',
         ], 201)
             ->create(
                 (string)\getenv('PAYMENTS_API_KEY'),
@@ -73,7 +72,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * Test get profile returns a User
+     * Test get profile returns a User.
      *
      * @return void
      */
@@ -82,7 +81,7 @@ class UserTest extends TestCase
         $user = $this->createApiManager([
             'created_at' => '2019-02-22T03=>09=>44Z',
             'email' => 'example@user.test',
-            'updated_at' => '2019-02-22T03=>09=>44Z'
+            'updated_at' => '2019-02-22T03=>09=>44Z',
         ], 201)
             ->findOneBy(
                 User::class,
@@ -95,7 +94,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * Helper function to generate user
+     * Helper function to generate user.
      *
      * @return \EoneoPay\PhpSdk\Endpoints\User
      */
@@ -107,7 +106,7 @@ class UserTest extends TestCase
 
             $this->user = new User([
                 'id' => $userId,
-                'email' => $userEmail
+                'email' => $userEmail,
             ]);
         }
 

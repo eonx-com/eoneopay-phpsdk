@@ -12,7 +12,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @coversNothing
  */
-class TransactionTestCase extends TestCase
+abstract class TransactionTestCase extends TestCase
 {
     /**
      * Create transaction response.
@@ -29,22 +29,22 @@ class TransactionTestCase extends TestCase
                 'currency' => 'AUD',
                 'payment_fee' => '0.00',
                 'subtotal' => '100.00',
-                'total' => '100.00'
+                'total' => '100.00',
             ],
             'id' => \uniqid('ord', false),
             'paymentSource' => [
                 'token' => 'VRG2VR4F39343HM4D3N2',
-                'type' => 'credit_card'
+                'type' => 'credit_card',
             ],
             'transactionId' => \uniqid('txn', false),
             'paymentDestination' => [
                 'id' => \uniqid('', false),
                 'pan' => '2...H6A3',
-                'type' => 'ewallet'
+                'type' => 'ewallet',
             ],
             'user' => new User([
-                'email' => 'user@email.test'
-            ])
+                'email' => 'user@email.test',
+            ]),
         ], $data ?? []);
     }
 

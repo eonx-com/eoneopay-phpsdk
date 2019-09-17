@@ -37,7 +37,7 @@ class Security extends Entity
     {
         return [
             self::CREATE => \sprintf('/security/%s', $this->getId()),
-            self::UPDATE => \sprintf('/security/%s', $this->getId())
+            self::UPDATE => \sprintf('/security/%s', $this->getId()),
         ];
     }
 }

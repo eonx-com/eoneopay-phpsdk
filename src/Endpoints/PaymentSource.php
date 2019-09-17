@@ -19,9 +19,9 @@ use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
  * @method string|null getUpdatedAt()
  *
  * @DiscriminatorMap(typeProperty="type", mapping={
- *     "bank_account"="EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount",
- *     "credit_card"="EoneoPay\PhpSdk\Endpoints\PaymentSources\CreditCard",
- *     "ewallet"="EoneoPay\PhpSdk\Endpoints\PaymentSources\Ewallet"
+ *     "bank_account" = "EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount",
+ *     "credit_card" = "EoneoPay\PhpSdk\Endpoints\PaymentSources\CreditCard",
+ *     "ewallet" = "EoneoPay\PhpSdk\Endpoints\PaymentSources\Ewallet"
  * })
  *
  * @Repository(repositoryClass="EoneoPay\PhpSdk\Repositories\PaymentSourceRepository")
@@ -38,7 +38,7 @@ class PaymentSource extends Entity implements PaymentSourceInterface
         return [
             self::CREATE => '/tokens',
             self::DELETE => \sprintf('/tokens/%s', $this->getToken()),
-            self::GET => \sprintf('/tokens/%s', $this->getToken())
+            self::GET => \sprintf('/tokens/%s', $this->getToken()),
         ];
     }
 }
