@@ -126,24 +126,9 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
     public function getRepository(string $entityClass): RepositoryInterface
     {
         $reflectionClass = new \ReflectionClass($entityClass);
-        $classAnnotations = (new AnnotationReader())->getClassAnnotations($reflectionClass);
 
-        foreach ($classAnnotations as $annotation) {
-            if (($annotation instanceof RepositoryAnnotation) === true &&
-                (($repository = new $annotation->repositoryClass(
-                    $this,
-                    $entityClass
-                )) instanceof RepositoryInterface) === true
-            ) {
-                return $repository;
-            }
-        }
-
-        if ($reflectionClass->getParentClass() !== false) {
-            return $this->getRepository($reflectionClass->getParentClass()->getName());
-        }
-
-        return new Repository($this, $entityClass);
+        // Attempt to create repository by any means necessary
+        return $this->createRepository($entityClass, $reflectionClass) ?? new Repository($this, $entityClass);
     }
 
     /**
@@ -156,5 +141,49 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
         } catch (InvalidApiResponseException $exception) {
             throw $this->exceptionFactory->create($exception);
         }
+    }
+
+    /**
+     * Recursively find a repository from an entity or it's parents
+     *
+     * @param string $entityClass The original entity class that we are searching for
+     * @param \ReflectionClass $reflectionClass
+     *
+     * @return \EoneoPay\PhpSdk\Interfaces\RepositoryInterface|null
+     *
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     */
+    private function createRepository(string $entityClass, \ReflectionClass $reflectionClass): ?RepositoryInterface
+    {
+        $annotationReader = new AnnotationReader();
+
+        // Get annotations from the class
+        $classAnnotations = $annotationReader->getClassAnnotations($reflectionClass);
+
+        // Loop through annotations and attempt to find a valid repository
+        foreach ($classAnnotations as $annotation) {
+            // Skip annotations which aren't repository annotations
+            if (($annotation instanceof RepositoryAnnotation) === false) {
+                continue; // @codeCoverageIgnore
+            }
+
+            // Attempt to instantiate repository
+            $repositoryClass = $annotation->repositoryClass;
+            $repository = new $repositoryClass($this, $entityClass);
+
+            // Only return if the repository implements the correct interface
+            if (($repository instanceof RepositoryInterface) === true) {
+                return $repository;
+            }
+        }
+
+        // If repository was not created, attempt to find repository from parent class
+        $parent = $reflectionClass->getParentClass();
+        if ($parent !== false) {
+            return $this->createRepository($entityClass, $parent);
+        }
+
+        // No repository found
+        return null;
     }
 }

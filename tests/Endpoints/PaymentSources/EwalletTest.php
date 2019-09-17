@@ -80,6 +80,37 @@ class EwalletTest extends TestCase
     }
 
     /**
+     * Test find ewallet by reference.
+     *
+     * @return void
+     */
+    public function testGetEwalletByReference(): void
+    {
+        $ewalletId = $this->generateId();
+
+        $apiManager = $this->createApiManager([
+            'id' => $ewalletId,
+            'name' => 'John Wick',
+            'pan' => 'K...WCB7',
+            'token' => 'EM2J8GZ3G8KAKA72VF30',
+            'type' => 'ewallet'
+        ]);
+
+        /** @var \EoneoPay\PhpSdk\Endpoints\PaymentSource $paymentSource */
+        $paymentSource = $apiManager->find(
+            Ewallet::class,
+            (string)\getenv('PAYMENTS_API_KEY'),
+            $ewalletId
+        );
+
+        self::assertInstanceOf(Ewallet::class, $paymentSource);
+        self::assertSame(
+            $ewalletId,
+            ($paymentSource instanceof Ewallet) === true ? $paymentSource->getId() : null
+        );
+    }
+
+    /**
      * Test if uri is created
      *
      * @return void

@@ -27,9 +27,10 @@ class Ewallet extends Entity
      */
     public function uris(): array
     {
+        // The id/reference check is required since find() uses id always, but findOneBy() will use reference
         return [
             self::CREATE => '/ewallets',
-            self::GET => \sprintf('/ewallets/%s', $this->reference),
+            self::GET => \sprintf('/ewallets/%s', $this->id ?? $this->reference),
             self::LIST => '/ewallets'
         ];
     }
