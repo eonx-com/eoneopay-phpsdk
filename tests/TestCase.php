@@ -16,14 +16,24 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\RequestHandler;
 use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\ResponseHandler;
 use LoyaltyCorp\SdkBlueprint\Sdk\Managers\SdkManager;
 use PHPUnit\Framework\TestCase as BaseTestCase;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\ValidatorBuilder;
 
 /**
  * @coversNothing
  *
  * @SuppressWarnings(PHPMD.NumberOfChildren) All tests extend this class
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling required to fully test.
  */
 abstract class TestCase extends BaseTestCase
 {
+    /**
+     * The validator instance.
+     *
+     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
+     */
+    private $validator;
+
     /**
      * Create api manager instnace.
      *
@@ -71,6 +81,22 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
+     * Gets a validator instance to use within tests.
+     *
+     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+     */
+    protected function getValidator(): ValidatorInterface
+    {
+        if (($this->validator instanceof ValidatorInterface) === false) {
+            $builder = new ValidatorBuilder();
+
+            $this->validator = $builder->getValidator();
+        }
+
+        return $this->validator;
+    }
+
+    /**
      * Create body
      *
      * @param mixed[] $body
@@ -80,6 +106,7 @@ abstract class TestCase extends BaseTestCase
     private function createBody(?array $body): string
     {
         $enBody = \json_encode($body ?? []);
+
         return ($enBody === false) ? '' : $enBody;
     }
 

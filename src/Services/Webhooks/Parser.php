@@ -8,6 +8,7 @@ use EoneoPay\PhpSdk\Services\Webhooks\Interfaces\ParserInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\Factories\SerializerFactoryInterface;
 use Psr\Http\Message\RequestInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Parser implements ParserInterface
 {
@@ -17,14 +18,22 @@ class Parser implements ParserInterface
     private $serializerFactory;
 
     /**
+     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
+     */
+    private $validator;
+
+    /**
      * Constructs a new instance of Parser.
      *
      * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\Factories\SerializerFactoryInterface $serializerFactory
+     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
      */
     public function __construct(
-        SerializerFactoryInterface $serializerFactory
+        SerializerFactoryInterface $serializerFactory,
+        ValidatorInterface $validator
     ) {
         $this->serializerFactory = $serializerFactory;
+        $this->validator = $validator;
     }
 
     /**
@@ -44,6 +53,9 @@ class Parser implements ParserInterface
         if (($instance instanceof EntityInterface) === false) {
             throw new InvalidEntityClassException($className);
         }
+
+        // Validate the entity
+        $this->validator->validate($instance);
 
         return $instance;
     }

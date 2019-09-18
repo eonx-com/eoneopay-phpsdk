@@ -59,21 +59,16 @@ class TransactionTestCase extends TestCase
     protected function performTransactionAssertions(Transaction $expected, EntityInterface $actual): void
     {
         self::assertInstanceOf(Transaction::class, $actual);
-        self::assertSame(
-            $expected->getAmount(),
-            ($actual instanceof Transaction) === true ? $actual->getAmount() : null
-        );
-        self::assertSame(
-            $expected->getAction(),
-            ($actual instanceof Transaction) === true ? $actual->getAction() : null
-        );
-        self::assertSame(
-            $expected->getId(),
-            ($actual instanceof Transaction) === true ? $actual->getId() : null
-        );
-        self::assertSame(
-            $expected->getTransactionId(),
-            ($actual instanceof Transaction) === true ? $actual->getTransactionId() : null
-        );
+
+        /**
+         * After the above assertion, it is safe to assume the type of `$actual`.
+         *
+         * @var \EoneoPay\PhpSdk\Endpoints\Transaction $actual
+         */
+
+        self::assertSame($expected->getAmount(), $actual->getAmount());
+        self::assertSame($expected->getAction(), $actual->getAction());
+        self::assertSame($expected->getId(), $actual->getId());
+        self::assertSame($expected->getTransactionId(), $actual->getTransactionId());
     }
 }

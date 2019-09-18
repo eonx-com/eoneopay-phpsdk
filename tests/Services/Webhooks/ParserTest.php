@@ -11,10 +11,13 @@ use GuzzleHttp\Psr7\Request;
 use LoyaltyCorp\SdkBlueprint\Sdk\Factories\SerializerFactory;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\Factories\SerializerFactoryInterface;
 use Psr\Http\Message\RequestInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Services\Webhooks\Parser
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling required to fully test the parser.
  */
 class ParserTest extends TestCase
 {
@@ -173,13 +176,18 @@ JSON;
      * Gets an instance of the parser.
      *
      * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\Factories\SerializerFactoryInterface|null $serializerFactory
+     * @param \Symfony\Component\Validator\Validator\ValidatorInterface|null $validator
      *
      * @return \EoneoPay\PhpSdk\Services\Webhooks\Parser
      */
-    private function getInstance(?SerializerFactoryInterface $serializerFactory = null): Parser
-    {
+    private function getInstance(
+        ?SerializerFactoryInterface $serializerFactory = null,
+        ?ValidatorInterface $validator = null
+    ): Parser {
         return new Parser(
-            $serializerFactory ?? new SerializerFactory()
+
+            $serializerFactory ?? new SerializerFactory(),
+            $validator ?? $this->getValidator()
         );
     }
 }

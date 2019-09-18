@@ -3,10 +3,15 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\ValueTypes;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class Amount
 {
     /**
      * The currency code.
+     *
+     * @Assert\NotBlank()
+     * @Assert\Regex(pattern="[A-Z]{3}")
      *
      * @var string
      */
@@ -15,6 +20,10 @@ class Amount
     /**
      * The fee amount.
      *
+     * @Assert\NotBlank()
+     * @Assert\Range(min=0.01, max=99999999.99)
+     * @Assert\Type("numeric")
+     *
      * @var string
      */
     protected $paymentFee;
@@ -22,12 +31,20 @@ class Amount
     /**
      * The net amount.
      *
+     * @Assert\NotBlank()
+     * @Assert\Range(min=0.01, max=99999999.99)
+     * @Assert\Type("numeric")
+     *
      * @var string
      */
     protected $subtotal;
 
     /**
      * The gross amount.
+     *
+     * @Assert\NotBlank()
+     * @Assert\Range(min=0.01, max=99999999.99)
+     * @Assert\Type("numeric")
      *
      * @var string
      */
