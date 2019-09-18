@@ -20,7 +20,9 @@
     "php": ">=7.1",
     "eoneopay/utils": "^0.2",
     "ext-json": "*",
-    "loyaltycorp/sdkblueprint": "^1.0@beta"
+    "loyaltycorp/sdkblueprint": "^1.0@beta",
+    "eoneopay/currencies": "dev-master",
+    "symfony/validator": "^4.2"
   },
   "require-dev": {
     "eoneopay/standards": "dev-master",
