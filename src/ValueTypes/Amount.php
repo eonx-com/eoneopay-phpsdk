@@ -11,7 +11,7 @@ class Amount
      * The currency code.
      *
      * @Assert\NotBlank()
-     * @Assert\Regex(pattern="[A-Z]{3}")
+     * @Assert\Regex(pattern="/[A-Z]{3}/")
      *
      * @var string
      */

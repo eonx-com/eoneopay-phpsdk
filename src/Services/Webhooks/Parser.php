@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Services\Webhooks;
 
 use EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException;
+use EoneoPay\PhpSdk\Services\Webhooks\Exceptions\WebhookPraserValidationException;
 use EoneoPay\PhpSdk\Services\Webhooks\Interfaces\ParserInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\Factories\SerializerFactoryInterface;
@@ -40,6 +41,7 @@ class Parser implements ParserInterface
      * {@inheritdoc}
      *
      * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
+     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\WebhookPraserValidationException
      */
     public function parse(string $className, string $content, string $contentType): EntityInterface
     {
@@ -55,7 +57,10 @@ class Parser implements ParserInterface
         }
 
         // Validate the entity
-        $this->validator->validate($instance);
+        $result = $this->validator->validate($instance);
+        if ($result->count() > 0) {
+            throw new WebhookPraserValidationException($result);
+        }
 
         return $instance;
     }
@@ -64,6 +69,7 @@ class Parser implements ParserInterface
      * {@inheritdoc}
      *
      * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
+     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\WebhookPraserValidationException
      */
     public function parseRequest(string $className, RequestInterface $request): EntityInterface
     {

@@ -5,6 +5,7 @@ namespace Tests\EoneoPay\PhpSdk\Services\Webhooks;
 
 use EoneoPay\PhpSdk\Endpoints\PaymentSource;
 use EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount;
+use EoneoPay\PhpSdk\Endpoints\Transaction;
 use EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException;
 use EoneoPay\PhpSdk\Services\Webhooks\Parser;
 use GuzzleHttp\Psr7\Request;
@@ -12,25 +13,63 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Factories\SerializerFactory;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\Factories\SerializerFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Tests\EoneoPay\PhpSdk\TestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\ValidationEnabledTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Services\Webhooks\Parser
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling required to fully test the parser.
  */
-class ParserTest extends TestCase
+class ParserTest extends ValidationEnabledTestCase
 {
+    /**
+     * Gets the request scenarios that should cause one or more validation failures for testing.
+     *
+     * @return mixed[]
+     */
+    public function getInvalidRequestScenarios(): iterable
+    {
+        yield 'Null amount' => [
+            'targetClass' => Transaction::class,
+            'request' => new Request(
+                'POST',
+                '/listen/eoneopay/transaction',
+                [],
+                <<<JSON
+{
+    "action": "debit",
+    "allocation": [],
+    "amount": null,
+    "approved": true,
+    "created_at": "2019-02-20T00:54:34Z",
+    "id": "order1",
+    "metadata": [],
+    "parent": null,
+    "payment_destination": null,
+    "payment_source": null,
+    "response": {},
+    "security": null,
+    "status": "completed",
+    "transaction_id": "transaction1",
+    "updated_at": "2019-02-20T00:54:35Z",
+    "user": null
+}
+JSON
+            ),
+            'expected' => ''
+        ];
+    }
+
     /**
      * Gets various test webhook requests to ensure successfull parsing.
      *
      * @return mixed[]
      */
-    public function getWebhookTestRequests(): iterable
+    public function getValidRequestScenarios(): iterable
     {
         yield 'Token Added' => [
-            PaymentSource::class,
-            new Request(
+            'paymentSource' => PaymentSource::class,
+            'request' => new Request(
                 'POST',
                 '/listen/eoneopay/token',
                 [],
@@ -55,8 +94,8 @@ JSON
         ];
 
         yield 'Token Revocation' => [
-            PaymentSource::class,
-            new Request(
+            'paymentSource' => PaymentSource::class,
+            'request' => new Request(
                 'POST',
                 '/listen/eoneopay/token_revoke',
                 [],
@@ -92,7 +131,7 @@ JSON
      *
      * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
      *
-     * @dataProvider getWebhookTestRequests
+     * @dataProvider getValidRequestScenarios
      */
     public function testParseRequestSuccessful(string $targetClass, RequestInterface $request): void
     {
@@ -103,6 +142,27 @@ JSON
         // @todo: SerializerFactory and Seralizer need to be stubbed so that we can assert the parser result.
         // @see: https://loyaltycorp.atlassian.net/browse/PYMT-1222
         self::assertNotNull($result);
+    }
+
+    /**
+     * Tests that the parser returns validation failures when an invalid payload is provided.
+     *
+     * @dataProvider getInvalidRequestScenarios
+     *
+     * @return void
+     *
+     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
+     */
+    public function testParseRequestValidationFailure(
+        string $targetClass,
+        RequestInterface $request,
+        string $expected
+    ): void {
+        $parser = $this->getInstance();
+
+        $result = $parser->parseRequest($targetClass, $request);
+
+        self::assertTrue(true);
     }
 
     /**

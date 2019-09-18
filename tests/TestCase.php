@@ -16,8 +16,6 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\RequestHandler;
 use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\ResponseHandler;
 use LoyaltyCorp\SdkBlueprint\Sdk\Managers\SdkManager;
 use PHPUnit\Framework\TestCase as BaseTestCase;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\Validator\ValidatorBuilder;
 
 /**
  * @coversNothing
@@ -27,13 +25,6 @@ use Symfony\Component\Validator\ValidatorBuilder;
  */
 abstract class TestCase extends BaseTestCase
 {
-    /**
-     * The validator instance.
-     *
-     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
-     */
-    private $validator;
-
     /**
      * Create api manager instnace.
      *
@@ -78,22 +69,6 @@ abstract class TestCase extends BaseTestCase
     {
         /** @noinspection ArgumentEqualsDefaultValueInspection EA inspections require both parameters to be passed */
         return \uniqid($prefix ?? '', false);
-    }
-
-    /**
-     * Gets a validator instance to use within tests.
-     *
-     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
-     */
-    protected function getValidator(): ValidatorInterface
-    {
-        if (($this->validator instanceof ValidatorInterface) === false) {
-            $builder = new ValidatorBuilder();
-
-            $this->validator = $builder->getValidator();
-        }
-
-        return $this->validator;
     }
 
     /**
