@@ -21,7 +21,7 @@ trait RecordTrait
      *
      * @Groups({"create"})
      *
-     * @var string|null
+     * @var \EoneoPay\PhpSdk\Endpoints\Ewallet|null
      */
     protected $ewallet;
 }

@@ -21,7 +21,7 @@ trait TransactionTrait
      *
      * @Groups({"create", "update"})
      *
-     * @var mixed[]|null
+     * @var \EoneoPay\PhpSdk\Endpoints\Transactions\Allocation|null
      */
     protected $allocation;
 
@@ -117,7 +117,7 @@ trait TransactionTrait
      *
      * @Groups({"create", "update"})
      *
-     * @var mixed
+     * @var \EoneoPay\PhpSdk\Endpoints\Security|null
      */
     protected $security;
 

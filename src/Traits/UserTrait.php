@@ -10,8 +10,6 @@ trait UserTrait
     /**
      * Created at date.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string
      */
     protected $createdAt;
@@ -19,7 +17,7 @@ trait UserTrait
     /**
      * User email.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string
      */
@@ -28,7 +26,7 @@ trait UserTrait
     /**
      * User id.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string User selected external id
      */
@@ -36,8 +34,6 @@ trait UserTrait
 
     /**
      * Updated at date.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @var string
      */
