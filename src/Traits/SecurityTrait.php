@@ -10,8 +10,6 @@ trait SecurityTrait
     /**
      * Security action url.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $actionUrl;
@@ -19,24 +17,20 @@ trait SecurityTrait
     /**
      * Amount array with currency and total.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
-     * @var mixed[]|null
+     * @var \EoneoPay\PhpSdk\Endpoints\Amount|null
      */
     protected $amount;
 
     /**
      * Authentication result.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
-    protected $authenticaionResult;
+    protected $authenticationResult;
 
     /**
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $cavv;
@@ -44,23 +38,17 @@ trait SecurityTrait
     /**
      * Created at date.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $createdAt;
 
     /**
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $eci;
 
     /**
      * Enrolment status.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
      */
@@ -69,7 +57,7 @@ trait SecurityTrait
     /**
      * Security Id.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create", "update"})
      *
      * @var string|null
      */
@@ -78,7 +66,7 @@ trait SecurityTrait
     /**
      * Security metadata.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var mixed[]|null
      */
@@ -96,7 +84,7 @@ trait SecurityTrait
     /**
      * Security payment source.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
@@ -105,16 +93,12 @@ trait SecurityTrait
     /**
      * Security request payload.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $requestPayload;
 
     /**
      * Security response payload.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
      */
@@ -123,23 +107,19 @@ trait SecurityTrait
     /**
      * Security return url.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
     protected $returnUrl;
 
     /**
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var bool|null
      */
     protected $secured;
 
     /**
      * Status.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
      */
@@ -148,15 +128,11 @@ trait SecurityTrait
     /**
      * Updated at date.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $updatedAt;
 
     /**
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $xid;

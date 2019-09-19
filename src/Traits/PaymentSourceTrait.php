@@ -10,16 +10,12 @@ trait PaymentSourceTrait
     /**
      * Created at date.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $createdAt;
 
     /**
      * Payment source id.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @var string
      */
@@ -28,7 +24,7 @@ trait PaymentSourceTrait
     /**
      * Payment source name.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create", "update"})
      *
      * @var string|null
      */
@@ -37,16 +33,12 @@ trait PaymentSourceTrait
     /**
      * Payment source pan.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string
      */
     protected $pan;
 
     /**
      * Payment source token.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
      */
@@ -55,16 +47,14 @@ trait PaymentSourceTrait
     /**
      * Payment source type discriminator.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create", "update"})
      *
-     * @var string|null
+     * @var string
      */
     protected $type;
 
     /**
      * Updated at date.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
      */

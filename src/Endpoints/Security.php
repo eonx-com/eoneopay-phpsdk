@@ -8,7 +8,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
  * @method string|null getActionUrl()
- * @method mixed[]|null getAmount()
+ * @method Amount|null getAmount()
  * @method string|null getAuthenticationResult()
  * @method string|null getCavv()
  * @method string|null getCreatedAt()

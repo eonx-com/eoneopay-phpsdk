@@ -10,7 +10,7 @@ trait CreditCardTrait
     /**
      * Credit card bin.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var mixed[]|null
      */
@@ -19,7 +19,7 @@ trait CreditCardTrait
     /**
      * Expiry month and year.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var mixed[]|null
      */
@@ -28,7 +28,7 @@ trait CreditCardTrait
     /**
      * Credit card facility.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */

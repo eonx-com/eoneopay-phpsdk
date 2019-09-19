@@ -8,14 +8,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait ReferenceNumberTrait
 {
     /**
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $referenceNumber;
 
     /**
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */

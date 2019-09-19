@@ -34,7 +34,7 @@ final class ExceptionFactory implements ExceptionFactoryInterface
                 null,
                 $code,
                 $exception,
-                null,
+                $content['violations'] ?? [],
                 $subCode
             );
         }
