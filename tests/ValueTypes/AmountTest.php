@@ -12,6 +12,26 @@ use Tests\EoneoPay\PhpSdk\TestCases\ValidationEnabledTestCase;
 class AmountTest extends ValidationEnabledTestCase
 {
     /**
+     * Test that passing in an array to the constructor populates the properties with the expected values.
+     *
+     * @return void
+     */
+    public function testConstructorFill(): void
+    {
+        $amount = new Amount([
+            'currency' => 'AUD',
+            'payment_fee' => '1.00',
+            'subtotal' => '99.00',
+            'total' => '100.00'
+        ]);
+
+        self::assertSame('AUD', $amount->getCurrency());
+        self::assertSame('1.00', $amount->getPaymentFee());
+        self::assertSame('99.00', $amount->getSubtotal());
+        self::assertSame('100.00', $amount->getTotal());
+    }
+
+    /**
      * Tests the class setters and getters to ensure the expected values are received once set and
      * formatted.
      *

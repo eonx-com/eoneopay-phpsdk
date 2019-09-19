@@ -7,6 +7,7 @@ use EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount;
 use EoneoPay\PhpSdk\Endpoints\PaymentSources\CreditCard;
 use EoneoPay\PhpSdk\Endpoints\PaymentSources\Ewallet;
 use EoneoPay\PhpSdk\Endpoints\Transaction;
+use EoneoPay\PhpSdk\ValueTypes\Amount;
 use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
@@ -43,6 +44,7 @@ class PrimaryTransactionsTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentSource' => new Ewallet($data['paymentSource'])
         ]));
 
@@ -50,6 +52,10 @@ class PrimaryTransactionsTest extends TransactionTestCase
             ->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
 
         $this->performTransactionAssertions($expected, $actual);
+        self::assertInstanceOf(
+            Amount::class,
+            ($actual instanceof Transaction) === true ? $actual->getAmount() : null
+        );
         self::assertInstanceOf(
             Ewallet::class,
             ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
@@ -76,6 +82,7 @@ class PrimaryTransactionsTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentSource' => new CreditCard($data['paymentSource'])
         ]));
 
@@ -83,6 +90,10 @@ class PrimaryTransactionsTest extends TransactionTestCase
             ->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
 
         $this->performTransactionAssertions($expected, $actual);
+        self::assertInstanceOf(
+            Amount::class,
+            ($actual instanceof Transaction) === true ? $actual->getAmount() : null
+        );
         self::assertInstanceOf(
             CreditCard::class,
             ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
@@ -109,6 +120,7 @@ class PrimaryTransactionsTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentDestination' => new BankAccount($data['paymentDestination'])
         ]));
 
@@ -121,6 +133,10 @@ class PrimaryTransactionsTest extends TransactionTestCase
         ]))->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
 
         $this->performTransactionAssertions($expected, $actual);
+        self::assertInstanceOf(
+            Amount::class,
+            ($actual instanceof Transaction) === true ? $actual->getAmount() : null
+        );
         self::assertInstanceOf(
             Ewallet::class,
             ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
@@ -151,6 +167,7 @@ class PrimaryTransactionsTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentSource' => new BankAccount($data['paymentSource'])
         ]));
 
@@ -158,6 +175,10 @@ class PrimaryTransactionsTest extends TransactionTestCase
             ->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
 
         $this->performTransactionAssertions($expected, $actual);
+        self::assertInstanceOf(
+            Amount::class,
+            ($actual instanceof Transaction) === true ? $actual->getAmount() : null
+        );
         self::assertInstanceOf(
             BankAccount::class,
             ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
@@ -192,6 +213,7 @@ class PrimaryTransactionsTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentDestination' => new Ewallet($data['paymentDestination']),
             'paymentSource' => new Ewallet($data['paymentSource'])
         ]));
@@ -199,6 +221,10 @@ class PrimaryTransactionsTest extends TransactionTestCase
         $actual = $this->createApiManager($data)->create((string)\getenv('PAYMENTS_API_KEY'), $expected);
 
         $this->performTransactionAssertions($expected, $actual);
+        self::assertInstanceOf(
+            Amount::class,
+            ($actual instanceof Transaction) === true ? $actual->getAmount() : null
+        );
         self::assertInstanceOf(
             Ewallet::class,
             ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null

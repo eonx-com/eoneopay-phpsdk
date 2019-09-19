@@ -7,6 +7,7 @@ use EoneoPay\PhpSdk\Endpoints\PaymentSources\CreditCard;
 use EoneoPay\PhpSdk\Endpoints\PaymentSources\Ewallet;
 use EoneoPay\PhpSdk\Endpoints\Transaction;
 use EoneoPay\PhpSdk\Interfaces\Endpoints\TransactionInterface;
+use EoneoPay\PhpSdk\ValueTypes\Amount;
 use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
@@ -26,12 +27,17 @@ class SecondaryTransactionsTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentSource' => new CreditCard($data['paymentSource'])
         ]));
 
         $actual = $this->createApiManager($data)->update('api-key', $expected);
 
         $this->performTransactionAssertions($expected, $actual);
+        self::assertInstanceOf(
+            Amount::class,
+            ($actual instanceof Transaction) === true ? $actual->getAmount() : null
+        );
         self::assertInstanceOf(
             CreditCard::class,
             ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null

@@ -6,6 +6,7 @@ namespace Tests\EoneoPay\PhpSdk\Endpoints\Transactions;
 use EoneoPay\PhpSdk\Endpoints\PaymentSources\Ewallet;
 use EoneoPay\PhpSdk\Endpoints\Transaction;
 use EoneoPay\PhpSdk\Exceptions\ClientException;
+use EoneoPay\PhpSdk\ValueTypes\Amount;
 use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
@@ -35,6 +36,7 @@ class RetrieveTransactionTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentDestination' => new Ewallet($data['paymentDestination']),
             'paymentSource' => new Ewallet($data['paymentSource'])
         ]));
@@ -47,6 +49,10 @@ class RetrieveTransactionTest extends TransactionTestCase
         ]);
 
         $this->performTransactionAssertions($expected, $actual);
+        self::assertInstanceOf(
+            Amount::class,
+            ($actual instanceof Transaction) === true ? $actual->getAmount() : null
+        );
         self::assertInstanceOf(
             Ewallet::class,
             ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null

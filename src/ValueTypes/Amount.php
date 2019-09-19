@@ -51,6 +51,44 @@ class Amount
     protected $total;
 
     /**
+     * Constructs a new instance of Amount.
+     *
+     * @param mixed[]|null $values
+     */
+    public function __construct(?array $values = null)
+    {
+        if (\is_array($values) === true) {
+            $this->fill($values);
+        }
+    }
+
+    /**
+     * Populates the values of the object with the key value pairs from the array.
+     *
+     * @param mixed[] $values
+     *
+     * @return void
+     */
+    public function fill(array $values): void
+    {
+        if (\array_key_exists('currency', $values)) {
+            $this->setCurrency($values['currency']);
+        }
+
+        if (\array_key_exists('payment_fee', $values) || \array_key_exists('paymentFee', $values)) {
+            $this->setPaymentFee($values['payment_fee'] ?? $values['paymentFee']);
+        }
+
+        if (\array_key_exists('subtotal', $values)) {
+            $this->setSubtotal($values['subtotal']);
+        }
+
+        if (\array_key_exists('total', $values)) {
+            $this->setTotal($values['total']);
+        }
+    }
+
+    /**
      * Gets the currency code.
      *
      * @return string

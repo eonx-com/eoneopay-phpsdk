@@ -65,7 +65,7 @@ class TransactionTestCase extends ValidationEnabledTestCase
          * @var \EoneoPay\PhpSdk\Endpoints\Transaction $actual
          */
 
-        self::assertSame($expected->getAmount(), $actual->getAmount());
+        self::assertEquals($expected->getAmount(), $actual->getAmount());
         self::assertSame($expected->getAction(), $actual->getAction());
         self::assertSame($expected->getId(), $actual->getId());
         self::assertSame($expected->getTransactionId(), $actual->getTransactionId());
