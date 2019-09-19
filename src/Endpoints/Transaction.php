@@ -3,14 +3,15 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints;
 
+use EoneoPay\PhpSdk\Endpoints\Transactions\Allocation;
 use EoneoPay\PhpSdk\Interfaces\Endpoints\TransactionInterface;
 use EoneoPay\PhpSdk\Traits\TransactionTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
  * @method string|null getAction()
- * @method mixed[]|null getAllocation()
- * @method mixed[]|null getAmount()
+ * @method Allocation|null getAllocation()
+ * @method Amount|null getAmount()
  * @method bool|null getApproved()
  * @method string|null getCreatedAt()
  * @method string|null getFinalisedAt()
@@ -21,7 +22,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method PaymentSource|null getPaymentDestination()
  * @method PaymentSource|null getPaymentSource()
  * @method mixed[]|null getResponse()
- * @method mixed|null getSecurity()
+ * @method Security|null getSecurity()
  * @method string|null getStatus()
  * @method string|null getTransactionId()
  * @method string|null getUpdatedAt()

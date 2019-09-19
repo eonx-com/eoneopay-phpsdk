@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints;
 
+use EoneoPay\PhpSdk\Endpoints\Amount;
 use EoneoPay\PhpSdk\Endpoints\Fees;
 use EoneoPay\PhpSdk\Endpoints\PaymentSources\CreditCard;
 use Tests\EoneoPay\PhpSdk\TestCase;
@@ -47,13 +48,13 @@ final class FeesTest extends TestCase
             ->create((string)\getenv('PAYMENTS_API_KEY'), new Fees());
 
         self::assertSame('debit', $fees->getAction());
-        self::assertSame(
-            [
+        self::assertEquals(
+            new Amount([
                 'currency' => 'AUD',
                 'payment_fee' => '4.00',
                 'subtotal' => '96.00',
                 'total' => '100.00',
-            ],
+            ]),
             $fees->getAmount()
         );
         // Loose assertion due to symfony serializer handling this as a separate endpoint

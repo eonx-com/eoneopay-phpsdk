@@ -65,7 +65,7 @@ abstract class TransactionTestCase extends TestCase
          *
          * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
          */
-        self::assertSame($expected->getAmount(), $actual->getAmount());
+        self::assertEquals($expected->getAmount(), $actual->getAmount());
         self::assertSame($expected->getAction(), $actual->getAction());
         self::assertSame($expected->getId(), $actual->getId());
         self::assertSame($expected->getTransactionId(), $actual->getTransactionId());

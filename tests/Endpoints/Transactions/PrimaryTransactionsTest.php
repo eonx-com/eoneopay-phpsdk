@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints\Transactions;
 
+use EoneoPay\PhpSdk\Endpoints\Amount;
 use EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount;
 use EoneoPay\PhpSdk\Endpoints\PaymentSources\CreditCard;
 use EoneoPay\PhpSdk\Endpoints\PaymentSources\Ewallet;
@@ -43,6 +44,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentSource' => new Ewallet($data['paymentSource']),
         ]));
 
@@ -68,6 +70,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentSource' => new CreditCard($data['paymentSource']),
         ]));
 
@@ -96,6 +99,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentDestination' => new BankAccount($data['paymentDestination']),
         ]));
 
@@ -133,6 +137,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentSource' => new BankAccount($data['paymentSource']),
         ]));
 
@@ -169,6 +174,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentDestination' => new Ewallet($data['paymentDestination']),
             'paymentSource' => new Ewallet($data['paymentSource']),
         ]));

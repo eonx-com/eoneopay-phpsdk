@@ -9,7 +9,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
  * @method string|null getAction()
- * @method mixed[]|null getAmount()
+ * @method Amount|null getAmount()
  * @method PaymentSource|null getPaymentDestination()
  * @method PaymentSource|null getPaymentSource()
  *
