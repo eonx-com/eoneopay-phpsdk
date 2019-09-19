@@ -28,7 +28,7 @@ final class SecondaryTransactionsTest extends TransactionTestCase
 
         $expected = new Transaction(\array_merge($data, [
             'amount' => new Amount($data['amount']),
-            'paymentSource' => new CreditCard($data['paymentSource'])
+            'paymentSource' => new CreditCard($data['paymentSource']),
         ]));
 
         $actual = $this->createApiManager($data)->update('api-key', $expected);

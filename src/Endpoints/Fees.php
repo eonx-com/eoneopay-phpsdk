@@ -5,7 +5,6 @@ namespace EoneoPay\PhpSdk\Endpoints;
 
 use EoneoPay\PhpSdk\Annotations\Repository;
 use EoneoPay\PhpSdk\Traits\FeesTrait;
-use EoneoPay\PhpSdk\ValueTypes\Amount;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**

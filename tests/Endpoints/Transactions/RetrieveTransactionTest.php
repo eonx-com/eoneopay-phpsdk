@@ -66,7 +66,7 @@ final class RetrieveTransactionTest extends TransactionTestCase
             'code' => 4707,
             'message' => 'Requested order could not be found.',
             'sub_code' => 1,
-            'time' => '2019-02-25T02:31:59Z'
+            'time' => '2019-02-25T02:31:59Z',
         ], 404);
 
         $this->expectException(ClientException::class);

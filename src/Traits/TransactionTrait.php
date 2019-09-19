@@ -37,6 +37,7 @@ trait TransactionTrait
      *
      * @Groups({"create", "delete", "update"})
      *
+     * @Assert\NotBlank(message="A value was not provided.")
      * @Assert\Type(
      *     type="\EoneoPay\PhpSdk\Endpoints\Amount",
      *     message="The type provided is invalid."

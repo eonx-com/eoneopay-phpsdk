@@ -29,7 +29,7 @@ class WebhookPraserValidationException extends BaseValidationException
             /**
              * @var \Symfony\Component\Validator\ConstraintViolationInterface $violation
              */
-            $errors[$violation->getPropertyPath()][] = $violation->getMessage();
+            $errors[$violation->getPropertyPath()] = $violation->getMessage();
         }
 
         parent::__construct(

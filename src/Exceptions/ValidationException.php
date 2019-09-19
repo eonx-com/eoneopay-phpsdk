@@ -6,7 +6,7 @@ namespace EoneoPay\PhpSdk\Exceptions;
 use EoneoPay\Utils\Exceptions\ValidationException as BaseValidationExceptions;
 use Throwable;
 
-final class ValidationException extends BaseValidationExceptions
+class ValidationException extends BaseValidationExceptions
 {
     /**
      * The sub error code.

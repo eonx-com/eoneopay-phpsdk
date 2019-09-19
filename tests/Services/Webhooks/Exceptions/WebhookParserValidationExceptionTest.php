@@ -21,7 +21,7 @@ class WebhookParserValidationExceptionTest extends TestCase
     public function testErrorCodes(): void
     {
         $violations = new ConstraintViolationList([
-            new ConstraintViolation('Test violation.', null, [], 'root', null, 'test')
+            new ConstraintViolation('Test violation.', null, [], 'root', null, 'test'),
         ]);
         $exception = new WebhookPraserValidationException($violations);
 

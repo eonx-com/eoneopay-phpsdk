@@ -96,7 +96,7 @@ class ValidationEnabledTestCase extends TestCase
      */
     protected function getValidator(): ValidatorInterface
     {
-        if (($this->validator instanceof ValidatorInterface) === false) {
+        if ($this->validator === null) {
             $constraintFactory = new ConstraintValidatorFactory();
 
             try {

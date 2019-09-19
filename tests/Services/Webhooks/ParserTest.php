@@ -36,7 +36,7 @@ final class ParserTest extends ValidationEnabledTestCase
                 'POST',
                 '/listen/eoneopay/transaction',
                 [],
-                <<<JSON
+                <<<'JSON'
 {
     "action": null,
     "allocation": null,
@@ -45,10 +45,10 @@ final class ParserTest extends ValidationEnabledTestCase
 JSON
             ),
             'expected' => [
-                'action' => ['A value was not provided.'],
-                'allocation' => ['A value was not provided.'],
-                'amount' => ['A value was not provided.']
-            ]
+                'action' => 'A value was not provided.',
+                'allocation' => 'A value was not provided.',
+                'amount' => 'A value was not provided.',
+            ],
         ];
     }
 
