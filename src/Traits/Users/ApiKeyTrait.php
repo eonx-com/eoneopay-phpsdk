@@ -24,7 +24,7 @@ trait ApiKeyTrait
      */
     protected $targetUser;
 
-    /***
+    /**
      * @var string|null
      */
     protected $updatedAt;
