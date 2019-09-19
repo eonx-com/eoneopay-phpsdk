@@ -10,16 +10,12 @@ trait EwalletTrait
     /**
      * Ewallet balance.
      *
-     * @Groups({"get", "list", "update"})
-     *
      * @var mixed[]|null
      */
     protected $balances;
 
     /**
      * Created at date.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
      */
@@ -28,7 +24,7 @@ trait EwalletTrait
     /**
      * Ewallet currency.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
@@ -37,16 +33,12 @@ trait EwalletTrait
     /**
      * Ewallet id.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $id;
 
     /**
      * Ewallet pan.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
      */
@@ -55,16 +47,12 @@ trait EwalletTrait
     /**
      * If is primary.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var bool
      */
     protected $primary;
 
     /**
      * Ewallet user reference.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @var string|null
      */
@@ -73,8 +61,6 @@ trait EwalletTrait
     /**
      * Ewallet type.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $type;
@@ -82,16 +68,12 @@ trait EwalletTrait
     /**
      * Updated at date.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $updatedAt;
 
     /**
      * Ewallet user.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\User|null
      */

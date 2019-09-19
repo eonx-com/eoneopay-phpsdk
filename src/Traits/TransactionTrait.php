@@ -10,7 +10,7 @@ trait TransactionTrait
     /**
      * Transaction action.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @var string|null
      */
@@ -19,6 +19,8 @@ trait TransactionTrait
     /**
      * Transaction allocation.
      *
+     * @Groups({"create", "update"})
+     *
      * @var mixed[]|null
      */
     protected $allocation;
@@ -26,7 +28,7 @@ trait TransactionTrait
     /**
      * Transaction amount.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @var mixed[]|null
      */
@@ -35,8 +37,6 @@ trait TransactionTrait
     /**
      * Approved.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
-     *
      * @var bool|null
      */
     protected $approved;
@@ -44,16 +44,12 @@ trait TransactionTrait
     /**
      * Created at date.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $createdAt;
 
     /**
      * When the transaction was finalised.
-     *
-     * @Groups({"create", "delete", "get", "list", "update"})
      *
      * @var string|null
      */
@@ -69,7 +65,7 @@ trait TransactionTrait
     /**
      * Order id.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
+     * @Groups({"create", "delete", "get", "update"})
      *
      * @var string|null
      */
@@ -78,7 +74,7 @@ trait TransactionTrait
     /**
      * Transaction metadata.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @var mixed[]|null
      */
@@ -94,6 +90,8 @@ trait TransactionTrait
     /**
      * Payment destination.
      *
+     * @Groups({"create", "update"})
+     *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
     protected $paymentDestination;
@@ -101,7 +99,7 @@ trait TransactionTrait
     /**
      * Payment source.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
+     * @Groups({"create", "update"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
@@ -117,6 +115,8 @@ trait TransactionTrait
     /**
      * Transaction security.
      *
+     * @Groups({"create", "update"})
+     *
      * @var mixed
      */
     protected $security;
@@ -131,7 +131,7 @@ trait TransactionTrait
     /**
      * Transaction id.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
+     * @Groups({"create", "delete", "get", "update"})
      *
      * @var string|null
      */
@@ -146,8 +146,6 @@ trait TransactionTrait
 
     /**
      * User associated with this transaction.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\User
      */

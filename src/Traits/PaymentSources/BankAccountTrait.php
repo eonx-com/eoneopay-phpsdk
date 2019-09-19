@@ -10,7 +10,7 @@ trait BankAccountTrait
     /**
      * Bank account country.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
@@ -19,7 +19,7 @@ trait BankAccountTrait
     /**
      * Bank account currency.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
@@ -28,7 +28,7 @@ trait BankAccountTrait
     /**
      * Bank account number.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
@@ -37,7 +37,7 @@ trait BankAccountTrait
     /**
      * Bank account prefix.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
