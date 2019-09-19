@@ -5,6 +5,11 @@ namespace Tests\EoneoPay\PhpSdk\Stubs\Repositories;
 
 use EoneoPay\PhpSdk\Repository;
 
-class UserRepositoryStub extends Repository
+/**
+ * @noinspection EmptyClassInspection Class is used to test custom repository actions
+ *
+ * @coversNothing
+ */
+final class UserRepositoryStub extends Repository
 {
 }

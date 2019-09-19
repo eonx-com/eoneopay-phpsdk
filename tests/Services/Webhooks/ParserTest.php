@@ -21,7 +21,7 @@ use Tests\EoneoPay\PhpSdk\TestCases\ValidationEnabledTestCase;
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling required to fully test the parser.
  */
-class ParserTest extends ValidationEnabledTestCase
+final class ParserTest extends ValidationEnabledTestCase
 {
     /**
      * Gets the request scenarios that should cause one or more validation failures for testing.
@@ -65,7 +65,7 @@ JSON
                 'POST',
                 '/listen/eoneopay/token',
                 [],
-                <<<JSON
+                <<<'JSON'
 {
     "country": "AU",
     "created_at": "2019-07-31T06:08:07Z",
@@ -82,7 +82,7 @@ JSON
     "updated_at": "2019-07-31T06:08:07Z"
 }
 JSON
-            )
+            ),
         ];
 
         yield 'Token Revocation' => [
@@ -91,7 +91,7 @@ JSON
                 'POST',
                 '/listen/eoneopay/token_revoke',
                 [],
-                <<<JSON
+                <<<'JSON'
 {
     "country": "AU",
     "created_at": "2019-07-31T06:08:07Z",
@@ -108,7 +108,7 @@ JSON
     "updated_at": "2019-07-31T06:08:07Z"
 }
 JSON
-            )
+            ),
         ];
     }
 
@@ -134,7 +134,8 @@ JSON
 
         // @todo: SerializerFactory and Seralizer need to be stubbed so that we can assert the parser result.
         // @see: https://loyaltycorp.atlassian.net/browse/PYMT-1222
-        self::assertNotNull($result);
+        /** @noinspection UnnecessaryAssertionInspection Testing concrete implementation passed by data provider */
+        self::assertInstanceOf($targetClass, $result);
     }
 
     /**
@@ -182,7 +183,7 @@ JSON
     {
         $serializerFactory = new SerializerFactory();
         $parser = $this->getInstance($serializerFactory);
-        $json = <<<JSON
+        $json = <<<'JSON'
 {
     "country": "AU",
     "created_at": "2019-07-31T06:08:07Z",
@@ -211,7 +212,7 @@ JSON;
             'prefix' => '123-456',
             'token' => 'FDJ9934242YBP3C2ZC43',
             'type' => 'bank_account',
-            'updatedAt' => '2019-07-31T06:08:07Z'
+            'updatedAt' => '2019-07-31T06:08:07Z',
         ]);
 
         $result = $parser->parse(BankAccount::class, $json, 'json');
@@ -252,7 +253,6 @@ JSON;
         ?ValidatorInterface $validator = null
     ): Parser {
         return new Parser(
-
             $serializerFactory ?? new SerializerFactory(),
             $validator ?? $this->getValidator()
         );

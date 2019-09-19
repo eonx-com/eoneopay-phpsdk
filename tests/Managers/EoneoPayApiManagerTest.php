@@ -6,19 +6,24 @@ namespace Tests\EoneoPay\PhpSdk\Managers;
 use EoneoPay\PhpSdk\Exceptions\CriticalException;
 use EoneoPay\PhpSdk\Factories\ExceptionFactory;
 use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
-use EoneoPay\PhpSdk\Interfaces\RepositoryInterface;
 use EoneoPay\PhpSdk\Managers\EoneoPayApiManager;
+use EoneoPay\PhpSdk\Repository;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
+use Tests\EoneoPay\PhpSdk\Stubs\Entities\ChildStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Entities\EntityStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Entities\UserStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Managers\SdkManagerStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Repositories\ParentRepositoryStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Repositories\UserRepositoryStub;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Managers\EoneoPayApiManager
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects) Test case only, coupling required to fully test manager
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods) All test methods must be public
  */
-class EoneoPayApiManagerTest extends TestCase
+final class EoneoPayApiManagerTest extends TestCase
 {
     /**
      * Test create entity successfully.
@@ -32,10 +37,13 @@ class EoneoPayApiManagerTest extends TestCase
         $actual = $this->getManager()->create('api-key', $expected);
 
         self::assertInstanceOf(EntityStub::class, $actual);
-        self::assertSame(
-            $expected->getEntityId(),
-            ($actual instanceof EntityStub) === true ? $actual->getEntityId() : null
-        );
+
+        /**
+         * @var \Tests\EoneoPay\PhpSdk\Stubs\Entities\EntityStub $actual
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertSame($expected->getEntityId(), $actual->getEntityId());
     }
 
     /**
@@ -50,8 +58,6 @@ class EoneoPayApiManagerTest extends TestCase
         self::assertInstanceOf(EntityInterface::class, $this->getManager()->delete('api-key', $expected));
     }
 
-
-
     /**
      * Test that find will return expected entity.
      *
@@ -64,10 +70,13 @@ class EoneoPayApiManagerTest extends TestCase
         $actual = $this->getManager($expected)->find(EntityStub::class, 'api-key', $expected->getEntityId() ?? '');
 
         self::assertInstanceOf(EntityStub::class, $actual);
-        self::assertSame(
-            $expected->getEntityId(),
-            ($actual instanceof EntityStub) === true ? $actual->getEntityId() : null
-        );
+
+        /**
+         * @var \Tests\EoneoPay\PhpSdk\Stubs\Entities\EntityStub $actual
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertSame($expected->getEntityId(), $actual->getEntityId());
     }
 
     /**
@@ -82,14 +91,17 @@ class EoneoPayApiManagerTest extends TestCase
         $entities = $this->getManager($expected)->findAll(EntityStub::class, 'api-key');
 
         self::assertCount(1, $entities);
-        self::assertInstanceOf(EntityStub::class, $entities[0]);
-        self::assertSame(
-            $expected->getEntityId(),
-            ($entities[0] instanceof EntityStub) === true ? $entities[0]->getEntityId() : null
-        );
+
+        $entity = \reset($entities);
+        self::assertInstanceOf(EntityStub::class, $entity);
+
+        /**
+         * @var \Tests\EoneoPay\PhpSdk\Stubs\Entities\EntityStub $entity
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertSame($expected->getEntityId(), $entity->getEntityId());
     }
-
-
 
     /**
      * Test that find by with provided criteria will return expected number of entities.
@@ -101,21 +113,23 @@ class EoneoPayApiManagerTest extends TestCase
         $expected = new EntityStub(['entityId' => $this->generateId()]);
 
         $entities = $this->getManager($expected)->findBy(EntityStub::class, 'api-key', [
-            'entityId' => $expected->getEntityId()
+            'entityId' => $expected->getEntityId(),
         ]);
 
         self::assertCount(1, $entities);
+        $entity = \reset($entities);
         self::assertInstanceOf(EntityStub::class, $entities[0]);
-        self::assertSame(
-            $expected->getEntityId(),
-            ($entities[0] instanceof EntityStub) === true ? $entities[0]->getEntityId() : null
-        );
+
+        /**
+         * @var \Tests\EoneoPay\PhpSdk\Stubs\Entities\EntityStub $entity
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertSame($expected->getEntityId(), $entity->getEntityId());
     }
 
-
-
     /**
-     * Test if find exception is thrown on invalid response
+     * Test if find exception is thrown on invalid response.
      *
      * @return void
      */
@@ -123,7 +137,7 @@ class EoneoPayApiManagerTest extends TestCase
     {
         $this->expectException(CriticalException::class);
         $this->createApiManager([
-            'code' => 0
+            'code' => 0,
         ], 400)
             ->find(
                 EntityStub::class,
@@ -142,29 +156,42 @@ class EoneoPayApiManagerTest extends TestCase
         $expected = new EntityStub(['entityId' => $this->generateId()]);
 
         $actual = $this->getManager($expected)->findOneBy(EntityStub::class, 'api-key', [
-            'entityId' => $expected->getEntityId()
+            'entityId' => $expected->getEntityId(),
         ]);
 
         self::assertInstanceOf(EntityStub::class, $actual);
-        self::assertSame(
-            $expected->getEntityId(),
-            ($actual instanceof EntityStub) === true ? $actual->getEntityId() : null
-        );
+
+        /**
+         * @var \Tests\EoneoPay\PhpSdk\Stubs\Entities\EntityStub $actual
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertSame($expected->getEntityId(), $actual->getEntityId());
     }
 
-
-
     /**
-     * Test that getRepository() method always returns a repository.
+     * Test that getRepository() method returns a standard repository if no customer entity is defined.
      *
      * @return void
      */
     public function testGetRepository(): void
     {
-        /** @noinspection UnnecessaryAssertionInspection Testing that getRepository() always returns a repository */
         self::assertInstanceOf(
-            RepositoryInterface::class,
+            Repository::class,
             $this->getManager()->getRepository(EntityStub::class)
+        );
+    }
+
+    /**
+     * Test that getRepository() method checks parents for repository if child doesn't have one.
+     *
+     * @return void
+     */
+    public function testGetRepositoryFromParentWithCustomRepository(): void
+    {
+        self::assertInstanceOf(
+            ParentRepositoryStub::class,
+            $this->getManager()->getRepository(ChildStub::class)
         );
     }
 
@@ -192,26 +219,24 @@ class EoneoPayApiManagerTest extends TestCase
 
         $expected = new UserStub([
             'userId' => $userId,
-            'email' => 'updated@email.test'
+            'email' => 'updated@email.test',
         ]);
 
         $actual = $this->getManager($expected)->update('api-key', new UserStub([
             'userId' => $userId,
-            'email' => 'original@email.test'
+            'email' => 'original@email.test',
         ]));
 
         self::assertInstanceOf(UserStub::class, $actual);
-        self::assertSame(
-            $expected->getUserId(),
-            ($actual instanceof UserStub) === true ? $actual->getUserId() : null
-        );
-        self::assertSame(
-            'updated@email.test',
-            ($actual instanceof UserStub) === true ? $actual->getEmail() : null
-        );
+
+        /**
+         * @var \Tests\EoneoPay\PhpSdk\Stubs\Entities\UserStub $actual
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
+         */
+        self::assertSame($expected->getUserId(), $actual->getUserId());
+        self::assertSame('updated@email.test', $actual->getEmail());
     }
-
-
 
     /**
      * Get EoneoPay api manager.

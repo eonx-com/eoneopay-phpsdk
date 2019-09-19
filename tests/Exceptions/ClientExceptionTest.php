@@ -6,7 +6,10 @@ namespace Tests\EoneoPay\PhpSdk\Exceptions;
 use EoneoPay\PhpSdk\Exceptions\ClientException;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
-class ClientExceptionTest extends TestCase
+/**
+ * @covers \EoneoPay\PhpSdk\Exceptions\ClientException
+ */
+final class ClientExceptionTest extends TestCase
 {
     /**
      * Test get error code.

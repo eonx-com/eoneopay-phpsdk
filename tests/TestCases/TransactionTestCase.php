@@ -11,7 +11,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 /**
  * @coversNothing
  */
-class TransactionTestCase extends ValidationEnabledTestCase
+abstract class TransactionTestCase extends ValidationEnabledTestCase
 {
     /**
      * Create transaction response.
@@ -28,22 +28,22 @@ class TransactionTestCase extends ValidationEnabledTestCase
                 'currency' => 'AUD',
                 'payment_fee' => '0.00',
                 'subtotal' => '100.00',
-                'total' => '100.00'
+                'total' => '100.00',
             ],
             'id' => \uniqid('ord', false),
             'paymentSource' => [
                 'token' => 'VRG2VR4F39343HM4D3N2',
-                'type' => 'credit_card'
+                'type' => 'credit_card',
             ],
             'transactionId' => \uniqid('txn', false),
             'paymentDestination' => [
                 'id' => \uniqid('', false),
                 'pan' => '2...H6A3',
-                'type' => 'ewallet'
+                'type' => 'ewallet',
             ],
             'user' => new User([
-                'email' => 'user@email.test'
-            ])
+                'email' => 'user@email.test',
+            ]),
         ], $data ?? []);
     }
 
@@ -53,21 +53,22 @@ class TransactionTestCase extends ValidationEnabledTestCase
      * @param \EoneoPay\PhpSdk\Endpoints\Transaction $expected
      * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface $actual
      *
-     * @return void
+     * @return \EoneoPay\PhpSdk\Endpoints\Transaction
      */
-    protected function performTransactionAssertions(Transaction $expected, EntityInterface $actual): void
+    protected function performTransactionAssertions(Transaction $expected, EntityInterface $actual): Transaction
     {
         self::assertInstanceOf(Transaction::class, $actual);
 
         /**
-         * After the above assertion, it is safe to assume the type of `$actual`.
-         *
          * @var \EoneoPay\PhpSdk\Endpoints\Transaction $actual
+         *
+         * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
          */
-
         self::assertEquals($expected->getAmount(), $actual->getAmount());
         self::assertSame($expected->getAction(), $actual->getAction());
         self::assertSame($expected->getId(), $actual->getId());
         self::assertSame($expected->getTransactionId(), $actual->getTransactionId());
+
+        return $actual;
     }
 }

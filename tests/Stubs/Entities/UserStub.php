@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @Repository(repositoryClass="Tests\EoneoPay\PhpSdk\Stubs\Repositories\UserRepositoryStub")
  */
-class UserStub extends Entity
+final class UserStub extends Entity
 {
     /**
      * @Groups({"create", "delete", "get", "list", "update"})
@@ -49,7 +49,7 @@ class UserStub extends Entity
     protected $userId;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {
@@ -58,7 +58,7 @@ class UserStub extends Entity
             self::DELETE => '/users',
             self::GET => '/users',
             self::LIST => '/users',
-            self::UPDATE => '/users'
+            self::UPDATE => '/users',
         ];
     }
 }

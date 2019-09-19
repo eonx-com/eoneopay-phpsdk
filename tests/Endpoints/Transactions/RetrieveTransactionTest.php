@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints\Transactions;
 
+use EoneoPay\PhpSdk\Endpoints\Amount;
 use EoneoPay\PhpSdk\Endpoints\PaymentSources\Ewallet;
 use EoneoPay\PhpSdk\Endpoints\Transaction;
 use EoneoPay\PhpSdk\Exceptions\ClientException;
-use EoneoPay\PhpSdk\ValueTypes\Amount;
 use Tests\EoneoPay\PhpSdk\TestCases\TransactionTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\Transaction
  */
-class RetrieveTransactionTest extends TransactionTestCase
+final class RetrieveTransactionTest extends TransactionTestCase
 {
     /**
      * Test retrieve transaction by order id and transaction id for the authenticated user.
@@ -26,41 +26,33 @@ class RetrieveTransactionTest extends TransactionTestCase
             'id' => 'order1',
             'paymentDestination' => [
                 'token' => \mb_strtoupper($this->generateId()),
-                'type' => 'ewallet'
+                'type' => 'ewallet',
             ],
             'paymentSource' => [
                 'token' => \mb_strtoupper($this->generateId()),
-                'type' => 'ewallet'
+                'type' => 'ewallet',
             ],
-            'transactionId' => 'transaction1'
+            'transactionId' => 'transaction1',
         ]);
 
         $expected = new Transaction(\array_merge($data, [
             'amount' => new Amount($data['amount']),
             'paymentDestination' => new Ewallet($data['paymentDestination']),
-            'paymentSource' => new Ewallet($data['paymentSource'])
+            'paymentSource' => new Ewallet($data['paymentSource']),
         ]));
 
         $apiManager = $this->createApiManager($data);
 
         $actual = $apiManager->findOneBy(Transaction::class, (string)\getenv('PAYMENTS_API_KEY'), [
             'id' => 'order1',
-            'transactionId' => 'transaction1'
+            'transactionId' => 'transaction1',
         ]);
 
-        $this->performTransactionAssertions($expected, $actual);
-        self::assertInstanceOf(
-            Amount::class,
-            ($actual instanceof Transaction) === true ? $actual->getAmount() : null
-        );
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentSource() : null
-        );
-        self::assertInstanceOf(
-            Ewallet::class,
-            ($actual instanceof Transaction) === true ? $actual->getPaymentDestination() : null
-        );
+        $actual = $this->performTransactionAssertions($expected, $actual);
+
+        self::assertInstanceOf(Amount::class, $actual->getAmount());
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentSource());
+        self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
     }
 
     /**
@@ -83,7 +75,7 @@ class RetrieveTransactionTest extends TransactionTestCase
 
         $apiManager->findOneBy(Transaction::class, (string)\getenv('PAYMENTS_API_KEY'), [
             'id' => 'order1',
-            'transactionId' => 'transaction2'
+            'transactionId' => 'transaction2',
         ]);
     }
 }

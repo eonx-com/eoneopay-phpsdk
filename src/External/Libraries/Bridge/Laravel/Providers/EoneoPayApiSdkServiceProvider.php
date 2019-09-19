@@ -15,12 +15,12 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\RequestHandler;
 use LoyaltyCorp\SdkBlueprint\Sdk\Handlers\ResponseHandler;
 use LoyaltyCorp\SdkBlueprint\Sdk\Managers\SdkManager;
 
-class EoneoPayApiSdkServiceProvider extends ServiceProvider
+final class EoneoPayApiSdkServiceProvider extends ServiceProvider
 {
     /**
-     * Register services
+     * @noinspection PhpMissingParentCallCommonInspection Parent implementation is empty
      *
-     * @return void
+     * {@inheritdoc}
      */
     public function register(): void
     {

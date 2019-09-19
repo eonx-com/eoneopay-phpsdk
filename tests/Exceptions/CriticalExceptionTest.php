@@ -9,7 +9,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Exceptions\CriticalException
  */
-class CriticalExceptionTest extends TestCase
+final class CriticalExceptionTest extends TestCase
 {
     /**
      * Make sure error code is expected.

@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints;
 
+use EoneoPay\PhpSdk\Endpoints\Transactions\Allocation;
 use EoneoPay\PhpSdk\Interfaces\Endpoints\TransactionInterface;
 use EoneoPay\PhpSdk\Traits\TransactionTrait;
-use EoneoPay\PhpSdk\ValueTypes\Amount;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
  * @method string|null getAction()
- * @method mixed[]|null getAllocation()
+ * @method Allocation|null getAllocation()
  * @method Amount|null getAmount()
  * @method bool|null getApproved()
  * @method string|null getCreatedAt()
@@ -22,7 +22,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method PaymentSource|null getPaymentDestination()
  * @method PaymentSource|null getPaymentSource()
  * @method mixed[]|null getResponse()
- * @method mixed|null getSecurity()
+ * @method Security|null getSecurity()
  * @method string|null getStatus()
  * @method string|null getTransactionId()
  * @method string|null getUpdatedAt()
@@ -33,7 +33,7 @@ class Transaction extends Entity implements TransactionInterface
     use TransactionTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {
@@ -41,7 +41,7 @@ class Transaction extends Entity implements TransactionInterface
             self::CREATE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
             self::DELETE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
             self::GET => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
-            self::UPDATE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId)
+            self::UPDATE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
         ];
     }
 }

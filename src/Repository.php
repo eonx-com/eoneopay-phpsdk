@@ -24,7 +24,7 @@ class Repository implements RepositoryInterface
     private $entityClass;
 
     /**
-     * Construct default repository
+     * Construct default repository.
      *
      * @param \EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface $apiManager
      * @param string $entityClass
@@ -36,7 +36,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findAll(string $apikey): array
     {
@@ -44,7 +44,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findById(string $entityId, string $apikey): EntityInterface
     {

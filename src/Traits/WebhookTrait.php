@@ -8,27 +8,27 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait WebhookTrait
 {
     /**
-     * Webhook id.
-     *
-     * @Groups({"create", "get", "list", "update"})
-     *
-     * @var string
-     */
-    protected $id;
-
-    /**
      * Headers.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create", "update"})
      *
      * @var mixed[]
      */
     protected $headers;
 
     /**
+     * Webhook id.
+     *
+     * @Groups({"create", "update"})
+     *
+     * @var string
+     */
+    protected $id;
+
+    /**
      * Url.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create", "update"})
      *
      * @var string
      */

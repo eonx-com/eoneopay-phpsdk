@@ -8,7 +8,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait FeesTrait
 {
     /**
-     * Transaction action type
+     * Transaction action type.
      *
      * @Groups({"create"})
      *
@@ -17,16 +17,16 @@ trait FeesTrait
     protected $action;
 
     /**
-     * Amount fees are based off
+     * Amount fees are based off.
      *
      * @Groups({"create"})
      *
-     * @var \EoneoPay\PhpSdk\ValueTypes\Amount|null
+     * @var \EoneoPay\PhpSdk\Endpoints\Amount|null
      */
     protected $amount;
 
     /**
-     * Destination endpoint
+     * Destination endpoint.
      *
      * @Groups({"create"})
      *
@@ -35,7 +35,7 @@ trait FeesTrait
     protected $paymentDestination;
 
     /**
-     * Source endpoint
+     * Source endpoint.
      *
      * @Groups({"create"})
      *

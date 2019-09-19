@@ -10,10 +10,10 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Managers\EoneoPayApiManager
  */
-class EoneoPayApiManagerExceptionTest extends TestCase
+final class EoneoPayApiManagerExceptionTest extends TestCase
 {
     /**
-     * Test if create exception is thrown on invalid response
+     * Test if create exception is thrown on invalid response.
      *
      * @return void
      */
@@ -21,7 +21,7 @@ class EoneoPayApiManagerExceptionTest extends TestCase
     {
         $this->expectException(CriticalException::class);
         $this->createApiManager([
-            'code' => 0
+            'code' => 0,
         ], 400)
             ->create(
                 'api-key',
@@ -30,7 +30,7 @@ class EoneoPayApiManagerExceptionTest extends TestCase
     }
 
     /**
-     * Test if delete exception is thrown on invalid response
+     * Test if delete exception is thrown on invalid response.
      *
      * @return void
      */
@@ -38,7 +38,7 @@ class EoneoPayApiManagerExceptionTest extends TestCase
     {
         $this->expectException(CriticalException::class);
         $this->createApiManager([
-            'code' => 0
+            'code' => 0,
         ], 400)
             ->delete(
                 'api-key',
@@ -47,7 +47,7 @@ class EoneoPayApiManagerExceptionTest extends TestCase
     }
 
     /**
-     * Test if find exception is thrown on invalid response
+     * Test if find exception is thrown on invalid response.
      *
      * @return void
      */
@@ -55,7 +55,7 @@ class EoneoPayApiManagerExceptionTest extends TestCase
     {
         $this->expectException(CriticalException::class);
         $this->createApiManager([
-            'code' => 0
+            'code' => 0,
         ], 400)
             ->findAll(
                 EntityStub::class,
@@ -64,7 +64,7 @@ class EoneoPayApiManagerExceptionTest extends TestCase
     }
 
     /**
-     * Test if find exception is thrown on invalid response
+     * Test if find exception is thrown on invalid response.
      *
      * @return void
      */
@@ -72,7 +72,7 @@ class EoneoPayApiManagerExceptionTest extends TestCase
     {
         $this->expectException(CriticalException::class);
         $this->createApiManager([
-            'code' => 0
+            'code' => 0,
         ], 400)
             ->findBy(
                 EntityStub::class,
@@ -82,7 +82,7 @@ class EoneoPayApiManagerExceptionTest extends TestCase
     }
 
     /**
-     * Test if find one by exception is thrown on invalid response
+     * Test if find one by exception is thrown on invalid response.
      *
      * @return void
      */
@@ -90,7 +90,7 @@ class EoneoPayApiManagerExceptionTest extends TestCase
     {
         $this->expectException(CriticalException::class);
         $this->createApiManager([
-            'code' => 0
+            'code' => 0,
         ], 400)
             ->findOneBy(
                 EntityStub::class,
@@ -100,7 +100,7 @@ class EoneoPayApiManagerExceptionTest extends TestCase
     }
 
     /**
-     * Test if update exception is thrown on invalid response
+     * Test if update exception is thrown on invalid response.
      *
      * @return void
      */
@@ -108,7 +108,7 @@ class EoneoPayApiManagerExceptionTest extends TestCase
     {
         $this->expectException(CriticalException::class);
         $this->createApiManager([
-            'code' => 0
+            'code' => 0,
         ], 400)
             ->update(
                 'api-key',

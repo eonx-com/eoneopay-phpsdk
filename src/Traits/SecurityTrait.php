@@ -8,84 +8,72 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait SecurityTrait
 {
     /**
-     * Security action url
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Security action url.
      *
      * @var string|null
      */
     protected $actionUrl;
 
     /**
-     * Amount array with currency and total
+     * Amount array with currency and total.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
-     * @var mixed[]|null
+     * @var \EoneoPay\PhpSdk\Endpoints\Amount|null
      */
     protected $amount;
 
     /**
-     * Authentication result
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Authentication result.
      *
      * @var string|null
      */
-    protected $authenticaionResult;
+    protected $authenticationResult;
 
     /**
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $cavv;
 
     /**
-     * Created at date
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Created at date.
      *
      * @var string|null
      */
     protected $createdAt;
 
     /**
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $eci;
 
     /**
-     * Enrolment status
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Enrolment status.
      *
      * @var string|null
      */
     protected $enrolmentStatus;
 
     /**
-     * Security Id
+     * Security Id.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create", "update"})
      *
      * @var string|null
      */
     protected $id;
 
     /**
-     * Security metadata
+     * Security metadata.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var mixed[]|null
      */
     protected $metadata;
 
     /**
-     * Security payload
+     * Security payload.
      *
      * @Groups({"update"})
      *
@@ -94,69 +82,57 @@ trait SecurityTrait
     protected $payload;
 
     /**
-     * Security payment source
+     * Security payment source.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
     protected $paymentSource;
 
     /**
-     * Security request payload
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Security request payload.
      *
      * @var string|null
      */
     protected $requestPayload;
 
     /**
-     * Security response payload
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Security response payload.
      *
      * @var string|null
      */
     protected $responsePayload;
 
     /**
-     * Security return url
+     * Security return url.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
     protected $returnUrl;
 
     /**
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var bool|null
      */
     protected $secured;
 
     /**
-     * Status
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Status.
      *
      * @var string|null
      */
     protected $status;
 
     /**
-     * Updated at date
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Updated at date.
      *
      * @var string|null
      */
     protected $updatedAt;
 
     /**
-     * @Groups({"create", "get", "list", "update"})
-     *
      * @var string|null
      */
     protected $xid;

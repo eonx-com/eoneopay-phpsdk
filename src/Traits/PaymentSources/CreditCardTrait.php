@@ -8,27 +8,27 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait CreditCardTrait
 {
     /**
-     * Credit card bin
+     * Credit card bin.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var mixed[]|null
      */
     protected $bin;
 
     /**
-     * Expiry month and year
+     * Expiry month and year.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var mixed[]|null
      */
     protected $expiry;
 
     /**
-     * Credit card facility
+     * Credit card facility.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */

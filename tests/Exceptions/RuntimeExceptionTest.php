@@ -9,7 +9,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Exceptions\RuntimeException
  */
-class RuntimeExceptionTest extends TestCase
+final class RuntimeExceptionTest extends TestCase
 {
     /**
      * Test get error code.

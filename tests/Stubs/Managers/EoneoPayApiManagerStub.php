@@ -5,10 +5,10 @@ namespace Tests\EoneoPay\PhpSdk\Stubs\Managers;
 
 use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
 use EoneoPay\PhpSdk\Interfaces\RepositoryInterface;
+use EoneoPay\PhpSdk\Repository;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
-use Tests\EoneoPay\PhpSdk\Stubs\Repositories\RepositorySub;
 
-class EoneoPayApiManagerStub implements EoneoPayApiManagerInterface
+final class EoneoPayApiManagerStub implements EoneoPayApiManagerInterface
 {
     /**
      * @var \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface|null
@@ -26,7 +26,7 @@ class EoneoPayApiManagerStub implements EoneoPayApiManagerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function create(string $apikey, EntityInterface $entity): EntityInterface
     {
@@ -34,7 +34,7 @@ class EoneoPayApiManagerStub implements EoneoPayApiManagerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function delete(string $apikey, EntityInterface $entity): ?EntityInterface
     {
@@ -42,7 +42,7 @@ class EoneoPayApiManagerStub implements EoneoPayApiManagerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function find(string $entityName, string $apikey, string $entityId): EntityInterface
     {
@@ -50,7 +50,7 @@ class EoneoPayApiManagerStub implements EoneoPayApiManagerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findAll(string $entityName, string $apikey): array
     {
@@ -58,7 +58,7 @@ class EoneoPayApiManagerStub implements EoneoPayApiManagerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findBy(string $entityName, string $apikey, array $criteria): array
     {
@@ -66,7 +66,7 @@ class EoneoPayApiManagerStub implements EoneoPayApiManagerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findOneBy(string $entityName, string $apikey, array $criteria): EntityInterface
     {
@@ -74,15 +74,15 @@ class EoneoPayApiManagerStub implements EoneoPayApiManagerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRepository(string $entityClass): RepositoryInterface
     {
-        return new RepositorySub($this, $entityClass);
+        return new Repository($this, $entityClass);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function update(string $apikey, EntityInterface $entity): EntityInterface
     {

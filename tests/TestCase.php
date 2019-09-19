@@ -59,7 +59,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Generate a unique id with an optional prefix
+     * Generate a unique id with an optional prefix.
      *
      * @param string|null $prefix The prefix to use when generating the id
      *
@@ -72,7 +72,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * Create body
+     * Create body.
      *
      * @param mixed[] $body
      *
@@ -101,8 +101,8 @@ abstract class TestCase extends BaseTestCase
                     $responseCode ?? 200,
                     ['Accept' => 'application/json', 'Content-Type' => 'application/json'],
                     $this->createBody($body)
-                )
-            ])
+                ),
+            ]),
         ]);
     }
 }

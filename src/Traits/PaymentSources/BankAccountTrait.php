@@ -8,36 +8,36 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait BankAccountTrait
 {
     /**
-     * Bank account country
+     * Bank account country.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
     protected $country;
 
     /**
-     * Bank account currency
+     * Bank account currency.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
     protected $currency;
 
     /**
-     * Bank account number
+     * Bank account number.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
     protected $number;
 
     /**
-     * Bank account prefix
+     * Bank account prefix.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */

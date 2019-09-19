@@ -11,10 +11,12 @@ use EoneoPay\PhpSdk\Interfaces\Factories\ExceptionFactoryInterface;
 use Exception;
 use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
 
-class ExceptionFactory implements ExceptionFactoryInterface
+final class ExceptionFactory implements ExceptionFactoryInterface
 {
     /**
-     * @inheritdoc
+     * @noinspection MultipleReturnStatementsInspection Creating exceptions in this manner is most efficient
+     *
+     * {@inheritdoc}
      */
     public function create(InvalidApiResponseException $exception): Exception
     {
@@ -32,7 +34,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
                 null,
                 $code,
                 $exception,
-                null,
+                $content['violations'] ?? [],
                 $subCode
             );
         }

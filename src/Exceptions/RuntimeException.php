@@ -18,7 +18,7 @@ class RuntimeException extends BaseRuntimeException
     /**
      * BaseException constructor.
      *
-     * @param null|string $message
+     * @param string|null $message
      * @param mixed[]|null $messageParameters Parameters for $message
      * @param int|null $code
      * @param \Throwable|null $previous

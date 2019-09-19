@@ -60,7 +60,7 @@ interface EoneoPayApiManagerInterface
     public function findBy(string $entityName, string $apikey, array $criteria): array;
 
     /**
-     * Request to find an entity with given criteria
+     * Request to find an entity with given criteria.
      *
      * @param string $entityName Entity class name
      * @param string $apikey Api key

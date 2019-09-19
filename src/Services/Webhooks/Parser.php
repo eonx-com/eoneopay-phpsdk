@@ -11,7 +11,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\Factories\SerializerFactoryInterface
 use Psr\Http\Message\RequestInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class Parser implements ParserInterface
+final class Parser implements ParserInterface
 {
     /**
      * @var \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\Factories\SerializerFactoryInterface

@@ -8,7 +8,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
  * @method string|null getActionUrl()
- * @method mixed[]|null getAmount()
+ * @method Amount|null getAmount()
  * @method string|null getAuthenticationResult()
  * @method string|null getCavv()
  * @method string|null getCreatedAt()
@@ -31,13 +31,13 @@ class Security extends Entity
     use SecurityTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {
         return [
             self::CREATE => \sprintf('/security/%s', $this->getId()),
-            self::UPDATE => \sprintf('/security/%s', $this->getId())
+            self::UPDATE => \sprintf('/security/%s', $this->getId()),
         ];
     }
 }

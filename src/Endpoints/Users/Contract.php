@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\Users;
 
+use EoneoPay\PhpSdk\Endpoints\Ewallet;
 use EoneoPay\PhpSdk\Endpoints\User;
 use EoneoPay\PhpSdk\Traits\Users\ContractTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
@@ -10,7 +11,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 /**
  * @method string|null getCreatedAt()
  * @method string|null getCurrency()
- * @method string|null getEwallet()
+ * @method Ewallet|null getEwallet()
  * @method string|null getFixedFee()
  * @method string|null getGroup()
  * @method string|null getType()
@@ -23,12 +24,12 @@ class Contract extends Entity
     use ContractTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('/users/%s/contracts', $this->getUserId())
+            self::CREATE => \sprintf('/users/%s/contracts', $this->getUserId()),
         ];
     }
 

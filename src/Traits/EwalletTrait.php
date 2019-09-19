@@ -8,90 +8,72 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait EwalletTrait
 {
     /**
-     * Ewallet balance
-     *
-     * @Groups({"get", "list", "update"})
+     * Ewallet balance.
      *
      * @var mixed[]|null
      */
     protected $balances;
 
     /**
-     * Created at date
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Created at date.
      *
      * @var string|null
      */
     protected $createdAt;
 
     /**
-     * Ewallet currency
+     * Ewallet currency.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
     protected $currency;
 
     /**
-     * Ewallet id
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Ewallet id.
      *
      * @var string|null
      */
     protected $id;
 
     /**
-     * Ewallet pan
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Ewallet pan.
      *
      * @var string|null
      */
     protected $pan;
 
     /**
-     * If is primary
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * If is primary.
      *
      * @var bool
      */
     protected $primary;
 
     /**
-     * Ewallet user reference
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Ewallet user reference.
      *
      * @var string|null
      */
     protected $reference;
 
     /**
-     * Ewallet type
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Ewallet type.
      *
      * @var string|null
      */
     protected $type;
 
     /**
-     * Updated at date
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Updated at date.
      *
      * @var string|null
      */
     protected $updatedAt;
 
     /**
-     * Ewallet user
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Ewallet user.
      *
      * @var \EoneoPay\PhpSdk\Endpoints\User|null
      */

@@ -19,13 +19,13 @@ class ApiKey extends Entity
     use ApiKeyTrait;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function uris(): array
     {
         return [
             self::CREATE => \sprintf('/users/%s/apikeys', $this->getUserId()),
-            self::DELETE => \sprintf('/apikeys/%s', $this->getKey())
+            self::DELETE => \sprintf('/apikeys/%s', $this->getKey()),
         ];
     }
 

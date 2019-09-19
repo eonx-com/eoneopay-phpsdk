@@ -10,7 +10,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 /**
  * @covers \EoneoPay\PhpSdk\Factories\EoneoPayApiManagerFactory
  */
-class EoneoPayApiManagerFactoryTest extends TestCase
+final class EoneoPayApiManagerFactoryTest extends TestCase
 {
     /**
      * Test create EoneoPay api manager successfully.

@@ -11,7 +11,7 @@ trait TransactionTrait
     /**
      * Transaction action.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @Assert\NotBlank(message="A value was not provided.")
      * @Assert\Type(type="string", message="The type provided is invalid.")
@@ -23,32 +23,31 @@ trait TransactionTrait
     /**
      * Transaction allocation.
      *
+     * @Groups({"create", "update"})
+     *
      * @Assert\NotBlank(message="A value was not provided.")
      * @Assert\Type(type="array", message="The type provided is invalid.")
      *
-     * @var mixed[]|null
+     * @var \EoneoPay\PhpSdk\Endpoints\Transactions\Allocation|null
      */
     protected $allocation;
 
     /**
      * Transaction amount.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
+     * @Groups({"create", "delete", "update"})
      *
-     * @Assert\NotBlank(message="A value was not provided.")
      * @Assert\Type(
-     *     type="\EoneoPay\PhpSdk\ValueTypes\Amount",
+     *     type="\EoneoPay\PhpSdk\Endpoints\Amount",
      *     message="The type provided is invalid."
      * )
      *
-     * @var \EoneoPay\PhpSdk\ValueTypes\Amount|null
+     * @var \EoneoPay\PhpSdk\Endpoints\Amount|null
      */
     protected $amount;
 
     /**
      * Approved.
-     *
-     * @Groups({"create", "delete", "get", "list", "update"})
      *
      * @var bool|null
      */
@@ -56,8 +55,6 @@ trait TransactionTrait
 
     /**
      * Created at date.
-     *
-     * @Groups({"create", "delete", "get", "list", "update"})
      *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
      * @Assert\Type(type="string", message="The type provided is invalid.")
@@ -68,8 +65,6 @@ trait TransactionTrait
 
     /**
      * When the transaction was finalised.
-     *
-     * @Groups({"create", "delete", "get", "list", "update"})
      *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
      * @Assert\Type(type="string", message="The type provided is invalid.")
@@ -88,7 +83,7 @@ trait TransactionTrait
     /**
      * Order id.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
+     * @Groups({"create", "delete", "get", "update"})
      *
      * @Assert\Type(type="string", message="The type provided is invalid.")
      *
@@ -99,7 +94,7 @@ trait TransactionTrait
     /**
      * Transaction metadata.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
+     * @Groups({"create", "delete", "update"})
      *
      * @Assert\Type(type="array", message="The type provided is invalid.")
      *
@@ -111,7 +106,7 @@ trait TransactionTrait
      * Parent transaction.
      *
      * @Assert\Type(
-     *     type="\EoneoPay\PhpSdk\Endpoints\PaymentSource",
+     *     type="\EoneoPay\PhpSdk\Endpoints\Transaction",
      *     message="The type provided is invalid."
      * )
      *
@@ -121,6 +116,8 @@ trait TransactionTrait
 
     /**
      * Payment destination.
+     *
+     * @Groups({"create", "update"})
      *
      * @Assert\Type(
      *     type="\EoneoPay\PhpSdk\Endpoints\PaymentSource",
@@ -134,7 +131,7 @@ trait TransactionTrait
     /**
      * Payment source.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
+     * @Groups({"create", "update"})
      *
      * @Assert\Type(
      *     type="\EoneoPay\PhpSdk\Endpoints\PaymentSource",
@@ -157,7 +154,14 @@ trait TransactionTrait
     /**
      * Transaction security.
      *
-     * @var mixed
+     * @Groups({"create", "update"})
+     *
+     * @Assert\Type(
+     *     type="\EoneoPay\PhpSdk\Endpoints\Security",
+     *     message="The type provided is invalid."
+     * )
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\Security|null
      */
     protected $security;
 
@@ -173,7 +177,7 @@ trait TransactionTrait
     /**
      * Transaction id.
      *
-     * @Groups({"create", "delete", "get", "list", "update"})
+     * @Groups({"create", "delete", "get", "update"})
      *
      * @Assert\Type(type="string", message="The type provided is invalid.")
      *
@@ -193,8 +197,6 @@ trait TransactionTrait
 
     /**
      * User associated with this transaction.
-     *
-     * @Groups({"create", "get", "list", "update"})
      *
      * @Assert\Type(
      *     type="\EoneoPay\PhpSdk\Endpoints\User",

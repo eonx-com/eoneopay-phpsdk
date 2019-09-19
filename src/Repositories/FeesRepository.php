@@ -10,7 +10,7 @@ use EoneoPay\PhpSdk\Repository;
 class FeesRepository extends Repository
 {
     /**
-     * Calculate the fees of the given context
+     * Calculate the fees of the given context.
      *
      * @param string $apiKey
      * @param \EoneoPay\PhpSdk\Endpoints\Transaction $transaction
@@ -27,7 +27,7 @@ class FeesRepository extends Repository
                 'action' => $transaction->getAction(),
                 'amount' => $transaction->getAmount(),
                 'paymentDestination' => $transaction->getPaymentDestination(),
-                'paymentSource' => $transaction->getPaymentSource()
+                'paymentSource' => $transaction->getPaymentSource(),
             ]))
         );
 

@@ -8,63 +8,53 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait PaymentSourceTrait
 {
     /**
-     * Created at date
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Created at date.
      *
      * @var string|null
      */
     protected $createdAt;
 
     /**
-     * Payment source id
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Payment source id.
      *
      * @var string
      */
     protected $id;
 
     /**
-     * Payment source name
+     * Payment source name.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create", "update"})
      *
      * @var string|null
      */
     protected $name;
 
     /**
-     * Payment source pan
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Payment source pan.
      *
      * @var string
      */
     protected $pan;
 
     /**
-     * Payment source token
+     * Payment source token.
      *
-     * @Groups({"create", "get", "list", "update"})
-     *
-     * @var string
+     * @var string|null
      */
     protected $token;
 
     /**
      * Payment source type discriminator.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create", "update"})
      *
-     * @var string|null
+     * @var string
      */
     protected $type;
 
     /**
-     * Updated at date
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Updated at date.
      *
      * @var string|null
      */

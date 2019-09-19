@@ -8,36 +8,32 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait UserTrait
 {
     /**
-     * Created at date
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Created at date.
      *
      * @var string
      */
     protected $createdAt;
 
     /**
-     * User email
+     * User email.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string
      */
     protected $email;
 
     /**
-     * User id
+     * User id.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string User selected external id
      */
     protected $id;
 
     /**
-     * Updated at date
-     *
-     * @Groups({"create", "get", "list", "update"})
+     * Updated at date.
      *
      * @var string
      */
