@@ -15,6 +15,11 @@ class WebhookPraserValidationException extends BaseValidationException
      */
     private $violations;
 
+    /**
+     * Constructs a new instance of WebhookPraserValidationException.
+     *
+     * @param \Symfony\Component\Validator\ConstraintViolationListInterface $violations
+     */
     public function __construct(ConstraintViolationListInterface $violations)
     {
         $this->violations = $violations;
@@ -24,6 +29,7 @@ class WebhookPraserValidationException extends BaseValidationException
             /**
              * @var \Symfony\Component\Validator\ConstraintViolationInterface $violation
              */
+            $errors[$violation->getPropertyPath()][] = $violation->getMessage();
         }
 
         parent::__construct(

@@ -7,6 +7,7 @@ use EoneoPay\PhpSdk\Endpoints\PaymentSource;
 use EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount;
 use EoneoPay\PhpSdk\Endpoints\Transaction;
 use EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException;
+use EoneoPay\PhpSdk\Services\Webhooks\Exceptions\WebhookPraserValidationException;
 use EoneoPay\PhpSdk\Services\Webhooks\Parser;
 use GuzzleHttp\Psr7\Request;
 use LoyaltyCorp\SdkBlueprint\Sdk\Factories\SerializerFactory;
@@ -29,7 +30,7 @@ class ParserTest extends ValidationEnabledTestCase
      */
     public function getInvalidRequestScenarios(): iterable
     {
-        yield 'Null amount' => [
+        yield 'Null values' => [
             'targetClass' => Transaction::class,
             'request' => new Request(
                 'POST',
@@ -37,26 +38,17 @@ class ParserTest extends ValidationEnabledTestCase
                 [],
                 <<<JSON
 {
-    "action": "debit",
-    "allocation": [],
-    "amount": null,
-    "approved": true,
-    "created_at": "2019-02-20T00:54:34Z",
-    "id": "order1",
-    "metadata": [],
-    "parent": null,
-    "payment_destination": null,
-    "payment_source": null,
-    "response": {},
-    "security": null,
-    "status": "completed",
-    "transaction_id": "transaction1",
-    "updated_at": "2019-02-20T00:54:35Z",
-    "user": null
+    "action": null,
+    "allocation": null,
+    "amount": null
 }
 JSON
             ),
-            'expected' => ''
+            'expected' => [
+                'action' => ['A value was not provided.'],
+                'allocation' => ['A value was not provided.'],
+                'amount' => ['A value was not provided.']
+            ]
         ];
     }
 
@@ -130,6 +122,7 @@ JSON
      * @return void
      *
      * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
+     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\WebhookPraserValidationException
      *
      * @dataProvider getValidRequestScenarios
      */
@@ -149,20 +142,32 @@ JSON
      *
      * @dataProvider getInvalidRequestScenarios
      *
+     * @param string $targetClass
+     * @param \Psr\Http\Message\RequestInterface $request
+     * @param string[] $expected
+     *
      * @return void
      *
      * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
+     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\WebhookPraserValidationException
      */
     public function testParseRequestValidationFailure(
         string $targetClass,
         RequestInterface $request,
-        string $expected
+        array $expected
     ): void {
         $parser = $this->getInstance();
 
-        $result = $parser->parseRequest($targetClass, $request);
+        $this->expectException(WebhookPraserValidationException::class);
+        $this->expectExceptionMessage('The webhook parser failed to validate the parsed entity.');
 
-        self::assertTrue(true);
+        try {
+            $parser->parseRequest($targetClass, $request);
+        } catch (WebhookPraserValidationException $exception) {
+            $this->assertValidationExceptionErrors($exception, $expected);
+
+            throw $exception;
+        }
     }
 
     /**
@@ -171,6 +176,7 @@ JSON
      * @return void
      *
      * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
+     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\WebhookPraserValidationException
      */
     public function testParseSuccessful(): void
     {
@@ -222,6 +228,7 @@ JSON;
      * @return void
      *
      * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException
+     * @throws \EoneoPay\PhpSdk\Services\Webhooks\Exceptions\WebhookPraserValidationException
      */
     public function testParseThrowsExceptionOnNonEntityClass(): void
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\TestCases;
 
 use EoneoPay\Utils\AnnotationReader;
+use EoneoPay\Utils\Interfaces\Exceptions\ValidationExceptionInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorFactory;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -17,6 +18,8 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
  * @coversNothing
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling required to fully test.
  */
 class ValidationEnabledTestCase extends TestCase
 {
@@ -44,6 +47,21 @@ class ValidationEnabledTestCase extends TestCase
         }
 
         self::assertSame($expected, $toString());
+    }
+
+    /**
+     * Asserts that the validation exception contains the specified validation error messages.
+     *
+     * @param \EoneoPay\Utils\Interfaces\Exceptions\ValidationExceptionInterface $exception
+     * @param string[] $expected
+     *
+     * @return void
+     */
+    protected function assertValidationExceptionErrors(
+        ValidationExceptionInterface $exception,
+        array $expected
+    ): void {
+        self::assertSame($expected, $exception->getErrors());
     }
 
     /**
