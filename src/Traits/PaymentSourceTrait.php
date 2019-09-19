@@ -49,7 +49,7 @@ trait PaymentSourceTrait
      *
      * @Groups({"create", "update"})
      *
-     * @var string|null
+     * @var string
      */
     protected $type;
 

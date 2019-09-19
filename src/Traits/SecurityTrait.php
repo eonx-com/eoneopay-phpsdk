@@ -19,7 +19,7 @@ trait SecurityTrait
      *
      * @Groups({"create"})
      *
-     * @var mixed[]|null
+     * @var \EoneoPay\PhpSdk\Endpoints\Amount|null
      */
     protected $amount;
 

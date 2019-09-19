@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints\Transactions;
 
+use EoneoPay\PhpSdk\Endpoints\Amount;
 use EoneoPay\PhpSdk\Endpoints\PaymentSources\Ewallet;
 use EoneoPay\PhpSdk\Endpoints\Transaction;
 use EoneoPay\PhpSdk\Exceptions\ClientException;
@@ -35,6 +36,7 @@ final class RetrieveTransactionTest extends TransactionTestCase
         ]);
 
         $expected = new Transaction(\array_merge($data, [
+            'amount' => new Amount($data['amount']),
             'paymentDestination' => new Ewallet($data['paymentDestination']),
             'paymentSource' => new Ewallet($data['paymentSource']),
         ]));

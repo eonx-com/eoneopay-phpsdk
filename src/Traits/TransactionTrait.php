@@ -30,7 +30,7 @@ trait TransactionTrait
      *
      * @Groups({"create", "delete", "update"})
      *
-     * @var mixed[]|null
+     * @var \EoneoPay\PhpSdk\Endpoints\Amount|null
      */
     protected $amount;
 
