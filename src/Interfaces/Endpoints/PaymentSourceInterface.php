@@ -13,6 +13,13 @@ interface PaymentSourceInterface
     public const SOURCE_BANK_ACCOUNT = 'bank_account';
 
     /**
+     * Bpay payment source.
+     *
+     * @var string
+     */
+    public const SOURCE_BPAY = 'bpay';
+
+    /**
      * Credit card payment source.
      *
      * @var string
