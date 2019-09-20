@@ -13,8 +13,8 @@ trait TransactionTrait
      *
      * @Groups({"create", "delete", "update"})
      *
-     * @Assert\NotBlank(message="A value was not provided.")
-     * @Assert\Type(type="string", message="The type provided is invalid.")
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
      *
      * @var string|null
      */
@@ -25,8 +25,8 @@ trait TransactionTrait
      *
      * @Groups({"create", "update"})
      *
-     * @Assert\NotBlank(message="A value was not provided.")
-     * @Assert\Type(type="array", message="The type provided is invalid.")
+     * @Assert\NotBlank()
+     * @Assert\Type(type="array")
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Transactions\Allocation|null
      */
@@ -37,11 +37,8 @@ trait TransactionTrait
      *
      * @Groups({"create", "delete", "update"})
      *
-     * @Assert\NotBlank(message="A value was not provided.")
-     * @Assert\Type(
-     *     type="\EoneoPay\PhpSdk\Endpoints\Amount",
-     *     message="The type provided is invalid."
-     * )
+     * @Assert\NotBlank()
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Amount")
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Amount|null
      */
@@ -58,7 +55,7 @@ trait TransactionTrait
      * Created at date.
      *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
-     * @Assert\Type(type="string", message="The type provided is invalid.")
+     * @Assert\Type(type="string")
      *
      * @var string|null
      */
@@ -68,7 +65,7 @@ trait TransactionTrait
      * When the transaction was finalised.
      *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
-     * @Assert\Type(type="string", message="The type provided is invalid.")
+     * @Assert\Type(type="string")
      *
      * @var string|null
      */
@@ -86,7 +83,7 @@ trait TransactionTrait
      *
      * @Groups({"create", "delete", "get", "update"})
      *
-     * @Assert\Type(type="string", message="The type provided is invalid.")
+     * @Assert\Type(type="string")
      *
      * @var string|null
      */
@@ -97,7 +94,7 @@ trait TransactionTrait
      *
      * @Groups({"create", "delete", "update"})
      *
-     * @Assert\Type(type="array", message="The type provided is invalid.")
+     * @Assert\Type(type="array")
      *
      * @var mixed[]|null
      */
@@ -106,10 +103,7 @@ trait TransactionTrait
     /**
      * Parent transaction.
      *
-     * @Assert\Type(
-     *     type="\EoneoPay\PhpSdk\Endpoints\Transaction",
-     *     message="The type provided is invalid."
-     * )
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Transaction")
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Transaction|null
      */
@@ -120,10 +114,7 @@ trait TransactionTrait
      *
      * @Groups({"create", "update"})
      *
-     * @Assert\Type(
-     *     type="\EoneoPay\PhpSdk\Endpoints\PaymentSource",
-     *     message="The type provided is invalid."
-     * )
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
      *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
@@ -134,10 +125,7 @@ trait TransactionTrait
      *
      * @Groups({"create", "update"})
      *
-     * @Assert\Type(
-     *     type="\EoneoPay\PhpSdk\Endpoints\PaymentSource",
-     *     message="The type provided is invalid."
-     * )
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
      *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
@@ -146,7 +134,7 @@ trait TransactionTrait
     /**
      * Transaction response.
      *
-     * @Assert\Type(type="array", message="The type provided is invalid.")
+     * @Assert\Type(type="array")
      *
      * @var mixed[]
      */
@@ -157,10 +145,7 @@ trait TransactionTrait
      *
      * @Groups({"create", "update"})
      *
-     * @Assert\Type(
-     *     type="\EoneoPay\PhpSdk\Endpoints\Security",
-     *     message="The type provided is invalid."
-     * )
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Security")
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Security|null
      */
@@ -169,7 +154,7 @@ trait TransactionTrait
     /**
      * Transaction status.
      *
-     * @Assert\Type(type="string", message="The type provided is invalid.")
+     * @Assert\Type(type="string")
      *
      * @var string|null
      */
@@ -180,7 +165,7 @@ trait TransactionTrait
      *
      * @Groups({"create", "delete", "get", "update"})
      *
-     * @Assert\Type(type="string", message="The type provided is invalid.")
+     * @Assert\Type(type="string")
      *
      * @var string|null
      */
@@ -190,7 +175,7 @@ trait TransactionTrait
      * Transaction updated at date.
      *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
-     * @Assert\Type(type="string", message="The type provided is invalid.")
+     * @Assert\Type(type="string")
      *
      * @var string|null
      */
@@ -199,10 +184,7 @@ trait TransactionTrait
     /**
      * User associated with this transaction.
      *
-     * @Assert\Type(
-     *     type="\EoneoPay\PhpSdk\Endpoints\User",
-     *     message="The type provided is invalid."
-     * )
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\User")
      *
      * @var \EoneoPay\PhpSdk\Endpoints\User
      */

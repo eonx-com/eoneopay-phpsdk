@@ -22,7 +22,7 @@ class ValidationException extends BaseValidationExceptions
      * @param mixed[]|null $messageParameters
      * @param int|null $code
      * @param \Throwable|null $previous
-     * @param string[]|null $errors
+     * @param string[][]|null $errors
      * @param int|null $subCode
      */
     public function __construct(

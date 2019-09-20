@@ -31,7 +31,7 @@ final class UserTest extends TestCase
             'code' => 6210,
             'message' => 'User (external-user-idsad) already exists with email examplesasaeww@user.test.',
             'sub_code' => 1,
-            'time' => '2019-02-26T00=>04=>13Z',
+            'time' => '2019-02-26T00:04:13Z',
             'violations' => [
                 'email' => [
                     'The email has already been taken.',
@@ -55,10 +55,10 @@ final class UserTest extends TestCase
     public function testCreateUser(): void
     {
         $user = $this->createApiManager([
-            'created_at' => '2019-02-26T00=>01=>39Z',
+            'created_at' => '2019-02-26T00:01:39Z',
             'id' => $this->getUser()->getId(),
             'email' => $this->getUser()->getEmail(),
-            'updated_at' => '2019-02-26T00=>01=>39Z',
+            'updated_at' => '2019-02-26T00:01:39Z',
         ], 201)
             ->create(
                 (string)\getenv('PAYMENTS_API_KEY'),
@@ -79,9 +79,9 @@ final class UserTest extends TestCase
     public function testGetProfile(): void
     {
         $user = $this->createApiManager([
-            'created_at' => '2019-02-22T03=>09=>44Z',
+            'created_at' => '2019-02-22T03:09:44Z',
             'email' => 'example@user.test',
-            'updated_at' => '2019-02-22T03=>09=>44Z',
+            'updated_at' => '2019-02-22T03:09:44Z',
         ], 201)
             ->findOneBy(
                 User::class,

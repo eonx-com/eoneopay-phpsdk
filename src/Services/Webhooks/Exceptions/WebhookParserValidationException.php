@@ -6,7 +6,7 @@ namespace EoneoPay\PhpSdk\Services\Webhooks\Exceptions;
 use EoneoPay\PhpSdk\Exceptions\ValidationException as BaseValidationException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-class WebhookPraserValidationException extends BaseValidationException
+class WebhookParserValidationException extends BaseValidationException
 {
     /**
      * The constraint violations list.
@@ -29,7 +29,7 @@ class WebhookPraserValidationException extends BaseValidationException
             /**
              * @var \Symfony\Component\Validator\ConstraintViolationInterface $violation
              */
-            $errors[$violation->getPropertyPath()] = $violation->getMessage();
+            $errors[$violation->getPropertyPath()][] = $violation->getMessage();
         }
 
         parent::__construct(
