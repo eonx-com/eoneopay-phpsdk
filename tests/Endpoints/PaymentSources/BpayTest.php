@@ -12,7 +12,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 class BpayTest extends TestCase
 {
     /**
-     * Test get Bpay token information returns expected information about the Bpay endpoint
+     * Test get Bpay token information returns expected information about the Bpay endpoint.
      *
      * @return void
      */
@@ -33,8 +33,8 @@ class BpayTest extends TestCase
                 'user' => [
                     'email' => 'user@email.test',
                     'metadata' => [],
-                    'name' => 'John Wick'
-                ]
+                    'name' => 'John Wick',
+                ],
             ],
             'id' => $hash,
             'pan' => 'B...PAY',
@@ -45,8 +45,8 @@ class BpayTest extends TestCase
             'user' => [
                 'email' => 'user@email.test',
                 'metadata' => [],
-                'name' => 'John Wick'
-            ]
+                'name' => 'John Wick',
+            ],
         ]);
 
         /** @var \EoneoPay\PhpSdk\Endpoints\PaymentSource $paymentSource */
@@ -64,9 +64,6 @@ class BpayTest extends TestCase
         self::assertSame('Test', $paymentSource->getBillerName());
         self::assertSame('1793768381', $paymentSource->getReferenceNumber());
         self::assertNull($paymentSource->getAllocationEwallet());
-        $ewallet = $paymentSource->getEwallet();
-        self::assertSame(
-            'DY34YCWERE',
-            $ewallet !== null ? $ewallet->getReference() : null);
+        self::assertSame('DY34YCWERE', $paymentSource->getEwallet()->getReference());
     }
 }

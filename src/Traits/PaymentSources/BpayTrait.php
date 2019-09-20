@@ -13,14 +13,14 @@ trait BpayTrait
     protected $billerCode;
 
     /**
-     * Bpay biller name
+     * Bpay biller name.
      *
      * @var string|null
      */
     protected $billerName;
 
     /**
-     * Bpay reference number
+     * Bpay reference number.
      *
      * @var string|null
      */

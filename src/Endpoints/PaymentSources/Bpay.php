@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Endpoints\PaymentSources;
 
 use EoneoPay\PhpSdk\Endpoints\PaymentSource;
-use EoneoPay\PhpSdk\Traits\PaymentSources\BpayTrait;
 use EoneoPay\PhpSdk\Endpoints\User;
+use EoneoPay\PhpSdk\Traits\PaymentSources\BpayTrait;
 
 /**
- * @method PaymentSource|null getAllocationEwallet()
+ * @method Ewallet|null getAllocationEwallet()
  * @method string|null getBillerCode()
  * @method string|null getBillerName()
- * @method PaymentSource getEwallet()
+ * @method Ewallet getEwallet()
  * @method string|null getReferenceNumber()
  * @method User|null getUser()
  */
