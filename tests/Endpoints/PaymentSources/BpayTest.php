@@ -12,7 +12,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 class BpayTest extends TestCase
 {
     /**
-     * Test get bpay payment source endpoint getters. There is no public api to create a bpay payment source
+     * Test get bpay payment source endpoint getters. There is no public api to create a Bpay payment source
      * hence only testing getters.
      *
      * @return void
