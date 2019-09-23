@@ -511,16 +511,16 @@
         },
         {
             "name": "loyaltycorp/sdkblueprint",
-            "version": "v1.0.0-beta4",
+            "version": "v1.0.0-beta5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/loyaltycorp/sdkblueprint.git",
-                "reference": "74df5df3524dc062c3cdc017f750028043f39ac3"
+                "reference": "ce85af1b33c73dbae9f3e25d59154df85e372c8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/loyaltycorp/sdkblueprint/zipball/74df5df3524dc062c3cdc017f750028043f39ac3",
-                "reference": "74df5df3524dc062c3cdc017f750028043f39ac3",
+                "url": "https://api.github.com/repos/loyaltycorp/sdkblueprint/zipball/ce85af1b33c73dbae9f3e25d59154df85e372c8a",
+                "reference": "ce85af1b33c73dbae9f3e25d59154df85e372c8a",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -586,10 +586,10 @@
                 "sdk"
             ],
             "support": {
-                "source": "https://github.com/loyaltycorp/sdkblueprint/tree/v1.0.0-beta4",
+                "source": "https://github.com/loyaltycorp/sdkblueprint/tree/v1.0.0-beta5",
                 "issues": "https://github.com/loyaltycorp/sdkblueprint/issues"
             },
-            "time": "2019-09-17T02:15:56+00:00"
+            "time": "2019-09-20T05:57:35+00:00"
         },
         {
             "name": "psr/cache",
