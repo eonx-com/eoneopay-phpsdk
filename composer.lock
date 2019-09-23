@@ -511,16 +511,16 @@
         },
         {
             "name": "loyaltycorp/sdkblueprint",
-            "version": "v1.0.0-beta4",
+            "version": "v1.0.0-beta5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/loyaltycorp/sdkblueprint.git",
-                "reference": "74df5df3524dc062c3cdc017f750028043f39ac3"
+                "reference": "ce85af1b33c73dbae9f3e25d59154df85e372c8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/loyaltycorp/sdkblueprint/zipball/74df5df3524dc062c3cdc017f750028043f39ac3",
-                "reference": "74df5df3524dc062c3cdc017f750028043f39ac3",
+                "url": "https://api.github.com/repos/loyaltycorp/sdkblueprint/zipball/ce85af1b33c73dbae9f3e25d59154df85e372c8a",
+                "reference": "ce85af1b33c73dbae9f3e25d59154df85e372c8a",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -586,10 +586,10 @@
                 "sdk"
             ],
             "support": {
-                "source": "https://github.com/loyaltycorp/sdkblueprint/tree/v1.0.0-beta4",
+                "source": "https://github.com/loyaltycorp/sdkblueprint/tree/v1.0.0-beta5",
                 "issues": "https://github.com/loyaltycorp/sdkblueprint/issues"
             },
-            "time": "2019-09-17T02:15:56+00:00"
+            "time": "2019-09-20T05:57:35+00:00"
         },
         {
             "name": "psr/cache",
@@ -5377,16 +5377,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.11.15",
+            "version": "0.11.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "1be5b3a706db16ac472a4c40ec03cf4c810b118d"
+                "reference": "635cf20f3b92ce34ee94a8d2f282d62eb9dc6e1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1be5b3a706db16ac472a4c40ec03cf4c810b118d",
-                "reference": "1be5b3a706db16ac472a4c40ec03cf4c810b118d",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/635cf20f3b92ce34ee94a8d2f282d62eb9dc6e1b",
+                "reference": "635cf20f3b92ce34ee94a8d2f282d62eb9dc6e1b",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -5444,8 +5444,7 @@
             "autoload": {
                 "psr-4": {
                     "PHPStan\\": [
-                        "src/",
-                        "build/PHPStan"
+                        "src/"
                     ]
                 }
             },
@@ -5454,7 +5453,7 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2019-08-18T20:51:53+00:00"
+            "time": "2019-09-17T11:19:51+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
@@ -5805,16 +5804,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "e899757bb3df5ff6e95089132f32cd59aac2220a"
+                "reference": "995192df77f63a59e47f025390d2d1fdf8f425ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/e899757bb3df5ff6e95089132f32cd59aac2220a",
-                "reference": "e899757bb3df5ff6e95089132f32cd59aac2220a",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/995192df77f63a59e47f025390d2d1fdf8f425ff",
+                "reference": "995192df77f63a59e47f025390d2d1fdf8f425ff",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -5856,7 +5855,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2019-07-25T05:29:42+00:00"
+            "time": "2019-09-17T06:23:10+00:00"
         },
         {
             "name": "phpunit/phpunit",

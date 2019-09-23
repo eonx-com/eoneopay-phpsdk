@@ -43,7 +43,10 @@ abstract class TransactionTestCase extends TestCase
                 'type' => 'ewallet',
             ],
             'user' => new User([
+                'created_at' => '2018-09-19 00:00:00',
+                'id' => 'test',
                 'email' => 'user@email.test',
+                'updated_at' => '2018-09-19 00:00:00',
             ]),
         ], $data ?? []);
     }
