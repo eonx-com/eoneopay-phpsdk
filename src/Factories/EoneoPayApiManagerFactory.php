@@ -19,10 +19,10 @@ final class EoneoPayApiManagerFactory implements EoneoPayApiManagerFactoryInterf
     /**
      * {@inheritdoc}
      */
-    public function create(string $baseUri): EoneoPayApiManagerInterface
+    public function create(string $baseUri, ?array $headers = null): EoneoPayApiManagerInterface
     {
         return new EoneoPayApiManager(
-            $this->createSdkManager($baseUri),
+            $this->createSdkManager($baseUri, $headers),
             new ExceptionFactory()
         );
     }
@@ -31,14 +31,19 @@ final class EoneoPayApiManagerFactory implements EoneoPayApiManagerFactoryInterf
      * Create sdk manager instance.
      *
      * @param string $baseUri Api base uri
+     * @param mixed[] $headers Headers to send with request
      *
      * @return \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface
      */
-    private function createSdkManager(string $baseUri): SdkManagerInterface
+    private function createSdkManager(string $baseUri, ?array $headers = null): SdkManagerInterface
     {
+        $options = \is_array($headers) === true ?
+            ['base_uri' => $baseUri, 'headers' => $headers] :
+            ['base_uri' => $baseUri];
+
         return new SdkManager(
             new RequestHandler(
-                new GuzzleClient(['base_uri' => $baseUri]),
+                new GuzzleClient($options),
                 new ResponseHandler(),
                 new SerializerFactory(),
                 new UrnFactory()
