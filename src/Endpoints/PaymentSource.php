@@ -20,6 +20,7 @@ use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
  *
  * @DiscriminatorMap(typeProperty="type", mapping={
  *     "bank_account" = "EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount",
+ *     "bpay" = "EoneoPay\PhpSdk\Endpoints\PaymentSources\Bpay",
  *     "credit_card" = "EoneoPay\PhpSdk\Endpoints\PaymentSources\CreditCard",
  *     "ewallet" = "EoneoPay\PhpSdk\Endpoints\PaymentSources\Ewallet"
  * })
