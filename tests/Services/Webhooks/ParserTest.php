@@ -10,9 +10,9 @@ use EoneoPay\PhpSdk\Services\Webhooks\Exceptions\InvalidEntityClassException;
 use EoneoPay\PhpSdk\Services\Webhooks\Exceptions\WebhookParserValidationException;
 use EoneoPay\PhpSdk\Services\Webhooks\Parser;
 use GuzzleHttp\Psr7\Request;
-use LoyaltyCorp\SdkBlueprint\Sdk\Factories\SerializerFactory;
-use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\Factories\SerializerFactoryInterface;
 use Psr\Http\Message\RequestInterface;
+use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Tests\EoneoPay\PhpSdk\TestCases\ValidationEnabledTestCase;
 
@@ -48,6 +48,60 @@ JSON
                 'action' => ['This value should not be blank.'],
                 'allocation' => ['This value should not be blank.'],
                 'amount' => ['This value should not be blank.'],
+            ],
+        ];
+
+        yield 'Invalid values' => [
+            'targetClass' => Transaction::class,
+            'request' => new Request(
+                'POST',
+                '/listen/eoneopay/transaction',
+                [],
+                <<<'JSON'
+{
+    "action": false,
+    "allocation": false,
+    "amount": false,
+    "approved": "hello",
+    "createdAt": false,
+    "finalisedAt": false,
+    "fundingSource": null,
+    "metadata": false,
+    "parent": false,
+    "paymentDestination": null,
+    "paymentSource": null,
+    "response": false,
+    "security": false,
+    "status": false,
+    "transactionId": false,
+    "updatedAt": false,
+    "user": false
+}
+JSON
+            ),
+            'expected' => [
+                'action' => [
+                    'This value should not be blank.',
+                    'This value should be of type string.',
+                ],
+                'allocation' => ['This value should be of type array.'],
+                'approved' => ['This value should be of type bool.'],
+                'createdAt' => [
+                    'This value is not a valid datetime.',
+                    'This value should be of type string.',
+                ],
+                'finalisedAt' => [
+                    'This value is not a valid datetime.',
+                    'This value should be of type string.',
+                ],
+                'metadata' => ['This value should be of type array.'],
+                'response' => ['This value should be of type array.'],
+                'status' => ['This value should be of type string.'],
+                'transactionId' => ['This value should be of type string.'],
+                'updatedAt' => [
+                    'This value is not a valid datetime.',
+                    'This value should be of type string.',
+                ],
             ],
         ];
     }
@@ -163,7 +217,9 @@ JSON
         $this->expectExceptionMessage('The webhook parser failed to validate the parsed entity.');
 
         try {
-            $parser->parseRequest($targetClass, $request);
+            $parser->parseRequest($targetClass, $request, [
+                PropertyNormalizer::DISABLE_TYPE_ENFORCEMENT => true,
+            ]);
         } catch (WebhookParserValidationException $exception) {
             $this->assertValidationExceptionErrors($exception, $expected);
 
@@ -181,8 +237,7 @@ JSON
      */
     public function testParseSuccessful(): void
     {
-        $serializerFactory = new SerializerFactory();
-        $parser = $this->getInstance($serializerFactory);
+        $parser = $this->getInstance();
         $json = <<<'JSON'
 {
     "country": "AU",
@@ -243,17 +298,17 @@ JSON;
     /**
      * Gets an instance of the parser.
      *
-     * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\Factories\SerializerFactoryInterface|null $serializerFactory
+     * @param \Symfony\Component\Serializer\SerializerInterface|null $serializer
      * @param \Symfony\Component\Validator\Validator\ValidatorInterface|null $validator
      *
      * @return \EoneoPay\PhpSdk\Services\Webhooks\Parser
      */
     private function getInstance(
-        ?SerializerFactoryInterface $serializerFactory = null,
+        ?SerializerInterface $serializer = null,
         ?ValidatorInterface $validator = null
     ): Parser {
         return new Parser(
-            $serializerFactory ?? new SerializerFactory(),
+            $serializer ?? $this->getSerializer(),
             $validator ?? $this->getValidator()
         );
     }

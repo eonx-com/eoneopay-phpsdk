@@ -5,6 +5,8 @@ namespace Tests\EoneoPay\PhpSdk\TestCases;
 
 use EoneoPay\Utils\AnnotationReader;
 use EoneoPay\Utils\Interfaces\Exceptions\ValidationExceptionInterface;
+use LoyaltyCorp\SdkBlueprint\Sdk\Factories\SerializerFactory;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorFactory;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -87,6 +89,16 @@ class ValidationEnabledTestCase extends TestCase
         $context->setConstraint($constraint);
 
         return $context;
+    }
+
+    /**
+     * Gets a serializer instance to use within tests.
+     *
+     * @return \Symfony\Component\Serializer\SerializerInterface
+     */
+    protected function getSerializer(): SerializerInterface
+    {
+        return (new SerializerFactory())->create();
     }
 
     /**

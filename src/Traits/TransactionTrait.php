@@ -47,6 +47,8 @@ trait TransactionTrait
     /**
      * Approved.
      *
+     * @Assert\Type(type="bool")
+     *
      * @var bool|null
      */
     protected $approved;
@@ -73,6 +75,8 @@ trait TransactionTrait
 
     /**
      * Original funding source for allocation transaction.
+     *
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
      *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */

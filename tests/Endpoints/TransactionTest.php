@@ -56,7 +56,7 @@ ERR,
                 'action' => false,
                 'allocation' => false,
                 'amount' => false,
-                'approved' => false,
+                'approved' => 'hello',
                 'createdAt' => false,
                 'finalisedAt' => false,
                 'fundingSource' => false,
@@ -84,6 +84,8 @@ Object(EoneoPay\PhpSdk\Endpoints\Transaction).amount:
     This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).amount:
     This value should be of type \EoneoPay\PhpSdk\Endpoints\Amount. (code ba785a8c-82cb-4283-967c-3cf342181b40)
+Object(EoneoPay\PhpSdk\Endpoints\Transaction).approved:
+    This value should be of type bool. (code ba785a8c-82cb-4283-967c-3cf342181b40)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).createdAt:
     This value is not a valid datetime. (code 1a9da513-2640-4f84-9b6a-4d99dcddc628)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).createdAt:
@@ -92,6 +94,8 @@ Object(EoneoPay\PhpSdk\Endpoints\Transaction).finalisedAt:
     This value is not a valid datetime. (code 1a9da513-2640-4f84-9b6a-4d99dcddc628)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).finalisedAt:
     This value should be of type string. (code ba785a8c-82cb-4283-967c-3cf342181b40)
+Object(EoneoPay\PhpSdk\Endpoints\Transaction).fundingSource:
+    This value should be of type \EoneoPay\PhpSdk\Endpoints\PaymentSource. (code ba785a8c-82cb-4283-967c-3cf342181b40)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).metadata:
     This value should be of type array. (code ba785a8c-82cb-4283-967c-3cf342181b40)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).parent:
