@@ -35,6 +35,7 @@ class TransactionTest extends ValidationEnabledTestCase
                 'paymentSource' => null,
                 'response' => null,
                 'security' => null,
+                'state' => null,
                 'status' => null,
                 'transactionId' => null,
                 'updatedAt' => null,
@@ -46,6 +47,8 @@ Object(EoneoPay\PhpSdk\Endpoints\Transaction).action:
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).allocation:
     This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).amount:
+    This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
+Object(EoneoPay\PhpSdk\Endpoints\Transaction).state:
     This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
 
 ERR,
@@ -66,6 +69,7 @@ ERR,
                 'paymentSource' => false,
                 'response' => false,
                 'security' => false,
+                'state' => false,
                 'status' => false,
                 'transactionId' => false,
                 'updatedAt' => false,
@@ -108,6 +112,12 @@ Object(EoneoPay\PhpSdk\Endpoints\Transaction).response:
     This value should be of type array. (code ba785a8c-82cb-4283-967c-3cf342181b40)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).security:
     This value should be of type \EoneoPay\PhpSdk\Endpoints\Security. (code ba785a8c-82cb-4283-967c-3cf342181b40)
+Object(EoneoPay\PhpSdk\Endpoints\Transaction).state:
+    This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
+Object(EoneoPay\PhpSdk\Endpoints\Transaction).state:
+    This value should be of type int. (code ba785a8c-82cb-4283-967c-3cf342181b40)
+Object(EoneoPay\PhpSdk\Endpoints\Transaction).state:
+    This value should be positive. (code 778b7ae0-84d3-481a-9dec-35fdb64b1d78)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).status:
     This value should be of type string. (code ba785a8c-82cb-4283-967c-3cf342181b40)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).transactionId:

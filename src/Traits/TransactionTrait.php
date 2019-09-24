@@ -156,6 +156,17 @@ trait TransactionTrait
     protected $security;
 
     /**
+     * Transaction state.
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="int")
+     * @Assert\Positive()
+     *
+     * @var int|null
+     */
+    protected $state;
+
+    /**
      * Transaction status.
      *
      * @Assert\Type(type="string")

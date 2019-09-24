@@ -40,7 +40,8 @@ final class ParserTest extends ValidationEnabledTestCase
 {
     "action": null,
     "allocation": null,
-    "amount": null
+    "amount": null,
+    "state": null
 }
 JSON
             ),
@@ -48,6 +49,7 @@ JSON
                 'action' => ['This value should not be blank.'],
                 'allocation' => ['This value should not be blank.'],
                 'amount' => ['This value should not be blank.'],
+                'state' => ['This value should not be blank.'],
             ],
         ];
 
@@ -72,6 +74,7 @@ JSON
     "paymentSource": null,
     "response": false,
     "security": false,
+    "state": false,
     "status": false,
     "transactionId": false,
     "updatedAt": false,
@@ -96,6 +99,11 @@ JSON
                 ],
                 'metadata' => ['This value should be of type array.'],
                 'response' => ['This value should be of type array.'],
+                'state' => [
+                    'This value should not be blank.',
+                    'This value should be of type int.',
+                    'This value should be positive.',
+                ],
                 'status' => ['This value should be of type string.'],
                 'transactionId' => ['This value should be of type string.'],
                 'updatedAt' => [
