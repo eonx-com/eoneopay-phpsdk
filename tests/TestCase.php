@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
  * @coversNothing
  *
  * @SuppressWarnings(PHPMD.NumberOfChildren) All tests extend this class
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling required to fully test.
  */
 abstract class TestCase extends BaseTestCase
 {

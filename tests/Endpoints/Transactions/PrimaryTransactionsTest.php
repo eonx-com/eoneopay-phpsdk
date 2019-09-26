@@ -53,6 +53,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
 
         $actual = $this->performTransactionAssertions($expected, $actual);
 
+        self::assertInstanceOf(Amount::class, $actual->getAmount());
         self::assertInstanceOf(Ewallet::class, $actual->getPaymentSource());
         self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
         self::assertInstanceOf(BankAccount::class, $actual->getFundingSource());
@@ -79,6 +80,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
 
         $actual = $this->performTransactionAssertions($expected, $actual);
 
+        self::assertInstanceOf(Amount::class, $actual->getAmount());
         self::assertInstanceOf(CreditCard::class, $actual->getPaymentSource());
         self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
     }
@@ -113,6 +115,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
 
         $actual = $this->performTransactionAssertions($expected, $actual);
 
+        self::assertInstanceOf(Amount::class, $actual->getAmount());
         self::assertInstanceOf(Ewallet::class, $actual->getPaymentSource());
         self::assertInstanceOf(BankAccount::class, $actual->getPaymentDestination());
     }
@@ -146,6 +149,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
 
         $actual = $this->performTransactionAssertions($expected, $actual);
 
+        self::assertInstanceOf(Amount::class, $actual->getAmount());
         self::assertInstanceOf(BankAccount::class, $actual->getPaymentSource());
         self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
     }
@@ -183,6 +187,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
 
         $actual = $this->performTransactionAssertions($expected, $actual);
 
+        self::assertInstanceOf(Amount::class, $actual->getAmount());
         self::assertInstanceOf(Ewallet::class, $actual->getPaymentSource());
         self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
     }

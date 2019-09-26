@@ -7,12 +7,11 @@ use EoneoPay\PhpSdk\Endpoints\Transaction;
 use EoneoPay\PhpSdk\Endpoints\User;
 use EoneoPay\PhpSdk\Interfaces\Endpoints\TransactionInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
-use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
  * @coversNothing
  */
-abstract class TransactionTestCase extends TestCase
+abstract class TransactionTestCase extends ValidationEnabledTestCase
 {
     /**
      * Create transaction response.

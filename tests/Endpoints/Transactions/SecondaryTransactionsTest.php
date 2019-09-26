@@ -35,6 +35,7 @@ final class SecondaryTransactionsTest extends TransactionTestCase
 
         $actual = $this->performTransactionAssertions($expected, $actual);
 
+        self::assertInstanceOf(Amount::class, $actual->getAmount());
         self::assertInstanceOf(CreditCard::class, $actual->getPaymentSource());
         self::assertInstanceOf(Ewallet::class, $actual->getPaymentDestination());
     }

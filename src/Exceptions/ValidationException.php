@@ -6,7 +6,7 @@ namespace EoneoPay\PhpSdk\Exceptions;
 use EoneoPay\Utils\Exceptions\ValidationException as BaseValidationExceptions;
 use Throwable;
 
-final class ValidationException extends BaseValidationExceptions
+class ValidationException extends BaseValidationExceptions
 {
     /**
      * The sub error code.
@@ -22,7 +22,7 @@ final class ValidationException extends BaseValidationExceptions
      * @param mixed[]|null $messageParameters
      * @param int|null $code
      * @param \Throwable|null $previous
-     * @param string[]|null $errors
+     * @param string[][]|null $errors
      * @param int|null $subCode
      */
     public function __construct(

@@ -23,6 +23,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method PaymentSource|null getPaymentSource()
  * @method mixed[]|null getResponse()
  * @method Security|null getSecurity()
+ * @method int|null getState()
  * @method string|null getStatus()
  * @method string|null getTransactionId()
  * @method string|null getUpdatedAt()
