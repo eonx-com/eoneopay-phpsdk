@@ -94,6 +94,6 @@ final class Parser implements ParserInterface
     ): EntityInterface {
         $content = $request->getBody()->getContents();
 
-        return $this->parse($className, $content, 'json', $serializerOptions ?? []);
+        return $this->parse($className, $content, 'json', $serializerOptions);
     }
 }
