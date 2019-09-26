@@ -201,7 +201,7 @@ trait TransactionTrait
      *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\User")
      *
-     * @var \EoneoPay\PhpSdk\Endpoints\User
+     * @var \EoneoPay\PhpSdk\Endpoints\User|null
      */
     protected $user;
 }
