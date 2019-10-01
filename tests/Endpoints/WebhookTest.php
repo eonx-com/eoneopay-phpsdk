@@ -92,6 +92,7 @@ final class WebhookTest extends TestCase
         $webhook = $this->createApiManager($response)->update(
             (string)\getenv('PAYMENTS_API_KEY'),
             new Webhook([
+                'activities' => ['token.created'],
                 'url' => 'http://original.local',
             ])
         );
@@ -104,6 +105,7 @@ final class WebhookTest extends TestCase
          * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
          */
         self::assertSame('http://sdktest.local', $webhook->getUrl());
+        self::assertSame(['transaction.created', 'transaction.updated'], $webhook->getActivities());
     }
 
     /**
