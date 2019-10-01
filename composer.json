@@ -5,7 +5,7 @@
     "eoneopay",
     "sdk"
   ],
-  "license": "Proprietary",
+  "license": "BSD-3-Clause",
   "type": "library",
   "repositories": [
     {
