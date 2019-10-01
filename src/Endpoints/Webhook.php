@@ -8,6 +8,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @method mixed[]|null getActivities()
  * @method string|null getId()
  * @method mixed[]|null getHeaders()
  * @method string|null getUrl()
@@ -18,15 +19,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 class Webhook extends Entity
 {
     use WebhookTrait;
-
-    /**
-     * User associated with this webhook.
-     *
-     * @Groups({"create", "get", "list", "update"})
-     *
-     * @var \EoneoPay\PhpSdk\Endpoints\User
-     */
-    protected $user;
 
     /**
      * {@inheritdoc}

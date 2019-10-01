@@ -8,6 +8,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait WebhookTrait
 {
     /**
+     * Subscribed activities.
+     *
+     * @var mixed[]
+     */
+    protected $activities;
+
+    /**
      * Headers.
      *
      * @Groups({"create", "update"})
@@ -33,4 +40,13 @@ trait WebhookTrait
      * @var string
      */
     protected $url;
+
+    /**
+     * User associated with this webhook.
+     *
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\User
+     */
+    protected $user;
 }

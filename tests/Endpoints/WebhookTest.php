@@ -41,6 +41,7 @@ final class WebhookTest extends TestCase
          */
         self::assertSame('http://sdktest.local', $webhook->getUrl());
         self::assertCount(1, $webhook->getHeaders() ?? []);
+        self::assertSame(['transaction.created', 'transaction.updated'], $webhook->getActivities());
     }
 
     /**
@@ -117,6 +118,7 @@ final class WebhookTest extends TestCase
         $date = new DateTime();
 
         return [
+            'activities' => ['transaction.created', 'transaction.updated'],
             'created_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU),
             'headers' => ['sdkkey1' => 'sdkval1'],
             'id' => '6NC2WWP',
