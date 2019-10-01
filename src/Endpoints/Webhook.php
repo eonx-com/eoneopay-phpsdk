@@ -5,7 +5,6 @@ namespace EoneoPay\PhpSdk\Endpoints;
 
 use EoneoPay\PhpSdk\Traits\WebhookTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @method mixed[]|null getActivities()

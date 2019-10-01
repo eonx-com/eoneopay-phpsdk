@@ -10,6 +10,8 @@ trait WebhookTrait
     /**
      * Subscribed activities.
      *
+     * @Groups({"create", "update"})
+     *
      * @var mixed[]
      */
     protected $activities;
