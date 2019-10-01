@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Traits;
 
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 trait TransactionTrait
 {
@@ -11,6 +12,9 @@ trait TransactionTrait
      * Transaction action.
      *
      * @Groups({"create", "delete", "update"})
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
      *
      * @var string|null
      */
@@ -21,6 +25,9 @@ trait TransactionTrait
      *
      * @Groups({"create", "update"})
      *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="array")
+     *
      * @var \EoneoPay\PhpSdk\Endpoints\Transactions\Allocation|null
      */
     protected $allocation;
@@ -30,12 +37,17 @@ trait TransactionTrait
      *
      * @Groups({"create", "delete", "update"})
      *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Amount")
+     *
      * @var \EoneoPay\PhpSdk\Endpoints\Amount|null
      */
     protected $amount;
 
     /**
      * Approved.
+     *
+     * @Assert\Type(type="bool")
      *
      * @var bool|null
      */
@@ -44,6 +56,9 @@ trait TransactionTrait
     /**
      * Created at date.
      *
+     * @Assert\DateTime(format="Y-m-d\TH:i:sP")
+     * @Assert\Type(type="string")
+     *
      * @var string|null
      */
     protected $createdAt;
@@ -51,12 +66,17 @@ trait TransactionTrait
     /**
      * When the transaction was finalised.
      *
+     * @Assert\DateTime(format="Y-m-d\TH:i:sP")
+     * @Assert\Type(type="string")
+     *
      * @var string|null
      */
     protected $finalisedAt;
 
     /**
      * Original funding source for allocation transaction.
+     *
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
      *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
@@ -67,6 +87,8 @@ trait TransactionTrait
      *
      * @Groups({"create", "delete", "get", "update"})
      *
+     * @Assert\Type(type="string")
+     *
      * @var string|null
      */
     protected $id;
@@ -76,12 +98,16 @@ trait TransactionTrait
      *
      * @Groups({"create", "delete", "update"})
      *
+     * @Assert\Type(type="array")
+     *
      * @var mixed[]|null
      */
     protected $metadata;
 
     /**
      * Parent transaction.
+     *
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Transaction")
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Transaction|null
      */
@@ -92,6 +118,8 @@ trait TransactionTrait
      *
      * @Groups({"create", "update"})
      *
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
+     *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
     protected $paymentDestination;
@@ -101,12 +129,16 @@ trait TransactionTrait
      *
      * @Groups({"create", "update"})
      *
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
+     *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
     protected $paymentSource;
 
     /**
      * Transaction response.
+     *
+     * @Assert\Type(type="array")
      *
      * @var mixed[]
      */
@@ -117,12 +149,27 @@ trait TransactionTrait
      *
      * @Groups({"create", "update"})
      *
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Security")
+     *
      * @var \EoneoPay\PhpSdk\Endpoints\Security|null
      */
     protected $security;
 
     /**
+     * Transaction state.
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="int")
+     * @Assert\Positive()
+     *
+     * @var int|null
+     */
+    protected $state;
+
+    /**
      * Transaction status.
+     *
+     * @Assert\Type(type="string")
      *
      * @var string|null
      */
@@ -133,12 +180,17 @@ trait TransactionTrait
      *
      * @Groups({"create", "delete", "get", "update"})
      *
+     * @Assert\Type(type="string")
+     *
      * @var string|null
      */
     protected $transactionId;
 
     /**
      * Transaction updated at date.
+     *
+     * @Assert\DateTime(format="Y-m-d\TH:i:sP")
+     * @Assert\Type(type="string")
      *
      * @var string|null
      */
@@ -147,7 +199,9 @@ trait TransactionTrait
     /**
      * User associated with this transaction.
      *
-     * @var \EoneoPay\PhpSdk\Endpoints\User
+     * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\User")
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\User|null
      */
     protected $user;
 }
