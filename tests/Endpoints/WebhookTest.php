@@ -49,6 +49,8 @@ final class WebhookTest extends TestCase
          */
         self::assertSame('http://sdktest.local', $webhook->getUrl());
         self::assertCount(1, $webhook->getHeaders() ?? []);
+        self::assertSame('POST', $webhook->getMethod());
+        self::assertSame('json', $webhook->getSerializationFormat());
         self::assertEquals($expectedActivity, $webhook->getActivities());
     }
 
@@ -96,6 +98,8 @@ final class WebhookTest extends TestCase
     public function testUpdate(): void
     {
         $response = $this->getResponseData();
+        $response['method'] = 'PUT';
+
         $expectedActivity = [
             new SubscribedActivity([
                 'activity' => 'transaction.updated',
@@ -121,6 +125,7 @@ final class WebhookTest extends TestCase
          * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
          */
         self::assertSame('http://sdktest.local', $webhook->getUrl());
+        self::assertSame('PUT', $webhook->getMethod());
         self::assertEquals($expectedActivity, $webhook->getActivities());
     }
 
@@ -142,6 +147,8 @@ final class WebhookTest extends TestCase
             'created_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU),
             'headers' => ['sdkkey1' => 'sdkval1'],
             'id' => '6NC2WWP',
+            'method' => 'POST',
+            'serializationFormat' => 'json',
             'url' => 'http://sdktest.local',
             'user' => [
                 'created_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU),

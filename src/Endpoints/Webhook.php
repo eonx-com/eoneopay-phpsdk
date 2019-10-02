@@ -11,10 +11,14 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method SubscribedActivity[]|null getActivities()
  * @method string|null getId()
  * @method mixed[]|null getHeaders()
+ * @method string|null getMethod()
+ * @method string|null getSerializationFormat()
  * @method string|null getUrl()
  * @method User|null getUser()
- * @method $this setUrl(string $url)
  * @method $this setHeaders(array $headers)
+ * @method $this setMethod(string $method)
+ * @method $this setSerializationFormat(string $serializationFormat)
+ * @method $this setUrl(string $url)
  */
 class Webhook extends Entity
 {

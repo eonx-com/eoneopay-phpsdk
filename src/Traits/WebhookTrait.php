@@ -35,6 +35,24 @@ trait WebhookTrait
     protected $id;
 
     /**
+     * Http method this webhook will be delivered as.
+     *
+     * @Groups({"create", "update"})
+     *
+     * @var string
+     */
+    protected $method;
+
+    /**
+     * The content type of payload delivery.
+     *
+     * @Groups({"create", "update"})
+     *
+     * @var string
+     */
+    protected $serializationFormat;
+
+    /**
      * Url.
      *
      * @Groups({"create", "update"})

@@ -21,6 +21,6 @@ class SubscribedActivity extends Entity
      */
     public function uris(): array
     {
-        // There is no action directly on Subscribed Activity.
+        return [];
     }
 }
