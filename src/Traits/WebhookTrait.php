@@ -8,6 +8,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait WebhookTrait
 {
     /**
+     * Subscribed activities.
+     *
+     * @Groups({"create", "update"})
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\Users\WebhookSubscriptions\SubscribedActivity[]
+     */
+    protected $activities;
+
+    /**
      * Headers.
      *
      * @Groups({"create", "update"})
@@ -26,6 +35,24 @@ trait WebhookTrait
     protected $id;
 
     /**
+     * Http method this webhook will be delivered as.
+     *
+     * @Groups({"create", "update"})
+     *
+     * @var string
+     */
+    protected $method;
+
+    /**
+     * The content type of payload delivery.
+     *
+     * @Groups({"create", "update"})
+     *
+     * @var string
+     */
+    protected $serializationFormat;
+
+    /**
      * Url.
      *
      * @Groups({"create", "update"})
@@ -33,4 +60,13 @@ trait WebhookTrait
      * @var string
      */
     protected $url;
+
+    /**
+     * User associated with this webhook.
+     *
+     * @Groups({"create", "get", "list", "update"})
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\User
+     */
+    protected $user;
 }
