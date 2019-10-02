@@ -3,11 +3,12 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints;
 
+use EoneoPay\PhpSdk\Endpoints\Users\WebhookSubscriptions\SubscribedActivity;
 use EoneoPay\PhpSdk\Traits\WebhookTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
- * @method mixed[]|null getActivities()
+ * @method SubscribedActivity[]|null getActivities()
  * @method string|null getId()
  * @method mixed[]|null getHeaders()
  * @method string|null getUrl()

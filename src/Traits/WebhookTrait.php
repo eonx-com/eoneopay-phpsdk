@@ -12,7 +12,7 @@ trait WebhookTrait
      *
      * @Groups({"create", "update"})
      *
-     * @var mixed[]
+     * @var \EoneoPay\PhpSdk\Endpoints\Users\WebhookSubscriptions\SubscribedActivity[]
      */
     protected $activities;
 
