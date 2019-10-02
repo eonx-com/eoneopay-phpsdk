@@ -48,7 +48,7 @@ final class WebhookTest extends TestCase
          * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
          */
         self::assertSame('http://sdktest.local', $webhook->getUrl());
-        self::assertCount(1, $webhook->getHeaders() ?? []);
+        self::assertSame(['sdkkey1' => 'sdkval1'], $webhook->getHeaders());
         self::assertSame('POST', $webhook->getMethod());
         self::assertSame('json', $webhook->getSerializationFormat());
         self::assertEquals($expectedActivity, $webhook->getActivities());
