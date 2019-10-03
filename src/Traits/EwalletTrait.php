@@ -48,18 +48,18 @@ trait EwalletTrait
     /**
      * Ewallet pan.
      *
-     * @var string|null
-     *
      * @Assert\Type(type="string")
+     *
+     * @var string|null
      */
     protected $pan;
 
     /**
      * If is primary.
      *
-     * @var bool|null
-     *
      * @Assert\Type(type="bool")
+     *
+     * @var bool|null
      */
     protected $primary;
 
