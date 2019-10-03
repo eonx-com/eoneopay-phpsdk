@@ -27,20 +27,20 @@ trait EwalletTrait
     /**
      * Ewallet currency.
      *
+     * @Assert\Type(type="string")
+     *
      * @Groups({"create"})
      *
      * @var string|null
-     *
-     * @Assert\Type(type="string")
      */
     protected $currency;
 
     /**
      * Ewallet id.
      *
-     * @var string|null
-     *
      * @Assert\Type(type="string")
+     *
+     * @var string|null
      */
     protected $id;
 
@@ -65,19 +65,19 @@ trait EwalletTrait
     /**
      * Ewallet user reference.
      *
-     * @var string|null
-     *
      * @Assert\NotBlank()
      * @Assert\Type(type="string")
+     *
+     * @var string|null
      */
     protected $reference;
 
     /**
      * Ewallet type.
      *
-     * @var string|null
-     *
      * @Assert\Type(type="string")
+     *
+     * @var string|null
      */
     protected $type;
 
