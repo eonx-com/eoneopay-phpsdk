@@ -20,6 +20,7 @@ use Tests\EoneoPay\PhpSdk\TestCases\ValidationEnabledTestCase;
  * @covers \EoneoPay\PhpSdk\Services\Webhooks\Parser
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling required to fully test the parser.
+ * @SuppressWarnings(PHPMD.ExcessiveMethodLength) Long methods for JSON.
  */
 final class ParserTest extends ValidationEnabledTestCase
 {
