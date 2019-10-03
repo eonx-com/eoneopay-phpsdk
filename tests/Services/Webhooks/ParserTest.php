@@ -103,8 +103,8 @@ JSON
                 'response' => ['This value should be of type array.'],
                 'state' => [
                     'This value should not be blank.',
-                    'This value should be of type int.',
                     'This value should be positive.',
+                    'This value should be of type int.',
                 ],
                 'status' => ['This value should be of type string.'],
                 'transactionId' => ['This value should be of type string.'],
