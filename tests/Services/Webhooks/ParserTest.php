@@ -194,6 +194,11 @@ JSON
     "allocation": {
         "amount": "5.2",
         "ewallet": {
+            "balances": {
+                "available": "162.45",
+                "balance": "42.45",
+                "credit_limit": "120.00"
+            },
             "reference": "ACB"
         },
         "records": [

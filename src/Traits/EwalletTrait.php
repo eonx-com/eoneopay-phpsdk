@@ -11,9 +11,10 @@ trait EwalletTrait
     /**
      * Ewallet balance.
      *
-     * @Assert\Type(type="string")
+     * @Assert\Type(type="object")
+     * @Assert\Valid()
      *
-     * @var mixed[]|null
+     * @var \EoneoPay\PhpSdk\Endpoints\Balance|null
      */
     protected $balances;
 
