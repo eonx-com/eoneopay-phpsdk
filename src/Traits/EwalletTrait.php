@@ -57,7 +57,7 @@ trait EwalletTrait
     /**
      * If is primary.
      *
-     * @var bool
+     * @var bool|null
      *
      * @Assert\Type(type="bool")
      */
