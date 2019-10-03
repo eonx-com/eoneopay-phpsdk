@@ -8,7 +8,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait SubscribedActivityTrait
 {
     /**
-     * Activity key
+     * Activity key.
      *
      * @Groups({"create", "update"})
      *

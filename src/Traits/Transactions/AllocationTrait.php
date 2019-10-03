@@ -27,7 +27,7 @@ trait AllocationTrait
      *
      * @Assert\NotBlank()
      * @Assert\Type(type="object")
-     * @Assert\Valid
+     * @Assert\Valid()
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Ewallet|null
      */

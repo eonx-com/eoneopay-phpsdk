@@ -26,8 +26,7 @@ trait TransactionTrait
      * @Groups({"create", "update"})
      *
      * @Assert\NotBlank()
-     * @Assert\Type(type="object")
-     * @Assert\Valid
+     * @Assert\Valid()
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Transactions\Allocation
      */
@@ -86,9 +85,9 @@ trait TransactionTrait
     /**
      * Order id.
      *
-     * @Groups({"create", "delete", "get", "update"})
-     *
      * @Assert\Type(type="string")
+     *
+     * @Groups({"create", "delete", "get", "update"})
      *
      * @var string|null
      */
@@ -97,9 +96,9 @@ trait TransactionTrait
     /**
      * Transaction metadata.
      *
-     * @Groups({"create", "delete", "update"})
-     *
      * @Assert\Type(type="array")
+     *
+     * @Groups({"create", "delete", "update"})
      *
      * @var mixed[]|null
      */
@@ -160,8 +159,8 @@ trait TransactionTrait
      * Transaction state.
      *
      * @Assert\NotBlank()
-     * @Assert\Type(type="int")
      * @Assert\Positive()
+     * @Assert\Type(type="int")
      *
      * @var int|null
      */

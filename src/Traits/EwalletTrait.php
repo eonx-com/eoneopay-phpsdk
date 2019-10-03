@@ -11,9 +11,9 @@ trait EwalletTrait
     /**
      * Ewallet balance.
      *
-     * @var mixed[]|null
-     *
      * @Assert\Type(type="string")
+     *
+     * @var mixed[]|null
      */
     protected $balances;
 

@@ -11,23 +11,23 @@ trait RecordTrait
     /**
      * Allocation amount.
      *
-     * @Groups({"create"})
-     *
      * @Assert\Type(type="string")
-     * @Assert\Valid
+     * @Assert\Valid()
+     *
+     * @Groups({"create"})
      *
      * @var string|null
      */
     protected $amount;
 
     /**
-     * Allocaiton ewallet.
-     *
-     * @Groups({"create"})
+     * Allocation ewallet.
      *
      * @Assert\NotBlank()
      * @Assert\Type(type="object")
-     * @Assert\Valid
+     * @Assert\Valid()
+     *
+     * @Groups({"create"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Ewallet|null
      */
