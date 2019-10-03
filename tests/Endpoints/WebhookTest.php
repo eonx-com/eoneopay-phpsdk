@@ -28,8 +28,8 @@ final class WebhookTest extends TestCase
         $expectedActivity = [
             new SubscribedActivity([
             'activity' => 'transaction.updated',
-            'userWebhook' => null
-            ])
+            'userWebhook' => null,
+            ]),
         ];
 
         $webhook = $this->createApiManager($response)->create(
@@ -103,15 +103,15 @@ final class WebhookTest extends TestCase
         $expectedActivity = [
             new SubscribedActivity([
                 'activity' => 'transaction.updated',
-                'userWebhook' => null
-            ])
+                'userWebhook' => null,
+            ]),
         ];
 
         $webhook = $this->createApiManager($response)->update(
             (string)\getenv('PAYMENTS_API_KEY'),
             new Webhook([
                 'activities' => [
-                    ['activity' => 'token.created']
+                    ['activity' => 'token.created'],
                 ],
                 'url' => 'http://original.local',
             ])
@@ -142,7 +142,7 @@ final class WebhookTest extends TestCase
 
         return [
             'activities' => [
-                ['activity' => 'transaction.updated']
+                ['activity' => 'transaction.updated'],
             ],
             'created_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU),
             'headers' => ['sdkkey1' => 'sdkval1'],
@@ -156,7 +156,6 @@ final class WebhookTest extends TestCase
                 'updated_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU),
             ],
             'updated_at' => $date->format(UtcDateTimeInterface::FORMAT_ZULU),
-
         ];
     }
 }

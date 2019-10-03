@@ -20,6 +20,7 @@ use Tests\EoneoPay\PhpSdk\TestCases\ValidationEnabledTestCase;
  * @covers \EoneoPay\PhpSdk\Services\Webhooks\Parser
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects) High coupling required to fully test the parser.
+ * @SuppressWarnings(PHPMD.ExcessiveMethodLength) Long methods for JSON.
  */
 final class ParserTest extends ValidationEnabledTestCase
 {
@@ -47,7 +48,8 @@ JSON
             ),
             'expected' => [
                 'action' => ['This value should not be blank.'],
-                'allocation' => ['This value should not be blank.'],
+                'allocation.amount' => ['This value should not be blank.'],
+                'allocation.ewallet' => ['This value should not be blank.'],
                 'amount' => ['This value should not be blank.'],
                 'state' => ['This value should not be blank.'],
             ],
@@ -87,7 +89,8 @@ JSON
                     'This value should not be blank.',
                     'This value should be of type string.',
                 ],
-                'allocation' => ['This value should be of type array.'],
+                'allocation.amount' => ['This value should not be blank.'],
+                'allocation.ewallet' => ['This value should not be blank.'],
                 'approved' => ['This value should be of type bool.'],
                 'createdAt' => [
                     'This value is not a valid datetime.',
@@ -101,8 +104,8 @@ JSON
                 'response' => ['This value should be of type array.'],
                 'state' => [
                     'This value should not be blank.',
-                    'This value should be of type int.',
                     'This value should be positive.',
+                    'This value should be of type int.',
                 ],
                 'status' => ['This value should be of type string.'],
                 'transactionId' => ['This value should be of type string.'],
@@ -168,6 +171,105 @@ JSON
     "token": "FDJ9934242YBP3C2ZC43",
     "type": "bank_account",
     "updated_at": "2019-07-31T06:08:07Z"
+}
+JSON
+            ),
+        ];
+
+        yield 'Transaction Creation Revocation' => [
+            'paymentSource' => Transaction::class,
+            'request' => new Request(
+                'POST',
+                '/listen/eoneopay/transaction',
+                [],
+                <<<'JSON'
+{
+    "action": "debit",
+    "amount": {
+        "currency": "AUD",
+        "payment_fee": "0.12",
+        "subtotal": "99.88",
+        "total": "100.00"
+    },
+    "allocation": {
+        "amount": "5.2",
+        "ewallet": {
+            "balances": {
+                "available": "162.45",
+                "balance": "42.45",
+                "credit_limit": "120.00"
+            },
+            "reference": "ACB"
+        },
+        "records": [
+            {
+                "amount": "1.20",
+                "ewallet": {
+                    "reference": "ACB"
+                }
+            }
+        ]
+    },
+    "approved": true,
+    "created_at": "2019-02-20T00:54:34Z",
+    "id": "ORDER_EXT_ID",
+    "metadata": [],
+    "parent": null,
+    "payment_destination": {
+        "created_at": "2019-02-17T22:07:41Z",
+        "currency": "AUD",
+        "id": "17ce7c53540eccc9fba13b755d922721",
+        "pan": "K...WCB7",
+        "primary": true,
+        "reference": "KETYDFWCB7",
+        "type": "ewallet",
+        "updated_at": "2019-02-17T22:07:41Z",
+        "user": {
+            "created_at": "2019-02-17T22:07:41Z",
+            "email": "example@user.test",
+            "updated_at": "2019-02-17T22:07:41Z"
+        }
+    },
+    "payment_source": {
+        "bin": {
+            "bin": "512345",
+            "category": "Standard",
+            "country": "EC",
+            "created_at": "2019-02-17T22:10:05Z",
+            "funding_source": "CREDIT",
+            "issuer": "BANCO DEL PICHINCHA, C.A.",
+            "prepaid": null,
+            "scheme": "MASTERCARD",
+            "updated_at": "2019-02-17T22:10:05Z"
+        },
+        "created_at": "2019-02-17T22:10:05Z",
+        "expiry": {
+            "month": "11",
+            "year": "2099"
+        },
+        "facility": "Mastercard",
+        "id": "1a05c6ac43c7a93088a7bff15e3625f4",
+        "name": "User Name",
+        "pan": "512345...0008",
+        "token": "UETACKCYRFNYAXYR8466",
+        "type": "credit_card",
+        "updated_at": "2019-02-17T22:10:06Z"
+    },
+    "response": {
+        "acquirer_code": "00",
+        "acquirer_message": "Approved",
+        "gateway_message": "APPROVED"
+    },
+    "security": null,
+    "state": 82,
+    "status": "completed",
+    "transaction_id": "TRANS_EXT_ID",
+    "updated_at": "2019-02-20T00:54:35Z",
+    "user": {
+        "created_at": "2019-02-17T22:07:41Z",
+        "email": "example@example.net",
+        "updated_at": "2019-02-17T22:07:41Z"
+    }
 }
 JSON
             ),
