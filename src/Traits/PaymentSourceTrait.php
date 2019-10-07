@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Traits;
 
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 trait PaymentSourceTrait
 {
@@ -16,6 +17,9 @@ trait PaymentSourceTrait
 
     /**
      * Payment source id.
+     *
+     * @Assert\NotNull()
+     * @Assert\Type(type="string")
      *
      * @var string
      */
@@ -33,6 +37,9 @@ trait PaymentSourceTrait
     /**
      * Payment source pan.
      *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
+     *
      * @var string
      */
     protected $pan;
@@ -48,6 +55,9 @@ trait PaymentSourceTrait
      * Payment source type discriminator.
      *
      * @Groups({"create", "update"})
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
      *
      * @var string
      */
