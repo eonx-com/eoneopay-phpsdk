@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\Transactions;
 
+use EoneoPay\PhpSdk\Endpoints\Ewallet;
 use EoneoPay\PhpSdk\Endpoints\Transactions\Allocations\Record;
 use EoneoPay\PhpSdk\Traits\Transactions\AllocationTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
