@@ -12,9 +12,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @method string getReferenceNumber()
  * @method string getType()
  * @method User getUser()
- * @method setReferenceNumber(string $reference)
- * @method setType(string $type)
- * @method setUser(User $user)
+ * @method $this setReferenceNumber(string $reference)
+ * @method $this setType(string $type)
+ * @method $this setUser(User $user)
  */
 class ReferenceNumber extends Entity
 {
