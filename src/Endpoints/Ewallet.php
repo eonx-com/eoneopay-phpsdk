@@ -7,7 +7,7 @@ use EoneoPay\PhpSdk\Traits\EwalletTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
- * @method mixed[]|null getBalances()
+ * @method Balance|null getBalances()
  * @method string|null getCreatedAt()
  * @method string|null getCurrency()
  * @method string|null getId()
