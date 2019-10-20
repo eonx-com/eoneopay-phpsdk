@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints;
 
+use EoneoPay\PhpSdk\Endpoints\Balance;
 use EoneoPay\PhpSdk\Endpoints\Ewallet;
 use EoneoPay\PhpSdk\Endpoints\User;
 use EoneoPay\PhpSdk\Exceptions\ClientException;
@@ -21,9 +22,9 @@ final class EwalletTest extends TestCase
     public function testEwalletBalance(): void
     {
         $response = [
-            'balances' => [
-                'available' => '0.00',
-                'balance' => '0.00',
+            'balance' => [
+                'available' => '123.45',
+                'balance' => '234.56',
             ],
             'created_at' => '2019-02-25T02=>40=>32Z',
             'currency' => 'AUD',
@@ -48,9 +49,11 @@ final class EwalletTest extends TestCase
             );
 
         self::assertSame('JEKYYFZAR0', ($ewallet instanceof Ewallet) ? $ewallet->getReference() : null);
-        // check if it has balances
-        self::assertObjectHasAttribute('balances', $ewallet);
         self::assertInstanceOf(User::class, ($ewallet instanceof Ewallet) ? $ewallet->getUser() : null);
+        // check if it has balances
+        self::assertInstanceOf(Balance::class, ($ewallet instanceof Ewallet) ? $ewallet->getBalance() : null);
+        self::assertSame('123.45', ($ewallet instanceof Ewallet) ? $ewallet->getBalance()->getAvailable() : null);
+        self::assertSame('234.56', ($ewallet instanceof Ewallet) ? $ewallet->getBalance()->getBalance() : null);
     }
 
     /**
