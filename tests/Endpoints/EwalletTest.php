@@ -40,6 +40,10 @@ final class EwalletTest extends TestCase
                 'updated_at' => '2019-02-22T03=>09=>44Z',
             ],
         ];
+        $expected = new Balance([
+            'available' => '123.45',
+            'balance' => '234.56',
+        ]);
 
         $ewallet = $this->createApiManager($response, 200)
             ->findOneBy(
@@ -52,8 +56,7 @@ final class EwalletTest extends TestCase
         self::assertInstanceOf(User::class, ($ewallet instanceof Ewallet) ? $ewallet->getUser() : null);
         // check if it has balances
         self::assertInstanceOf(Balance::class, ($ewallet instanceof Ewallet) ? $ewallet->getBalance() : null);
-        self::assertSame('123.45', ($ewallet instanceof Ewallet) ? $ewallet->getBalance()->getAvailable() : null);
-        self::assertSame('234.56', ($ewallet instanceof Ewallet) ? $ewallet->getBalance()->getBalance() : null);
+        self::assertEquals($expected, ($ewallet instanceof Ewallet) ? $ewallet->getBalance() : null);
     }
 
     /**
