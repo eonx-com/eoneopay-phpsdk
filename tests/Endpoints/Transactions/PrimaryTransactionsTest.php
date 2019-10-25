@@ -94,6 +94,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
     {
         $data = $this->createResponse([
             'action' => Transaction::ACTION_CREDIT,
+            'description' => 'TEST CREDIT',
             'paymentDestination' => [
                 'token' => \mb_strtoupper($this->generateId()),
                 'type' => 'bank_account',
@@ -129,6 +130,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
     {
         $data = $this->createResponse([
             'action' => Transaction::ACTION_DEBIT,
+            'description' => 'TEST DEBIT',
             'metadata' => [
                 'ping0' => 'pong0',
                 'ping1' => 'pong1',
@@ -163,6 +165,7 @@ final class PrimaryTransactionsTest extends TransactionTestCase
     {
         $data = $this->createResponse([
             'action' => Transaction::ACTION_TRANSFER,
+            'description' => 'TEST TRANSFER',
             'paymentDestination' => [
                 'id' => \uniqid('', false),
                 'pan' => 'D...T001',

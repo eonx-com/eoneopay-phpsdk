@@ -14,6 +14,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method Amount|null getAmount()
  * @method bool|null getApproved()
  * @method string|null getCreatedAt()
+ * @method string|null getDescription()
  * @method string|null getFinalisedAt()
  * @method PaymentSource|null getFundingSource()
  * @method string|null getId()

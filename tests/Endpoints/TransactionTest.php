@@ -27,6 +27,7 @@ class TransactionTest extends ValidationEnabledTestCase
                 'amount' => null,
                 'approved' => null,
                 'createdAt' => null,
+                'description' => null,
                 'finalisedAt' => null,
                 'fundingSource' => null,
                 'metadata' => null,
