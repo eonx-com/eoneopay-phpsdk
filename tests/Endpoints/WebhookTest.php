@@ -27,8 +27,8 @@ final class WebhookTest extends TestCase
 
         $expectedActivity = [
             new SubscribedActivity([
-            'activity' => 'transaction.updated',
-            'userWebhook' => null,
+                'activity' => 'transaction.updated',
+                'userWebhook' => null,
             ]),
         ];
 
@@ -77,7 +77,7 @@ final class WebhookTest extends TestCase
      */
     public function testRemove(): void
     {
-        $webhook = $this->createApiManager()->delete(
+        $webhook = $this->createApiManager(null, 200)->delete(
             (string)\getenv('PAYMENTS_API_KEY'),
             new Webhook([
                 'headers' => ['sdkkey1' => 'sdkval1'],

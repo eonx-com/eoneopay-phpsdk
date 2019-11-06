@@ -16,7 +16,7 @@ trait EwalletTrait
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Balance|null
      */
-    protected $balance;
+    protected $balances;
 
     /**
      * Created at date.

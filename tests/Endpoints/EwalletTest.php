@@ -22,9 +22,10 @@ final class EwalletTest extends TestCase
     public function testEwalletBalance(): void
     {
         $response = [
-            'balance' => [
+            'balances' => [
                 'available' => '123.45',
                 'balance' => '234.56',
+                'credit_limit' => '0.00',
             ],
             'created_at' => '2019-02-25T02=>40=>32Z',
             'currency' => 'AUD',
@@ -43,6 +44,7 @@ final class EwalletTest extends TestCase
         $expected = new Balance([
             'available' => '123.45',
             'balance' => '234.56',
+            'credit_limit' => '0.00',
         ]);
 
         $ewallet = $this->createApiManager($response, 200)
@@ -55,8 +57,8 @@ final class EwalletTest extends TestCase
         self::assertSame('JEKYYFZAR0', ($ewallet instanceof Ewallet) ? $ewallet->getReference() : null);
         self::assertInstanceOf(User::class, ($ewallet instanceof Ewallet) ? $ewallet->getUser() : null);
         // check if it has balances
-        self::assertInstanceOf(Balance::class, ($ewallet instanceof Ewallet) ? $ewallet->getBalance() : null);
-        self::assertEquals($expected, ($ewallet instanceof Ewallet) ? $ewallet->getBalance() : null);
+        self::assertInstanceOf(Balance::class, ($ewallet instanceof Ewallet) ? $ewallet->getBalances() : null);
+        self::assertEquals($expected, ($ewallet instanceof Ewallet) ? $ewallet->getBalances() : null);
     }
 
     /**
