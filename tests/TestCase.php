@@ -35,10 +35,14 @@ abstract class TestCase extends BaseTestCase
      */
     protected function createApiManager(?array $body = null, ?int $responseCode = null): EoneoPayApiManagerInterface
     {
+        $client = \is_array($body) === true || \is_int($responseCode) === true
+            ? $this->createClient($body, $responseCode)
+            : $this->createLiveClient();
+
         return new EoneoPayApiManager(
             new SdkManager(
                 new RequestHandler(
-                    $this->createClient($body, $responseCode),
+                    $client,
                     new ResponseHandler(),
                     new SerializerFactory(),
                     new UrnFactory()
@@ -46,16 +50,6 @@ abstract class TestCase extends BaseTestCase
             ),
             new ExceptionFactory()
         );
-    }
-
-    /**
-     * Create live http client.
-     *
-     * @return \GuzzleHttp\ClientInterface
-     */
-    protected function createLiveClient(): ClientInterface
-    {
-        return new Client(['base_uri' => (string)\getenv('PAYMENTS_BASE_URI')]);
     }
 
     /**
@@ -104,5 +98,15 @@ abstract class TestCase extends BaseTestCase
                 ),
             ]),
         ]);
+    }
+
+    /**
+     * Create live http client.
+     *
+     * @return \GuzzleHttp\ClientInterface
+     */
+    private function createLiveClient(): ClientInterface
+    {
+        return new Client(['base_uri' => (string)\getenv('PAYMENTS_BASE_URI')]);
     }
 }

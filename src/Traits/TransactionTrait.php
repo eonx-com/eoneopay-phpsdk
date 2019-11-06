@@ -64,6 +64,15 @@ trait TransactionTrait
     protected $createdAt;
 
     /**
+     * Transaction description.
+     *
+     * @Assert\Type(type="string")
+     *
+     * @var string|null
+     */
+    protected $description;
+
+    /**
      * When the transaction was finalised.
      *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
