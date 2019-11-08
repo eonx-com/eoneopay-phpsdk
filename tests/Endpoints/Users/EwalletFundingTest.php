@@ -8,12 +8,12 @@ use EoneoPay\PhpSdk\Endpoints\PaymentSources\CreditCard;
 use EoneoPay\PhpSdk\Endpoints\User;
 use EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding;
 use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
-use Tests\EoneoPay\PhpSdk\TestCase;
+use Tests\EoneoPay\PhpSdk\TestCases\ValidationEnabledTestCase;
 
 /**
  * @covers \EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding
  */
-class EwalletFundingTest extends TestCase
+class EwalletFundingTest extends ValidationEnabledTestCase
 {
     /**
      * Base test to check class constructs as expected.
@@ -111,6 +111,32 @@ class EwalletFundingTest extends TestCase
         self::assertEquals($expected, $response);
         self::assertSame('100.00', $response->getTargetAmount());
         self::assertSame('20.00', $response->getThreshold());
+    }
+
+    /**
+     * Test ewallet funding endpoint validation.
+     *
+     * @return void
+     */
+    public function testEndpointValidation(): void
+    {
+        $class = new EwalletFunding();
+
+        $expected = <<<'ERR'
+Object(EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding).ewallet:
+    This value should not be null. (code ad32d13f-c3d4-423b-909a-857b961eb720)
+Object(EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding).primaryEndpoint:
+    This value should not be null. (code ad32d13f-c3d4-423b-909a-857b961eb720)
+Object(EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding).targetAmount:
+    This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
+Object(EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding).threshold:
+    This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
+
+ERR;
+        $validator = $this->getValidator();
+        $violations = $validator->validate($class);
+
+        $this->assertConstraints($expected, $violations);
     }
 
     /**

@@ -18,13 +18,12 @@ trait EwalletFundingTrait
     /**
      * The ewallet to fund.
      *
-     * @Assert\NotBlank()
-     * @Assert\Valid()
+     * @Assert\NotNull()
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Ewallet")
      *
      * @Groups({"create", "delete"})
      *
-     * @var \EoneoPay\PhpSdk\Endpoints\Ewallet
+     * @var \EoneoPay\PhpSdk\Endpoints\Ewallet|null
      */
     protected $ewallet;
 
@@ -42,7 +41,7 @@ trait EwalletFundingTrait
     /**
      * Funding source for the ewallet.
      *
-     * @Assert\NotBlank()
+     * @Assert\NotNull()
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
      *
      * @Groups({"create"})

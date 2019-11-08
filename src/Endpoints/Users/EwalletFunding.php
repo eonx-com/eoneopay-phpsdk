@@ -26,12 +26,22 @@ class EwalletFunding extends Entity
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('/users/ewallets/%s/funding', $this->ewallet->getReference()),
+            self::CREATE => \sprintf('/users/ewallets/%s/funding', $this->getEwalletReference()),
             self::DELETE => \sprintf(
                 '/users/ewallets/%s/funding/%s',
-                $this->ewallet->getReference(),
+                $this->getEwalletReference(),
                 $this->id
             ),
         ];
+    }
+
+    /**
+     * Get ewallet reference.
+     *
+     * @return string
+     */
+    private function getEwalletReference(): ?string
+    {
+        return ($this->ewallet instanceof Ewallet) === true ? $this->ewallet->getReference() : null;
     }
 }
