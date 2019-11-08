@@ -22,18 +22,18 @@ class EwalletFundingTest extends ValidationEnabledTestCase
      */
     public function testClassConstructor(): void
     {
-        $primaryEndpoint = new CreditCard();
+        $fundingSource = new CreditCard();
         $ewallet = new Ewallet();
         $class = new EwalletFunding([
             'ewallet' => $ewallet,
-            'primaryEndpoint' => $primaryEndpoint,
+            'fundingSource' => $fundingSource,
             'id' => 'FUNDING_ID',
             'targetAmount' => '100.00',
             'threshold' => '20.00',
         ]);
 
         self::assertSame($ewallet, $class->getEwallet());
-        self::assertSame($primaryEndpoint, $class->getPrimaryEndpoint());
+        self::assertSame($fundingSource, $class->getFundingSource());
         self::assertSame('FUNDING_ID', $class->getId());
         self::assertSame('100.00', $class->getTargetAmount());
         self::assertSame('20.00', $class->getThreshold());
@@ -46,11 +46,11 @@ class EwalletFundingTest extends ValidationEnabledTestCase
      */
     public function testCreateEwalletFunding(): void
     {
-        $primaryEndpoint = new CreditCard();
+        $fundingSource = new CreditCard();
         $ewallet = new Ewallet();
         $class = new EwalletFunding([
             'ewallet' => $ewallet,
-            'primaryEndpoint' => $primaryEndpoint,
+            'primaryEndpoint' => $fundingSource,
             'id' => 'FUNDING_ID',
             'targetAmount' => '100.00',
             'threshold' => '20.00',
@@ -125,7 +125,7 @@ class EwalletFundingTest extends ValidationEnabledTestCase
         $expected = <<<'ERR'
 Object(EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding).ewallet:
     This value should not be null. (code ad32d13f-c3d4-423b-909a-857b961eb720)
-Object(EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding).primaryEndpoint:
+Object(EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding).fundingSource:
     This value should not be null. (code ad32d13f-c3d4-423b-909a-857b961eb720)
 Object(EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding).targetAmount:
     This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)

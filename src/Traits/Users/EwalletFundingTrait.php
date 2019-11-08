@@ -48,7 +48,7 @@ trait EwalletFundingTrait
      *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
      */
-    protected $primaryEndpoint;
+    protected $fundingSource;
 
     /**
      * Currency to use for amount.

@@ -12,7 +12,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method PaymentSource[]|null getEndpoints()
  * @method Ewallet|null getEwallet()
  * @method string|null getId()
- * @method PaymentSource|null getPrimaryEndpoint()
+ * @method PaymentSource|null getFundingSource()
  * @method string|null getTargetAmount()
  * @method string|null getThreshold()
  */
