@@ -40,6 +40,8 @@ trait PaymentSourceTrait
     /**
      * Payment source token.
      *
+     * @Groups({"create"})
+     *
      * @var string|null
      */
     protected $token;
