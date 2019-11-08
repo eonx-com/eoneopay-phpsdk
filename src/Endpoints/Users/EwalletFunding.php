@@ -26,9 +26,9 @@ class EwalletFunding extends Entity
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('/users/ewallets/%s/funding', $this->getEwalletReference()),
+            self::CREATE => \sprintf('/ewallets/%s/funding', $this->getEwalletReference()),
             self::DELETE => \sprintf(
-                '/users/ewallets/%s/funding/%s',
+                '/ewallets/%s/funding/%s',
                 $this->getEwalletReference(),
                 $this->id
             ),
