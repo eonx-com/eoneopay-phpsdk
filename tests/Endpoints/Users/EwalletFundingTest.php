@@ -125,6 +125,8 @@ class EwalletFundingTest extends ValidationEnabledTestCase
         $expected = <<<'ERR'
 Object(EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding).ewallet:
     This value should not be null. (code ad32d13f-c3d4-423b-909a-857b961eb720)
+Object(EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding).id:
+    This value should not be null. (code ad32d13f-c3d4-423b-909a-857b961eb720)
 Object(EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding).fundingSource:
     This value should not be null. (code ad32d13f-c3d4-423b-909a-857b961eb720)
 Object(EoneoPay\PhpSdk\Endpoints\Users\EwalletFunding).targetAmount:

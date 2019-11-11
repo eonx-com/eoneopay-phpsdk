@@ -30,6 +30,7 @@ trait EwalletFundingTrait
     /**
      * Ewallet funding id.
      *
+     * @Assert\NotNull()
      * @Assert\Type(type="string")
      *
      * @Groups({"create", "delete"})
