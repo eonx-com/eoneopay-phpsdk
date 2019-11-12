@@ -34,6 +34,8 @@ class EntityGroupsTest extends TestCase
             $reflectionProperties = (new ReflectionClass($class))->getProperties();
             $classProperties = \array_map(static function ($prop) { return $prop->name;}, $reflectionProperties);
             $groupProperties = \array_keys($groupValues);
+            \sort($classProperties);
+            \sort($groupProperties);
             // get list of properties attached to $class
             self::assertEquals($classProperties, $groupProperties, \sprintf('Missing @Groups on %s', $class));
         }
