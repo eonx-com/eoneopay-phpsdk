@@ -11,6 +11,8 @@ trait EwalletFundingTrait
     /**
      * List of funding source from where the funds are drawn.
      *
+     * @Groups({"none"})
+     *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource[]|null
      */
     protected $endpoints;
