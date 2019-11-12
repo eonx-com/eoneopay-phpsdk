@@ -10,6 +10,8 @@ trait UserTrait
     /**
      * Created at date.
      *
+     * @Groups({"get"})
+     *
      * @var string
      */
     protected $createdAt;
@@ -34,6 +36,8 @@ trait UserTrait
 
     /**
      * Updated at date.
+     *
+     * @Groups({"get"})
      *
      * @var string
      */
