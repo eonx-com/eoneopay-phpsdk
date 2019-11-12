@@ -8,6 +8,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait ContractTrait
 {
     /**
+     * @Groups({"get"})
+     *
      * @var string|null
      */
     protected $createdAt;
@@ -41,16 +43,22 @@ trait ContractTrait
     protected $group;
 
     /**
+     * @Groups({"get"})
+     *
      * @var string|null
      */
     protected $type;
 
     /**
+     * @Groups({"get"})
+     *
      * @var string|null
      */
     protected $updatedAt;
 
     /**
+     * @Groups({"get"})
+     *
      * @var \EoneoPay\PhpSdk\Endpoints\User|null
      */
     protected $user;
