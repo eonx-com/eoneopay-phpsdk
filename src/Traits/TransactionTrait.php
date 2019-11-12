@@ -47,6 +47,8 @@ trait TransactionTrait
     /**
      * Approved.
      *
+     * @Groups({"get"})
+     *
      * @Assert\Type(type="bool")
      *
      * @var bool|null
@@ -55,6 +57,8 @@ trait TransactionTrait
 
     /**
      * Created at date.
+     *
+     * @Groups({"get"})
      *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
      * @Assert\Type(type="string")
@@ -66,6 +70,8 @@ trait TransactionTrait
     /**
      * Transaction description.
      *
+     * @Groups({"create", "get"})
+     *
      * @Assert\Type(type="string")
      *
      * @var string|null
@@ -74,6 +80,8 @@ trait TransactionTrait
 
     /**
      * When the transaction was finalised.
+     *
+     * @Groups({"get"})
      *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
      * @Assert\Type(type="string")
@@ -84,6 +92,8 @@ trait TransactionTrait
 
     /**
      * Original funding source for allocation transaction.
+     *
+     * @Groups({"create", "get"})
      *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
      *
@@ -116,6 +126,8 @@ trait TransactionTrait
     /**
      * Parent transaction.
      *
+     * @Groups({"get"})
+     *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Transaction")
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Transaction|null
@@ -147,6 +159,8 @@ trait TransactionTrait
     /**
      * Transaction response.
      *
+     * @Groups({"get"})
+     *
      * @Assert\Type(type="array")
      *
      * @var mixed[]
@@ -167,6 +181,8 @@ trait TransactionTrait
     /**
      * Transaction state.
      *
+     * @Groups({"get"})
+     *
      * @Assert\NotBlank()
      * @Assert\Positive()
      * @Assert\Type(type="int")
@@ -177,6 +193,8 @@ trait TransactionTrait
 
     /**
      * Transaction status.
+     *
+     * @Groups({"get"})
      *
      * @Assert\Type(type="string")
      *
@@ -198,6 +216,8 @@ trait TransactionTrait
     /**
      * Transaction updated at date.
      *
+     * @Groups({"get"})
+     *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
      * @Assert\Type(type="string")
      *
@@ -207,6 +227,8 @@ trait TransactionTrait
 
     /**
      * User associated with this transaction.
+     *
+     * @Groups({"create", "get"})
      *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\User")
      *
