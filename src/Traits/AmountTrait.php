@@ -19,12 +19,16 @@ trait AmountTrait
     /**
      * The calculated fee amount.
      *
+     * @Groups({"get"})
+     *
      * @var string|null
      */
     protected $paymentFee;
 
     /**
      * The subtotal after fees.
+     *
+     * @Groups({"get"})
      *
      * @var string|null
      */
