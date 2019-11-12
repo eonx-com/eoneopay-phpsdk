@@ -10,12 +10,16 @@ trait PaymentSourceTrait
     /**
      * Created at date.
      *
+     * @Groups({"get"})
+     *
      * @var string|null
      */
     protected $createdAt;
 
     /**
      * Payment source id.
+     *
+     * @Groups({"get"})
      *
      * @var string
      */
@@ -32,6 +36,8 @@ trait PaymentSourceTrait
 
     /**
      * Payment source pan.
+     *
+     * @Groups({"create", "get"})
      *
      * @var string
      */
@@ -57,6 +63,8 @@ trait PaymentSourceTrait
 
     /**
      * Updated at date.
+     *
+     * @Groups({"get"})
      *
      * @var string|null
      */
