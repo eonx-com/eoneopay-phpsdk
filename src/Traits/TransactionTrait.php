@@ -212,11 +212,24 @@ trait TransactionTrait
     protected $statementDescription;
 
     /**
+     * Transaction state.
+     *
+     * @Assert\NotBlank()
+     * @Assert\Positive()
+     * @Assert\Type(type="int")
+     *
+     * @var int|null
+     */
+    protected $state;
+
+    /**
      * Transaction status.
      *
-     * @Groups({"get"})
-     *
      * @Assert\Type(type="string")
+     *
+     * @Groups({"create", "delete", "get", "update"})
+     *
+     * @deprecated Being removed in favour of $state.
      *
      * @var string|null
      */
