@@ -25,5 +25,6 @@ class Allocation extends Entity
     public function uris(): array
     {
         // There are no actions directly on allocations
+        return [];
     }
 }
