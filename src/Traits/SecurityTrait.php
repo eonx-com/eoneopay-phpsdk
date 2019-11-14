@@ -10,6 +10,8 @@ trait SecurityTrait
     /**
      * Security action url.
      *
+     * @Groups({"create", "update"})
+     *
      * @var string|null
      */
     protected $actionUrl;
@@ -26,11 +28,15 @@ trait SecurityTrait
     /**
      * Authentication result.
      *
+     * @Groups({"create", "update"})
+     *
      * @var string|null
      */
     protected $authenticationResult;
 
     /**
+     * @Groups({"create", "update"})
+     *
      * @var string|null
      */
     protected $cavv;
@@ -38,16 +44,22 @@ trait SecurityTrait
     /**
      * Created at date.
      *
+     * @Groups({"create", "update"})
+     *
      * @var string|null
      */
     protected $createdAt;
 
     /**
+     * @Groups({"create", "update"})
+     *
      * @var string|null
      */
     protected $eci;
 
     /**
+     * @Groups({"create", "update"})
+     *
      * Enrolment status.
      *
      * @var string|null
@@ -66,7 +78,7 @@ trait SecurityTrait
     /**
      * Security metadata.
      *
-     * @Groups({"create"})
+     * @Groups({"create", "update"})
      *
      * @var mixed[]|null
      */
@@ -75,7 +87,7 @@ trait SecurityTrait
     /**
      * Security payload.
      *
-     * @Groups({"update"})
+     * @Groups({"create", "update"})
      *
      * @var string
      */
@@ -93,12 +105,16 @@ trait SecurityTrait
     /**
      * Security request payload.
      *
+     * @Groups({"create", "update"})
+     *
      * @var string|null
      */
     protected $requestPayload;
 
     /**
      * Security response payload.
+     *
+     * @Groups({"create", "update"})
      *
      * @var string|null
      */
@@ -107,19 +123,23 @@ trait SecurityTrait
     /**
      * Security return url.
      *
-     * @Groups({"create"})
+     * @Groups({"create", "update"})
      *
      * @var string|null
      */
     protected $returnUrl;
 
     /**
+     * @Groups({"create", "update"})
+     *
      * @var bool|null
      */
     protected $secured;
 
     /**
      * Status.
+     *
+     * @Groups({"create", "update"})
      *
      * @var string|null
      */
@@ -128,11 +148,15 @@ trait SecurityTrait
     /**
      * Updated at date.
      *
+     * @Groups({"create", "update"})
+     *
      * @var string|null
      */
     protected $updatedAt;
 
     /**
+     * @Groups({"create", "update"})
+     *
      * @var string|null
      */
     protected $xid;
