@@ -10,10 +10,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Tests\EoneoPay\PhpSdk\Helpers\InterfaceFinder;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
+/**
+ * @coversNothing
+ */
 class EntityGroupsTest extends TestCase
 {
     /**
      * Test that all properties of 'Entities' have Groups annotations.
+     *
+     * @return void
      *
      * @throws \EoneoPay\Utils\Exceptions\AnnotationCacheException
      * @throws \ReflectionException
@@ -22,7 +27,7 @@ class EntityGroupsTest extends TestCase
     {
         $reader = new AnnotationReader();
 
-        $finder = new InterfaceFinder(dirname(__DIR__, 2) . '/src/Endpoints');
+        $finder = new InterfaceFinder(\dirname(__DIR__, 2) . '/src/Endpoints');
         $classes = $finder->find(EntityInterface::class);
 
         $groups = [];
@@ -37,7 +42,9 @@ class EntityGroupsTest extends TestCase
             }
 
             $reflectionProperties = $classReflection->getProperties();
-            $classProperties = \array_map(static function ($prop) { return $prop->name;}, $reflectionProperties);
+            $classProperties = \array_map(static function ($prop) {
+                return $prop->name;
+            }, $reflectionProperties);
             $groupProperties = \array_keys($groupValues);
             \sort($classProperties);
             \sort($groupProperties);
