@@ -203,7 +203,7 @@ trait TransactionTrait
     /**
      * Original statement Transaction description.
      *
-     * @Groups({"get"})
+     * @Groups({"create", "get", "update"})
      *
      * @Assert\Type(type="string")
      *
@@ -217,6 +217,8 @@ trait TransactionTrait
      * @Assert\NotBlank()
      * @Assert\Positive()
      * @Assert\Type(type="int")
+     *
+     * @Groups({"create", "get", "update"})
      *
      * @var int|null
      */
