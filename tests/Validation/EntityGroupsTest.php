@@ -31,7 +31,21 @@ class EntityGroupsTest extends TestCase
         }
 
         foreach ($groups as $class => $groupValues) {
-            $reflectionProperties = (new ReflectionClass($class))->getProperties();
+            $classReflection = new ReflectionClass($class);
+            if ($classReflection->isInterface() === true || $classReflection->isAbstract()) {
+                continue;
+            }
+
+            $uris = \array_keys((new $class)->uris());
+            if (\count($uris) === 0 && \count($groupValues) > 0) {
+                $this->fail("Class {$class} has @Groups assignments, when no uri() returns an empty list.");
+            }
+            // Skip leaf objects that do not have a URI associated with them.
+            if (\count($uris) === 0) {
+                continue;
+            }
+
+            $reflectionProperties = $classReflection->getProperties();
             $classProperties = \array_map(static function ($prop) { return $prop->name;}, $reflectionProperties);
             $groupProperties = \array_keys($groupValues);
             \sort($classProperties);
