@@ -45,8 +45,6 @@ class TransactionTest extends ValidationEnabledTestCase
             'expected' => <<<'ERR'
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).action:
     This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
-Object(EoneoPay\PhpSdk\Endpoints\Transaction).allocation:
-    This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).amount:
     This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).state:
@@ -81,8 +79,6 @@ Object(EoneoPay\PhpSdk\Endpoints\Transaction).action:
     This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).action:
     This value should be of type string. (code ba785a8c-82cb-4283-967c-3cf342181b40)
-Object(EoneoPay\PhpSdk\Endpoints\Transaction).allocation:
-    This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).amount:
     This value should not be blank. (code c1051bb4-d103-4f74-8988-acbcafc7fdc3)
 Object(EoneoPay\PhpSdk\Endpoints\Transaction).amount:

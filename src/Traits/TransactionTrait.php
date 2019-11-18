@@ -25,7 +25,6 @@ trait TransactionTrait
      *
      * @Groups({"create", "update"})
      *
-     * @Assert\NotBlank()
      * @Assert\Valid()
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Transactions\Allocation
