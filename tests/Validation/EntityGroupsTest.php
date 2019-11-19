@@ -16,7 +16,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 class EntityGroupsTest extends TestCase
 {
     /**
-     * Test that all properties of 'Entities' have Groups annotations.
+     * Test that all properties of 'Entities' have valid @Groups annotations.
      *
      * @return void
      *
@@ -41,15 +41,18 @@ class EntityGroupsTest extends TestCase
                 continue;
             }
 
-            $reflectionProperties = $classReflection->getProperties();
-            $classProperties = \array_map(static function ($prop) {
-                return $prop->name;
-            }, $reflectionProperties);
-            $groupProperties = \array_keys($groupValues);
-            \sort($classProperties);
-            \sort($groupProperties);
-            // get list of properties attached to $class
-            self::assertEquals($classProperties, $groupProperties, \sprintf('Missing @Groups on %s', $class));
+            $actions = \array_keys((new $class())->uris());
+
+            foreach ($groupValues as $property => $annotation) {
+                $groupValues = $annotation->getGroups();
+                $badPropertyGroups = \array_diff($groupValues, $actions);
+                self::assertEmpty($badPropertyGroups, \sprintf(
+                    '%s:$%s contains the following @Groups that are not found in it\'s actions from uris(): %s',
+                    $class,
+                    $property,
+                    \implode(', ', $badPropertyGroups)
+                ));
+            }
         }
     }
 }
