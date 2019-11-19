@@ -30,4 +30,18 @@ final class AmountTest extends TestCase
         self::assertEquals('110.50', $balance->getSubtotal());
         self::assertEquals('150.00', $balance->getTotal());
     }
+
+    /**
+     * Test that this entity has no accessible URIs.
+     *
+     * @return void
+     */
+    public function testUriList(): void
+    {
+        $entity = new Amount([]);
+
+        $uris = $entity->uris();
+
+        self::assertEmpty($uris);
+    }
 }
