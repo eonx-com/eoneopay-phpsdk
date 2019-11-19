@@ -16,7 +16,7 @@ use Tests\EoneoPay\PhpSdk\TestCase;
 class EntityGroupsTest extends TestCase
 {
     /**
-     * Test that all properties of 'Entities' have valid @Groups annotations.
+     * Test that all properties of 'Entities' have valid Groups annotations.
      *
      * @return void
      *
