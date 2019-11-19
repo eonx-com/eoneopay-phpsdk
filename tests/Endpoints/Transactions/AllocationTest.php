@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\EoneoPay\PhpSdk\Endpoints\Transactions\Allocation;
+namespace Tests\EoneoPay\PhpSdk\Endpoints\Transactions;
 
 use EoneoPay\PhpSdk\Endpoints\Ewallet;
 use EoneoPay\PhpSdk\Endpoints\Transactions\Allocation;
