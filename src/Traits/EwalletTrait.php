@@ -39,6 +39,7 @@ trait EwalletTrait
     /**
      * Ewallet id.
      *
+     * @Assert\NotBlank()
      * @Assert\Type(type="string")
      *
      * @var string|null
@@ -48,6 +49,7 @@ trait EwalletTrait
     /**
      * Ewallet pan.
      *
+     * @Assert\NotBlank()
      * @Assert\Type(type="string")
      *
      * @var string|null

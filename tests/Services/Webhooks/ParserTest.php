@@ -176,7 +176,7 @@ JSON
             ),
         ];
 
-        yield 'Transaction Creation Revocation' => [
+        yield 'Transaction Creation' => [
             'paymentSource' => Transaction::class,
             'request' => new Request(
                 'POST',
@@ -199,12 +199,18 @@ JSON
                 "balance": "42.45",
                 "credit_limit": "120.00"
             },
+            "id": "17ce4717231cdfab75d9227abbc179",
+            "hash": "xyz",
+            "pan": "K...WCB7",
             "reference": "ACB"
         },
         "records": [
             {
                 "amount": "1.20",
                 "ewallet": {
+                    "id": "17ce4717231cdfab75d9227abbc179",
+                    "hash": "xyz",
+                    "pan": "K...WCB7",
                     "reference": "ACB"
                 }
             }
@@ -218,6 +224,7 @@ JSON
     "payment_destination": {
         "created_at": "2019-02-17T22:07:41Z",
         "currency": "AUD",
+        "hash": "xyz",
         "id": "17ce7c53540eccc9fba13b755d922721",
         "pan": "K...WCB7",
         "primary": true,
@@ -249,6 +256,7 @@ JSON
         },
         "facility": "Mastercard",
         "id": "1a05c6ac43c7a93088a7bff15e3625f4",
+        "hash": "xyz",
         "name": "User Name",
         "pan": "512345...0008",
         "token": "UETACKCYRFNYAXYR8466",
@@ -269,6 +277,50 @@ JSON
         "created_at": "2019-02-17T22:07:41Z",
         "email": "example@example.net",
         "updated_at": "2019-02-17T22:07:41Z"
+    }
+}
+JSON
+            ),
+        ];
+
+        yield 'Transaction minimal Transaction' => [
+            'paymentSource' => Transaction::class,
+            'request' => new Request(
+                'POST',
+                '/listen/eoneopay/transaction',
+                [],
+                <<<'JSON'
+{
+    "action": "debit",
+    "amount": {
+        "currency": "AUD",
+        "payment_fee": "0.12",
+        "subtotal": "99.88",
+        "total": "100.00"
+    },
+    "approved": true,
+    "id": "ORDER_EXT_ID",
+    "metadata": [],
+    "parent": null,
+    "payment_destination": {
+        "id": "17ce7c53540eccc9fba13b755d922721",
+        "type": "ewallet"
+    },
+    "payment_source": {
+        "id": "1a05c6ac43c7a93088a7bff15e3625f4",
+        "type": "credit_card"
+    },
+    "response": {
+        "acquirer_code": "00",
+        "acquirer_message": "Approved",
+        "gateway_message": "APPROVED"
+    },
+    "security": null,
+    "state": 82,
+    "status": "completed",
+    "transaction_id": "TRANS_EXT_ID",
+    "user": {
+        "email": "example@example.net"
     }
 }
 JSON
