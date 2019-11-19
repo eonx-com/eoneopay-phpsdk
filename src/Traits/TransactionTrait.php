@@ -68,6 +68,8 @@ trait TransactionTrait
      *
      * @Assert\Type(type="string")
      *
+     * @Groups({"create", "get"})
+     *
      * @var string|null
      */
     protected $description;
