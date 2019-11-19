@@ -92,8 +92,8 @@ final class EwalletTest extends TestCase
         /** @var \EoneoPay\PhpSdk\Endpoints\Ewallet $ewallet */
         $ewallet = $eoneoPayApiManager->create((string)\getenv('PAYMENTS_API_KEY'), new Ewallet());
 
-        self::assertIsString(($ewallet instanceof Ewallet) ? $ewallet->getId() : null);
-        self::assertNotEmpty(($ewallet instanceof Ewallet) ? $ewallet->getType() : null);
+        self::assertIsString($ewallet->getId());
+        self::assertNotEmpty($ewallet->getType());
         self::assertInstanceOf(User::class, $ewallet->getUser());
         self::assertInstanceOf(Balance::class, $ewallet->getBalances());
     }
