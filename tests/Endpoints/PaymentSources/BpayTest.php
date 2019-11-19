@@ -24,7 +24,6 @@ class BpayTest extends TestCase
         $paymentSource = new Bpay([
             'id' => $hash,
             'pan' => 'B...PAY',
-            'type' => 'bpay',
             'biller_code' => '112233',
             'biller_name' => 'Test',
             'reference_number' => '1793768381',
