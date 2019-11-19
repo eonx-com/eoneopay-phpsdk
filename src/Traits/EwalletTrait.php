@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Traits;
 
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 trait EwalletTrait
@@ -21,16 +20,12 @@ trait EwalletTrait
     /**
      * Created at date.
      *
-     * @Groups({"delete", "update"})
-     *
      * @var string|null
      */
     protected $createdAt;
 
     /**
      * Ewallet id.
-     *
-     * @Groups({"get"})
      *
      * @Assert\Type(type="string")
      *
@@ -58,8 +53,6 @@ trait EwalletTrait
 
     /**
      * Ewallet user reference.
-     *
-     * @Groups({"update"})
      *
      * @Assert\NotBlank()
      * @Assert\Type(type="string")
