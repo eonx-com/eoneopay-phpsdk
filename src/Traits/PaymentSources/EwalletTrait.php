@@ -10,7 +10,7 @@ trait EwalletTrait
     /**
      * Ewallet currency.
      *
-     * @Groups({"create", "get"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
@@ -19,8 +19,6 @@ trait EwalletTrait
     /**
      * If is primary.
      *
-     * @Groups({"create", "update", "get"})
-     *
      * @var bool
      */
     protected $primary;
@@ -28,16 +26,12 @@ trait EwalletTrait
     /**
      * Ewallet user reference.
      *
-     * @Groups({"create", "get"})
-     *
      * @var string|null
      */
     protected $reference;
 
     /**
      * Ewallet user.
-     *
-     * @Groups({"create", "get"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\User|null
      */
