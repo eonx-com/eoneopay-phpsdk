@@ -68,28 +68,33 @@ final class EwalletTest extends TestCase
      */
     public function testEwalletCreation(): void
     {
-        $ewallet = $this->createApiManager(
-            [
-                'created_at' => '2019-02-26T00=>14=>25Z',
-                'currency' => 'AUD',
-                'id' => 'dad99a43563c72a19a99aae4b1605b49',
-                'pan' => 'W...J3X7',
-                'primary' => false,
-                'reference' => 'WCMKZAJ3X7',
-                'type' => 'ewallet',
-                'updated_at' => '2019-02-26T00=>14=>25Z',
-                'user' => [
-                    'created_at' => '2019-02-22T03=>09=>44Z',
-                    'email' => 'example@user.test',
-                    'updated_at' => '2019-02-22T03=>09=>44Z',
-                ],
+        $jsonResponse = [
+            'created_at' => '2019-02-26T00=>14=>25Z',
+            'balances' => [
+                'available' => '123.45',
+                'balance' => '234.56',
+                'credit_limit' => '0.00',
             ],
-            201
-        )->create((string)\getenv('PAYMENTS_API_KEY'), new Ewallet());
+            'id' => 'dad99a43563c72a19a99aae4b1605b49',
+            'pan' => 'W...J3X7',
+            'primary' => false,
+            'reference' => 'WCMKZAJ3X7',
+            'type' => 'ewallet',
+            'updated_at' => '2019-02-26T00=>14=>25Z',
+            'user' => [
+                'created_at' => '2019-02-22T03=>09=>44Z',
+                'email' => 'example@user.test',
+                'updated_at' => '2019-02-22T03=>09=>44Z',
+            ],
+        ];
+        $eoneoPayApiManager = $this->createApiManager($jsonResponse, 201);
+
+        $ewallet = $eoneoPayApiManager->create((string)\getenv('PAYMENTS_API_KEY'), new Ewallet());
 
         self::assertIsString(($ewallet instanceof Ewallet) ? $ewallet->getId() : null);
         self::assertNotEmpty(($ewallet instanceof Ewallet) ? $ewallet->getType() : null);
-        self::assertInstanceOf(User::class, ($ewallet instanceof Ewallet) ? $ewallet->getUser() : null);
+        self::assertInstanceOf(User::class, $ewallet->getUser());
+        self::assertInstanceOf(Balance::class, $ewallet->getBalances());
     }
 
     /**
