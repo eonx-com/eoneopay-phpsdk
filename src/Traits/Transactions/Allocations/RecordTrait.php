@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Traits\Transactions\Allocations;
 
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 trait RecordTrait
@@ -13,8 +12,6 @@ trait RecordTrait
      *
      * @Assert\Type(type="string")
      * @Assert\Valid()
-     *
-     * @Groups({"create"})
      *
      * @var string|null
      */
@@ -26,8 +23,6 @@ trait RecordTrait
      * @Assert\NotBlank()
      * @Assert\Type(type="object")
      * @Assert\Valid()
-     *
-     * @Groups({"create"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Ewallet|null
      */

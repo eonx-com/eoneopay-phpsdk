@@ -21,7 +21,7 @@ class ReferenceNumber extends Entity
     use ReferenceNumberTrait;
 
     /**
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Ewallet
      */
