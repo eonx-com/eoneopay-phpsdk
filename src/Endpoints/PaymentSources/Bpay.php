@@ -26,12 +26,4 @@ class Bpay extends PaymentSource
 
         $this->type = self::SOURCE_BPAY;
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function uris(): array
-    {
-        return []; // No api endpoints for bpay payment source
-    }
 }

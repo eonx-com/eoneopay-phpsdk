@@ -35,6 +35,5 @@ class BpayTest extends TestCase
         self::assertSame('112233', $paymentSource->getBillerCode());
         self::assertSame('Test', $paymentSource->getBillerName());
         self::assertSame('1793768381', $paymentSource->getReferenceNumber());
-        self::assertSame([], $paymentSource->uris());
     }
 }
