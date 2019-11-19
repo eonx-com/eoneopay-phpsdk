@@ -56,7 +56,6 @@ trait TransactionTrait
     /**
      * Created at date.
      *
-     *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
      * @Assert\Type(type="string")
      *
@@ -206,7 +205,6 @@ trait TransactionTrait
      * @Assert\NotBlank()
      * @Assert\Positive()
      * @Assert\Type(type="int")
-     *
      *
      * @var int|null
      */
