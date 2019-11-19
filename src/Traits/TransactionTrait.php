@@ -160,7 +160,7 @@ trait TransactionTrait
     /**
      * Recurring ID.
      *
-     * @Groups({"create", "update})
+     * @Groups({"create", "update"})
      *
      * @Assert\Type(type="string")
      *
