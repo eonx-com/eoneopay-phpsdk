@@ -28,7 +28,7 @@ class ReferenceNumber extends Entity
     protected $ewallet;
 
     /**
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\User
      */

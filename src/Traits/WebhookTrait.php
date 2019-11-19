@@ -10,7 +10,7 @@ trait WebhookTrait
     /**
      * Subscribed activities.
      *
-     * @Groups({"create", "list", "update"})
+     * @Groups({"create", "update"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Users\WebhookSubscriptions\SubscribedActivity[]
      */
@@ -19,7 +19,7 @@ trait WebhookTrait
     /**
      * Headers.
      *
-     * @Groups({"create", "list", "update"})
+     * @Groups({"create", "update"})
      *
      * @var mixed[]
      */
@@ -28,8 +28,6 @@ trait WebhookTrait
     /**
      * Webhook id.
      *
-     * @Groups({"list"})
-     *
      * @var string
      */
     protected $id;
@@ -37,7 +35,7 @@ trait WebhookTrait
     /**
      * Http method this webhook will be delivered as.
      *
-     * @Groups({"create", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string
      */
@@ -46,7 +44,7 @@ trait WebhookTrait
     /**
      * The content type of payload delivery.
      *
-     * @Groups({"create", "list", "update"})
+     * @Groups({"create"})
      *
      * @var string
      */
@@ -55,7 +53,7 @@ trait WebhookTrait
     /**
      * Url.
      *
-     * @Groups({"create", "list", "update"})
+     * @Groups({"create", "update"})
      *
      * @var string
      */
@@ -64,7 +62,7 @@ trait WebhookTrait
     /**
      * User associated with this webhook.
      *
-     * @Groups({"create", "list"})
+     * @Groups({"create"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\User
      */
