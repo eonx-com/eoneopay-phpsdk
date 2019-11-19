@@ -8,6 +8,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 use ReflectionClass;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Tests\EoneoPay\PhpSdk\Helpers\InterfaceFinder;
+use Tests\EoneoPay\PhpSdk\Stubs\Entities\EntityStub;
 use Tests\EoneoPay\PhpSdk\TestCase;
 
 /**
@@ -37,6 +38,9 @@ class EntityGroupsTest extends TestCase
 
         foreach ($groups as $class => $groupValues) {
             $classReflection = new ReflectionClass($class);
+            if ($class === EntityStub::class) {
+                continue;
+            }
             if ($classReflection->isInterface() === true || $classReflection->isAbstract()) {
                 continue;
             }
