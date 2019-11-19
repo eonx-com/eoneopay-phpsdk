@@ -14,8 +14,6 @@ trait EwalletTrait
      * @Assert\Type(type="object")
      * @Assert\Valid()
      *
-     * @Groups({"get"})
-     *
      * @var \EoneoPay\PhpSdk\Endpoints\Balance|null
      */
     protected $balances;
@@ -23,22 +21,11 @@ trait EwalletTrait
     /**
      * Created at date.
      *
-     * @Groups({"create", "delete", "update"})
+     * @Groups({"delete", "update"})
      *
      * @var string|null
      */
     protected $createdAt;
-
-    /**
-     * Ewallet currency.
-     *
-     * @Assert\Type(type="string")
-     *
-     * @Groups({"create", "get"})
-     *
-     * @var string|null
-     */
-    protected $currency;
 
     /**
      * Ewallet id.
@@ -54,8 +41,6 @@ trait EwalletTrait
     /**
      * Ewallet pan.
      *
-     * @Groups({"get"})
-     *
      * @Assert\Type(type="string")
      *
      * @var string|null
@@ -64,8 +49,6 @@ trait EwalletTrait
 
     /**
      * If is primary.
-     *
-     * @Groups({"get"})
      *
      * @Assert\Type(type="bool")
      *
@@ -76,7 +59,7 @@ trait EwalletTrait
     /**
      * Ewallet user reference.
      *
-     * @Groups({"create", "get", "update"})
+     * @Groups({"update"})
      *
      * @Assert\NotBlank()
      * @Assert\Type(type="string")
@@ -88,8 +71,6 @@ trait EwalletTrait
     /**
      * Ewallet type.
      *
-     * @Groups({"get"})
-     *
      * @Assert\Type(type="string")
      *
      * @var string|null
@@ -99,16 +80,12 @@ trait EwalletTrait
     /**
      * Updated at date.
      *
-     * @Groups({"get"})
-     *
      * @var string|null
      */
     protected $updatedAt;
 
     /**
      * Ewallet user.
-     *
-     * @Groups({"get"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\User|null
      */
