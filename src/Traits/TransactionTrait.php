@@ -160,13 +160,15 @@ trait TransactionTrait
     /**
      * Recurring ID.
      *
-     * @Groups({"create", "update"})
+     * This is included for completeness, but is deprecated, and WILL BE REMOVED.
      *
      * @Assert\Type(type="string")
      *
+     * @deprecated To be removed when removed from Payments in  https://eonx.atlassian.net/browse/PYMT-1552
+     *
      * @var string|null
      */
-    protected $recurring_id;
+    protected $recurringId;
 
     /**
      * Transaction response.
