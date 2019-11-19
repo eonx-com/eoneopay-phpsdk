@@ -8,63 +8,55 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait ContractTrait
 {
     /**
-     * @Groups({"get"})
+     * @Groups({"create"})
      *
+     * @var string|null
+     */
+    protected $action;
+
+    /**
      * @var string|null
      */
     protected $createdAt;
 
     /**
-     * @Groups({"create", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
     protected $currency;
 
     /**
-     * @Groups({"create", "update"})
-     *
      * @var \EoneoPay\PhpSdk\Endpoints\Ewallet|null
      */
     protected $ewallet;
 
     /**
-     * @Groups({"create", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
     protected $fixedFee;
 
     /**
-     * @Groups({"create", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
     protected $group;
 
     /**
-     * @Groups({"get"})
-     *
-     * @var string|null
-     */
-    protected $type;
-
-    /**
-     * @Groups({"get"})
-     *
      * @var string|null
      */
     protected $updatedAt;
 
     /**
-     * @Groups({"get"})
-     *
      * @var \EoneoPay\PhpSdk\Endpoints\User|null
      */
     protected $user;
 
     /**
-     * @Groups({"create", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
