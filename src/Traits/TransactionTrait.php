@@ -11,7 +11,7 @@ trait TransactionTrait
     /**
      * Transaction action.
      *
-     * @Groups({"create", "delete", "get", "update"})
+     * @Groups({"create"})
      *
      * @Assert\NotBlank()
      * @Assert\Type(type="string")
@@ -23,7 +23,7 @@ trait TransactionTrait
     /**
      * Transaction allocation.
      *
-     * @Groups({"create", "get", "update"})
+     * @Groups({"create", "update"})
      *
      * @Assert\NotBlank()
      * @Assert\Valid()
@@ -35,7 +35,7 @@ trait TransactionTrait
     /**
      * Transaction amount.
      *
-     * @Groups({"create", "delete", "update"})
+     * @Groups({"create"})
      *
      * @Assert\NotBlank()
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Amount")
@@ -47,8 +47,6 @@ trait TransactionTrait
     /**
      * Approved.
      *
-     * @Groups({"get"})
-     *
      * @Assert\Type(type="bool")
      *
      * @var bool|null
@@ -58,7 +56,6 @@ trait TransactionTrait
     /**
      * Created at date.
      *
-     * @Groups({"get"})
      *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
      * @Assert\Type(type="string")
@@ -70,7 +67,7 @@ trait TransactionTrait
     /**
      * Transaction description.
      *
-     * @Groups({"get"})
+     * @Groups({"create", "update"})
      *
      * @Assert\Type(type="string")
      *
@@ -81,8 +78,6 @@ trait TransactionTrait
     /**
      * If the transaction was finalised.
      *
-     * @Groups({"get"})
-     *
      * @Assert\Type(type="bool")
      *
      * @var bool|null
@@ -91,8 +86,6 @@ trait TransactionTrait
 
     /**
      * When the transaction was finalised.
-     *
-     * @Groups({"get"})
      *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
      * @Assert\Type(type="string")
@@ -104,7 +97,7 @@ trait TransactionTrait
     /**
      * Original funding source for allocation transaction.
      *
-     * @Groups({"create", "get"})
+     * @Groups({"create"})
      *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
      *
@@ -117,8 +110,6 @@ trait TransactionTrait
      *
      * @Assert\Type(type="string")
      *
-     * @Groups({"get"})
-     *
      * @var string|null
      */
     protected $id;
@@ -128,7 +119,7 @@ trait TransactionTrait
      *
      * @Assert\Type(type="array")
      *
-     * @Groups({"get"})
+     * @Groups({"create", "update"})
      *
      * @var mixed[]|null
      */
@@ -139,7 +130,7 @@ trait TransactionTrait
      *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Transaction")
      *
-     * @Groups({"get"})
+     * @Groups({"create", "update"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Transaction|null
      */
@@ -148,7 +139,7 @@ trait TransactionTrait
     /**
      * Payment destination.
      *
-     * @Groups({"get"})
+     * @Groups({"create", "update"})
      *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
      *
@@ -159,7 +150,7 @@ trait TransactionTrait
     /**
      * Payment source.
      *
-     * @Groups({"get"})
+     * @Groups({"create"})
      *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
      *
@@ -170,7 +161,7 @@ trait TransactionTrait
     /**
      * Recurring ID.
      *
-     * @Groups({"get"})
+     * @Groups({"create", "update})
      *
      * @Assert\Type(type="string")
      *
@@ -181,8 +172,6 @@ trait TransactionTrait
     /**
      * Transaction response.
      *
-     * @Groups({"get"})
-     *
      * @Assert\Type(type="array")
      *
      * @var mixed[]
@@ -192,7 +181,7 @@ trait TransactionTrait
     /**
      * Transaction security.
      *
-     * @Groups({"create", "get", "update"})
+     * @Groups({"create", "update"})
      *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Security")
      *
@@ -203,7 +192,7 @@ trait TransactionTrait
     /**
      * Original statement Transaction description.
      *
-     * @Groups({"create", "get", "update"})
+     * @Groups({"create", "update"})
      *
      * @Assert\Type(type="string")
      *
@@ -218,7 +207,6 @@ trait TransactionTrait
      * @Assert\Positive()
      * @Assert\Type(type="int")
      *
-     * @Groups({"create", "get", "update"})
      *
      * @var int|null
      */
@@ -229,8 +217,6 @@ trait TransactionTrait
      *
      * @Assert\Type(type="string")
      *
-     * @Groups({"create", "delete", "get", "update"})
-     *
      * @deprecated Being removed in favour of $state.
      *
      * @var string|null
@@ -240,7 +226,7 @@ trait TransactionTrait
     /**
      * Transaction id.
      *
-     * @Groups({"create", "delete", "get", "update"})
+     * @Groups({"create"})
      *
      * @Assert\Type(type="string")
      *
@@ -250,8 +236,6 @@ trait TransactionTrait
 
     /**
      * Transaction updated at date.
-     *
-     * @Groups({"get"})
      *
      * @Assert\DateTime(format="Y-m-d\TH:i:sP")
      * @Assert\Type(type="string")
@@ -263,7 +247,7 @@ trait TransactionTrait
     /**
      * User associated with this transaction.
      *
-     * @Groups({"create", "get"})
+     * @Groups({"create"})
      *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\User")
      *
