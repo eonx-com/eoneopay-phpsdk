@@ -89,6 +89,7 @@ final class EwalletTest extends TestCase
         ];
         $eoneoPayApiManager = $this->createApiManager($jsonResponse, 201);
 
+        /** @var \EoneoPay\PhpSdk\Endpoints\Ewallet $ewallet */
         $ewallet = $eoneoPayApiManager->create((string)\getenv('PAYMENTS_API_KEY'), new Ewallet());
 
         self::assertIsString(($ewallet instanceof Ewallet) ? $ewallet->getId() : null);
