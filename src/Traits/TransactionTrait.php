@@ -47,6 +47,11 @@ trait TransactionTrait
     /**
      * Approved.
      *
+     * This field has multiple meanings, depending on the payment source, payment destination, type of transaction,
+     *  and the value of the finalised, status, and response fields.
+     *
+     * It is *STRONGLY* recommended that the $state field is used instead.
+     *
      * @Assert\Type(type="bool")
      *
      * @var bool|null
@@ -76,6 +81,11 @@ trait TransactionTrait
 
     /**
      * If the transaction was finalised.
+     *
+     * This field has multiple meanings, depending on the payment source, payment destination, type of transaction,
+     *  and the value of the approved, status, and response fields.
+     *
+     * It is *STRONGLY* recommended that the $state field is used instead.
      *
      * @Assert\Type(type="bool")
      *
@@ -160,11 +170,7 @@ trait TransactionTrait
     /**
      * Recurring ID.
      *
-     * This is included for completeness, but is deprecated, and WILL BE REMOVED.
-     *
      * @Assert\Type(type="string")
-     *
-     * @deprecated To be removed when removed from Payments in  https://eonx.atlassian.net/browse/PYMT-1552
      *
      * @var string|null
      */
@@ -172,6 +178,11 @@ trait TransactionTrait
 
     /**
      * Transaction response.
+     *
+     * This field has multiple meanings, depending on the payment source, payment destination, type of transaction,
+     *  and the value of the approved, finalised, and status fields.
+     *
+     * It is *STRONGLY* recommended that the $state field is used instead.
      *
      * @Assert\Type(type="array")
      *
@@ -204,9 +215,16 @@ trait TransactionTrait
     /**
      * Transaction state.
      *
+     * This field should be used for discovering the current state of a transaction. It is summary field from the
+     *  approved, finalised, status, and response fields.
+     *
+     * See the link below for the meaning of the code held in this field.
+     *
      * @Assert\NotBlank()
      * @Assert\Positive()
      * @Assert\Type(type="int")
+     *
+     * @see https://eonx.atlassian.net/wiki/spaces/EXP/pages/776994897/Transaction+State
      *
      * @var int|null
      */
@@ -215,9 +233,12 @@ trait TransactionTrait
     /**
      * Transaction status.
      *
-     * @Assert\Type(type="string")
+     * This field has multiple meanings, depending on the payment source, payment destination, type of transaction,
+     *  and the value of the approved, finalised, and response fields.
      *
-     * @deprecated Being removed in favour of $state.
+     * It is *STRONGLY* recommended that the $state field is used instead.
+     *
+     * @Assert\Type(type="string")
      *
      * @var string|null
      */
