@@ -1,5 +1,5 @@
 {
-  "name": "eoneopay/eoneopay-phpsdk",
+  "name": "eonx-com/eoneopay-phpsdk",
   "description": "PHP SDK for interacting with the eoneopay",
   "keywords": [
     "eoneopay",
@@ -7,24 +7,15 @@
   ],
   "license": "BSD-3-Clause",
   "type": "library",
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://repo.packagist.com/eoneopay/"
-    },
-    {
-      "packagist.org": false
-    }
-  ],
   "require": {
     "php": ">=7.1",
-    "eoneopay/utils": "^0.2",
+    "eonx-com/sdkblueprint": "^1.0",
+    "eonx-com/utils": "^1.0",
     "ext-json": "*",
-    "loyaltycorp/sdkblueprint": "^1.0@beta",
     "symfony/validator": "^4.2"
   },
   "require-dev": {
-    "eoneopay/standards": "dev-master",
+    "eonx-com/standards": "^0.2",
     "friendsofphp/php-cs-fixer": "^2.9",
     "indigophp/doctrine-annotation-autoload": "^0.1.0",
     "laravel/lumen-framework": "^5.5",
@@ -54,9 +45,10 @@
       "Tests\\EoneoPay\\PhpSdk\\": "tests/"
     }
   },
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "prefer-stable": true,
   "config": {
-    "optimize-autoloader": true
+    "optimize-autoloader": true,
+    "sort-packages": true
   }
 }
