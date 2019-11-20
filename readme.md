@@ -1,5 +1,20 @@
 # EoneoPay PHP SDK
 
+## Transactions
+
+The status of the transaction can be determined using the state property. There are situations where a transaction can
+ be approved or completed but reversed at a later time. The state property is the only way to determine the actual state
+ of the transaction. A table listing the meaning of each of the state field values is below.
+
+| Value | State | Description |
+|-------|-------| ----------- |
+| 1     | Pending | Request received, pending processing |
+| 2     | Processing | Request is being processed |
+| 10    | Provisionally approved | May be reversed, but funds could be available after clearing |
+| 11    | Approved | Funds will be available after clearing |
+| 90    | Failed/reversed/declined | Funds could not be transferred, and are not available |
+| 80    | Finalised/cleared | Funds have transferred to destination are available |
+
 ## Development
 
 Main repository: https://github.com/loyaltycorp/eoneopay-phpsdk

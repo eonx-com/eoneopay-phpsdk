@@ -218,7 +218,7 @@ trait TransactionTrait
      * This field should be used for discovering the current state of a transaction. It is summary field from the
      *  approved, finalised, status, and response fields.
      *
-     * See the link below for the meaning of the code held in this field.
+     * See the link below for the meaning of the code held in this field, or check the readme.md.
      *
      * @Assert\NotBlank()
      * @Assert\Positive()
