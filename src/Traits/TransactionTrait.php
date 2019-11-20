@@ -25,7 +25,6 @@ trait TransactionTrait
      *
      * @Groups({"create", "update"})
      *
-     * @Assert\NotBlank()
      * @Assert\Valid()
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Transactions\Allocation
@@ -74,6 +73,8 @@ trait TransactionTrait
      * @Groups({"create", "update"})
      *
      * @Assert\Type(type="string")
+     *
+     * @Groups({"create", "get"})
      *
      * @var string|null
      */
