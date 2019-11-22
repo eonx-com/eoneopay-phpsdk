@@ -28,4 +28,18 @@ final class BalanceTest extends TestCase
         self::assertEquals('56.78', $balance->getBalance());
         self::assertEquals('90.12', $balance->getCreditLimit());
     }
+
+    /**
+     * Test that this entity has no accessible URIs.
+     *
+     * @return void
+     */
+    public function testUriList(): void
+    {
+        $entity = new Balance([]);
+
+        $uris = $entity->uris();
+
+        self::assertEmpty($uris);
+    }
 }

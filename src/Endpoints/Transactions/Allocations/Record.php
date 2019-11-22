@@ -22,6 +22,6 @@ class Record extends Entity
      */
     public function uris(): array
     {
-        // There are no actions directly on allocation records
+        return [];
     }
 }

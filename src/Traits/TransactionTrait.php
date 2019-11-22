@@ -11,7 +11,7 @@ trait TransactionTrait
     /**
      * Transaction action.
      *
-     * @Groups({"create", "delete", "update"})
+     * @Groups({"create"})
      *
      * @Assert\NotBlank()
      * @Assert\Type(type="string")
@@ -34,7 +34,7 @@ trait TransactionTrait
     /**
      * Transaction amount.
      *
-     * @Groups({"create", "delete", "update"})
+     * @Groups({"create"})
      *
      * @Assert\NotBlank()
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Amount")
@@ -45,6 +45,11 @@ trait TransactionTrait
 
     /**
      * Approved.
+     *
+     * This field has multiple meanings, depending on the payment source, payment destination, type of transaction,
+     *  and the value of the finalised, status, and response fields.
+     *
+     * It is *STRONGLY* recommended that the $state field is used instead.
      *
      * @Assert\Type(type="bool")
      *
@@ -65,13 +70,27 @@ trait TransactionTrait
     /**
      * Transaction description.
      *
-     * @Assert\Type(type="string")
+     * @Groups({"create", "update"})
      *
-     * @Groups({"create", "get"})
+     * @Assert\Type(type="string")
      *
      * @var string|null
      */
     protected $description;
+
+    /**
+     * If the transaction was finalised.
+     *
+     * This field has multiple meanings, depending on the payment source, payment destination, type of transaction,
+     *  and the value of the approved, status, and response fields.
+     *
+     * It is *STRONGLY* recommended that the $state field is used instead.
+     *
+     * @Assert\Type(type="bool")
+     *
+     * @var bool|null
+     */
+    protected $finalised;
 
     /**
      * When the transaction was finalised.
@@ -86,6 +105,8 @@ trait TransactionTrait
     /**
      * Original funding source for allocation transaction.
      *
+     * @Groups({"create"})
+     *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
      *
      * @var \EoneoPay\PhpSdk\Endpoints\PaymentSource|null
@@ -97,8 +118,6 @@ trait TransactionTrait
      *
      * @Assert\Type(type="string")
      *
-     * @Groups({"create", "delete", "get", "update"})
-     *
      * @var string|null
      */
     protected $id;
@@ -108,7 +127,7 @@ trait TransactionTrait
      *
      * @Assert\Type(type="array")
      *
-     * @Groups({"create", "delete", "update"})
+     * @Groups({"create", "update"})
      *
      * @var mixed[]|null
      */
@@ -118,6 +137,8 @@ trait TransactionTrait
      * Parent transaction.
      *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\Transaction")
+     *
+     * @Groups({"create", "update"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\Transaction|null
      */
@@ -137,7 +158,7 @@ trait TransactionTrait
     /**
      * Payment source.
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create"})
      *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\PaymentSource")
      *
@@ -146,7 +167,21 @@ trait TransactionTrait
     protected $paymentSource;
 
     /**
+     * Recurring ID.
+     *
+     * @Assert\Type(type="string")
+     *
+     * @var string|null
+     */
+    protected $recurringId;
+
+    /**
      * Transaction response.
+     *
+     * This field has multiple meanings, depending on the payment source, payment destination, type of transaction,
+     *  and the value of the approved, finalised, and status fields.
+     *
+     * It is *STRONGLY* recommended that the $state field is used instead.
      *
      * @Assert\Type(type="array")
      *
@@ -166,11 +201,29 @@ trait TransactionTrait
     protected $security;
 
     /**
+     * Original statement Transaction description.
+     *
+     * @Groups({"create", "update"})
+     *
+     * @Assert\Type(type="string")
+     *
+     * @var string|null
+     */
+    protected $statementDescription;
+
+    /**
      * Transaction state.
+     *
+     * This field should be used for discovering the current state of a transaction. It is summary field from the
+     *  approved, finalised, status, and response fields.
+     *
+     * See the link below for the meaning of the code held in this field, or check the readme.md.
      *
      * @Assert\NotBlank()
      * @Assert\Positive()
      * @Assert\Type(type="int")
+     *
+     * @see https://eonx.atlassian.net/wiki/spaces/EXP/pages/776994897/Transaction+State
      *
      * @var int|null
      */
@@ -178,6 +231,11 @@ trait TransactionTrait
 
     /**
      * Transaction status.
+     *
+     * This field has multiple meanings, depending on the payment source, payment destination, type of transaction,
+     *  and the value of the approved, finalised, and response fields.
+     *
+     * It is *STRONGLY* recommended that the $state field is used instead.
      *
      * @Assert\Type(type="string")
      *
@@ -188,7 +246,7 @@ trait TransactionTrait
     /**
      * Transaction id.
      *
-     * @Groups({"create", "delete", "get", "update"})
+     * @Groups({"create"})
      *
      * @Assert\Type(type="string")
      *
@@ -208,6 +266,8 @@ trait TransactionTrait
 
     /**
      * User associated with this transaction.
+     *
+     * @Groups({"create"})
      *
      * @Assert\Type(type="\EoneoPay\PhpSdk\Endpoints\User")
      *

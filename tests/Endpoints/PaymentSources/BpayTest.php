@@ -24,7 +24,6 @@ class BpayTest extends TestCase
         $paymentSource = new Bpay([
             'id' => $hash,
             'pan' => 'B...PAY',
-            'type' => 'bpay',
             'biller_code' => '112233',
             'biller_name' => 'Test',
             'reference_number' => '1793768381',
@@ -35,6 +34,5 @@ class BpayTest extends TestCase
         self::assertSame('112233', $paymentSource->getBillerCode());
         self::assertSame('Test', $paymentSource->getBillerName());
         self::assertSame('1793768381', $paymentSource->getReferenceNumber());
-        self::assertSame([], $paymentSource->uris());
     }
 }
