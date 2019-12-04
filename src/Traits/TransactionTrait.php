@@ -27,7 +27,7 @@ trait TransactionTrait
      *
      * @Assert\Valid()
      *
-     * @var \EoneoPay\PhpSdk\Endpoints\Transactions\Allocation
+     * @var \EoneoPay\PhpSdk\Endpoints\Transactions\Allocation|null
      */
     protected $allocation;
 
