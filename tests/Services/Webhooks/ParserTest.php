@@ -61,8 +61,8 @@ JSON
                 [],
                 <<<'JSON'
 {
-    "action": {},
-    "allocation": null,
+    "action": null,
+    "allocation": {},
     "amount": null,
     "state": null
 }
