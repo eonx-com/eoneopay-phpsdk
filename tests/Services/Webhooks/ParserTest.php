@@ -48,6 +48,28 @@ JSON
             ),
             'expected' => [
                 'action' => ['This value should not be blank.'],
+                'amount' => ['This value should not be blank.'],
+                'state' => ['This value should not be blank.'],
+            ],
+        ];
+
+        yield 'Empty allocation object and nulls' => [
+            'targetClass' => Transaction::class,
+            'request' => new Request(
+                'POST',
+                '/listen/eoneopay/transaction',
+                [],
+                <<<'JSON'
+{
+    "action": null,
+    "allocation": {},
+    "amount": null,
+    "state": null
+}
+JSON
+            ),
+            'expected' => [
+                'action' => ['This value should not be blank.'],
                 'allocation.amount' => ['This value should not be blank.'],
                 'allocation.ewallet' => ['This value should not be blank.'],
                 'amount' => ['This value should not be blank.'],
