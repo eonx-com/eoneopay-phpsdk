@@ -41,7 +41,6 @@ final class ContractTest extends TestCase
                 ],
                 'fixed_fee' => '0.02',
                 'group' => 'Mastercard',
-                'type' => 'contract',
                 'updated_at' => '2019-02-26T03=>19=>03Z',
                 'user' => [
                     'created_at' => '2019-02-24T23=>34=>11Z',

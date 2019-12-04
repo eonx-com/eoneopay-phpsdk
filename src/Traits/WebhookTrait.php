@@ -28,8 +28,6 @@ trait WebhookTrait
     /**
      * Webhook id.
      *
-     * @Groups({"create", "update"})
-     *
      * @var string
      */
     protected $id;
@@ -37,7 +35,7 @@ trait WebhookTrait
     /**
      * Http method this webhook will be delivered as.
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create"})
      *
      * @var string
      */
@@ -46,7 +44,7 @@ trait WebhookTrait
     /**
      * The content type of payload delivery.
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create"})
      *
      * @var string
      */
@@ -64,7 +62,7 @@ trait WebhookTrait
     /**
      * User associated with this webhook.
      *
-     * @Groups({"create", "get", "list", "update"})
+     * @Groups({"create"})
      *
      * @var \EoneoPay\PhpSdk\Endpoints\User
      */

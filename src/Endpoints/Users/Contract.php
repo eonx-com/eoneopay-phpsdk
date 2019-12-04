@@ -9,12 +9,12 @@ use EoneoPay\PhpSdk\Traits\Users\ContractTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
+ * @method string|null getAction()
  * @method string|null getCreatedAt()
  * @method string|null getCurrency()
  * @method Ewallet|null getEwallet()
  * @method string|null getFixedFee()
  * @method string|null getGroup()
- * @method string|null getType()
  * @method string|null getUpdatedAt()
  * @method User|null getUser()
  * @method string|null getVariableRate()

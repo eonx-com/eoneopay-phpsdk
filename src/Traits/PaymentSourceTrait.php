@@ -28,7 +28,7 @@ trait PaymentSourceTrait
     /**
      * Payment source name.
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create"})
      *
      * @var string|null
      */
@@ -40,14 +40,14 @@ trait PaymentSourceTrait
      * @Assert\NotBlank()
      * @Assert\Type(type="string")
      *
+     * @Groups({"create"})
+     *
      * @var string
      */
     protected $pan;
 
     /**
      * Payment source token.
-     *
-     * @Groups({"create"})
      *
      * @var string|null
      */
@@ -56,7 +56,7 @@ trait PaymentSourceTrait
     /**
      * Payment source type discriminator.
      *
-     * @Groups({"create", "update"})
+     * @Groups({"create"})
      *
      * @Assert\NotBlank()
      * @Assert\Type(type="string")
