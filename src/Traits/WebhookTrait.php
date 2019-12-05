@@ -21,7 +21,7 @@ trait WebhookTrait
      *
      * @Groups({"create", "update"})
      *
-     * @var mixed[]
+     * @var string[]
      */
     protected $headers;
 
