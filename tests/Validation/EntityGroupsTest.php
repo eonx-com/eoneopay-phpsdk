@@ -17,7 +17,7 @@ class EntityGroupsTest extends TestCase
      */
     public function testGroups(): void
     {
-        // @todo Refactor test - removed due to it not working correctly with recursive relationships between entities
+        // @todo PYMT-1650 Commented out due to not working correctly with recursive relationships between entities
         $this->addToAssertionCount(1);
         /*
         $reader = new AnnotationReader();
