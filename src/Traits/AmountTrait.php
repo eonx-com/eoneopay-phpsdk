@@ -3,10 +3,15 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Traits;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 trait AmountTrait
 {
     /**
      * Currency to use for amount.
+     * Serialization group 'create' required for FeeRepository compatibility
+     *
+     * @Groups({"create"})
      *
      * @var string|null
      */
@@ -21,6 +26,9 @@ trait AmountTrait
 
     /**
      * The subtotal after fees.
+     * Serialization group 'create' required for FeeRepository compatibility
+     *
+     * @Groups({"create"})
      *
      * @var string|null
      */
@@ -28,6 +36,9 @@ trait AmountTrait
 
     /**
      * The amount to charge.
+     * Serialization group 'create' required for FeeRepository compatibility
+     *
+     * @Groups({"create"})
      *
      * @var string|null
      */
