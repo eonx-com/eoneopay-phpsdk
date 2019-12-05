@@ -48,6 +48,9 @@ trait PaymentSourceTrait
 
     /**
      * Payment source token.
+     * Serialization group 'create' required for FeeRepository compatibility
+     *
+     * @Groups({"create"})
      *
      * @var string|null
      */
