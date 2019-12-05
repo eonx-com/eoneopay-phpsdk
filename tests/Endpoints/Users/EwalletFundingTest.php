@@ -46,11 +46,14 @@ class EwalletFundingTest extends ValidationEnabledTestCase
      */
     public function testCreateEwalletFunding(): void
     {
-        $fundingSource = new CreditCard();
-        $ewallet = new Ewallet();
+        $fundingSource = new CreditCard([
+            'cvc' => '123',
+            'token' => 'BBEJ6JGRHAZ2KUBD89C3'
+        ]);
+        $ewallet = new Ewallet(['currency' => 'AUD', 'reference' => 'YNGANFK8Y7']);
         $class = new EwalletFunding([
             'ewallet' => $ewallet,
-            'primaryEndpoint' => $fundingSource,
+            'fundingSource' => $fundingSource,
             'id' => 'FUNDING_ID',
             'targetAmount' => '100.00',
             'threshold' => '20.00',
