@@ -60,6 +60,7 @@ final class CreditCardTest extends TestCase
             ]
         )->create('4UM78RDZW93B84UJ', $creditCard);
 
+        self::assertSame('123', $creditCard->getCvc());
         self::assertInstanceOf(CreditCard::class, $actual);
 
         /**
