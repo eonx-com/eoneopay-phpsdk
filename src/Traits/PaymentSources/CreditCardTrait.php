@@ -17,6 +17,15 @@ trait CreditCardTrait
     protected $bin;
 
     /**
+     * Credit card cvc.
+     *
+     * @Groups({"create"})
+     *
+     * @var string|null
+     */
+    protected $cvc;
+
+    /**
      * Expiry month and year.
      *
      * @Groups({"create"})

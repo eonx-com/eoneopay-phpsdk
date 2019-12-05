@@ -22,6 +22,7 @@ final class CreditCardTest extends TestCase
     {
         $creditCard = new CreditCard(
             [
+                'cvc' => '123',
                 'expiry' => [
                     'month' => '11',
                     'year' => '2099',

@@ -8,6 +8,7 @@ use EoneoPay\PhpSdk\Traits\PaymentSources\CreditCardTrait;
 
 /**
  * @method mixed[]|null getBin()
+ * @method string|null getCvc()
  * @method mixed[]|null getExpiry()
  * @method string|null getFacility()
  */
