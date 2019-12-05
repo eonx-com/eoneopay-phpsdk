@@ -22,6 +22,7 @@ final class CreditCardTest extends TestCase
     {
         $creditCard = new CreditCard(
             [
+                'cvc' => '123',
                 'expiry' => [
                     'month' => '11',
                     'year' => '2099',
@@ -59,6 +60,7 @@ final class CreditCardTest extends TestCase
             ]
         )->create('4UM78RDZW93B84UJ', $creditCard);
 
+        self::assertSame('123', $creditCard->getCvc());
         self::assertInstanceOf(CreditCard::class, $actual);
 
         /**
