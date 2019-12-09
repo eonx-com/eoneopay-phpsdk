@@ -72,7 +72,10 @@ final class PrimaryTransactionsTest extends TransactionTestCase
 
         $expected = new Transaction(\array_merge($data, [
             'amount' => new Amount($data['amount']),
-            'paymentSource' => new CreditCard($data['paymentSource']),
+            'paymentSource' => new CreditCard(\array_merge(
+                $data['paymentSource'],
+                ['cvc' => '123']
+            )),
         ]));
 
         $actual = $this->createApiManager($this->createResponse($data))
