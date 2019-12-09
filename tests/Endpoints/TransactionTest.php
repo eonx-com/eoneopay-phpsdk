@@ -3,7 +3,12 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints;
 
+use EoneoPay\PhpSdk\Endpoints\Amount;
+use EoneoPay\PhpSdk\Endpoints\PaymentSource;
+use EoneoPay\PhpSdk\Endpoints\Security;
 use EoneoPay\PhpSdk\Endpoints\Transaction;
+use EoneoPay\PhpSdk\Endpoints\Transactions\Allocation;
+use EoneoPay\PhpSdk\Endpoints\User;
 use Tests\EoneoPay\PhpSdk\TestCases\ValidationEnabledTestCase;
 
 /**
@@ -126,6 +131,67 @@ Object(EoneoPay\PhpSdk\Endpoints\Transaction).user:
 
 ERR,
         ];
+    }
+
+    /**
+     * Test getters on transaction.
+     *
+     * @return void
+     */
+    public function testGetters(): void
+    {
+        $allocation = new Allocation();
+        $amount = new Amount([]);
+        $fundingSource = new PaymentSource([]);
+        $parent = new Transaction([]);
+        $destination = new PaymentSource([]);
+        $source = new PaymentSource([]);
+        $security = new Security([]);
+        $user = new User([]);
+
+        $entity = new Transaction([
+            'action' => '1',
+            'allocation' => $allocation,
+            'amount' => $amount,
+            'approved' => true,
+            'createdAt' => '2010-10-10T00:00:00Z',
+            'description' => 'short description',
+            'finalisedAt' => '2010-10-10T00:00:02Z',
+            'fundingSource' => $fundingSource,
+            'metadata' => ['1' => '2'],
+            'parent' => $parent,
+            'paymentDestination' => $destination,
+            'paymentSource' => $source,
+            'response' => ['ok' => 'done'],
+            'security' => $security,
+            'state' => 1,
+            'statementDescription' => 'statement description',
+            'status' => 'pending',
+            'transactionId' => 'transaction-id',
+            'updatedAt' => '2010-11-10T00:00:00Z',
+            'user' => $user,
+        ]);
+
+        self::assertSame('1', $entity->getAction());
+        self::assertSame($allocation, $entity->getAllocation());
+        self::assertSame($amount, $entity->getAmount());
+        self::assertTrue($entity->getApproved());
+        self::assertSame('2010-10-10T00:00:00Z', $entity->getCreatedAt());
+        self::assertSame('short description', $entity->getDescription());
+        self::assertSame('2010-10-10T00:00:02Z', $entity->getFinalisedAt());
+        self::assertSame($fundingSource, $entity->getFundingSource());
+        self::assertSame(['1' => '2'], $entity->getMetadata());
+        self::assertSame($parent, $entity->getParent());
+        self::assertSame($destination, $entity->getPaymentDestination());
+        self::assertSame($source, $entity->getPaymentSource());
+        self::assertSame(['ok' => 'done'], $entity->getResponse());
+        self::assertSame($security, $entity->getSecurity());
+        self::assertSame(1, $entity->getState());
+        self::assertSame('statement description', $entity->getStatementDescription());
+        self::assertSame('pending', $entity->getStatus());
+        self::assertSame('transaction-id', $entity->getTransactionId());
+        self::assertSame('2010-11-10T00:00:00Z', $entity->getUpdatedAt());
+        self::assertSame($user, $entity->getUser());
     }
 
     /**

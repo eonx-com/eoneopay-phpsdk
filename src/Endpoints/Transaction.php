@@ -25,6 +25,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method mixed[]|null getResponse()
  * @method Security|null getSecurity()
  * @method int|null getState()
+ * @method string|null getStatementDescription()
  * @method string|null getStatus()
  * @method string|null getTransactionId()
  * @method string|null getUpdatedAt()
