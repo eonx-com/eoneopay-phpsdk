@@ -164,7 +164,7 @@ ERR,
             'paymentSource' => $source,
             'response' => ['ok' => 'done'],
             'security' => $security,
-            'state' => 1,
+            'state' => 2,
             'statementDescription' => 'statement description',
             'status' => 'pending',
             'transactionId' => 'transaction-id',
@@ -186,7 +186,7 @@ ERR,
         self::assertSame($source, $entity->getPaymentSource());
         self::assertSame(['ok' => 'done'], $entity->getResponse());
         self::assertSame($security, $entity->getSecurity());
-        self::assertSame(1, $entity->getState());
+        self::assertSame(2, $entity->getState());
         self::assertSame('statement description', $entity->getStatementDescription());
         self::assertSame('pending', $entity->getStatus());
         self::assertSame('transaction-id', $entity->getTransactionId());
