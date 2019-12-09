@@ -1,5 +1,5 @@
 {
-  "name": "eonx-com/eoneopay-phpsdk",
+  "name": "eonx-com/payments-phpsdk",
   "description": "PHP SDK for interacting with the eoneopay",
   "keywords": [
     "eoneopay",
@@ -44,6 +44,10 @@
     "psr-4": {
       "Tests\\EoneoPay\\PhpSdk\\": "tests/"
     }
+  },
+  "replace": {
+    "eoneopay/eoneopay-phpsdk": "*",
+    "eonx-com/eoneopay-phpsdk": "*"
   },
   "minimum-stability": "stable",
   "prefer-stable": true,
