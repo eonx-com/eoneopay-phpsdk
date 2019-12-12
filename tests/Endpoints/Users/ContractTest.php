@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Endpoints\Users;
 
 use EoneoPay\PhpSdk\Endpoints\Ewallet;
+use EoneoPay\PhpSdk\Endpoints\PaymentSources\Group;
 use EoneoPay\PhpSdk\Endpoints\User;
 use EoneoPay\PhpSdk\Endpoints\Users\Contract;
 use Tests\EoneoPay\PhpSdk\TestCase;
@@ -68,5 +69,52 @@ final class ContractTest extends TestCase
          * @see https://youtrack.jetbrains.com/issue/WI-37859 - typehint required until PhpStorm recognises assertion
          */
         self::assertInstanceOf(Ewallet::class, $contract->getEwallet());
+    }
+
+    /**
+     * Test get contract fees.
+     *
+     * @return void
+     */
+    public function testGetContractFees(): void
+    {
+        $user = new User(['id' => 'external-user-id']);
+        $ewallet = new Ewallet([]);
+        $contract = new Contract([
+            'action' => 'debit',
+            'currency' => 'AUD',
+            'ewallet' => $ewallet,
+            'group' => 'mastercard',
+            'fixed_fee' => '0.02',
+            'variable_rate' => '0.10',
+            'user' => $user
+        ]);
+
+        self::assertSame('debit', $contract->getAction());
+        self::assertSame('mastercard', $contract->getGroup());
+        self::assertSame('AUD', $contract->getCurrency());
+        self::assertSame($ewallet, $contract->getEwallet());
+        self::assertSame('0.02', $contract->getFixedFee());
+        self::assertSame('0.10', $contract->getVariableRate());
+        self::assertSame($user, $contract->getUser());
+    }
+
+    /**
+     * Ensure uris have correct endpoints.
+     *
+     * @return void
+     */
+    public function testUris(): void
+    {
+        $user = new User([]);
+        $contract = new Contract([
+            'user' => $user
+        ]);
+
+        $createUri = \sprintf('/users/%s/contracts', $user->getId());
+        $getUri = \sprintf('/users/%s/contracts', $user->getId());
+
+        self::assertSame($createUri, $contract->uris()['create'] ?? []);
+        self::assertSame($getUri, $contract->uris()['get'] ?? []);
     }
 }

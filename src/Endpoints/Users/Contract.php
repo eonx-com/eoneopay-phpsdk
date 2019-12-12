@@ -30,6 +30,7 @@ class Contract extends Entity
     {
         return [
             self::CREATE => \sprintf('/users/%s/contracts', $this->getUserId()),
+            self::GET => \sprintf('/users/%s/contracts', $this->getUserId())
         ];
     }
 
