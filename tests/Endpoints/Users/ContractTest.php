@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Tests\EoneoPay\PhpSdk\Endpoints\Users;
 
 use EoneoPay\PhpSdk\Endpoints\Ewallet;
-use EoneoPay\PhpSdk\Endpoints\PaymentSources\Group;
 use EoneoPay\PhpSdk\Endpoints\User;
 use EoneoPay\PhpSdk\Endpoints\Users\Contract;
 use Tests\EoneoPay\PhpSdk\TestCase;
