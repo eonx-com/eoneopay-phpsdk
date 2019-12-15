@@ -135,7 +135,9 @@ final class ContractTest extends TestCase
                     'updated_at' => '2019-02-24T23:34:11Z',
                 ],
                 'variable_rate' => '0.10',
-            ], 201);
+            ],
+            201
+        );
 
         /** @var \EoneoPay\PhpSdk\Endpoints\Users\Contract $contract */
         $contract = $apiManager->findOneBy(
@@ -145,10 +147,11 @@ final class ContractTest extends TestCase
         );
 
         self::assertSame('0.10', $contract->getVariableRate());
-        self::assertSame('3T93F7TXCVGX4ZV7AFW2', $contract->getUser()->getId());
         self::assertSame('Mastercard', $contract->getGroup());
         self::assertSame('AUD', $contract->getCurrency());
         self::assertSame('0.02', $contract->getFixedFee());
+        self::assertInstanceOf(User::class, $contract->getUser());
+        self::assertInstanceOf(Ewallet::class, $contract->getEwallet());
     }
 
     /**
