@@ -112,8 +112,7 @@ final class ContractTest extends TestCase
 
         $createUri = \sprintf('/users/%s/contracts', $user->getId());
         $getUri = \sprintf('/users/%s/contracts', $user->getId());
-
-        self::assertSame($createUri, $contract->uris()['create'] ?? []);
-        self::assertSame($getUri, $contract->uris()['get'] ?? []);
+        
+        self::assertSame(['create' => $createUri, 'get' => $getUri], $contract->uris());
     }
 }
