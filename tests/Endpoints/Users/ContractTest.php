@@ -22,6 +22,7 @@ final class ContractTest extends TestCase
     {
         $contract = $this->createApiManager(
             [
+                'action' => 'debit',
                 'created_at' => '2019-02-25T05=>43=>31Z',
                 'currency' => 'AUD',
                 'ewallet' => [
@@ -41,6 +42,7 @@ final class ContractTest extends TestCase
                 ],
                 'fixed_fee' => '0.02',
                 'group' => 'Mastercard',
+                'type' => 'contract',
                 'updated_at' => '2019-02-26T03=>19=>03Z',
                 'user' => [
                     'created_at' => '2019-02-24T23=>34=>11Z',
@@ -85,8 +87,9 @@ final class ContractTest extends TestCase
             'ewallet' => $ewallet,
             'group' => 'mastercard',
             'fixed_fee' => '0.02',
+            'type' => 'contract',
+            'user' => $user,
             'variable_rate' => '0.10',
-            'user' => $user
         ]);
 
         self::assertSame('debit', $contract->getAction());
@@ -107,6 +110,7 @@ final class ContractTest extends TestCase
     {
         $apiManager = $this->createApiManager(
             [
+                'action' => 'debit',
                 'created_at' => '2019-02-25T05:43:31Z',
                 'currency' => 'AUD',
                 'ewallet' => [
@@ -127,6 +131,7 @@ final class ContractTest extends TestCase
                 ],
                 'fixed_fee' => '0.02',
                 'group' => 'Mastercard',
+                'type' => 'contract',
                 'updated_at' => '2019-02-26T03:19:03Z',
                 'user' => [
                     'created_at' => '2019-02-24T23:34:11Z',
@@ -150,6 +155,7 @@ final class ContractTest extends TestCase
         self::assertSame('Mastercard', $contract->getGroup());
         self::assertSame('AUD', $contract->getCurrency());
         self::assertSame('0.02', $contract->getFixedFee());
+        self::assertSame('debit', $contract->getAction());
         self::assertInstanceOf(User::class, $contract->getUser());
         self::assertInstanceOf(Ewallet::class, $contract->getEwallet());
     }
