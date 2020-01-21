@@ -25,6 +25,15 @@ trait EwalletTrait
     protected $createdAt;
 
     /**
+     * Ewallet currency.
+     *
+     * @Assert\Type(type="string")
+     *
+     * @var string|null
+     */
+    protected $currency;
+
+    /**
      * Ewallet id.
      *
      * @Assert\NotBlank()
