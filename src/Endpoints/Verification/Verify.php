@@ -20,7 +20,7 @@ class Verify extends Entity
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('/verify/%s', $this->getToken())
+            self::CREATE => \sprintf('/nominal/verify/%s', $this->getToken())
         ];
     }
 }
