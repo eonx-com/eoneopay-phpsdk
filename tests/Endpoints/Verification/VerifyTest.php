@@ -23,7 +23,7 @@ class VerifyTest extends ValidationEnabledTestCase
             'token' => 'TEST_TOKEN'
         ]);
         $expectedUris = [
-            'create' => '/verify/TEST_TOKEN'
+            'create' => '/nominal/verify/TEST_TOKEN'
         ];
 
         static::assertSame('0.05', $verify->getAmount());

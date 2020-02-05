@@ -19,7 +19,7 @@ class Initiate extends Entity
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('/initiate/%s', $this->getToken())
+            self::CREATE => \sprintf('/nominal/initiate/%s', $this->getToken())
         ];
     }
 }

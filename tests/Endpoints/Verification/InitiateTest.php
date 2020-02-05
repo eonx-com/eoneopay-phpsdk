@@ -22,7 +22,7 @@ class InitiateTest extends ValidationEnabledTestCase
             'token' => 'TEST_TOKEN'
         ]);
         $expectedUris = [
-            'create' => '/initiate/TEST_TOKEN'
+            'create' => '/nominal/initiate/TEST_TOKEN'
         ];
 
         static::assertSame('TEST_TOKEN', $initiate->getToken());
