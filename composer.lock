@@ -220,16 +220,16 @@
         },
         {
             "name": "eonx-com/sdkblueprint",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eonx-com/sdkblueprint.git",
-                "reference": "193b2bb6c336f0ca3c1839341073ac6fd5806f31"
+                "reference": "00f282f40c84a1ab0188312a95f4cd2cb6a915d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eonx-com/sdkblueprint/zipball/193b2bb6c336f0ca3c1839341073ac6fd5806f31",
-                "reference": "193b2bb6c336f0ca3c1839341073ac6fd5806f31",
+                "url": "https://api.github.com/repos/eonx-com/sdkblueprint/zipball/00f282f40c84a1ab0188312a95f4cd2cb6a915d0",
+                "reference": "00f282f40c84a1ab0188312a95f4cd2cb6a915d0",
                 "shasum": ""
             },
             "require": {
@@ -286,7 +286,7 @@
                 "loyaltycorp",
                 "sdk"
             ],
-            "time": "2019-11-20T03:51:14+00:00"
+            "time": "2020-02-20T00:41:11+00:00"
         },
         {
             "name": "eonx-com/utils",
