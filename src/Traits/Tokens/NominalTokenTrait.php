@@ -32,7 +32,7 @@ trait NominalTokenTrait
     /**
      * Get if token is oneTime.
      *
-     * @var boolean
+     * @var bool|null
      */
     protected $oneTime;
 
