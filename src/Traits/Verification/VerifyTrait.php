@@ -24,11 +24,11 @@ trait VerifyTrait
      * Payment source token.
      *
      * @Assert\NotBlank()
-     * @Assert\Type(type="string")
+     * @Assert\Type(type="EoneoPay\PhpSdk\Endpoints\Tokens\NominalToken")
      *
      * @Groups({"create"})
 
-     * @var string|null
+     * @var \EoneoPay\PhpSdk\Endpoints\Tokens\NominalToken|null
      */
     protected $token;
 }
