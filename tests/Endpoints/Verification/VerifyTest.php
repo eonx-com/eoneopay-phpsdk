@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints\Verification;
 
+use EoneoPay\PhpSdk\Endpoints\Tokens\NominalToken;
 use EoneoPay\PhpSdk\Endpoints\Verification\Verify;
 use Tests\EoneoPay\PhpSdk\TestCases\ValidationEnabledTestCase;
 
@@ -20,14 +21,14 @@ class VerifyTest extends ValidationEnabledTestCase
     {
         $verify = new Verify([
             'amount' => '0.05',
-            'token' => 'TEST_TOKEN'
+            'token' => new NominalToken(['token' => 'TEST_TOKEN'])
         ]);
         $expectedUris = [
             'create' => '/nominal/verify/TEST_TOKEN'
         ];
 
         static::assertSame('0.05', $verify->getAmount());
-        static::assertSame('TEST_TOKEN', $verify->getToken());
+        static::assertSame('TEST_TOKEN', $verify->getToken()->getToken());
         static::assertSame($expectedUris, $verify->uris());
     }
 
@@ -63,7 +64,7 @@ ERR;
     {
         $verify = new Verify([
             'amount' => '0.05',
-            'token' => 'TEST_TOKEN'
+            'token' => new NominalToken(['token' => 'TEST_TOKEN'])
         ]);
 
         $manager = $this->createApiManager(null, 200);

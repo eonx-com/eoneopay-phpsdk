@@ -5,10 +5,11 @@ namespace EoneoPay\PhpSdk\Endpoints\Verification;
 
 use EoneoPay\PhpSdk\Traits\Verification\VerifyTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
+use EoneoPay\PhpSdk\Endpoints\Tokens\NominalToken;
 
 /**
  * @method string|null getAmount()
- * @method string|null getToken()
+ * @method NominalToken getToken()
  */
 class Verify extends Entity
 {
@@ -20,7 +21,7 @@ class Verify extends Entity
     public function uris(): array
     {
         return [
-            self::CREATE => \sprintf('/nominal/verify/%s', $this->getToken())
+            self::CREATE => \sprintf('/nominal/verify/%s', $this->getToken()->getToken())
         ];
     }
 }
