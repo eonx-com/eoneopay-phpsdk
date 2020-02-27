@@ -67,10 +67,54 @@ ERR;
             'token' => new NominalToken(['token' => 'TEST_TOKEN'])
         ]);
 
-        $manager = $this->createApiManager(null, 200);
+        $response = <<<JSON
+{
+    "token": {
+        "authority_agreement": {
+            "last_agreed": null,
+            "version": null
+        },
+        "country": "AU",
+        "created_at": "2020-02-20T21:45:07Z",
+        "currency": "AUD",
+        "id": "2b0068358e34a974e11094a4b32d9b08",
+        "name": "User Name",
+        "nominal_status": 3,
+        "number": "987654321",
+        "one_time": false,
+        "pan": "123-456...4321",
+        "prefix": "123-456",
+        "token": "4RMMVVWCJXKH4Z6ECWP0",
+        "type": "bank_account",
+        "updated_at": "2020-02-20T21:45:07Z",
+        "user": {
+            "created_at": "2020-02-20T21:43:17Z",
+            "email": "sub-user@example.com",
+            "metadata": [],
+            "name": null,
+            "updated_at": "2020-02-20T21:43:17Z"
+        }
+    }
+}
+JSON;
+
+        $expected = new NominalToken([
+            'country' => 'AU',
+            'name' => 'User Name',
+            'nominal_status' => 3,
+            'one_time' => false,
+            'token' => '4RMMVVWCJXKH4Z6ECWP0',
+            'type' => 'bank_account'
+        ]);
+
+        $manager = $this->createApiManager(
+            \json_decode($response, true, 512, \JSON_THROW_ON_ERROR),
+            200
+        );
 
         $result = $manager->create('TEST_API_KEY', $verify);
 
         self::assertInstanceOf(Verify::class, $result);
+        self::assertEquals($expected, $result->getToken());
     }
 }
