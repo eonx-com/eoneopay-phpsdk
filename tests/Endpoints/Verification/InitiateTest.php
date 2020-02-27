@@ -139,11 +139,13 @@ JSON;
         $initiate = new Initiate(['token' => new BankAccount()]);
         $validator = $this->getValidator();
 
+        //phpcs:disable
         $expectedErrors = <<<'ERR'
 Object(EoneoPay\PhpSdk\Endpoints\Verification\Initiate).token:
     This value should be of type EoneoPay\PhpSdk\Endpoints\Tokens\NominalToken. (code ba785a8c-82cb-4283-967c-3cf342181b40)
 
 ERR;
+        //phpcs:enable
 
         $result = $validator->validate($initiate);
 

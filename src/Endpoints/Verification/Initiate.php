@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\Verification;
 
+use EoneoPay\PhpSdk\Endpoints\Tokens\NominalToken;
 use EoneoPay\PhpSdk\Traits\Verification\InitiateTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
-use EoneoPay\PhpSdk\Endpoints\Tokens\NominalToken;
 
 /**
  * @method NominalToken getToken()

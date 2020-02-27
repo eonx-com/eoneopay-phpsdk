@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Endpoints\Tokens;
+namespace Tests\EoneoPay\PhpSdk\Endpoints\Tokens;
 
 use EoneoPay\PhpSdk\Endpoints\Tokens\NominalToken;
 use Tests\EoneoPay\PhpSdk\TestCases\ValidationEnabledTestCase;
