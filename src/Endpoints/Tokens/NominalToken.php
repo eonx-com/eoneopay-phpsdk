@@ -9,7 +9,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 /**
  * @method string|null getCountry()
  * @method string|null getName()
- * @method int|null getNominalStatus()
+ * @method string|null getNominalStatus()
  * @method boolean|null isOneTime()
  * @method string|null getToken()
  * @method string|null getType()
@@ -17,6 +17,34 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 class NominalToken extends Entity
 {
     use NominalTokenTrait;
+
+    /**
+     * Nominal status of expired.
+     *
+     * @const string
+     */
+    public const STATUS_EXPIRED = 'expired';
+
+    /**
+     * Nominal status of not verified.
+     *
+     * @const string
+     */
+    public const STATUS_NOT_VERIFIED = 'not_verified';
+
+    /**
+     * Nominal status of pending.
+     *
+     * @const string
+     */
+    public const STATUS_PENDING = 'pending';
+
+    /**
+     * Nominal status of verfiied.
+     *
+     * @const string
+     */
+    public const STATUS_VERIFIED = 'verified';
 
     /**
      * {@inheritdoc}

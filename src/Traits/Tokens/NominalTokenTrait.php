@@ -25,7 +25,7 @@ trait NominalTokenTrait
     /**
      * Get token nominal status.
      *
-     * @var int
+     * @var string
      */
     protected $nominalStatus;
 

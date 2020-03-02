@@ -57,7 +57,7 @@ class InitiateTest extends ValidationEnabledTestCase
         "currency": "AUD",
         "id": "2b0068358e34a974e11094a4b32d9b08",
         "name": "User Name",
-        "nominal_status": 1,
+        "nominal_status": "pending",
         "number": "987654321",
         "one_time": false,
         "pan": "123-456...4321",
@@ -79,7 +79,7 @@ JSON;
         $expected = new NominalToken([
             'country' => 'AU',
             'name' => 'User Name',
-            'nominal_status' => 1,
+            'nominal_status' => 'pending',
             'one_time' => false,
             'token' => '4RMMVVWCJXKH4Z6ECWP0',
             'type' => 'bank_account'

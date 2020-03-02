@@ -21,7 +21,7 @@ class NominalTokenTest extends ValidationEnabledTestCase
         $endpointToken = new NominalToken([
             'country' => 'AU',
             'name' => 'User Name',
-            'nominal_status' => 1,
+            'nominal_status' => 'pending',
             'one_time' => true,
             'token' => '4RMMVVWCJXKH4Z6ECWP0',
             'type' => 'bank_account'
@@ -29,10 +29,33 @@ class NominalTokenTest extends ValidationEnabledTestCase
 
         self::assertSame('AU', $endpointToken->getCountry());
         self::assertSame('User Name', $endpointToken->getName());
-        self::assertSame(1, $endpointToken->getNominalStatus());
+        self::assertSame('pending', $endpointToken->getNominalStatus());
         self::assertTrue($endpointToken->isOneTime());
         self::assertSame('4RMMVVWCJXKH4Z6ECWP0', $endpointToken->getToken());
         self::assertSame('bank_account', $endpointToken->getType());
+    }
+
+    /**
+     * Tests that the nominal status constants have correct values.
+     *
+     * @return void
+     */
+    public function testNominalStatusConstants(): void
+    {
+        $statuses = [
+            'expired' => NominalToken::STATUS_EXPIRED,
+            'not_verified' => NominalToken::STATUS_NOT_VERIFIED,
+            'pending' => NominalToken::STATUS_PENDING,
+            'verified' => NominalToken::STATUS_VERIFIED,
+        ];
+
+        foreach ($statuses as $status => $constant) {
+            $token = new NominalToken([
+                'nominal_status' => $status
+            ]);
+
+            self::assertSame($constant, $token->getNominalStatus());
+        }
     }
 
     /**
