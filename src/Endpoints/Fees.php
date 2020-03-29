@@ -14,6 +14,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method PaymentSource|null getPaymentSource()
  *
  * @Repository(repositoryClass="EoneoPay\PhpSdk\Repositories\FeesRepository")
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class Fees extends Entity
 {

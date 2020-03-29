@@ -26,6 +26,8 @@ use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
  * })
  *
  * @Repository(repositoryClass="EoneoPay\PhpSdk\Repositories\PaymentSourceRepository")
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class PaymentSource extends Entity implements PaymentSourceInterface
 {

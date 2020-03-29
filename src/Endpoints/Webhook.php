@@ -19,6 +19,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method $this setMethod(string $method)
  * @method $this setSerializationFormat(string $serializationFormat)
  * @method $this setUrl(string $url)
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class Webhook extends Entity
 {
