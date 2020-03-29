@@ -18,6 +18,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method string|null getUpdatedAt()
  * @method User|null getUser()
  * @method string|null getVariableRate()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class Contract extends Entity
 {

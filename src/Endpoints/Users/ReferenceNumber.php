@@ -14,6 +14,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method $this setReferenceNumber(string $reference)
  * @method $this setType(string $type)
  * @method $this setUser(User $user)
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class ReferenceNumber extends Entity
 {

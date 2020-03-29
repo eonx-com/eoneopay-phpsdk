@@ -11,6 +11,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method string|null getActivity()
  * @method Webhook|null getUserWebhook()
  * @method $this setActivity(string $activity)
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class SubscribedActivity extends Entity
 {

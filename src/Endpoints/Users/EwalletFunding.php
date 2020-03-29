@@ -15,6 +15,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method PaymentSource|null getFundingSource()
  * @method string|null getTargetAmount()
  * @method string|null getThreshold()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class EwalletFunding extends Entity
 {
