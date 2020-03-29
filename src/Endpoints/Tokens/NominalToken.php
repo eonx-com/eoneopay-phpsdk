@@ -13,6 +13,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method boolean|null isOneTime()
  * @method string|null getToken()
  * @method string|null getType()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class NominalToken extends Entity
 {
