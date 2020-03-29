@@ -11,6 +11,8 @@ use EoneoPay\PhpSdk\Traits\PaymentSources\CreditCardTrait;
  * @method string|null getCvc()
  * @method mixed[]|null getExpiry()
  * @method string|null getFacility()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class CreditCard extends PaymentSource
 {
