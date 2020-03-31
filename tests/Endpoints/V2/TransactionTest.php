@@ -280,7 +280,9 @@ class TransactionTest extends TransactionTestCase
   }
 }
 JSON;
-        $response = $this->createResponse(\json_decode($jsonResponse, true, 512, JSON_THROW_ON_ERROR));
+        $response = $this->createResponse(
+            \json_decode($jsonResponse, true, 512, JSON_THROW_ON_ERROR)
+        );
 
         $request = new Transaction([
             'amount' => [

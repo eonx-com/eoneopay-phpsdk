@@ -42,5 +42,4 @@ class UserTest extends TestCase
 
         self::assertSame([], $user->uris());
     }
-
 }

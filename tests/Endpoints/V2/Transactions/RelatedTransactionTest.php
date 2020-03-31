@@ -852,5 +852,4 @@ class RelatedTransactionTest extends TransactionTestCase
 
         self::assertSame($expected, $related->uris());
     }
-
 }

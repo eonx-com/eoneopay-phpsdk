@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\V2\Transactions;
 
+use EoneoPay\PhpSdk\Endpoints\V2\Transaction;
 use EoneoPay\PhpSdk\Traits\V2\Transactions\RelatedTransactionTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
-use EoneoPay\PhpSdk\Endpoints\V2\Transaction;
 
 /**
  * @method Transaction[]|null getChildren()
