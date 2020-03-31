@@ -549,14 +549,14 @@ JSON;
             ])
         ]);
 
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\V2\Transaction $actual
+         */
         $actual = $this->createApiManager($this->createResponse($response))
             ->create((string)\getenv('PAYMENTS_API_KEY'), $request);
 
         self::assertEquals($expected, $actual);
 
-        /**
-         * @var \EoneoPay\PhpSdk\Endpoints\V2\Transaction $actual
-         */
         // assert getters on transaction.
         self::assertSame('transfer', $actual->getAction());
         self::assertEquals($expectedParents, $actual->getParents());
