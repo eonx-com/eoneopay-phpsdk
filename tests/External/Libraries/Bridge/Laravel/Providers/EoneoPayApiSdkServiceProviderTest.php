@@ -33,7 +33,6 @@ final class EoneoPayApiSdkServiceProviderTest extends TestCase
             EoneoPayApiManager::class,
             $this->app->make(EoneoPayApiManagerInterface::class)
         );
-
     }
 
     /**
