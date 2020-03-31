@@ -25,7 +25,10 @@ final class EoneoPayApiSdkServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton('eoneopay_api_client', static function () {
-            return new Client(['base_uri' => \env('EONEOPAY_API_BASE_URI')]);
+            return new Client([
+                'base_uri' => \env('EONEOPAY_API_BASE_URI'),
+                'headers' => ['Accept' => 'application/vnd.eoneopay.v2+json']
+            ]);
         });
 
         $this->app->singleton(EoneoPayApiManagerInterface::class, static function (Container $application) {
