@@ -5,6 +5,7 @@ namespace EoneoPay\PhpSdk\External\Libraries\Bridge\Laravel\Providers;
 
 use EoneoPay\PhpSdk\Factories\ExceptionFactory;
 use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
+use EoneoPay\PhpSdk\Interfaces\EoneoPayV2ApiManagerInterface;
 use EoneoPay\PhpSdk\Managers\EoneoPayApiManager;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Container\Container;
@@ -26,8 +27,7 @@ final class EoneoPayApiSdkServiceProvider extends ServiceProvider
     {
         $this->app->singleton('eoneopay_api_client', static function () {
             return new Client([
-                'base_uri' => \env('EONEOPAY_API_BASE_URI'),
-                'headers' => ['Accept' => 'application/vnd.eoneopay.v2+json']
+                'base_uri' => \env('EONEOPAY_API_BASE_URI')
             ]);
         });
 
@@ -36,6 +36,28 @@ final class EoneoPayApiSdkServiceProvider extends ServiceProvider
                 new SdkManager(
                     new RequestHandler(
                         $application->make('eoneopay_api_client'),
+                        new ResponseHandler(),
+                        new SerializerFactory(),
+                        new UrnFactory()
+                    )
+                ),
+                new ExceptionFactory()
+            );
+        });
+
+        // V2 client
+        $this->app->singleton('eoneopay_v2_api_client', static function () {
+            return new Client([
+                'base_uri' => \env('EONEOPAY_API_BASE_URI'),
+                'headers' => ['Accept' => 'application/vnd.eoneopay.v2+json']
+            ]);
+        });
+
+        $this->app->singleton(EoneoPayV2ApiManagerInterface::class, static function (Container $application) {
+            return new EoneoPayApiManager(
+                new SdkManager(
+                    new RequestHandler(
+                        $application->make('eoneopay_v2_api_client'),
                         new ResponseHandler(),
                         new SerializerFactory(),
                         new UrnFactory()
