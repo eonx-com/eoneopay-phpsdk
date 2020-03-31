@@ -22,6 +22,8 @@ class TransactionTest extends TransactionTestCase
      * Tests that transaction resonse can be converted back to transaction object.
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength) Method is long to fully test.
      */
     public function testTransactionCreationAndResponse(): void
     {
@@ -281,7 +283,7 @@ class TransactionTest extends TransactionTestCase
 }
 JSON;
         $response = $this->createResponse(
-            \json_decode($jsonResponse, true, 512, JSON_THROW_ON_ERROR)
+            \json_decode($jsonResponse, true, 512, \JSON_THROW_ON_ERROR)
         );
 
         $request = new Transaction([

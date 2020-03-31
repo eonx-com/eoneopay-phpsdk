@@ -24,6 +24,9 @@ class RelatedTransactionTest extends TransactionTestCase
             'parents' => [['action' => 'authorise']]
         ];
 
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\V2\Transactions\RelatedTransaction $actual
+         */
         $actual = $this->createApiManager($response)
             ->findOneBy(RelatedTransaction::class, (string)\getenv('PAYMENTS_API_KEY'), [
                 'orderId' => 'orderId',

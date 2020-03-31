@@ -134,6 +134,9 @@ class PaymentSourceTest extends TransactionTestCase
             ]
         ];
 
+        /**
+         * @var \EoneoPay\PhpSdk\Endpoints\V2\Transaction $actual
+         */
         $actual = $this->createApiManager($request)
             ->create((string)\getenv('PAYMENTS_API_KEY'), new Transaction());
 
