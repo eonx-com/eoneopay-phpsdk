@@ -13,7 +13,6 @@ trait TransactionTrait
      *
      * @Groups({"create"})
      *
-     * @Assert\NotBlank()
      * @Assert\Type(type="string")
      *
      * @var string|null
@@ -159,6 +158,15 @@ trait TransactionTrait
      * @var \EoneoPay\PhpSdk\Endpoints\V2\PaymentSource|null
      */
     protected $paymentSource;
+
+    /**
+     * Payment sources for split payments.
+     *
+     * @Groups({"create"})
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\V2\PaymentSource[]|null
+     */
+    protected $paymentSources;
 
     /**
      * Recurring ID.
