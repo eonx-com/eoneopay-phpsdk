@@ -5,7 +5,6 @@ namespace Tests\EoneoPay\PhpSdk\External\Libraries\Bridge\Laravel\Providers;
 
 use EoneoPay\PhpSdk\External\Libraries\Bridge\Laravel\Providers\EoneoPayApiSdkServiceProvider;
 use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
-use EoneoPay\PhpSdk\Interfaces\EoneoPayV2ApiManagerInterface;
 use EoneoPay\PhpSdk\Managers\EoneoPayApiManager;
 use GuzzleHttp\Client;
 use Laravel\Lumen\Application;

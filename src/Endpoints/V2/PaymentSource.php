@@ -3,11 +3,7 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\V2;
 
-use EoneoPay\PhpSdk\Annotations\Repository;
 use EoneoPay\PhpSdk\Endpoints\V1\PaymentSource as V1PaymentSource;
-use EoneoPay\PhpSdk\Interfaces\Endpoints\PaymentSourceInterface;
-use EoneoPay\PhpSdk\Traits\PaymentSourceTrait;
-use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
 
 /**

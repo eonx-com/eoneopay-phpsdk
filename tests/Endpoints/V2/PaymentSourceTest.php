@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints\V2;
 
-use EoneoPay\PhpSdk\Endpoints\V2\PaymentSource;
 use EoneoPay\PhpSdk\Endpoints\V2\PaymentSources\BankAccount;
 use EoneoPay\PhpSdk\Endpoints\V2\PaymentSources\Bpay;
 use EoneoPay\PhpSdk\Endpoints\V2\PaymentSources\CreditCard;
