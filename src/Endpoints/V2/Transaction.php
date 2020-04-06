@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace EoneoPay\PhpSdk\Endpoints\V2;
 
 use EoneoPay\PhpSdk\Endpoints\V2\Transactions\Allocation;
+use EoneoPay\PhpSdk\Interfaces\Endpoints\VersionedEndpointInterface;
 use EoneoPay\PhpSdk\Traits\V2\TransactionTrait;
 use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
@@ -30,9 +31,17 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method string|null getUpdatedAt()
  * @method User|null getUser()
  */
-class Transaction extends Entity
+class Transaction extends Entity implements VersionedEndpointInterface
 {
     use TransactionTrait;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getVersion(): int
+    {
+        return 2;
+    }
 
     /**
      * {@inheritdoc}
@@ -42,6 +51,7 @@ class Transaction extends Entity
         return [
             self::CREATE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
             self::GET => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
+            self::UPDATE => \sprintf('/orders/%s/transactions/%s', $this->id, $this->transactionId),
         ];
     }
 }

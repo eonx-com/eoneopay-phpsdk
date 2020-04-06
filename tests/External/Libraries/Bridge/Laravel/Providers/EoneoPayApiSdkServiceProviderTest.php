@@ -36,23 +36,6 @@ final class EoneoPayApiSdkServiceProviderTest extends TestCase
     }
 
     /**
-     * Tests v2 service binding.
-     *
-     * @return void
-     */
-    public function testV2ClientServiceBindings(): void
-    {
-        $clientV2 = $this->app->make('eoneopay_v2_api_client');
-        $v2Manager = $this->app->make(EoneoPayV2ApiManagerInterface::class);
-        self::assertInstanceOf(Client::class, $clientV2);
-        /**
-         * @var \GuzzleHttp\Client $clientV2
-         */
-        self::assertSame('application/vnd.eoneopay.v2+json', $clientV2->getConfig('headers')['Accept']);
-        self::assertInstanceOf(EoneoPayApiManager::class, $v2Manager);
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected function setUp(): void

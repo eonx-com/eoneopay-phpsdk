@@ -9,9 +9,11 @@ use EoneoPay\PhpSdk\Interfaces\EoneoPayApiManagerInterface;
 use EoneoPay\PhpSdk\Managers\EoneoPayApiManager;
 use EoneoPay\PhpSdk\Repository;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
+use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestAwareInterface;
 use Tests\EoneoPay\PhpSdk\Stubs\Entities\ChildStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Entities\EntityStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Entities\UserStub;
+use Tests\EoneoPay\PhpSdk\Stubs\Entities\V2EntityStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Managers\SdkManagerStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Repositories\ParentRepositoryStub;
 use Tests\EoneoPay\PhpSdk\Stubs\Repositories\UserRepositoryStub;
@@ -206,6 +208,34 @@ final class EoneoPayApiManagerTest extends TestCase
             UserRepositoryStub::class,
             $this->getManager()->getRepository(UserStub::class)
         );
+    }
+
+    /**
+     * Tests that v2 accept header is created for v2 endpoints.
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    public function testManagerCreatesAV2HeaderForV2VersionedEndpoint(): void
+    {
+        $entity = new V2EntityStub();
+        $sdkManager = new SdkManagerStub($entity);
+        $manager = new EoneoPayApiManager($sdkManager, new ExceptionFactory());
+
+        $expected = [
+            'execute' => [
+                [
+                    'entity' => $entity,
+                    'action' => RequestAwareInterface::CREATE,
+                    'apikey' => 'api-key',
+                    'headers' => ['Accept' => 'application/vnd.eoneopay.v2+json']
+                ]
+            ]
+        ];
+        $manager->create('api-key', $entity);
+
+        self::assertSame($expected['execute'], $sdkManager->getCalls('execute'));
     }
 
     /**
