@@ -217,7 +217,7 @@ final class EoneoPayApiManagerTest extends TestCase
      *
      * @throws \Exception
      */
-    public function testManagerCreatesAV2HeaderForV2VersionedEndpoint(): void
+    public function testManagerCreatesV2HeadersForV2VersionedEndpoint(): void
     {
         $entity = new V2EntityStub();
         $sdkManager = new SdkManagerStub($entity);
@@ -230,6 +230,34 @@ final class EoneoPayApiManagerTest extends TestCase
                     'action' => RequestAwareInterface::CREATE,
                     'apikey' => 'api-key',
                     'headers' => ['Accept' => 'application/vnd.eoneopay.v2+json']
+                ]
+            ]
+        ];
+        $manager->create('api-key', $entity);
+
+        self::assertSame($expected['execute'], $sdkManager->getCalls('execute'));
+    }
+
+    /**
+     * Tests that non versioned endpoints send no extra headers.
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    public function testManagerCreatesNoHeadersForNonVersionedEndpoint(): void
+    {
+        $entity = new UserStub();
+        $sdkManager = new SdkManagerStub($entity);
+        $manager = new EoneoPayApiManager($sdkManager, new ExceptionFactory());
+
+        $expected = [
+            'execute' => [
+                [
+                    'entity' => $entity,
+                    'action' => RequestAwareInterface::CREATE,
+                    'apikey' => 'api-key',
+                    'headers' => null
                 ]
             ]
         ];
