@@ -30,16 +30,4 @@ class UserTest extends TestCase
         self::assertSame('user@example.com', $user->getEmail());
         self::assertSame('2019-02-26T01:01:39Z', $user->getUpdatedAt());
     }
-
-    /**
-     * Tests uris
-     *
-     * @return void
-     */
-    public function testUris(): void
-    {
-        $user = new User();
-
-        self::assertSame([], $user->uris());
-    }
 }

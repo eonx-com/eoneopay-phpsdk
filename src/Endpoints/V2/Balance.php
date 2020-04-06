@@ -3,23 +3,8 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\V2;
 
-use EoneoPay\PhpSdk\Traits\BalanceTrait;
-use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
+use EoneoPay\PhpSdk\Endpoints\V1\Balance as V1Balance;
 
-/**
- * @method string|null getAvailable()
- * @method string|null getBalance()
- * @method string|null getCreditLimit()
- */
-class Balance extends Entity
+class Balance extends V1Balance
 {
-    use BalanceTrait;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function uris(): array
-    {
-        return [];
-    }
 }

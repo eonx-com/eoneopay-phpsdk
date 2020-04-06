@@ -3,27 +3,8 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\V2\PaymentSources;
 
-use EoneoPay\PhpSdk\Endpoints\V2\PaymentSource;
-use EoneoPay\PhpSdk\Traits\PaymentSources\BpayTrait;
+use EoneoPay\PhpSdk\Endpoints\V1\PaymentSources\Bpay as V1Bpay;
 
-/**
- * @method string|null getBillerCode()
- * @method string|null getBillerName()
- * @method string|null getReferenceNumber()
- */
-class Bpay extends PaymentSource
+class Bpay extends V1Bpay
 {
-    use BpayTrait;
-
-    /**
-     * Bpay constructor.
-     *
-     * @param mixed[]|null $data
-     */
-    public function __construct(?array $data = null)
-    {
-        parent::__construct($data);
-
-        $this->type = self::SOURCE_BPAY;
-    }
 }

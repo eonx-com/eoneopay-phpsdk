@@ -3,25 +3,8 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\V2;
 
-use EoneoPay\PhpSdk\Traits\UserTrait;
-use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
+use EoneoPay\PhpSdk\Endpoints\V1\User as V1User;
 
-/**
- * @method string|null getCreatedAt()
- * @method string|null getEmail()
- * @method string|null getId()
- * @method string|null getUpdatedAt()
- */
-class User extends Entity
+class User extends V1User
 {
-    use UserTrait;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function uris(): array
-    {
-        // Use V1 objects to manage user.
-        return [];
-    }
 }

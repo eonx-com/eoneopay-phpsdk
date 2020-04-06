@@ -3,25 +3,8 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\V2;
 
-use EoneoPay\PhpSdk\Traits\AmountTrait;
-use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
+use EoneoPay\PhpSdk\Endpoints\V1\Amount as V1Amount;
 
-/**
- * @method string|null getCurrency()
- * @method string|null getPaymentFee()
- * @method string|null getSubtotal()
- * @method string|null getTotal()
- */
-class Amount extends Entity
+class Amount extends V1Amount
 {
-    use AmountTrait;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function uris(): array
-    {
-        // There are no actions directly on amounts
-        return [];
-    }
 }

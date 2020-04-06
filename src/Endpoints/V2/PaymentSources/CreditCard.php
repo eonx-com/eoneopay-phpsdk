@@ -3,28 +3,8 @@ declare(strict_types=1);
 
 namespace EoneoPay\PhpSdk\Endpoints\V2\PaymentSources;
 
-use EoneoPay\PhpSdk\Endpoints\V2\PaymentSource;
-use EoneoPay\PhpSdk\Traits\PaymentSources\CreditCardTrait;
+use EoneoPay\PhpSdk\Endpoints\V1\PaymentSources\CreditCard as V1CreditCard;
 
-/**
- * @method mixed[]|null getBin()
- * @method string|null getCvc()
- * @method mixed[]|null getExpiry()
- * @method string|null getFacility()
- */
-class CreditCard extends PaymentSource
+class CreditCard extends V1CreditCard
 {
-    use CreditCardTrait;
-
-    /**
-     * Credit card constructor.
-     *
-     * @param mixed[]|null $data
-     */
-    public function __construct(?array $data = null)
-    {
-        parent::__construct($data);
-
-        $this->type = self::SOURCE_CREDIT_CARD;
-    }
 }

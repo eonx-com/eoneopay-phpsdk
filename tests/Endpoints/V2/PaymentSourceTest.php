@@ -149,16 +149,4 @@ class PaymentSourceTest extends TransactionTestCase
         self::assertSame('ewallet', $ewallet->getType());
         self::assertEquals(new User($user), $ewallet->getUser());
     }
-
-    /**
-     * Tests uri's.
-     *
-     * @return void
-     */
-    public function testUris(): void
-    {
-        $paymentSource = new PaymentSource();
-
-        self::assertSame([], $paymentSource->uris());
-    }
 }
