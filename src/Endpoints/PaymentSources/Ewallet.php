@@ -12,6 +12,8 @@ use EoneoPay\PhpSdk\Traits\PaymentSources\EwalletTrait;
  * @method bool|null getPrimary()
  * @method string|null getReference()
  * @method User|null getUser()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class Ewallet extends PaymentSource
 {

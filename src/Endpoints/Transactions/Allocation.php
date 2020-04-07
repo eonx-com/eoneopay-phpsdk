@@ -14,6 +14,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method Ewallet|null getEwallet()
  * @method Record[]|null getRecords()
  * @method string|null getUpdatedAt()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class Allocation extends Entity
 {

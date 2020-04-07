@@ -9,6 +9,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 
 /**
  * @method NominalToken getToken()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class Initiate extends Entity
 {

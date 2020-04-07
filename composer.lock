@@ -220,16 +220,16 @@
         },
         {
             "name": "eonx-com/sdkblueprint",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/eonx-com/sdkblueprint.git",
-                "reference": "00f282f40c84a1ab0188312a95f4cd2cb6a915d0"
+                "reference": "e3f0be47d3ec3beadd334ec75b5b08c407ff2800"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eonx-com/sdkblueprint/zipball/00f282f40c84a1ab0188312a95f4cd2cb6a915d0",
-                "reference": "00f282f40c84a1ab0188312a95f4cd2cb6a915d0",
+                "url": "https://api.github.com/repos/eonx-com/sdkblueprint/zipball/e3f0be47d3ec3beadd334ec75b5b08c407ff2800",
+                "reference": "e3f0be47d3ec3beadd334ec75b5b08c407ff2800",
                 "shasum": ""
             },
             "require": {
@@ -286,7 +286,7 @@
                 "loyaltycorp",
                 "sdk"
             ],
-            "time": "2020-02-20T00:41:11+00:00"
+            "time": "2020-04-06T03:08:27+00:00"
         },
         {
             "name": "eonx-com/utils",
@@ -8146,5 +8146,6 @@
         "php": ">=7.1",
         "ext-json": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

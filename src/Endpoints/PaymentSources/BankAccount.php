@@ -11,6 +11,8 @@ use EoneoPay\PhpSdk\Traits\PaymentSources\BankAccountTrait;
  * @method string|null getCurrency()
  * @method string|null getNumber()
  * @method string|null getPrefix()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class BankAccount extends PaymentSource
 {

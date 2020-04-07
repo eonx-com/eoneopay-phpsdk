@@ -107,6 +107,9 @@ abstract class TestCase extends BaseTestCase
      */
     private function createLiveClient(): ClientInterface
     {
-        return new Client(['base_uri' => (string)\getenv('PAYMENTS_BASE_URI')]);
+        return new Client([
+            'base_uri' => (string)\getenv('PAYMENTS_BASE_URI'),
+            'headers' => ['Accept' => 'application/vnd.eoneopay.v2+json']
+        ]);
     }
 }

@@ -25,6 +25,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method string|null getStatus()
  * @method string|null getUpdatedAt()
  * @method string|null getXid()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class Security extends Entity
 {

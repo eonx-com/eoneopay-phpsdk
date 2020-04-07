@@ -11,6 +11,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method string|null getPaymentFee()
  * @method string|null getSubtotal()
  * @method string|null getTotal()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class Amount extends Entity
 {

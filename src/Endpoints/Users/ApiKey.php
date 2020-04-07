@@ -13,6 +13,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method User|null getTargetUser()
  * @method User|null getUser()
  * @method string|null getUpdatedAt()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class ApiKey extends Entity
 {

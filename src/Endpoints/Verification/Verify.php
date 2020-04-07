@@ -10,6 +10,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
 /**
  * @method string|null getAmount()
  * @method NominalToken getToken()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class Verify extends Entity
 {

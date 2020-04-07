@@ -10,6 +10,8 @@ use EoneoPay\PhpSdk\Traits\PaymentSources\BpayTrait;
  * @method string|null getBillerCode()
  * @method string|null getBillerName()
  * @method string|null getReferenceNumber()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class Bpay extends PaymentSource
 {

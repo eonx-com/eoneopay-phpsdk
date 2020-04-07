@@ -10,6 +10,8 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Entity;
  * @method string|null getAvailable()
  * @method string|null getBalance()
  * @method string|null getCreditLimit()
+ *
+ * @deprecated Use EoneoPay\PhpSdk\Endpoints\V1 objects instead.
  */
 class Balance extends Entity
 {

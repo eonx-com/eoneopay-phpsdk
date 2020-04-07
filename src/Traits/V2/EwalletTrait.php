@@ -1,0 +1,97 @@
+<?php
+declare(strict_types=1);
+
+namespace EoneoPay\PhpSdk\Traits\V2;
+
+use Symfony\Component\Validator\Constraints as Assert;
+
+trait EwalletTrait
+{
+    /**
+     * Ewallet balance.
+     *
+     * @Assert\Type(type="object")
+     * @Assert\Valid()
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\V2\Balance|null
+     */
+    protected $balances;
+
+    /**
+     * Created at date.
+     *
+     * @var string|null
+     */
+    protected $createdAt;
+
+    /**
+     * Ewallet currency.
+     *
+     * @Assert\Type(type="string")
+     *
+     * @var string|null
+     */
+    protected $currency;
+
+    /**
+     * Ewallet id.
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
+     *
+     * @var string|null
+     */
+    protected $id;
+
+    /**
+     * Ewallet pan.
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
+     *
+     * @var string|null
+     */
+    protected $pan;
+
+    /**
+     * If is primary.
+     *
+     * @Assert\Type(type="bool")
+     *
+     * @var bool|null
+     */
+    protected $primary;
+
+    /**
+     * Ewallet user reference.
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
+     *
+     * @var string|null
+     */
+    protected $reference;
+
+    /**
+     * Ewallet type.
+     *
+     * @Assert\Type(type="string")
+     *
+     * @var string|null
+     */
+    protected $type;
+
+    /**
+     * Updated at date.
+     *
+     * @var string|null
+     */
+    protected $updatedAt;
+
+    /**
+     * Ewallet user.
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\V2\User|null
+     */
+    protected $user;
+}
