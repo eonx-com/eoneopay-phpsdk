@@ -16,4 +16,22 @@ use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
  */
 class PaymentSource extends V1PaymentSource
 {
+    /**
+     * Transaction amount.
+     *
+     * @var \EoneoPay\PhpSdk\Endpoints\V2\Amount|null
+     */
+    protected $amount;
+
+    /**
+     * Get amount.
+     *
+     * **NOTE** Only used for split payments.
+     *
+     * @return \EoneoPay\PhpSdk\Endpoints\V2\Amount|null
+     */
+    public function getAmount(): ?Amount
+    {
+        return $this->amount;
+    }
 }

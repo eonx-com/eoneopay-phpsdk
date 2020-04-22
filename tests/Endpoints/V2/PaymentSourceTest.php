@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\EoneoPay\PhpSdk\Endpoints\V2;
 
+use EoneoPay\PhpSdk\Endpoints\V2\Amount;
 use EoneoPay\PhpSdk\Endpoints\V2\PaymentSources\BankAccount;
 use EoneoPay\PhpSdk\Endpoints\V2\PaymentSources\Bpay;
 use EoneoPay\PhpSdk\Endpoints\V2\PaymentSources\CreditCard;
@@ -119,8 +120,14 @@ class PaymentSourceTest extends TransactionTestCase
             'updated_at' => '2019-02-22T03=>09=>44Z',
         ];
 
+        $amount = new Amount([
+            'currency' => 'AUD',
+            'total' => '100.00'
+        ]);
+
         $request = [
             'paymentSource' => [
+                'amount' => $amount,
                 'created_at' => '2019-02-26T00=>14=>25Z',
                 'balances' => $balances,
                 'id' => 'dad99a43563c72a19a99aae4b1605b49',
@@ -147,5 +154,6 @@ class PaymentSourceTest extends TransactionTestCase
         self::assertSame('dad99a43563c72a19a99aae4b1605b49', $ewallet->getId());
         self::assertSame('ewallet', $ewallet->getType());
         self::assertEquals(new User($user), $ewallet->getUser());
+        self::assertEquals($amount, $ewallet->getAmount());
     }
 }
