@@ -408,6 +408,12 @@ JSON;
         ];
         $expectedFundings = [
             new Ewallet([
+                'amount' => new Amount([
+                    "currency" => "AUD",
+                    "payment_fee" => "0.00",
+                    "subtotal" => "29.00",
+                    "total" => "29.00"
+                ]),
                 'createdAt' => '2020-03-30T02:46:27Z',
                 'id' => 'TRANSACT2',
                 'name' => null,
