@@ -14,19 +14,26 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Exceptions\InvalidApiResponseException;
 final class ExceptionFactory implements ExceptionFactoryInterface
 {
     /**
+     * @var string[]
+     */
+    private static $keysForMessage = ['message', 'exception'];
+
+    /**
      * @noinspection MultipleReturnStatementsInspection Creating exceptions in this manner is most efficient
      *
      * {@inheritdoc}
      */
     public function create(InvalidApiResponseException $exception): Exception
     {
-        $content = \json_decode($exception->getResponse()->getContent(), true);
-
+        $rawContent = $exception->getResponse()->getContent();
+        $content = \json_decode($rawContent, true);
         $code = $content['code'] ?? $exception->getCode();
-
         $subCode = $content['sub_code'] ?? 0;
+        $message = $this->getMessage($content);
 
-        $message = $content['message'] ?? $content['exception'] ?? '';
+        if ($message === null) {
+            $message = \sprintf('Could not resolve message for raw content: "%s"', $rawContent);
+        }
 
         if (($code >= 6000) && ($code <= 6999)) {
             return new ValidationException(
@@ -66,5 +73,28 @@ final class ExceptionFactory implements ExceptionFactoryInterface
             $exception,
             $subCode
         );
+    }
+
+    private function getMessage($message): ?string
+    {
+        if (\is_string($message)) {
+            return $message;
+        }
+
+        if (\is_array($message)) {
+            foreach (static::$keysForMessage as $key) {
+                if (isset($message[$key]) === false) {
+                    continue;
+                }
+
+                $getMessage = $this->getMessage($message[$key]);
+
+                if ($getMessage !== null) {
+                    return $getMessage;
+                }
+            }
+        }
+
+        return null;
     }
 }

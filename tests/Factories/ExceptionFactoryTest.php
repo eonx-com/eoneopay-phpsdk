@@ -109,6 +109,54 @@ final class ExceptionFactoryTest extends TestCase
                 4
             ),
         ];
+
+        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
+            'code' => 4000,
+            'sub_code' => 4,
+            'message' => ['message' => 'client exception'],
+        ]) ?: null));
+
+        yield 'client exception' => [
+            'responseException' => $responseException,
+            'expectedException' => new ClientException(
+                'client exception',
+                null,
+                4000,
+                $responseException,
+                4
+            ),
+        ];
+
+        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
+            'code' => 4000,
+            'sub_code' => 4,
+            'message' => ['not_message' => ['error' => ['message' => 'client exception']]],
+        ]) ?: null));
+
+        yield 'client exception' => [
+            'responseException' => $responseException,
+            'expectedException' => new ClientException(
+                'client exception',
+                null,
+                4000,
+                $responseException,
+                4
+            ),
+        ];
+
+        $rawContent = \json_encode(['code' => 4000, 'sub_code' => 4]);
+        $responseException = new InvalidApiResponseException(new Response(null, null, null, $rawContent ?: null));
+
+        yield 'client exception' => [
+            'responseException' => $responseException,
+            'expectedException' => new ClientException(
+                \sprintf('Could not resolve message for raw content: "%s"', $rawContent),
+                null,
+                4000,
+                $responseException,
+                4
+            ),
+        ];
     }
 
     /**
