@@ -50,7 +50,7 @@ JSON;
          * @var \EoneoPay\PhpSdk\Endpoints\V1\PaymentSources\BankAccount $token
          */
         $token = $this->createApiManager(
-            \json_decode($response, true, 512, JSON_THROW_ON_ERROR)
+            \json_decode($response, true, 512, \JSON_THROW_ON_ERROR)
         )->create('user-api-key', $request);
 
         // assert getters

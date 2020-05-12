@@ -25,10 +25,14 @@ final class ExceptionFactoryTest extends TestCase
      */
     public function getCreateData(): iterable
     {
-        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
-            'code' => 1999,
-            'message' => 'internal system error',
-        ]) ?: null));
+        $responseException = new InvalidApiResponseException(
+            new Response(
+                null,
+                null,
+                null,
+                \json_encode(['code' => 1999, 'message' => 'internal system error',]) ?: null
+            )
+        );
 
         yield 'critical exception' => [
             'responseException' => $responseException,
