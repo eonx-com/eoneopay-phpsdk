@@ -23,10 +23,11 @@ class Ewallet extends PaymentSource
      * Ewallet constructor.
      *
      * @param mixed[]|null $data
+     * @param bool|null $isOneTime
      */
-    public function __construct(?array $data = null)
+    public function __construct(?array $data = null, ?bool $isOneTime = null)
     {
-        parent::__construct($data);
+        parent::__construct($data, $isOneTime);
 
         $this->type = self::SOURCE_EWALLET;
     }

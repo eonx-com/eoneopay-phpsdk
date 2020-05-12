@@ -35,6 +35,13 @@ trait PaymentSourceTrait
     protected $name;
 
     /**
+     * Get if token is oneTime.
+     *
+     * @var bool|null
+     */
+    protected $oneTime;
+
+    /**
      * Payment source pan.
      *
      * @Assert\NotBlank()
