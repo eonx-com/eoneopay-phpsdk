@@ -78,7 +78,7 @@ final class ExceptionFactory implements ExceptionFactoryInterface
     /**
      * Get message.
      *
-     * @param $message
+     * @param mixed $message
      *
      * @return string|null
      */

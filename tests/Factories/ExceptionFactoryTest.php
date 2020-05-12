@@ -22,15 +22,24 @@ final class ExceptionFactoryTest extends TestCase
      * Returns data for testCreate.
      *
      * @return mixed[]
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength) Long method required to define all scenarios.
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     *
+     * @throws \JsonException
      */
     public function getCreateData(): iterable
     {
+        $content = \json_encode(
+            ['code' => 1999, 'message' => 'internal system error',],
+            \JSON_THROW_ON_ERROR
+        ) ?: null;
         $responseException = new InvalidApiResponseException(
             new Response(
                 null,
                 null,
                 null,
-                \json_encode(['code' => 1999, 'message' => 'internal system error',]) ?: null
+                $content
             )
         );
 
@@ -45,11 +54,18 @@ final class ExceptionFactoryTest extends TestCase
             ),
         ];
 
-        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
-            'code' => 1999,
-            'sub_code' => 2,
-            'message' => 'internal system error',
-        ]) ?: null));
+        $content = \json_encode(
+            ['code' => 1999, 'sub_code' => 2, 'message' => 'internal system error',],
+            \JSON_THROW_ON_ERROR
+        ) ?: null;
+        $responseException = new InvalidApiResponseException(
+            new Response(
+                null,
+                null,
+                null,
+                $content
+            )
+        );
 
         yield 'critical exception with sub code' => [
             'responseException' => $responseException,
@@ -62,11 +78,18 @@ final class ExceptionFactoryTest extends TestCase
             ),
         ];
 
-        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
-            'code' => 6000,
-            'sub_code' => 1,
-            'message' => 'validation exception',
-        ]) ?: null));
+        $content = \json_encode(
+            ['code' => 6000, 'sub_code' => 1, 'message' => 'validation exception',],
+            \JSON_THROW_ON_ERROR
+        ) ?: null;
+        $responseException = new InvalidApiResponseException(
+            new Response(
+                null,
+                null,
+                null,
+                $content
+            )
+        );
 
         yield 'validation exception' => [
             'responseException' => $responseException,
@@ -80,11 +103,18 @@ final class ExceptionFactoryTest extends TestCase
             ),
         ];
 
-        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
-            'code' => 5000,
-            'sub_code' => 3,
-            'message' => 'runtime exception',
-        ]) ?: null));
+        $content = \json_encode(
+            ['code' => 5000, 'sub_code' => 3, 'message' => 'runtime exception',],
+            \JSON_THROW_ON_ERROR
+        ) ?: null;
+        $responseException = new InvalidApiResponseException(
+            new Response(
+                null,
+                null,
+                null,
+                $content
+            )
+        );
 
         yield 'runtime exception' => [
             'responseException' => $responseException,
@@ -97,11 +127,18 @@ final class ExceptionFactoryTest extends TestCase
             ),
         ];
 
-        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
-            'code' => 4000,
-            'sub_code' => 4,
-            'message' => 'client exception',
-        ]) ?: null));
+        $content = \json_encode(
+            ['code' => 4000, 'sub_code' => 4, 'message' => 'client exception',],
+            \JSON_THROW_ON_ERROR
+        ) ?: null;
+        $responseException = new InvalidApiResponseException(
+            new Response(
+                null,
+                null,
+                null,
+                $content
+            )
+        );
 
         yield 'client exception' => [
             'responseException' => $responseException,
@@ -114,11 +151,19 @@ final class ExceptionFactoryTest extends TestCase
             ),
         ];
 
-        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
+        $content = \json_encode([
             'code' => 4000,
             'sub_code' => 4,
             'message' => ['message' => 'client exception'],
-        ]) ?: null));
+        ], \JSON_THROW_ON_ERROR) ?: null;
+        $responseException = new InvalidApiResponseException(
+            new Response(
+                null,
+                null,
+                null,
+                $content
+            )
+        );
 
         yield 'client exception' => [
             'responseException' => $responseException,
@@ -131,11 +176,19 @@ final class ExceptionFactoryTest extends TestCase
             ),
         ];
 
-        $responseException = new InvalidApiResponseException(new Response(null, null, null, \json_encode([
+        $content = \json_encode([
             'code' => 4000,
             'sub_code' => 4,
             'message' => ['not_message' => ['error' => ['message' => 'client exception']]],
-        ]) ?: null));
+        ], \JSON_THROW_ON_ERROR) ?: null;
+        $responseException = new InvalidApiResponseException(
+            new Response(
+                null,
+                null,
+                null,
+                $content
+            )
+        );
 
         yield 'client exception' => [
             'responseException' => $responseException,
@@ -148,8 +201,15 @@ final class ExceptionFactoryTest extends TestCase
             ),
         ];
 
-        $rawContent = \json_encode(['code' => 4000, 'sub_code' => 4]);
-        $responseException = new InvalidApiResponseException(new Response(null, null, null, $rawContent ?: null));
+        $rawContent = \json_encode(['code' => 4000, 'sub_code' => 4], \JSON_THROW_ON_ERROR);
+        $responseException = new InvalidApiResponseException(
+            new Response(
+                null,
+                null,
+                null,
+                $rawContent ?: null
+            )
+        );
 
         yield 'client exception' => [
             'responseException' => $responseException,
