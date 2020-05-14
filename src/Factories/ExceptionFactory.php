@@ -75,6 +75,13 @@ final class ExceptionFactory implements ExceptionFactoryInterface
         );
     }
 
+    /**
+     * Get message.
+     *
+     * @param mixed $message
+     *
+     * @return string|null
+     */
     private function getMessage($message): ?string
     {
         if (\is_string($message)) {

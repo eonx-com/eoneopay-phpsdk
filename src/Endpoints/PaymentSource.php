@@ -17,6 +17,7 @@ use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
  * @method string|null getToken()
  * @method string|null getType()
  * @method string|null getUpdatedAt()
+ * @method bool|null isOneTime()
  *
  * @DiscriminatorMap(typeProperty="type", mapping={
  *     "bank_account" = "EoneoPay\PhpSdk\Endpoints\PaymentSources\BankAccount",
@@ -34,12 +35,32 @@ class PaymentSource extends Entity implements PaymentSourceInterface
     use PaymentSourceTrait;
 
     /**
+     * Set if token to create should be one time.
+     *
+     * @var bool
+     */
+    private $isOneTime;
+
+    /**
+     * PaymentSource constructor.
+     *
+     * @param mixed[]|null $data
+     * @param bool|null $isOneTime
+     */
+    public function __construct(?array $data = null, ?bool $isOneTime = null)
+    {
+        $this->isOneTime = $isOneTime ?? false;
+
+        parent::__construct($data);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function uris(): array
     {
         return [
-            self::CREATE => '/tokens',
+            self::CREATE => \sprintf('/tokens%s', $this->isOneTime === true ? '/onetime' : ''),
             self::DELETE => \sprintf('/tokens/%s', $this->getToken()),
             self::GET => \sprintf('/tokens/%s', $this->getToken()),
         ];
