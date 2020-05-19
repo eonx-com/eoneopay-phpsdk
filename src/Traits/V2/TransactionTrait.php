@@ -173,6 +173,8 @@ trait TransactionTrait
      *
      * @Assert\Type(type="string")
      *
+     * @Groups({"create"})
+     *
      * @var string|null
      */
     protected $recurringId;
