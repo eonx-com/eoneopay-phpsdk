@@ -32,4 +32,11 @@ interface PaymentSourceInterface
      * @var string
      */
     public const SOURCE_EWALLET = 'ewallet';
+
+    /**
+     * Points payment source.
+     *
+     * @var string
+     */
+    public const SOURCE_POINTS = 'points';
 }
