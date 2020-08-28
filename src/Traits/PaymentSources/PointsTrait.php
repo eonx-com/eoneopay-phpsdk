@@ -17,6 +17,13 @@ trait PointsTrait
     protected $accountId;
 
     /**
+     * Api key.
+     *
+     * @var string|null
+     */
+    protected $apiKey;
+
+    /**
      * External id.
      *
      * @Groups({"create"})
@@ -24,6 +31,15 @@ trait PointsTrait
      * @var string|null
      */
     protected $externalId;
+
+    /**
+     * Number of points.
+     *
+     * @Groups({"create"})
+     *
+     * @var int|null
+     */
+    protected $points;
 
     /**
      * Provider id.

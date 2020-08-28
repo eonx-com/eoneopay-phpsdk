@@ -18,8 +18,9 @@ class PointsTest extends TestCase
     {
         $points = new Points([
             'account_id' => '607154ec-cc97-11ea-aa99-0251a38af4ee',
-            'external_id' => '68dbb4e1-0e4f-440c-b3b9-8675bff34e84',
+            'api_key' => 'test-api-key',
             'provider_id' => '43789817-cb14-11ea-aa99-0251a38af4ee',
+            'points' => 100
         ]);
 
         $actual = $this->createApiManager([

@@ -8,7 +8,9 @@ use EoneoPay\PhpSdk\Traits\PaymentSources\PointsTrait;
 
 /**
  * @method string|null getAccountId()
+ * @method string|null getApiKey()
  * @method string|null getExternalId()
+ * @method int|null getPoints()
  * @method string|null getProviderId()
  */
 class Points extends PaymentSource
