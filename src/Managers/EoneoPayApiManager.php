@@ -15,6 +15,7 @@ use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\EntityInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\RequestAwareInterface;
 use LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface;
 use ReflectionClass;
+use function sprintf;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects) Main class of package, high coupling required to handle all actions
@@ -29,6 +30,11 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
     private $exceptionFactory;
 
     /**
+     * @var null|int
+     */
+    private $overrideVersion;
+
+    /**
      * Sdk Manager.
      *
      * @var \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface
@@ -40,11 +46,16 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
      *
      * @param \LoyaltyCorp\SdkBlueprint\Sdk\Interfaces\SdkManagerInterface $sdkManager
      * @param \EoneoPay\PhpSdk\Interfaces\Factories\ExceptionFactoryInterface $exceptionFactory
+     * @param null|int $overrideVersion
      */
-    public function __construct(SdkManagerInterface $sdkManager, ExceptionFactoryInterface $exceptionFactory)
-    {
+    public function __construct(
+        SdkManagerInterface $sdkManager,
+        ExceptionFactoryInterface $exceptionFactory,
+        ?int $overrideVersion = null
+    ) {
         $this->exceptionFactory = $exceptionFactory;
         $this->sdkManager = $sdkManager;
+        $this->overrideVersion = $overrideVersion;
     }
 
     /**
@@ -212,7 +223,7 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
      *
      * @throws \Doctrine\Common\Annotations\AnnotationException
      */
-    private function createRepository(string $entityClass, \ReflectionClass $reflectionClass): ?RepositoryInterface
+    private function createRepository(string $entityClass, ReflectionClass $reflectionClass): ?RepositoryInterface
     {
         $annotationReader = new AnnotationReader();
 
@@ -255,10 +266,14 @@ final class EoneoPayApiManager implements EoneoPayApiManagerInterface
      */
     private function getHeaders(EntityInterface $entity): ?array
     {
+        if ($this->overrideVersion !== null) {
+            return ['Accept' => sprintf('application/vnd.eoneopay.v%s+json', $this->overrideVersion)];
+        }
+
         if ($entity instanceof VersionedEndpointInterface === true) {
             $version = $entity->getVersion();
 
-            return ['Accept' => \sprintf('application/vnd.eoneopay.v%s+json', $version)];
+            return ['Accept' => sprintf('application/vnd.eoneopay.v%s+json', $version)];
         }
 
         return null;
